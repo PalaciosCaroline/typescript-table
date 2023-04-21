@@ -31,43 +31,27 @@ const TableHeader: React.FC<Props> = ({ columnData, inputValues, handleSearchByP
               <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor`}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <p className='label'>{label}</p>
-                  {/* {!isSortKey && (
-                    <button onClick={() => handleSort(property, 'asc')} className='btnSort'>
-                      <FaSort />
-                    </button>
-                  )}
-                  {isSortKey && sortOrder === 'asc' && (
-                    <button onClick={() => handleSort(property, 'desc')} className={sortKey === property ? 'btnSort selectedBtnSort' : 'btnSort'}>
-                      <FaSortUp />
-                    </button>
-                  )}
-                  {isSortKey && sortOrder === 'desc' && (
-                    <button onClick={() => handleSort(property, 'noSort')} className={sortKey === property ? 'selectedBtnSort btnSort' : 'btnSort'}>
-                      <FaSortDown />
-                    </button>
-                  )} */}
-
-{(!isSortKey || (isSortKey && sortOrder === "noSort"))  && (
-  <button onClick={() => handleSort(property)} className="btnSort">
-    <FaSort />
-  </button>
-)}
-{isSortKey && sortOrder === "asc" && (
-  <button
-    onClick={() => handleSort(property)}
-    className={sortKey === property ? "btnSort selectedBtnSort" : "btnSort"}
-  >
-    <FaSortUp />
-  </button>
-)}
-{isSortKey && sortOrder === "desc" && (
-  <button
-    onClick={() => handleSort(property)}
-    className={sortKey === property ? "selectedBtnSort btnSort" : "btnSort"}
-  >
-    <FaSortDown />
-  </button>
-)}
+                {(!isSortKey || (isSortKey && sortOrder === "noSort"))  && (
+                  <button onClick={() => handleSort(property)} className="btnSort">
+                    <FaSort />
+                  </button>
+                )}
+                {isSortKey && sortOrder === "asc" && (
+                  <button
+                    onClick={() => handleSort(property)}
+                    className={sortKey === property ? "btnSort selectedBtnSort" : "btnSort"}
+                  >
+                    <FaSortUp />
+                  </button>
+                )}
+                {isSortKey && sortOrder === "desc" && (
+                  <button
+                    onClick={() => handleSort(property)}
+                    className={sortKey === property ? "selectedBtnSort btnSort" : "btnSort"}
+                  >
+                    <FaSortDown />
+                  </button>
+                )}
                   <SearchDropdown
                     inputValues={inputValues}
                     property={property}

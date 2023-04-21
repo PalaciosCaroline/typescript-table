@@ -330,7 +330,9 @@ thead button:hover > svg {
 }
 
 .box_tableManaged{
-  margin-top:20px;
+  /* margin-top:20px; */
+  position:relative;
+  padding-top:60px;
 }
 
 thead{
@@ -339,16 +341,16 @@ thead{
 /* manage-columns button*/
 .tableComponent{
   position:relative;
-  margin-top:50px;
+  /* margin-top:50px; */
 }
 
-.tableComponent .toggle-btnManagedColumns {
+.toggle-btnManagedColumns {
   display: flex;
   align-items: center;
   position: absolute;
   z-index:40;
   padding:0;
-  top:-25px;
+  top:35px;
   left:0;
   white-space: nowrap;
   overflow: hidden;
@@ -361,9 +363,13 @@ thead{
   border:none;
 }
 
-.tableComponent .toggle-btnManagedColumns:hover{
+.toggle-btnManagedColumns:hover{
   background-color: #7e9b16;
   box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
+}
+.toggle-btnManagedColumns.btnOpen{
+  height: 35px;
+  top:25px;
 }
 
 .toggle-btnManagedColumns p {
@@ -394,7 +400,7 @@ thead{
   width: 270px;
   box-sizing: border-box;
   height: auto;
-  border-top: 8px solid #677e11;
+  /* border-top: 8px solid #677e11; */
   font-weight: 600;
   background-color: #bbd071;
   box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.4);

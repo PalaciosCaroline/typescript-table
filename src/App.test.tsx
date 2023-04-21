@@ -1,8 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+// import { render } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import Table from './lib/components/Table';
-import TableHeader from './lib/components/TableHeader';
-import TableBody from './lib/components/TableBody';
+// import TableHeader from './lib/components/TableHeader';
+// import TableBody from './lib/components/TableBody';
 import {datasExample, columnsExample} from './dataForExample';
 
 describe('App', () => {
@@ -49,53 +50,64 @@ describe('App', () => {
   });
 });
 
-describe('TableHeader component', () => {
-  test('should hide columns with isVisible=false', () => {
-    const columnsManaged = [
-      { label: 'First Name', property: 'firstName', isVisible: true },
-      { label: 'Last Name', property: 'lastName', isVisible: true },
-      { label: 'Start Date', property: 'startDate', isVisible: false },
-    ];
+// describe('TableBody', () => {
+
+//   it('should display the correct number of rows per page', () => {
+//     const columnsExample = [
+//         { label: 'First Name', property: 'firstName', isVisible: true },
+//         { label: 'Last Name', property: 'lastName', isVisible: true },
+//         { label: 'Start Date', property: 'startDate', isVisible: false },
+//       ];
+//     const perPage = 3;
+//     const { getAllByRole } = render(
+//         <TableBody page={1} perPage={perPage} filteredData={datasExample} columns={columnsExample} />
+//     );
+
+//     const rows = getAllByRole('row');
+//     expect(rows).toHaveLength(3); 
+//   });
+// });
+
+
+const columns = [
+  { label: 'Name', property: 'name' },
+  { label: 'Age', property: 'age' },
+];
+
+describe('Table', () => {
+  test('hides column when isVisible is set to false', async () => {
+    render(<Table  data={datasExample} columns={columns} />);
+    expect(screen.getByText('Name')).toBeInTheDocument();
+    expect(screen.getByText('Age')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Manage Columns'));
+
+    const listItem = screen.getByTestId('inputManaged-age');
+
+    fireEvent.click(listItem);
+    fireEvent.click(screen.getByText('Manage Columns'));
     
-    const handleSort = jest.fn();
-    const handleReset = jest.fn();
-    const handleSearchByProperty = jest.fn();
-    const inputValues = {};
-    const sortOrder = 'noSort';
-    const sortKey = '';
-
-    const { getByRole, queryByRole } = render(
-      <TableHeader
-        columnData={columnsManaged}
-        inputValues={inputValues}
-        handleSearchByProperty={handleSearchByProperty}
-        handleSort={handleSort}
-        sortOrder={sortOrder}
-        handleReset={handleReset}
-        sortKey={sortKey}
-      />
-    );
-
-    expect(getByRole('columnheader', { name: 'First Name' })).toBeInTheDocument();
-    expect(getByRole('columnheader', { name: 'Last Name' })).toBeInTheDocument();
-    expect(queryByRole('columnheader', { name: 'Start Date' })).not.toBeInTheDocument();
+    const columnVisible = screen.getByTestId('columnManaged-name');
+    expect(columnVisible).toBeInTheDocument();
+    expect(screen.queryByText('Age')).not.toBeInTheDocument();
   });
 });
 
-describe('TableBody', () => {
 
-  it('should display the correct number of rows per page', () => {
-    const columnsExample = [
-        { label: 'First Name', property: 'firstName', isVisible: true },
-        { label: 'Last Name', property: 'lastName', isVisible: true },
-        { label: 'Start Date', property: 'startDate', isVisible: false },
-      ];
-    const perPage = 3;
-    const { getAllByRole } = render(
-        <TableBody page={1} perPage={perPage} filteredData={datasExample} columns={columnsExample} />
-    );
+describe('Table', () => {
+  test("change perPage value and check if the number of displayed rows changes", () => {
+    render(<Table data={datasExample} columns={columnsExample} />);
+    let displayedRows = screen.getAllByRole('row');
+    expect(displayedRows.length).toBe(11); 
+    // Ouvrir le menu déroulant
+    const btnPerPage = screen.getByTestId('btnPerPage');
+    fireEvent.click(btnPerPage);
 
-    const rows = getAllByRole('row');
-    expect(rows).toHaveLength(3); 
+    const optionElement = screen.getByTestId(`optionPerPage-5`);
+    fireEvent.click(optionElement);
+
+    // Vérifier si le nombre de lignes affichées a changé en conséquence
+    displayedRows = screen.getAllByRole('row');
+    expect(displayedRows.length).toBe(6); // Ajouter 1 pour inclure la ligne d'en-tête
   });
 });

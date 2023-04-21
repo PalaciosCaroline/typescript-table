@@ -27,7 +27,7 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
 
     return (
     <>
-        <button className="toggle-btnManagedColumns" onClick={handleToggleModal}>
+        <button className={`toggle-btnManagedColumns ${isModalOpen? 'btnOpen' : ''}`} onClick={handleToggleModal}>
             <FaEllipsisH />
             <p className={isModalOpen? 'btnManagedColumnsOpen' : ''}>Manage Columns</p> 
         </button>
@@ -37,13 +37,14 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
             </button>
             <ul className="columns-list">
                 {props.columns.map(({ label, property, isVisible }) => (
-                <li key={property} style={{ display: 'flex', width: '200px', justifyContent: 'flex-start' }}>
+                <li key={property} style={{ display: 'flex', width: '200px', justifyContent: 'flex-start' }} data-testid={`li-${property}`}>
                     <div className="toggle-switch">
                         <input
                             className="toggle-input"
                             type="checkbox"
                             checked={isVisible}
                             onChange={() => props.handleColumnVisibility(property)}
+                            data-testid={`inputManaged-${property}`}
                             />
                         <label className="toggle-label" />
                     </div>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import TableHeader from './TableHeader';
-import TableBody from './TableBody';
+// import TableHeader from './TableHeader';
+import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
+import SearchDropdown from './SearchDropdown';
+// import TableBody from './TableBody';
 import { FaSearch } from 'react-icons/fa';
 import { sortDates } from './../utils/sortDates';
 import filterData from '../utils/filterData';
@@ -22,8 +24,13 @@ interface SearchTerms {
   [key: string]: string;
 }
 
+type DataType = string | number | Date | boolean | Record<string, unknown> | unknown[];
+
+interface DataItem {
+  [key: string]: DataType;
+}
 interface Props {
-  data: any[];
+  data: DataItem[];
   columns: Column[];
 }
 
@@ -34,7 +41,7 @@ export default function Table({ data, columns }: Props) {
   const defaultValueSelectedOption = 10;
   const [perPage, setPerPage] = useState<number>(defaultValueSelectedOption);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [sortedData, setSortedData] = useState<any[]>([]);
+  const [sortedData, setSortedData] = useState<DataItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
   const initialInputValues: InputValues = {};
@@ -50,24 +57,60 @@ export default function Table({ data, columns }: Props) {
     } else if (sortOrder === 'noSort') {
       setSortedData(data);
     } else {
-      sortedData = data.slice().sort((a: any, b: any) => {
-        if (
-          typeof sortedData[0][sortKey] === 'string' &&
-          sortedData[0][sortKey].match(/^\d{2}([./-])\d{2}\1\d{4}$/)
-        ) {
-          return sortDates(a, b, sortKey, sortOrder);
-        } else {
-          const valueA = a[sortKey] && a[sortKey].toLowerCase();
-          const valueB = b[sortKey] && b[sortKey].toLowerCase();
+      sortedData = data.slice().sort((a: DataItem, b: DataItem) => {
+        const valueA = a[sortKey];
+        const valueB = b[sortKey];
+        const typeA = typeof valueA;
+        const typeB = typeof valueB;
+  
+        if (typeA === 'string' && typeB === 'string') {
+          if ((valueA as string).match(/^\d{2}([./-])\d{2}\1\d{4}$/)) {
+            return sortDates(a, b, sortKey, sortOrder);
+          } else {
+            return (
+              valueA
+                .toString()
+                .toLowerCase()
+                .localeCompare(valueB.toString().toLowerCase(), undefined, {
+                  sensitivity: 'base',
+                }) * (sortOrder === 'asc' ? 1 : -1)
+            );
+          }
+        } else if (typeA === 'number' && typeB === 'number') {
+          const numValueA = typeof valueA === 'number' ? valueA : 0;
+          const numValueB = typeof valueB === 'number' ? valueB : 0;
+          return sortOrder === 'asc' ? numValueA - numValueB : numValueB - numValueA;
+        } else if (typeA === 'boolean' && typeB === 'boolean') {
+          return sortOrder === 'asc'
+            ? (valueA === valueB ? 0 : valueA ? -1 : 1)
+            : (valueA === valueB ? 0 : valueA ? 1 : -1);
+        } else if (typeA === 'object' && typeB === 'object') {
+          const objectValueA = JSON.stringify(valueA);
+          const objectValueB = JSON.stringify(valueB);
           return (
-            valueA.localeCompare(valueB, undefined, { sensitivity: 'base' }) *
-            (sortOrder === 'asc' ? 1 : -1)
+            objectValueA
+              .toLowerCase()
+              .localeCompare(objectValueB.toLowerCase(), undefined, {
+                sensitivity: 'base',
+              }) * (sortOrder === 'asc' ? 1 : -1)
           );
+        } else if (Array.isArray(valueA) && Array.isArray(valueB)) {
+          const arrayValueA = JSON.stringify(valueA);
+          const arrayValueB = JSON.stringify(valueB);
+          return (
+            arrayValueA
+              .toLowerCase()
+              .localeCompare(arrayValueB.toLowerCase(), undefined, {
+                sensitivity: 'base',
+              }) * (sortOrder === 'asc' ? 1 : -1)
+          );
+        } else {
+          return 0;
         }
       });
       setSortedData(sortedData);
     }
-  }, [data,sortedData, sortKey, sortOrder]);
+  }, [data, sortedData, sortKey, sortOrder]);
 
   const handleSort = (property: string) => {
     if (sortKey === property) {
@@ -169,6 +212,14 @@ export default function Table({ data, columns }: Props) {
     }));
   });
 
+  const start = (page - 1) * perPage;
+  const end = start + perPage;
+  const currentData : object[] = filteredData.slice(start, end);
+
+  const isObjectOrArray = (value: DataType): boolean => {
+    return typeof value === 'object' && value !== null;
+  };
+
   return (
     <div className='box_table'>
 
@@ -183,17 +234,18 @@ export default function Table({ data, columns }: Props) {
       <div className='box_ChoiceEntries' >
         <span>Rows per page:</span>
         <Dropdown
-        options={['All', '5','10','25','50', '100']}
-       onOptionClick={(option) => handlePerPageChange(option)}
-      defaultValueSelectedOption={defaultValueSelectedOption.toString()}
+          options={['All', '5','10','25','50', '100']}
+          onOptionClick={(option) => handlePerPageChange(option)}
+          defaultValueSelectedOption={defaultValueSelectedOption.toString()}
         />
       </div>
     
       <div className='box_tableManaged scrollerTable'>
-        
-        <table className='tableComponent'>
-          <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
-          <TableHeader
+        <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
+
+      <table className='tableComponent'>
+          
+          {/* <TableHeader
             columnData={columnsManaged}
             inputValues={inputValues}
             handleSearchByProperty={handleSearchByProperty}
@@ -201,14 +253,76 @@ export default function Table({ data, columns }: Props) {
             sortOrder={sortOrder}
             handleReset={handleReset}
             sortKey={sortKey ?? ''}
-          />
+          /> */}
+
+          <thead>
+            <tr>
+              {columnsManaged.map(({ label, property, isVisible }) => {
+                if (isVisible) {
+                  const isSortKey = sortKey === property;
+                  return (
+                    <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor`}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
+                      {(!isSortKey || (isSortKey && sortOrder === "noSort"))  && (
+                        <button onClick={() => handleSort(property)} className="btnSort">
+                          <FaSort />
+                        </button>
+                      )}
+                      {isSortKey && sortOrder === "asc" && (
+                        <button
+                          onClick={() => handleSort(property)}
+                          className={sortKey === property ? "btnSort selectedBtnSort" : "btnSort"}
+                        >
+                          <FaSortUp />
+                        </button>
+                      )}
+                      {isSortKey && sortOrder === "desc" && (
+                        <button
+                          onClick={() => handleSort(property)}
+                          className={sortKey === property ? "selectedBtnSort btnSort" : "btnSort"}
+                        >
+                          <FaSortDown />
+                        </button>
+                      )}
+                        <SearchDropdown
+                          inputValues={inputValues}
+                          property={property}
+                          handleSearchByProperty={handleSearchByProperty}
+                          handleReset={handleReset}
+                        />
+                      </div>
+                    </th>
+                  );
+                }
+              })}
+            </tr>
+          </thead>
       
-          <TableBody
+          {/* <TableBody
             page={page}
             perPage={perPage}
             filteredData={filteredData}
             columns={columnsManaged}
-          />
+          /> */}
+
+          <tbody>
+            {currentData.map((item: any, index) => (
+              <tr key={index}>
+              {columnsManaged.map(({ property, isVisible }) => {
+                if (isVisible) {
+                  return (
+                    <td key={`cell-${index}-${property}`}>
+                      {item[property]}
+                    </td>
+                  );
+                }
+                return null;
+              })}
+              </tr>
+            ))}
+          </tbody>
+
         </table> 
       </div>
      

@@ -6,7 +6,6 @@ interface Props {
   inputValues: Record<string, string>;
   property: string;
   handleSearchByProperty: (name: string, value: string) => void;
-  // handleSearchByProperty: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleReset: (property: string) => void;
 }
 

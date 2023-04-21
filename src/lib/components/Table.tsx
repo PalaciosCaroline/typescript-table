@@ -24,13 +24,15 @@ interface SearchTerms {
   [key: string]: string;
 }
 
-type DataType = string | number | Date | boolean | Record<string, unknown> | unknown[];
+// type DataType = string | number | Date | boolean | Record<string, unknown> | unknown[];
 
-interface DataItem {
-  [key: string]: DataType;
-}
+
+
+// interface DataItem {
+//   [key: string]: DataType;
+// }
 interface Props {
-  data: DataItem[];
+  data: object[];
   columns: Column[];
 }
 
@@ -41,7 +43,7 @@ export default function Table({ data, columns }: Props) {
   const defaultValueSelectedOption = 10;
   const [perPage, setPerPage] = useState<number>(defaultValueSelectedOption);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [sortedData, setSortedData] = useState<DataItem[]>([]);
+  const [sortedData, setSortedData] = useState<object[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
   const initialInputValues: InputValues = {};
@@ -57,7 +59,7 @@ export default function Table({ data, columns }: Props) {
     } else if (sortOrder === 'noSort') {
       setSortedData(data);
     } else {
-      sortedData = data.slice().sort((a: DataItem, b: DataItem) => {
+      sortedData = data.slice().sort((a: any, b: any) => {
         const valueA = a[sortKey];
         const valueB = b[sortKey];
         const typeA = typeof valueA;
@@ -215,10 +217,6 @@ export default function Table({ data, columns }: Props) {
   const start = (page - 1) * perPage;
   const end = start + perPage;
   const currentData : object[] = filteredData.slice(start, end);
-
-  const isObjectOrArray = (value: DataType): boolean => {
-    return typeof value === 'object' && value !== null;
-  };
 
   return (
     <div className='box_table'>

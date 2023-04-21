@@ -1,7 +1,16 @@
 {
   "name": "typescript-table",
   "version": "1.0.0",
-  "private": true,
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "module": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PalaciosCaroline/typescript-table.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

@@ -1,46 +1,143 @@
-# Getting Started with Create React App
+# Table-component-library library of React components created using `create-react-app`.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React component that displays a table with data. It also allows the user to sort, filter, and paginate the data. The component has several state variables that manage its behavior, such as the current page, the number of items per page, the search term, and the columns to display.
 
-## Available Scripts
+The Table component receives two props: data, an array of objects with the data to display, and columns, an array of objects that define the columns of the table.
+<Table data={datasExample} columns={columnsExample} />
 
-In the project directory, you can run:
+## InstallationRun the following command 
+with npm:
 
-### `npm start`
+    `npm install table-component-library`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+or yarn:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    `yarn add table-component-library`
 
-### `npm test`
+## Exemple of use
+****************************************************************************************************************
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```diff	
+@@ Example: Table of employees @@
+```
 
-### `npm run build`
+![table](./tableImg.png "example of table")
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+****************************************************************************************************************
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Exemple data
+```js
+For columns, labels and properties are required: a label must be assigned to each property of the data array that is to be displayed in a column. If no label is assigned to a property of the data array, that property will be ignored and will not generate a column. The label will be used to name each column in the table, based on each property; the property is the column data from the data array used to retrieve the various column entries.
+"The choice of locations for labels and properties in columns allows you to choose the placement of different columns in relation to each other."
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To use this package, you can use the following sample data.
+const columnsExample = [
+    { label: 'First Name', property: 'firstName' },
+    { label: 'Last Name', property: 'lastName' },
+    { label: 'Start Date', property: 'startDate' },
+    { label: 'Department', property: 'department' },
+    { label: 'Date of Birth', property: 'dateOfBirth' },
+    { label: 'Street', property: 'street' },
+    { label: 'City', property: 'city' },
+    { label: 'State', property: 'state' },
+    { label: 'Zip Code', property: 'zipCode' },
+  ];
 
-### `npm run eject`
+const datasExample = [
+  {
+    firstName: 'John',
+    lastName: 'Doe',
+    dateOfBirth: '15/01/1975',
+    startDate: '01/04/2022',
+    department: 'Sales',
+    street: '123 Main St',
+    city: 'Anytown',
+    state: 'CA',
+    zipCode: '12345',
+  },
+  {
+    firstName: 'Jane',
+    lastName: 'Smith',
+    dateOfBirth: '17/05/1985',
+    startDate: '25/02/2020',
+    department: 'Marketing',
+    street: '456 Oak St',
+    city: 'Othertown',
+    state: 'NY',
+    zipCode: '67890',
+  },
+  {
+    firstName: 'Bob',
+    lastName: 'Johnson',
+    dateOfBirth: '30/09/1978',
+    startDate: '03/05/2019',
+    department: 'IT',
+    street: '789 Maple Ave',
+    city: 'Somewhere',
+    state: 'TX',
+    zipCode: '54321',
+  }
+]
+```
+## Customize the component's style
+To customize the style of the component, you can increase the specificity of your CSS rules. This means that you can target the component more precisely by adding more specific selectors to your CSS rules.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+For example, to change the background color of the th of the table, you can use the following CSS rule (with for example .box_table):
+change :
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`.thColor{
+  border-bottom: 1px solid #1b1818;
+  background-color: #b1c46c;
+}`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+for
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`.box_table .thColor{
+  border-bottom: 1px solid #1b1818;
+  background-color: blue;
+}`
 
-## Learn More
+or change the background-color of reset all search button:
+change
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  `.btn_Reset{
+  background-color: #677e11;
+  }
+  .btn_Reset:hover{
+    background-color: #7e9b16;
+  };`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+for:
+
+  `.box_table .btn_Reset{
+  background-color: #86c1e6;
+  }
+  .box_table .btn_Reset:hover{
+    background-color: #1e92db;
+  };`
+ 
+## Remove features :
+
+-Remove search global
+
+  `.box_table .box_searchReset{
+    display:none;
+  }`
+
+-Remove choice of the number of entries per page:
+
+  `.box_table .box_ChoiceEntries{
+    display:none;
+  }`
+
+-Remove sort the entries:
+
+  `.box_table .btnSort{
+      display:none;
+  }`
+
+-Remove search per column:
+
+  `.box_table .btnFilter{
+      display:none;
+  }`

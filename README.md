@@ -1,5 +1,9 @@
 # Table-component-library library of React components created using `create-react-app`.
 
+![React](https://img.shields.io/badge/React-v17.0.2-61DAFB?logo=react)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.4.4-3178C6?logo=typescript)
+
 This is a React component that displays a table with data. It also allows the user to sort, filter, and paginate the data. The component has several state variables that manage its behavior, such as the current page, the number of items per page, the search term, and the columns to display.
 
 The Table component receives two props: data, an array of objects with the data to display, and columns, an array of objects that define the columns of the table.
@@ -13,6 +17,10 @@ with npm:
 or yarn:
 
     `yarn add table-component-library`
+
+## Import in your application
+The Table component is built with TypeScript and supports custom data types. To ensure type safety and compatibility, provide your data type as a generic parameter (e.g., <Table<string> or <Table<number>).
+Use the component like this: <Table<string> data={yourData} columns={yourColumns} />.
 
 ## Exemple of use
 ****************************************************************************************************************

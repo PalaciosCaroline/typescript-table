@@ -4,7 +4,7 @@ import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
 import SearchDropdown from './SearchDropdown';
 // import TableBody from './TableBody';
 import { FaSearch } from 'react-icons/fa';
-import { sortDates } from './../utils/sortDates';
+import { customSort } from './../utils/sortDates';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
@@ -17,7 +17,7 @@ interface Column {
 }
 
 interface InputValues {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 interface SearchTerms {
@@ -26,19 +26,28 @@ interface SearchTerms {
 
 // type DataType = string | number | Date | boolean | Record<string, unknown> | unknown[];
 
+// type DataType = string | number | Date | boolean | Record<string, unknown> | unknown[];
 
 
 // interface DataItem {
 //   [key: string]: DataType;
 // }
-interface Props {
-  data: object[];
+// interface Props {
+//   data: DataItem[];
+//   columns: Column[];
+// }
+
+interface DataItem<T> {
+  [key: string]: T;
+}
+interface Props<T> {
+  data: DataItem<T>[];
   columns: Column[];
 }
 
-export default function Table({ data, columns }: Props) {
+export default function Table<T>({ data, columns }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
-  const [sortOrder, setSortOrder] = useState< string >('noSort');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);
   const defaultValueSelectedOption = 10;
   const [perPage, setPerPage] = useState<number>(defaultValueSelectedOption);
@@ -52,67 +61,71 @@ export default function Table({ data, columns }: Props) {
   });
   const [inputValues, setInputValues] = useState<InputValues>(initialInputValues);
 
-  useEffect(() => {
-    let sortedData = data;
-    if (sortKey === null) {
-      setSortedData(data);
-    } else if (sortOrder === 'noSort') {
-      setSortedData(data);
-    } else {
-      sortedData = data.slice().sort((a: any, b: any) => {
-        const valueA = a[sortKey];
-        const valueB = b[sortKey];
-        const typeA = typeof valueA;
-        const typeB = typeof valueB;
+  // useEffect(() => {
+  //   let sortedData = data;
+  //   if (sortKey === null) {
+  //     setSortedData(data);
+  //   } else if (sortOrder === 'noSort') {
+  //     setSortedData(data);
+  //   } else {
+  //     sortedData = data.slice().sort((a: any, b: any) => {
+  //       const valueA = a[sortKey];
+  //       const valueB = b[sortKey];
+  //       const typeA = typeof valueA;
+  //       const typeB = typeof valueB;
   
-        if (typeA === 'string' && typeB === 'string') {
-          if ((valueA as string).match(/^\d{2}([./-])\d{2}\1\d{4}$/)) {
-            return sortDates(a, b, sortKey, sortOrder);
-          } else {
-            return (
-              valueA
-                .toString()
-                .toLowerCase()
-                .localeCompare(valueB.toString().toLowerCase(), undefined, {
-                  sensitivity: 'base',
-                }) * (sortOrder === 'asc' ? 1 : -1)
-            );
-          }
-        } else if (typeA === 'number' && typeB === 'number') {
-          const numValueA = typeof valueA === 'number' ? valueA : 0;
-          const numValueB = typeof valueB === 'number' ? valueB : 0;
-          return sortOrder === 'asc' ? numValueA - numValueB : numValueB - numValueA;
-        } else if (typeA === 'boolean' && typeB === 'boolean') {
-          return sortOrder === 'asc'
-            ? (valueA === valueB ? 0 : valueA ? -1 : 1)
-            : (valueA === valueB ? 0 : valueA ? 1 : -1);
-        } else if (typeA === 'object' && typeB === 'object') {
-          const objectValueA = JSON.stringify(valueA);
-          const objectValueB = JSON.stringify(valueB);
-          return (
-            objectValueA
-              .toLowerCase()
-              .localeCompare(objectValueB.toLowerCase(), undefined, {
-                sensitivity: 'base',
-              }) * (sortOrder === 'asc' ? 1 : -1)
-          );
-        } else if (Array.isArray(valueA) && Array.isArray(valueB)) {
-          const arrayValueA = JSON.stringify(valueA);
-          const arrayValueB = JSON.stringify(valueB);
-          return (
-            arrayValueA
-              .toLowerCase()
-              .localeCompare(arrayValueB.toLowerCase(), undefined, {
-                sensitivity: 'base',
-              }) * (sortOrder === 'asc' ? 1 : -1)
-          );
-        } else {
-          return 0;
-        }
-      });
-      setSortedData(sortedData);
-    }
-  }, [data, sortedData, sortKey, sortOrder]);
+  //       if (typeA === 'string' && typeB === 'string') {
+  //         if ((valueA as string).match(/^\d{2}([./-])\d{2}\1\d{4}$/)) {
+  //           return sortDates(a, b, sortKey, sortOrder);
+  //         } else {
+  //           return (
+  //             valueA
+  //               .toString()
+  //               .toLowerCase()
+  //               .localeCompare(valueB.toString().toLowerCase(), undefined, {
+  //                 sensitivity: 'base',
+  //               }) * (sortOrder === 'asc' ? 1 : -1)
+  //           );
+  //         }
+  //       } else if (typeA === 'number' && typeB === 'number') {
+  //         const numValueA = typeof valueA === 'number' ? valueA : 0;
+  //         const numValueB = typeof valueB === 'number' ? valueB : 0;
+  //         return sortOrder === 'asc' ? numValueA - numValueB : numValueB - numValueA;
+  //       } else if (typeA === 'boolean' && typeB === 'boolean') {
+  //         return sortOrder === 'asc'
+  //           ? (valueA === valueB ? 0 : valueA ? -1 : 1)
+  //           : (valueA === valueB ? 0 : valueA ? 1 : -1);
+  //       } else if (typeA === 'object' && typeB === 'object') {
+  //         const objectValueA = JSON.stringify(valueA);
+  //         const objectValueB = JSON.stringify(valueB);
+  //         return (
+  //           objectValueA
+  //             .toLowerCase()
+  //             .localeCompare(objectValueB.toLowerCase(), undefined, {
+  //               sensitivity: 'base',
+  //             }) * (sortOrder === 'asc' ? 1 : -1)
+  //         );
+  //       } else if (Array.isArray(valueA) && Array.isArray(valueB)) {
+  //         const arrayValueA = JSON.stringify(valueA);
+  //         const arrayValueB = JSON.stringify(valueB);
+  //         return (
+  //           arrayValueA
+  //             .toLowerCase()
+  //             .localeCompare(arrayValueB.toLowerCase(), undefined, {
+  //               sensitivity: 'base',
+  //             }) * (sortOrder === 'asc' ? 1 : -1)
+  //         );
+  //       } else {
+  //         return 0;
+  //       }
+  //     });
+  //     setSortedData(sortedData);
+  //   }
+  // }, [data, sortedData, sortKey, sortOrder]);
+
+  useEffect(() => {
+    setSortedData(customSort(data, sortKey, sortOrder));
+  }, [data, sortKey, sortOrder]);
 
   const handleSort = (property: string) => {
     if (sortKey === property) {

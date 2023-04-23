@@ -1,9 +1,6 @@
 import React from 'react';
-// import { render } from '@testing-library/react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import Table from './lib/components/Table';
-// import TableHeader from './lib/components/TableHeader';
-// import TableBody from './lib/components/TableBody';
 import {datasExample, columnsExample} from './dataForExample';
 
 describe('App', () => {
@@ -49,25 +46,6 @@ describe('App', () => {
     expect(cells[2]).toHaveTextContent('01/04/2022'); 
   });
 });
-
-// describe('TableBody', () => {
-
-//   it('should display the correct number of rows per page', () => {
-//     const columnsExample = [
-//         { label: 'First Name', property: 'firstName', isVisible: true },
-//         { label: 'Last Name', property: 'lastName', isVisible: true },
-//         { label: 'Start Date', property: 'startDate', isVisible: false },
-//       ];
-//     const perPage = 3;
-//     const { getAllByRole } = render(
-//         <TableBody page={1} perPage={perPage} filteredData={datasExample} columns={columnsExample} />
-//     );
-
-//     const rows = getAllByRole('row');
-//     expect(rows).toHaveLength(3); 
-//   });
-// });
-
 
 const columns = [
   { label: 'Name', property: 'name' },

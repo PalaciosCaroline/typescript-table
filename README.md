@@ -1,4 +1,4 @@
-# Table-component-library library of React components created using `create-react-app`.
+# typescript-table: : A package for easily importing a table to display your data .
 
 ![React](https://img.shields.io/badge/React-v17.0.2-61DAFB?logo=react)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript)
@@ -7,7 +7,6 @@
 This is a React component that displays a table with data. It also allows the user to sort, filter, and paginate the data. The component has several state variables that manage its behavior, such as the current page, the number of items per page, the search term, and the columns to display.
 
 The Table component receives two props: data, an array of objects with the data to display, and columns, an array of objects that define the columns of the table.
-<Table data={datasExample} columns={columnsExample} />
 
 ## InstallationRun the following command 
 with npm:
@@ -19,8 +18,21 @@ or yarn:
     `yarn add table-component-library`
 
 ## Import in your application
-The Table component is built with TypeScript and supports custom data types. To ensure type safety and compatibility, provide your data type as a generic parameter (e.g., <Table<string> or <Table<number>).
-Use the component like this: <Table<string> data={yourData} columns={yourColumns} />.
+  `import {Table} from 'typescript-table'`
+
+The Table component is built with TypeScript and supports various custom data types for easy and flexible usage within the data={yourData} parameter. You can use different data types, like strings, numbers, dates, and booleans, together in the data you pass to the component. To ensure type safety and compatibility, define the structure of your data type in your TypeScript code.
+
+The following data types can be used together for data={yourData}:
+
+Strings: to represent text or alphanumeric characters.
+Numbers: to represent numeric values, including integers and floating-point numbers.
+Dates: to represent dates and times, using the JavaScript Date object.
+Booleans: to represent logical true or false values.
+
+Use the component like this:
+  `<Table data={yourData} columns={yourDataColumns} />`
+
+Customize your component and tailor it to your specific needs by providing the appropriate data types for data={yourData}.
 
 ## Exemple of use
 ****************************************************************************************************************
@@ -39,6 +51,8 @@ For columns, labels and properties are required: a label must be assigned to eac
 "The choice of locations for labels and properties in columns allows you to choose the placement of different columns in relation to each other."
 
 To use this package, you can use the following sample data.
+<Table data={datasExample} columns={columnsExample} />
+with :
 const columnsExample = [
     { label: 'First Name', property: 'firstName' },
     { label: 'Last Name', property: 'lastName' },

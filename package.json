@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "rm -rf dist && tsc && npm run copy:css",
-    "copy:css": "cpy './src/lib/styles/*.css' './dist/styles'",
+    "copy:css": "cpy \"./src/lib/styles/*.css\" \"./dist/styles\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

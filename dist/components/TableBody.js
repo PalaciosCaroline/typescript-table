@@ -1,17 +1,15 @@
+"use strict";
 // import React from 'react';
-
 // interface Props {
 // page: number;
 // perPage: number;
 // filteredData: Array<any>;
 // columns: Array<{ property: string; isVisible: boolean }>;
 // }
-
 // const TableBody: React.FC<Props> = ({ page, perPage, filteredData, columns }) => {
 // const start = (page - 1) * perPage;
 // const end = start + perPage;
 // const currentData = filteredData.slice(start, end);
-
 // return (
 // <tbody>
 // {currentData.map((item, index) => (
@@ -31,6 +29,4 @@
 // </tbody>
 // );
 // };
-
 // export default TableBody;
-

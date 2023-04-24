@@ -8,7 +8,7 @@ This is a React component that displays a table with data. It also allows the us
 
 The Table component receives two props: data, an array of objects with the data to display, and columns, an array of objects that define the columns of the table.
 
-## InstallationRun the following command 
+## Installation Run the following command 
 with npm:
 
     `npm install table-component-library`

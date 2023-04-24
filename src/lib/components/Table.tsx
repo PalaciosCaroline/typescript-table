@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import TableHeader from './TableHeader';
 import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
 import SearchDropdown from './SearchDropdown';
-// import TableBody from './TableBody';
 import { FaSearch } from 'react-icons/fa';
 import { customSort } from './../utils/sortDates';
 import filterData from '../utils/filterData';
@@ -193,16 +191,6 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
         <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
 
       <table className='tableComponent'>
-          
-          {/* <TableHeader
-            columnData={columnsManaged}
-            inputValues={inputValues}
-            handleSearchByProperty={handleSearchByProperty}
-            handleSort={handleSort}
-            sortOrder={sortOrder}
-            handleReset={handleReset}
-            sortKey={sortKey ?? ''}
-          /> */}
 
           <thead>
             <tr>
@@ -214,7 +202,7 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
                       {(!isSortKey || (isSortKey && sortOrder === "noSort"))  && (
-                        <button onClick={() => handleSort(property)} className="btnSort">
+                        <button onClick={() => handleSort(property)} className="btnSort"   aria-label="no sorted, change by ascendant">
                           <FaSort />
                         </button>
                       )}
@@ -222,6 +210,7 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
                         <button
                           onClick={() => handleSort(property)}
                           className={sortKey === property ? "btnSort selectedBtnSort" : "btnSort"}
+                          aria-label="sorted by ascendant, change by descendant"
                         >
                           <FaSortUp />
                         </button>
@@ -230,6 +219,7 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
                         <button
                           onClick={() => handleSort(property)}
                           className={sortKey === property ? "selectedBtnSort btnSort" : "btnSort"}
+                          aria-label="sorted by descendant, change by no sorted"
                         >
                           <FaSortDown />
                         </button>
@@ -247,13 +237,6 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
               })}
             </tr>
           </thead>
-      
-          {/* <TableBody
-            page={page}
-            perPage={perPage}
-            filteredData={filteredData}
-            columns={columnsManaged}
-          /> */}
 
           <tbody>
             {currentData.map((item: DataItem<T>, index) => (

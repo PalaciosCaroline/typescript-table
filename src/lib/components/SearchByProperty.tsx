@@ -43,6 +43,7 @@ const SearchByProperty = <T extends string | number | readonly string[] | undefi
         type="button"
         className="btnSearchByPropertyReset"
         onClick={handleResetClose}
+        aria-label={`Effacer et fermer la recherche sur la ${property}`}
         style={{
           position: 'absolute',
           top: 0,

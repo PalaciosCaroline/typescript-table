@@ -19,6 +19,7 @@ function Pagination(props: Props) {
               className="paginationButton"
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(1)}
+              aria-label="return to first page"
             >
               <FiChevronsLeft />
             </button>
@@ -26,6 +27,7 @@ function Pagination(props: Props) {
               className="paginationButton"
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(page - 1)}
+              aria-label="go to the previous page"
             >
               <FiChevronLeft />
             </button>
@@ -42,6 +44,7 @@ function Pagination(props: Props) {
               className="paginationButton"
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(page + 1)}
+              aria-label="go to the next page"
             >
               <FiChevronRight />
             </button>
@@ -49,6 +52,7 @@ function Pagination(props: Props) {
               className="paginationButton"
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(totalPages)}
+              aria-label="go to the last page"
             >
               <FiChevronsRight />
             </button>

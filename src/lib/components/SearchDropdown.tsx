@@ -42,6 +42,7 @@ const SearchDropdown = <T extends readonly string[],>({ inputValues, property, h
       <button
         onClick={handleToggle}
         className={isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter'}
+        aria-label={`Show search filter by ${property}`}
       >
         {isFilterProperty ? <MdFilterAlt /> : <MdFilterAltOff />}
       </button>

@@ -27,7 +27,7 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
 
     return (
     <>
-        <button className={`toggle-btnManagedColumns ${isModalOpen? 'btnOpen' : ''}`} onClick={handleToggleModal}>
+        <button className={`toggle-btnManagedColumns ${isModalOpen? 'btnOpen' : ''}`} onClick={handleToggleModal} aria-label="managed columns">
             <FaEllipsisH />
             <p className={isModalOpen? 'btnManagedColumnsOpen' : ''}>Manage Columns</p> 
         </button>

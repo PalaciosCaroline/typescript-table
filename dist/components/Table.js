@@ -11,10 +11,8 @@ var __assign = (this && this.__assign) || function () {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from 'react';
-// import TableHeader from './TableHeader';
 import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
 import SearchDropdown from './SearchDropdown';
-// import TableBody from './TableBody';
 import { FaSearch } from 'react-icons/fa';
 import { customSort } from './../utils/sortDates';
 import filterData from '../utils/filterData';
@@ -133,7 +131,7 @@ export default function Table(_a) {
                                         var label = _a.label, property = _a.property, isVisible = _a.isVisible;
                                         if (isVisible) {
                                             var isSortKey = sortKey === property;
-                                            return (_jsx("th", __assign({ style: { position: 'relative' }, className: "th_".concat(property, " thColor") }, { children: _jsxs("div", __assign({ style: { display: 'flex', alignItems: 'center' } }, { children: [_jsx("p", __assign({ className: 'label', "data-testid": "columnManaged-".concat(property) }, { children: label })), (!isSortKey || (isSortKey && sortOrder === "noSort")) && (_jsx("button", __assign({ onClick: function () { return handleSort(property); }, className: "btnSort" }, { children: _jsx(FaSort, {}) }))), isSortKey && sortOrder === "asc" && (_jsx("button", __assign({ onClick: function () { return handleSort(property); }, className: sortKey === property ? "btnSort selectedBtnSort" : "btnSort" }, { children: _jsx(FaSortUp, {}) }))), isSortKey && sortOrder === "desc" && (_jsx("button", __assign({ onClick: function () { return handleSort(property); }, className: sortKey === property ? "selectedBtnSort btnSort" : "btnSort" }, { children: _jsx(FaSortDown, {}) }))), _jsx(SearchDropdown, { inputValues: inputValues, property: property, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset })] })) }), property));
+                                            return (_jsx("th", __assign({ style: { position: 'relative' }, className: "th_".concat(property, " thColor") }, { children: _jsxs("div", __assign({ style: { display: 'flex', alignItems: 'center' } }, { children: [_jsx("p", __assign({ className: 'label', "data-testid": "columnManaged-".concat(property) }, { children: label })), (!isSortKey || (isSortKey && sortOrder === "noSort")) && (_jsx("button", __assign({ onClick: function () { return handleSort(property); }, className: "btnSort", "aria-label": "no sorted, change by ascendant" }, { children: _jsx(FaSort, {}) }))), isSortKey && sortOrder === "asc" && (_jsx("button", __assign({ onClick: function () { return handleSort(property); }, className: sortKey === property ? "btnSort selectedBtnSort" : "btnSort", "aria-label": "sorted by ascendant, change by descendant" }, { children: _jsx(FaSortUp, {}) }))), isSortKey && sortOrder === "desc" && (_jsx("button", __assign({ onClick: function () { return handleSort(property); }, className: sortKey === property ? "selectedBtnSort btnSort" : "btnSort", "aria-label": "sorted by descendant, change by no sorted" }, { children: _jsx(FaSortDown, {}) }))), _jsx(SearchDropdown, { inputValues: inputValues, property: property, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset })] })) }), property));
                                         }
                                     }) }) }), _jsx("tbody", { children: currentData.map(function (item, index) { return (_jsx("tr", { children: columnsManaged.map(function (_a) {
                                         var property = _a.property, isVisible = _a.isVisible;

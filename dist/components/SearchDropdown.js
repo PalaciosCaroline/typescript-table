@@ -35,6 +35,6 @@ var SearchDropdown = function (_a) {
         };
     }, []);
     var isFilterProperty = inputValues[property] ? true : false;
-    return (_jsxs("div", __assign({ className: "dropdownContainerSearch", ref: dropdownSearchRef }, { children: [_jsx("button", __assign({ onClick: handleToggle, className: isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter' }, { children: isFilterProperty ? _jsx(MdFilterAlt, {}) : _jsx(MdFilterAltOff, {}) })), isOpen && (_jsx("div", __assign({ className: "boxSearchPropertyContent" }, { children: _jsx(SearchByProperty, { property: property, inputValues: inputValues, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset, handleClose: handleClose }, property) })))] })));
+    return (_jsxs("div", __assign({ className: "dropdownContainerSearch", ref: dropdownSearchRef }, { children: [_jsx("button", __assign({ onClick: handleToggle, className: isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter', "aria-label": "Show search filter by ".concat(property) }, { children: isFilterProperty ? _jsx(MdFilterAlt, {}) : _jsx(MdFilterAltOff, {}) })), isOpen && (_jsx("div", __assign({ className: "boxSearchPropertyContent" }, { children: _jsx(SearchByProperty, { property: property, inputValues: inputValues, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset, handleClose: handleClose }, property) })))] })));
 };
 export default SearchDropdown;

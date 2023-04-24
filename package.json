@@ -1,6 +1,6 @@
 {
   "name": "typescript-table",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "main": "dist/index.js",
   "files": [
     "dist",
@@ -12,7 +12,6 @@
     "url": "git+https://github.com/PalaciosCaroline/typescript-table.git"
   },
   "dependencies": {
-   
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0"

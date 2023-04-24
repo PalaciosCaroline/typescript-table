@@ -16,8 +16,8 @@ interface Column {
   property: string;
 }
 
-interface InputValues {
-  [key: string]: any;
+export interface InputValues<T> {
+  [key: string]: T | string;
 }
 
 interface SearchTerms {
@@ -45,7 +45,7 @@ interface Props<T> {
   columns: Column[];
 }
 
-export default function Table<T>({ data, columns }: Props<T>) {
+export default function Table<T extends readonly string[]>({ data, columns }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);
@@ -55,11 +55,11 @@ export default function Table<T>({ data, columns }: Props<T>) {
   const [sortedData, setSortedData] = useState<object[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
-  const initialInputValues: InputValues = {};
+  const initialInputValues: InputValues<T> = {};
   columns.forEach(({ property }) => {
     initialInputValues[property] = '';
   });
-  const [inputValues, setInputValues] = useState<InputValues>(initialInputValues);
+  const [inputValues, setInputValues] = useState<InputValues<T>>(initialInputValues);
 
   useEffect(() => {
     setSortedData(customSort(data, sortKey, sortOrder));
@@ -167,7 +167,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
 
   const start = (page - 1) * perPage;
   const end = start + perPage;
-  const currentData : object[] = filteredData.slice(start, end);
+  const currentData : DataItem<T>[] = filteredData.slice(start, end) as DataItem<T>[];
 
   return (
     <div className='box_table'>
@@ -234,7 +234,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
                           <FaSortDown />
                         </button>
                       )}
-                        <SearchDropdown
+                        <SearchDropdown<T>
                           inputValues={inputValues}
                           property={property}
                           handleSearchByProperty={handleSearchByProperty}
@@ -256,13 +256,13 @@ export default function Table<T>({ data, columns }: Props<T>) {
           /> */}
 
           <tbody>
-            {currentData.map((item: any, index) => (
+            {currentData.map((item: DataItem<T>, index) => (
               <tr key={index}>
               {columnsManaged.map(({ property, isVisible }) => {
                 if (isVisible) {
                   return (
                     <td key={`cell-${index}-${property}`}>
-                      {item[property]}
+                      {item[property] as React.ReactNode}
                     </td>
                   );
                 }

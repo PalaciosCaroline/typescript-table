@@ -50,11 +50,11 @@ ul {
 
 .buttonToggleRowPerPage{
   border: 1px solid #adca76;
-  background-color: #f6f8f2; 
+  background-color: #fff; 
 }
 
 .dropdownMenuRowPerPage{
-  background-color: #f6f8f2;
+  background-color: #fff;
   border: 1px solid #adca76;
 }
 
@@ -130,11 +130,11 @@ tableComponent button > svg {
 }
 
 .box_searchGlobal input,.inputSearchByProperty{
-  background: #ecf0f3;
+  background: #fbfbfb;
   border: none;
   font-size: 14px;
   border-radius: 50px;
-  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  box-shadow: inset 6px 6px 6px #d1d4db, inset -6px -6px 6px white;
   outline:1px solid rgb(220, 239, 232);
 }
 
@@ -523,7 +523,7 @@ thead{
   padding: 0;
   margin: 0;
   border-radius: 4px;
-  /* background-color: #fff; */
+  background-color: #fff; 
   z-index: 999;
 }
 

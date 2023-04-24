@@ -1,9 +1,10 @@
 /// <reference types="react" />
-interface Props {
-    inputValues: Record<string, string>;
+import { InputValues } from './Table';
+interface Props<T> {
+    inputValues: InputValues<T>;
     property: string;
     handleSearchByProperty: (name: string, value: string) => void;
     handleReset: (property: string) => void;
 }
-declare const SearchDropdown: ({ inputValues, property, handleSearchByProperty, handleReset }: Props) => JSX.Element;
+declare const SearchDropdown: <T extends readonly string[]>({ inputValues, property, handleSearchByProperty, handleReset }: Props<T>) => JSX.Element;
 export default SearchDropdown;

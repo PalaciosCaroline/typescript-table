@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect, MouseEvent } from 'react';
 import { MdFilterAltOff, MdFilterAlt } from 'react-icons/md';
 import SearchByProperty from './SearchByProperty';
+import { InputValues } from './Table';
 
-interface Props {
-  inputValues: Record<string, string>;
+interface Props<T> {
+  inputValues: InputValues<T>;
   property: string;
   handleSearchByProperty: (name: string, value: string) => void;
   handleReset: (property: string) => void;
 }
 
-const SearchDropdown = ({ inputValues, property, handleSearchByProperty, handleReset }: Props) => {
+const SearchDropdown = <T extends readonly string[],>({ inputValues, property, handleSearchByProperty, handleReset }: Props<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownSearchRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +47,7 @@ const SearchDropdown = ({ inputValues, property, handleSearchByProperty, handleR
       </button>
       {isOpen && (
         <div className="boxSearchPropertyContent">
-          <SearchByProperty
+          <SearchByProperty<T>
             key={property}
             property={property}
             inputValues={inputValues}

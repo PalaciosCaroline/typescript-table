@@ -1,21 +1,22 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { InputValues } from './Table';
 
-interface Props {
-  inputValues: Record<string, string>;
+interface Props<T> {
+  inputValues: InputValues<T>;
   property: string;
   handleSearchByProperty: (name: string, value: string) => void;
   handleReset: (property: string) => void;
   handleClose: () => void;
 }
 
-const SearchByProperty = ({
+const SearchByProperty = <T extends string | number | readonly string[] | undefined,>({
   inputValues,
   property,
   handleSearchByProperty,
   handleReset,
   handleClose
-}: Props) => {
+}: Props<T>) => {
   const handleResetClose = () => {
     handleReset(property);
     handleClose();
@@ -32,7 +33,7 @@ const SearchByProperty = ({
     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
       <input
         type="text"
-        value={inputValues[property]?? ''}
+        value={inputValues[property]?? inputValues[property]}
         onChange={handleInputChange}
         placeholder="Search..."
         name={property}

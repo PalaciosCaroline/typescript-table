@@ -76,7 +76,7 @@ p.label{
 }
 
 .thColor{
-  background-color: #b1c46c;
+  background-color: #ededed;
 }
 
 .tableComponent{
@@ -118,7 +118,7 @@ tableComponent button > svg {
 
 .boxSearchPropertyContent{
   position: absolute;
-  top: calc(-50px);
+  top: -50px;
   width: 100%;
   left: 0;
   background: white;
@@ -232,11 +232,11 @@ thead button > svg {
   height:1.4rem;
   width: 1.4rem;
   vertical-align: center;
-  color:hsl(73, 74%, 39%);
+  color: rgba(104,104,102,0.3);
 }
 
 thead button:hover > svg {
-  color:hsl(73, 74%, 29%);
+  color: rgba(104,104,102,1);
 }
 
 .btnSort {
@@ -294,7 +294,8 @@ thead button:hover > svg {
 .toggle-label {
   width: 40px;
   height: 10px;
-  background: #e9e8e8;
+  background: #fefefe;
+  border:1px solid rgba(171, 168, 168, 0.2);
   position: relative;
   display: inline-block;
   border-radius: 46px;
@@ -316,7 +317,7 @@ thead button:hover > svg {
 }
 
 .toggle-input:checked + .toggle-label {
-  background-color: #677e11;
+  background-color: #b1b3aa;
 }
 
 .toggle-input:checked + .toggle-label:after {
@@ -358,7 +359,8 @@ thead{
   height: 25px;
   transition: max-width 0.3s ease-in-out;
   background-color: #677e11;
-  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5);
+  /* box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.5); */
+  box-shadow: 0 -3px 1px -3px rgba(0, 0, 0, 0.5), 3px 0 1px -3px rgba(0, 0, 0, 0.5);
   color: #fff;
   border:none;
 }
@@ -370,6 +372,7 @@ thead{
 .toggle-btnManagedColumns.btnOpen{
   height: 35px;
   top:25px;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
 .toggle-btnManagedColumns p {
@@ -402,7 +405,7 @@ thead{
   height: auto;
   /* border-top: 8px solid #677e11; */
   font-weight: 600;
-  background-color: #bbd071;
+  background-color: #ededed;
   box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.4);
   z-index:99;
   padding:10px 20px 10px 20px;

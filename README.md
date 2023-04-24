@@ -41,7 +41,7 @@ Customize your component and tailor it to your specific needs by providing the a
 @@ Example: Table of employees @@
 ```
 
-![table](./tableImg.png "example of table")
+![table](./imgTable.png "example of table")
 
 ****************************************************************************************************************
 

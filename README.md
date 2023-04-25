@@ -3,6 +3,7 @@
 ![React](https://img.shields.io/badge/React-v17.0.2-61DAFB?logo=react)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.4.4-3178C6?logo=typescript)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg?logo=jest)](https://github.com/facebook/jest)
 
 This is a React component that displays a table with data. It also allows the user to sort, filter, and paginate the data. The component has several state variables that manage its behavior, such as the current page, the number of items per page, the search term, and the columns to display.
 

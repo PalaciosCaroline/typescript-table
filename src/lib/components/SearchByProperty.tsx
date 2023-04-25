@@ -2,21 +2,21 @@ import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { InputValues } from './Table';
 
-interface Props<T> {
-  inputValues: InputValues<T>;
+interface Props<U extends string | number | readonly string[] | undefined = string> {
+  inputValues: InputValues<U>;
   property: string;
   handleSearchByProperty: (name: string, value: string) => void;
   handleReset: (property: string) => void;
   handleClose: () => void;
 }
 
-const SearchByProperty = <T extends string | number | readonly string[] | undefined,>({
+const SearchByProperty = <U extends string | number | readonly string[] | undefined = string>({
   inputValues,
   property,
   handleSearchByProperty,
   handleReset,
   handleClose
-}: Props<T>) => {
+}: Props<U>) => {
   const handleResetClose = () => {
     handleReset(property);
     handleClose();
@@ -38,6 +38,7 @@ const SearchByProperty = <T extends string | number | readonly string[] | undefi
         placeholder="Search..."
         name={property}
         className="inputSearchByProperty"
+        data-testid={`btnSearch-${property}`}
       />
       <button
         type="button"
@@ -54,6 +55,7 @@ const SearchByProperty = <T extends string | number | readonly string[] | undefi
           margin: '0',
           paddingRight: '25px'
         }}
+        data-testid={`btnResetClose-${property}`}
       >
         <FaTimes />
       </button>

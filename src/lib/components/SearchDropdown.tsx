@@ -3,14 +3,14 @@ import { MdFilterAltOff, MdFilterAlt } from 'react-icons/md';
 import SearchByProperty from './SearchByProperty';
 import { InputValues } from './Table';
 
-interface Props<T> {
-  inputValues: InputValues<T>;
+interface SearchDropdownProps<U extends string | number | readonly string[] | undefined = string> {
+  inputValues: InputValues<U>;
   property: string;
   handleSearchByProperty: (name: string, value: string) => void;
   handleReset: (property: string) => void;
 }
 
-const SearchDropdown = <T extends readonly string[],>({ inputValues, property, handleSearchByProperty, handleReset }: Props<T>) => {
+const SearchDropdown = <U extends string | number | readonly string[] | undefined = string>({ inputValues, property, handleSearchByProperty, handleReset }: SearchDropdownProps<U>) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownSearchRef = useRef<HTMLDivElement>(null);
 
@@ -43,12 +43,13 @@ const SearchDropdown = <T extends readonly string[],>({ inputValues, property, h
         onClick={handleToggle}
         className={isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter'}
         aria-label={`Show search filter by ${property}`}
+        data-testid={`btnOpenSearch-${property}`}
       >
         {isFilterProperty ? <MdFilterAlt /> : <MdFilterAltOff />}
       </button>
       {isOpen && (
         <div className="boxSearchPropertyContent">
-          <SearchByProperty<T>
+          <SearchByProperty<U>
             key={property}
             property={property}
             inputValues={inputValues}

@@ -21,7 +21,7 @@ const columnsExample: Column[] = [
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    startDate: string;
+    startDate: string ;
     department: string;
     street: string;
     city: string;

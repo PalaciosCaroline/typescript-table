@@ -15,35 +15,26 @@ interface Column {
 }
 
 export interface InputValues<T> {
-  [key: string]: T | string;
+  [key: string]: T | undefined;
 }
 
+interface SearchByProp {
+  [key: string]: string | undefined;
+}
 interface SearchTerms {
   [key: string]: string;
 }
 
-// type DataType = string | number | Date | boolean | Record<string, unknown> | unknown[];
-
-// type DataType = string | number | Date | boolean | Record<string, unknown> | unknown[];
-
-
-// interface DataItem {
-//   [key: string]: DataType;
-// }
-// interface Props {
-//   data: DataItem[];
-//   columns: Column[];
-// }
 
 interface DataItem<T> {
-  [key: string]: T;
+  [key: string]: T | undefined;
 }
 interface Props<T> {
-  data: DataItem<T>[];
+  data: DataItem<T | undefined>[];
   columns: Column[];
 }
 
-export default function Table<T extends readonly string[]>({ data, columns }: Props<T>) {
+export default function Table<T>({ data, columns }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);
@@ -53,11 +44,11 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
   const [sortedData, setSortedData] = useState<object[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
-  const initialInputValues: InputValues<T> = {};
+  const initialInputValues: SearchByProp = {};
   columns.forEach(({ property }) => {
     initialInputValues[property] = '';
   });
-  const [inputValues, setInputValues] = useState<InputValues<T>>(initialInputValues);
+  const [inputValues, setInputValues] = useState(initialInputValues);
 
   useEffect(() => {
     setSortedData(customSort(data, sortKey, sortOrder));
@@ -167,6 +158,13 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
   const end = start + perPage;
   const currentData : DataItem<T>[] = filteredData.slice(start, end) as DataItem<T>[];
 
+  function formatDate(value: any): string | React.ReactNode {
+    if (value instanceof Date) {
+      return value.toLocaleDateString();
+    }
+    return value;
+  }
+
   return (
     <div className='box_table'>
 
@@ -191,7 +189,6 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
         <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
 
       <table className='tableComponent'>
-
           <thead>
             <tr>
               {columnsManaged.map(({ label, property, isVisible }) => {
@@ -202,7 +199,9 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
                       {(!isSortKey || (isSortKey && sortOrder === "noSort"))  && (
-                        <button onClick={() => handleSort(property)} className="btnSort"   aria-label="no sorted, change by ascendant">
+                        <button onClick={() => handleSort(property)} className="btnSort"   aria-label="no sorted, change by ascendant"
+                        data-testid={`btnSortByAsc-${property}`}
+                        >
                           <FaSort />
                         </button>
                       )}
@@ -211,6 +210,7 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
                           onClick={() => handleSort(property)}
                           className={sortKey === property ? "btnSort selectedBtnSort" : "btnSort"}
                           aria-label="sorted by ascendant, change by descendant"
+                          data-testid={`btnSortbyDesc-${property}`}
                         >
                           <FaSortUp />
                         </button>
@@ -220,11 +220,12 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
                           onClick={() => handleSort(property)}
                           className={sortKey === property ? "selectedBtnSort btnSort" : "btnSort"}
                           aria-label="sorted by descendant, change by no sorted"
+                          data-testid={`btnSortbyNoSort-${property}`}
                         >
                           <FaSortDown />
                         </button>
                       )}
-                        <SearchDropdown<T>
+                        <SearchDropdown
                           inputValues={inputValues}
                           property={property}
                           handleSearchByProperty={handleSearchByProperty}
@@ -245,7 +246,8 @@ export default function Table<T extends readonly string[]>({ data, columns }: Pr
                 if (isVisible) {
                   return (
                     <td key={`cell-${index}-${property}`}>
-                      {item[property] as React.ReactNode}
+                      {formatDate(item[property])}
+                      {/* {item[property] as React.ReactNode} */}
                     </td>
                   );
                 }

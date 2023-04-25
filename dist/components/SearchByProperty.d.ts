@@ -1,11 +1,11 @@
 /// <reference types="react" />
 import { InputValues } from './Table';
-interface Props<T> {
-    inputValues: InputValues<T>;
+interface Props<U extends string | number | readonly string[] | undefined = string> {
+    inputValues: InputValues<U>;
     property: string;
     handleSearchByProperty: (name: string, value: string) => void;
     handleReset: (property: string) => void;
     handleClose: () => void;
 }
-declare const SearchByProperty: <T extends string | number | readonly string[] | undefined>({ inputValues, property, handleSearchByProperty, handleReset, handleClose }: Props<T>) => JSX.Element;
+declare const SearchByProperty: <U extends string | number | readonly string[] | undefined = string>({ inputValues, property, handleSearchByProperty, handleReset, handleClose }: Props<U>) => JSX.Element;
 export default SearchByProperty;

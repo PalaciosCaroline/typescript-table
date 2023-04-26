@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
 import SearchDropdown from './SearchDropdown';
 import { FaSearch } from 'react-icons/fa';
 import { customSort } from './../utils/sortDates';
@@ -8,6 +7,7 @@ import Pagination from './Pagination';
 import './../styles/table.css';
 import Dropdown from './Dropdown';
 import ManageColumns from './ManageColumns';
+import SortButton from './SortButton';
 
 interface Column {
   label: string;
@@ -24,7 +24,6 @@ interface SearchByProp {
 interface SearchTerms {
   [key: string]: string;
 }
-
 
 interface DataItem<T> {
   [key: string]: T | undefined;
@@ -165,7 +164,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
     return value;
   }
 
-  return (
+    return (
     <div className='box_table'>
 
       <div className='box_searchReset'>
@@ -198,33 +197,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
                     <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor`}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
-                      {(!isSortKey || (isSortKey && sortOrder === "noSort"))  && (
-                        <button onClick={() => handleSort(property)} className="btnSort"   aria-label="no sorted, change by ascendant"
-                        data-testid={`btnSortByAsc-${property}`}
-                        >
-                          <FaSort />
-                        </button>
-                      )}
-                      {isSortKey && sortOrder === "asc" && (
-                        <button
-                          onClick={() => handleSort(property)}
-                          className={sortKey === property ? "btnSort selectedBtnSort" : "btnSort"}
-                          aria-label="sorted by ascendant, change by descendant"
-                          data-testid={`btnSortbyDesc-${property}`}
-                        >
-                          <FaSortUp />
-                        </button>
-                      )}
-                      {isSortKey && sortOrder === "desc" && (
-                        <button
-                          onClick={() => handleSort(property)}
-                          className={sortKey === property ? "selectedBtnSort btnSort" : "btnSort"}
-                          aria-label="sorted by descendant, change by no sorted"
-                          data-testid={`btnSortbyNoSort-${property}`}
-                        >
-                          <FaSortDown />
-                        </button>
-                      )}
+                        <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} />
                         <SearchDropdown
                           inputValues={inputValues}
                           property={property}
@@ -247,7 +220,6 @@ export default function Table<T>({ data, columns }: Props<T>) {
                   return (
                     <td key={`cell-${index}-${property}`}>
                       {formatDate(item[property])}
-                      {/* {item[property] as React.ReactNode} */}
                     </td>
                   );
                 }
@@ -261,8 +233,8 @@ export default function Table<T>({ data, columns }: Props<T>) {
       </div>
      
       <div className='showingEntries' >
-      {filteredData.length > 0 ? `${page === 1 ? 'Showing 1' : `Showing ${(page - 1) * perPage + 1}`} to ${Math.min(page * perPage, filteredData.length)} of ${filteredData.length} entries` : ''}
-      {(filteredData.length <= 0) ? `0 result of ${data.length} entries filtered` : ''}
+        {filteredData.length > 0 ? `${page === 1 ? 'Showing 1' : `Showing ${(page - 1) * perPage + 1}`} to ${Math.min(page * perPage, filteredData.length)} of ${filteredData.length} entries` : ''}
+        {(filteredData.length <= 0) ? `0 result of ${data.length} entries filtered` : ''}
       </div>
     
       <Pagination 

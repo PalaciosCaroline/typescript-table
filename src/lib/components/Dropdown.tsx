@@ -59,16 +59,16 @@ function Dropdown(props: DropdownProps): JSX.Element {
       </button>
       {isOpen && (
         <ul className='dropdownMenuTable dropdownMenuRowPerPage' role="listbox">
-        {props.options.map((option) => (
+          {props.options.map((option) => (
           <li
-          key={option}
-          data-testid={`optionPerPage-${option}`}
-          className={`dropdownOptionTable dropdownOptionRowPerPage ${option === selectedOption ? `selectedTable selectedOption` : ''}`}
-          onClick={() => handleOptionClick(option)}
-          role="option"
-          aria-selected={option === selectedOption}
+            key={option}
+            data-testid={`optionPerPage-${option}`}
+            className={`dropdownOptionTable dropdownOptionRowPerPage ${option === selectedOption ? `selectedTable selectedOption` : ''}`}
+            onClick={() => handleOptionClick(option)}
+            role="option"
+            aria-selected={option === selectedOption}
           >
-          {option}
+            {option}
           </li>
           ))}
         </ul>

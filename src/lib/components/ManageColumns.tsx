@@ -3,15 +3,15 @@ import Modal from './Modal';
 import { FaEllipsisH } from 'react-icons/fa';
 
 interface Column {
-label: string;
-property: string;
-isVisible: boolean;
+    label: string;
+    property: string;
+    isVisible: boolean;
 }
 
 interface ManageColumnsProps {
-columns: Column[];
-handleColumnVisibility: (property: string) => void;
-handleVisibleAllColumns: () => void;
+    columns: Column[];
+    handleColumnVisibility: (property: string) => void;
+    handleVisibleAllColumns: () => void;
 }
 
 function ManageColumns(props: ManageColumnsProps): JSX.Element {
@@ -22,7 +22,7 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
     };
 
     const handleCloseModal = (): void => {
-    setIsModalOpen(false);
+        setIsModalOpen(false);
     };
 
     return (

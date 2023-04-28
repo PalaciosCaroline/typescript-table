@@ -1,83 +1,20 @@
-// interface SortableObject {
-//   [key: string]: string | number | boolean | object | any[];
-// }
 
 type SortableObject = { [key: string]: any };
 
-function isString(value: any): value is string {
-  return typeof value === 'string';
-}
-
-
-
-// export const sortDates = (a: {[key: string]: any}, b: {[key: string]: any}, sortKey: string, sortOrder: string) => {
-// function sortDates<T extends SortableObject>(
-//   a: T,
-//   b: T,
-//   sortKey: keyof T,
-//   sortOrder: "asc" | "desc"
-// ): number {
-//   const dateRegex = /^\d{2}([./-])\d{2}\1\d{4}$/;
-//   const isDate = dateRegex.test(a[sortKey]) && dateRegex.test(b[sortKey]);
-//   if (isDate) {
-//     const match = dateRegex.exec(a[sortKey]);
-//     const delimiter = match ? match[1] : '/';
-//     const [dayA, monthA, yearA] = a[sortKey].split(delimiter).map((x : any) => parseInt(x, 10));
-//     const [dayB, monthB, yearB] = b[sortKey].split(delimiter).map((x: any) => parseInt(x, 10));
-//     const dateA = new Date(yearA, monthA - 1, dayA);
-//     const dateB = new Date(yearB, monthB - 1, dayB);
-//     if (dateA < dateB) return sortOrder === 'asc' ? -1 : 1;
-//     if (dateA > dateB) return sortOrder === 'asc' ? 1 : -1;
-//     return 0;
-//   } else {
-//     if (a[sortKey] < b[sortKey]) return sortOrder === 'asc' ? -1 : 1;
-//     if (a[sortKey] > b[sortKey]) return sortOrder === 'asc' ? 1 : -1;
-//     return 0;
-//   }
+// function isString(value: any): value is string {
+//   return typeof value === 'string';
 // }
 
-
-// function sortDates<T extends SortableObject>(
-//   a: T,
-//   b: T,
-//   sortKey: keyof T,
-//   sortOrder: 'asc' | 'desc'
-// ): number {
-//   const dateRegex = /^\d{2}([./-])\d{2}\1\d{4}$/;
-
-//   if (isString(a[sortKey]) && isString(b[sortKey])) {
-//     const isDate = dateRegex.test(a[sortKey]) && dateRegex.test(b[sortKey]);
-//     if (isDate) {
-//       const match = dateRegex.exec(a[sortKey]);
-//       const delimiter = match ? match[1] : '/';
-//       const [dayA, monthA, yearA] = a[sortKey].split(delimiter).map((x: any) => parseInt(x, 10));
-//       const [dayB, monthB, yearB] = b[sortKey].split(delimiter).map((x: any) => parseInt(x, 10));
-//       const dateA = new Date(yearA, monthA - 1, dayA);
-//       const dateB = new Date(yearB, monthB - 1, dayB);
-//       if (dateA < dateB) return sortOrder === 'asc' ? -1 : 1;
-//       if (dateA > dateB) return sortOrder === 'asc' ? 1 : -1;
-//       return 0;
-//     } else {
-//       if (a[sortKey] < b[sortKey]) return sortOrder === 'asc' ? -1 : 1;
-//       if (a[sortKey] > b[sortKey]) return sortOrder === 'asc' ? 1 : -1;
-//       return 0;
-//     }
-//   } else {
-//     // handle the case when a[sortKey] and/or b[sortKey] are not strings
-//     return 0;
-//   }
-// }
-
-export function parseDate(dateStr: any) {
+export function parseDate(dateStr: string) {
   const dateRegex1 = /^\d{2}([./-])\d{2}\1\d{4}$/;
   const dateRegex2 = /^\d{4}([./-])\d{2}\1\d{2}$/;
   const delimiter = dateStr.includes('/') ? '/' : dateStr.includes('.') ? '.' : '-';
   
   if (dateStr.match(dateRegex1)) {
-    const [day, month, year] = dateStr.split(delimiter).map((x: any) => parseInt(x, 10));
+    const [day, month, year] = dateStr.split(delimiter).map((x: string) => parseInt(x, 10));
     return new Date(year, month - 1, day);
   } else if (dateStr.match(dateRegex2)) {
-    const [year, month, day] = dateStr.split(delimiter).map((x :any) => parseInt(x, 10));
+    const [year, month, day] = dateStr.split(delimiter).map((x :string) => parseInt(x, 10));
     return new Date(year, month - 1, day);
   } else {
     return null;

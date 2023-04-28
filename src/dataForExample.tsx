@@ -17,7 +17,7 @@ const columnsExample: Column[] = [
 
 
   interface Data {
-    [key: string]: any;
+    [key: string]: string;
     firstName: string;
     lastName: string;
     dateOfBirth: string;

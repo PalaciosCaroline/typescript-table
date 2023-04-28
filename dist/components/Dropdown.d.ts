@@ -1,6 +1,6 @@
 /// <reference types="react" />
 interface DropdownProps {
-    defaultValueSelectedOption?: string;
+    defaultValueSelectedOption: string;
     options: string[];
     onOptionClick: (option: string) => void;
 }

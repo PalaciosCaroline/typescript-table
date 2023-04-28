@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 
 interface DropdownProps {
-defaultValueSelectedOption?: string;
+defaultValueSelectedOption: string;
 options: string[];
 onOptionClick: (option: string) => void;
 }

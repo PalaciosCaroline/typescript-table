@@ -171,7 +171,7 @@ for:
 
 
 ## Sponsor the project
-If you find this package useful or if you want to do a kind and generous act, you can ❤️  [sponsoring my work](https://github.com/sponsors/palacioscaroline) sponsoring my work . Your sponsorship will help me dedicate more time to maintaining the project and will encourage me to create new projects and continue my studies. If you're a company using typescript-table in a commercial project, you can also hire my services.
+If you find this package useful or if you want to do a kind and generous act, you can ❤️  [sponsoring my work](https://github.com/sponsors/palacioscaroline) . Your sponsorship will help me dedicate more time to maintaining the project and will encourage me to create new projects and continue my studies. If you're a company using typescript-table in a commercial project, you can also hire my services.
 
 ## Hiring the author
 If you want to hire my services, don’t hesitate to drop me a line at the email address listed in my GitHub profile.

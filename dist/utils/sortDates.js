@@ -132,7 +132,7 @@ export function hasPropertyDatePattern(data, property) {
     for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
         var item = data_1[_i];
         var value = item[property];
-        var match = value.match(regex);
+        var match = typeof value === 'string' ? value.match(regex) : null;
         if (match) {
             hasPattern = true;
             var originalMonth = parseInt(value.slice(0, 2), 10);

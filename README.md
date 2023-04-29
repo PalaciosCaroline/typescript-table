@@ -168,3 +168,17 @@ for:
   `.box_table .btnFilter{
       display:none;
   }`
+
+
+###Sponsor the project
+If you find this package useful or if you want to do a kind and generous act, you can ❤️  [sponsoring my work](https://github.com/sponsors/palacioscaroline) sponsoring my work . Your sponsorship will help me dedicate more time to maintaining the project and will encourage me to create new projects and continue my studies. If you're a company using typescript-table in a commercial project, you can also hire my services.
+
+###Hiring the author
+If you want to hire my services, don’t hesitate to drop me a line at the email address listed in my GitHub profile.
+
+#### License
+
+This project is licensed under the MIT License - see the [LICENSE]((https://github.com/palacioscaroline/typescript-table/blob/master/LICENSE).) file for details.
+
+####"keywords":
+ table, typescript, react, datatable, pagination, sorting , filtering , managing columns

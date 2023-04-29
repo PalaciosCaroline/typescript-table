@@ -145,7 +145,7 @@ export function hasPropertyDatePattern(data: any, property: string) {
 
   for (const item of data) {
     const value = item[property];
-    const match = value.match(regex);
+    const match = typeof value === 'string' ? value.match(regex) : null;
 
     if (match) {
       hasPattern = true;

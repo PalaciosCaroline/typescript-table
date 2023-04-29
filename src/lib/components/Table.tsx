@@ -61,7 +61,6 @@ export default function Table<T>({ data, columns }: Props<T>) {
       setSortKey(property);
       setSortOrder('asc');
       setSortUsaDate(usaDate);
-      console.log(usaDate);
     }
   };
 

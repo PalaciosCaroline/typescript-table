@@ -49,7 +49,6 @@ export default function Table(_a) {
             setSortKey(property);
             setSortOrder('asc');
             setSortUsaDate(usaDate);
-            console.log(usaDate);
         }
     };
     var filteredData = filterData(sortedData, searchTerm, searchTerms);

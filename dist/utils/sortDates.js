@@ -53,7 +53,7 @@ export function compareArrays(arrayA, arrayB, sortOrder) {
     });
     return sortOrder === 'asc' ? comparisonResult : -comparisonResult;
 }
-export function customSort(data, sortKey, sortOrder) {
+export function customSort(data, sortKey, sortOrder, sortUsaDate) {
     if (sortKey === null || sortOrder === 'noSort') {
         return data;
     }
@@ -62,46 +62,96 @@ export function customSort(data, sortKey, sortOrder) {
         var valueB = b[sortKey];
         var typeA = typeof valueA;
         var typeB = typeof valueB;
-        if (valueA instanceof Date && valueB instanceof Date) {
-            return sortOrder === 'asc' ? valueA.getTime() - valueB.getTime() : valueB.getTime() - valueA.getTime();
-        }
-        else if (typeA === 'string' && typeB === 'string') {
-            if (valueA.match(/^\d{2}([./-])\d{2}\1\d{4}$/)) {
-                return sortDates(a, b, sortKey, sortOrder);
+        if (sortUsaDate) {
+            var parseDateString = function (dateString) {
+                var _a = dateString.split('/'), month = _a[0], day = _a[1], year = _a[2];
+                return new Date(year, month - 1, day);
+            };
+            if (typeA === 'string' && typeB === 'string') {
+                var dateA = parseDateString(valueA);
+                var dateB = parseDateString(valueB);
+                return sortOrder === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
             }
-            else {
-                return (valueA
-                    .toString()
+            else if (valueA instanceof Date && valueB instanceof Date) {
+                return sortOrder === 'asc'
+                    ? valueA.getTime() - valueB.getTime()
+                    : valueB.getTime() - valueA.getTime();
+            }
+        }
+        else {
+            if (valueA instanceof Date && valueB instanceof Date) {
+                return sortOrder === 'asc' ? valueA.getTime() - valueB.getTime() : valueB.getTime() - valueA.getTime();
+            }
+            else if (typeA === 'string' && typeB === 'string') {
+                if (valueA.match(/^\d{2}([./-])\d{2}\1\d{4}$/)) {
+                    return sortDates(a, b, sortKey, sortOrder);
+                }
+                else {
+                    return (valueA
+                        .toString()
+                        .toLowerCase()
+                        .localeCompare(valueB.toString().toLowerCase(), undefined, {
+                        sensitivity: 'base',
+                    }) * (sortOrder === 'asc' ? 1 : -1));
+                }
+            }
+            else if (typeA === 'number' && typeB === 'number') {
+                var numValueA = typeof valueA === 'number' ? valueA : 0;
+                var numValueB = typeof valueB === 'number' ? valueB : 0;
+                return sortOrder === 'asc' ? numValueA - numValueB : numValueB - numValueA;
+            }
+            else if (typeof valueA === 'boolean' && typeof valueB === 'boolean') {
+                return sortOrder === 'asc'
+                    ? (valueA === valueB ? 0 : valueA ? 1 : -1)
+                    : (valueA === valueB ? 0 : valueA ? -1 : 1);
+            }
+            else if (typeA === 'object' && typeB === 'object') {
+                var objectValueA = JSON.stringify(valueA);
+                var objectValueB = JSON.stringify(valueB);
+                return (objectValueA
                     .toLowerCase()
-                    .localeCompare(valueB.toString().toLowerCase(), undefined, {
+                    .localeCompare(objectValueB.toLowerCase(), undefined, {
                     sensitivity: 'base',
                 }) * (sortOrder === 'asc' ? 1 : -1));
             }
-        }
-        else if (typeA === 'number' && typeB === 'number') {
-            var numValueA = typeof valueA === 'number' ? valueA : 0;
-            var numValueB = typeof valueB === 'number' ? valueB : 0;
-            return sortOrder === 'asc' ? numValueA - numValueB : numValueB - numValueA;
-        }
-        else if (typeof valueA === 'boolean' && typeof valueB === 'boolean') {
-            return sortOrder === 'asc'
-                ? (valueA === valueB ? 0 : valueA ? 1 : -1)
-                : (valueA === valueB ? 0 : valueA ? -1 : 1);
-        }
-        else if (typeA === 'object' && typeB === 'object') {
-            var objectValueA = JSON.stringify(valueA);
-            var objectValueB = JSON.stringify(valueB);
-            return (objectValueA
-                .toLowerCase()
-                .localeCompare(objectValueB.toLowerCase(), undefined, {
-                sensitivity: 'base',
-            }) * (sortOrder === 'asc' ? 1 : -1));
-        }
-        else if (Array.isArray(valueA) && Array.isArray(valueB)) {
-            return compareArrays(valueA, valueB, sortOrder);
-        }
-        else {
-            return 0;
+            else if (Array.isArray(valueA) && Array.isArray(valueB)) {
+                return compareArrays(valueA, valueB, sortOrder);
+            }
+            else {
+                return 0;
+            }
         }
     });
+}
+export function hasPropertyDatePattern(data, property) {
+    var regex = /^\d{2}([./-])\d{2}\1\d{4}$/;
+    var hasPattern = false;
+    var isAmericanFormat = false;
+    var monthGreaterThan12 = false;
+    var dayGreaterThan12 = false;
+    for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+        var item = data_1[_i];
+        var value = item[property];
+        var match = value.match(regex);
+        if (match) {
+            hasPattern = true;
+            var originalMonth = parseInt(value.slice(0, 2), 10);
+            var originalDay = parseInt(value.slice(3, 5), 10);
+            if (originalMonth > 12) {
+                monthGreaterThan12 = true;
+            }
+            if (originalDay > 12) {
+                dayGreaterThan12 = true;
+            }
+            if (monthGreaterThan12 && dayGreaterThan12) {
+                // Ambiguous date format
+                hasPattern = false;
+                break;
+            }
+        }
+    }
+    if (hasPattern && !monthGreaterThan12 && dayGreaterThan12) {
+        isAmericanFormat = true;
+    }
+    return { hasPattern: hasPattern, isAmericanFormat: isAmericanFormat };
 }

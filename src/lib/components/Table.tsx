@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchDropdown from './SearchDropdown';
 import { FaSearch } from 'react-icons/fa';
-import { customSort } from './../utils/sortDates';
+import { customSort, hasPropertyDatePattern } from './../utils/sortDates';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
@@ -43,6 +43,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
   const [sortedData, setSortedData] = useState<object[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
+  const [sortUsaDate, setSortUsaDate] = useState<boolean>(false);
   const initialInputValues: SearchByProp = {};
   columns.forEach(({ property }) => {
     initialInputValues[property] = '';
@@ -50,15 +51,17 @@ export default function Table<T>({ data, columns }: Props<T>) {
   const [inputValues, setInputValues] = useState(initialInputValues);
 
   useEffect(() => {
-    setSortedData(customSort(data, sortKey, sortOrder));
+    setSortedData(customSort(data, sortKey, sortOrder, sortUsaDate));
   }, [data, sortKey, sortOrder]);
 
-  const handleSort = (property: string) => {
+  const handleSort = (property: string, usaDate: boolean) => {
     if (sortKey === property) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc');
     } else {
       setSortKey(property);
       setSortOrder('asc');
+      setSortUsaDate(usaDate);
+      console.log(usaDate);
     }
   };
 
@@ -144,14 +147,32 @@ export default function Table<T>({ data, columns }: Props<T>) {
   
     setColumnsManaged(updatedColumns);
   };
+
+  function initializeColumnsManaged(columns: { label: string; property: string; }[], data: DataItem<T | undefined>[]) {
+    return columns.map(({ label, property }) => {
+      const { hasPattern, isAmericanFormat } = hasPropertyDatePattern(data, property);
+      const usaDate = hasPattern && isAmericanFormat;
   
+      return {
+        label,
+        property,
+        isVisible: true,
+        usaDate,
+      };
+    });
+  }
+
   const [columnsManaged, setColumnsManaged] = useState(() => {
-    return columns.map(({ label, property }) => ({
-      label,
-      property,
-      isVisible: true,
-    }));
+    return initializeColumnsManaged(columns, data);
   });
+  
+  // const [columnsManaged, setColumnsManaged] = useState(() => {
+  //   return columns.map(({ label, property }) => ({
+  //     label,
+  //     property,
+  //     isVisible: true,
+  //   }));
+  // });
 
   const start = (page - 1) * perPage;
   const end = start + perPage;
@@ -189,15 +210,15 @@ export default function Table<T>({ data, columns }: Props<T>) {
 
       <table className='tableComponent'>
           <thead>
-            <tr>
-              {columnsManaged.map(({ label, property, isVisible }) => {
+            <tr role="row">
+              {columnsManaged.map(({ label, property, isVisible, usaDate }) => {
                 if (isVisible) {
                   const isSortKey = sortKey === property;
                   return (
                     <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor`}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
-                        <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} />
+                        <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} usaDate={usaDate}/>
                         <SearchDropdown
                           inputValues={inputValues}
                           property={property}
@@ -214,11 +235,11 @@ export default function Table<T>({ data, columns }: Props<T>) {
 
           <tbody>
             {currentData.map((item: DataItem<T>, index) => (
-              <tr key={index}>
+              <tr key={index}  role="row">
               {columnsManaged.map(({ property, isVisible }) => {
                 if (isVisible) {
                   return (
-                    <td key={`cell-${index}-${property}`}>
+                    <td key={`cell-${index}-${property}`} role="cell">
                       {formatDate(item[property])}
                     </td>
                   );

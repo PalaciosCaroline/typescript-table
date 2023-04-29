@@ -5,13 +5,14 @@ interface SortButtonProps {
     isSortKey: boolean;
     sortOrder: 'asc' | 'desc' | 'noSort';
     property: string;
-    handleSort: (property: string) => void;
+    usaDate: boolean;
+    handleSort: (property: string, usaDate: boolean) => void;
 }
   
-const SortButton: React.FC<SortButtonProps> = ({ isSortKey, sortOrder, property, handleSort }) => {
+const SortButton: React.FC<SortButtonProps> = ({ isSortKey, sortOrder, property, handleSort, usaDate }) => {
     const renderSortButton = (icon: React.ReactNode, label: string, testIdSuffix: string) => (
         <button
-        onClick={() => handleSort(property)}
+        onClick={() => handleSort(property, usaDate)}
         className={`btnSort ${(isSortKey && sortOrder != 'noSort') ? " selectedBtnSort" : ""}`}
         aria-label={label}
         data-testid={`btnSort${testIdSuffix}-${property}`}

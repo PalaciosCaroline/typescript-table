@@ -60,10 +60,12 @@ export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "de
   return sortOrder === 'asc' ? comparisonResult : -comparisonResult;
 }
 
+
 export function customSort<T extends SortableObject>(
   data: T[],
   sortKey: keyof T | null,
-  sortOrder: "asc" | "desc" | "noSort"
+  sortOrder: "asc" | "desc" | "noSort",
+  sortUsaDate: boolean
 ): T[] {
 
   if (sortKey === null || sortOrder === 'noSort') {
@@ -76,6 +78,22 @@ export function customSort<T extends SortableObject>(
     const typeA = typeof valueA;
     const typeB = typeof valueB;
 
+    if (sortUsaDate) {
+      const parseDateString = (dateString:any) => {
+        const [month, day, year] = dateString.split('/');
+        return new Date(year, month - 1, day);
+      };
+
+      if (typeA === 'string' && typeB === 'string')  {
+        const dateA = parseDateString(valueA);
+        const dateB = parseDateString(valueB);
+        return sortOrder === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+       } else if (valueA instanceof Date && valueB instanceof Date) {
+    return sortOrder === 'asc'
+      ? valueA.getTime() - valueB.getTime()
+      : valueB.getTime() - valueA.getTime();
+    }
+  } else {
     if (valueA instanceof Date && valueB instanceof Date) {
       return sortOrder === 'asc' ? valueA.getTime() - valueB.getTime() : valueB.getTime() - valueA.getTime();
     } else if (typeA === 'string' && typeB === 'string') {
@@ -114,5 +132,45 @@ export function customSort<T extends SortableObject>(
     } else {
       return 0;
     }
+  }
   });
+}
+
+export function hasPropertyDatePattern(data: any, property: string) {
+  const regex = /^\d{2}([./-])\d{2}\1\d{4}$/;
+  let hasPattern = false;
+  let isAmericanFormat = false;
+  let monthGreaterThan12 = false;
+  let dayGreaterThan12 = false;
+
+  for (const item of data) {
+    const value = item[property];
+    const match = value.match(regex);
+
+    if (match) {
+      hasPattern = true;
+      const originalMonth = parseInt(value.slice(0, 2), 10);
+      const originalDay = parseInt(value.slice(3, 5), 10);
+
+      if (originalMonth > 12) {
+        monthGreaterThan12 = true;
+      }
+
+      if (originalDay > 12) {
+        dayGreaterThan12 = true;
+      }
+
+      if (monthGreaterThan12 && dayGreaterThan12) {
+        // Ambiguous date format
+        hasPattern = false;
+        break;
+      }
+    }
+  }
+
+  if (hasPattern && !monthGreaterThan12 && dayGreaterThan12) {
+    isAmericanFormat = true;
+  }
+
+  return { hasPattern, isAmericanFormat };
 }

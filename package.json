@@ -1,6 +1,6 @@
 {
   "name": "typescript-table",
-  "version": "2.0.18",
+  "version": "2.0.19",
   "main": "dist/index.js",
   "files": [
     "dist",
@@ -62,5 +62,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "keywords": ["table", "typescript", "react","datatable","pagination","sorting","filtering","managing columns"]
+  "keywords": [
+    "table",
+    "typescript",
+    "react",
+    "datatable",
+    "pagination",
+    "sorting",
+    "filtering",
+    "managing columns"
+  ]
 }

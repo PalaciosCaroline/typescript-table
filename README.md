@@ -148,9 +148,8 @@ like this
 ![table](./column_reverse.png "example of other table's header")
 
 add in your css :
+
  `.box_labelAndBtnsColumn{
-  display: flex;
-  align-items: center;
   flex-direction: column-reverse;
 };`
  

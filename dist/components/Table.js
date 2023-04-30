@@ -13,7 +13,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from 'react';
 import SearchDropdown from './SearchDropdown';
 import { FaSearch } from 'react-icons/fa';
-import { customSort, hasPropertyDatePattern } from './../utils/sortDates';
+import { customSort, hasPropertyDatePattern } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
@@ -152,7 +152,7 @@ export default function Table(_a) {
                                         var label = _a.label, property = _a.property, isVisible = _a.isVisible, usaDate = _a.usaDate;
                                         if (isVisible) {
                                             var isSortKey = sortKey === property;
-                                            return (_jsx("th", __assign({ style: { position: 'relative' }, className: "th_".concat(property, " thColor") }, { children: _jsxs("div", __assign({ style: { display: 'flex', alignItems: 'center' } }, { children: [_jsx("p", __assign({ className: 'label', "data-testid": "columnManaged-".concat(property) }, { children: label })), _jsx(SortButton, { isSortKey: isSortKey, sortOrder: sortOrder, property: property, handleSort: handleSort, usaDate: usaDate }), _jsx(SearchDropdown, { inputValues: inputValues, property: property, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset })] })) }), property));
+                                            return (_jsx("th", __assign({ style: { position: 'relative' }, className: "th_".concat(property, " thColor") }, { children: _jsxs("div", __assign({ className: 'box_labelAndBtnsColumn' }, { children: [_jsx("p", __assign({ className: 'label', "data-testid": "columnManaged-".concat(property) }, { children: label })), _jsxs("div", __assign({ className: 'box_btnsColumn' }, { children: [_jsx(SortButton, { isSortKey: isSortKey, sortOrder: sortOrder, property: property, handleSort: handleSort, usaDate: usaDate }), _jsx(SearchDropdown, { inputValues: inputValues, property: property, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset })] }))] })) }), property));
                                         }
                                     }) })) }), _jsx("tbody", { children: currentData.map(function (item, index) { return (_jsx("tr", __assign({ role: "row" }, { children: columnsManaged.map(function (_a) {
                                         var property = _a.property, isVisible = _a.isVisible;
@@ -160,5 +160,5 @@ export default function Table(_a) {
                                             return (_jsx("td", __assign({ role: "cell" }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property)));
                                         }
                                         return null;
-                                    }) }), index)); }) })] }))] })), _jsxs("div", __assign({ className: 'showingEntries' }, { children: [filteredData.length > 0 ? "".concat(page === 1 ? 'Showing 1' : "Showing ".concat((page - 1) * perPage + 1), " to ").concat(Math.min(page * perPage, filteredData.length), " of ").concat(filteredData.length, " entries") : '', (filteredData.length <= 0) ? "0 result of ".concat(data.length, " entries filtered") : ''] })), _jsx(Pagination, { page: page, totalPages: totalPages, handlePageChange: handlePageChange })] })));
+                                    }) }), index)); }) })] }))] })), _jsxs("div", __assign({ className: 'box_entriesAndPage' }, { children: [_jsxs("div", __assign({ className: 'showingEntries' }, { children: [filteredData.length > 0 ? "".concat(page === 1 ? 'Showing 1' : "Showing ".concat((page - 1) * perPage + 1), " to ").concat(Math.min(page * perPage, filteredData.length), " of ").concat(filteredData.length, " entries") : '', (filteredData.length <= 0) ? "0 result of ".concat(data.length, " entries filtered") : ''] })), _jsx(Pagination, { page: page, totalPages: totalPages, handlePageChange: handlePageChange })] }))] })));
 }

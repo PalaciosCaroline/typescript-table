@@ -41,7 +41,6 @@ export function sortDates<T extends SortableObject> (
   }
 }
 
-
 export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "desc" | "noSort") {
   if (arrayA.length === 0 && arrayB.length === 0) {
     return 0;
@@ -59,7 +58,6 @@ export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "de
     });
   return sortOrder === 'asc' ? comparisonResult : -comparisonResult;
 }
-
 
 export function customSort<T extends SortableObject>(
   data: T[],

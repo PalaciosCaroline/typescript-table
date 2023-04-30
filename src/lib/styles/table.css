@@ -120,8 +120,7 @@ tableComponent button > svg {
   position: absolute;
   top: -50px;
   width: 100%;
-  left: 0;
-  background: white;
+  left: -1px;
   background: #677e11;
   padding: 10px;
   z-index: 50;
@@ -460,10 +459,21 @@ thead{
   margin-top:2px;
 }
 
+.box_entriesAndPage{
+  display: flex;
+  margin-top: 8px;
+  margin-bottom:30px;
+}
+
 .pagination{
   width: 280px;
-  margin:15px auto 30px;
   display: flex;
+ justify-self: center;
+}
+
+.showingEntries{
+  width: 300px;
+  margin-top:0;
 }
 
 .pagination button {
@@ -486,8 +496,15 @@ thead{
   font-size: 1.1rem;
 }
 
-.showingEntries{
-  margin-top:10px;
+@media (max-width: 700px) {
+  .box_entriesAndPage{
+    flex-direction: column;
+    margin-top:5px;
+  }
+
+  .pagination{
+    margin:20px auto 0; 
+  }
 }
 
 .dropdownContainerSearch {
@@ -544,6 +561,15 @@ thead{
 .selectedTable, .selectedTable:hover {
   background-color: #b1c46c;
   color: #fff;
+}
+
+.box_btnsColumn{
+  display: flex;
+}
+
+.box_labelAndBtnsColumn{
+  display: flex;
+  align-items: center;
 }
 
 

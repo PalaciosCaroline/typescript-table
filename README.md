@@ -110,14 +110,14 @@ const datasExample = [
 To customize the style of the component, you can increase the specificity of your CSS rules. This means that you can target the component more precisely by adding more specific selectors to your CSS rules.
 
 For example, to change the background color of the th of the table, you can use the following CSS rule (with for example .box_table):
-change :
+change for example:
 
 `.thColor{
   border-bottom: 1px solid #1b1818;
   background-color: #b1c46c;
 }`
 
-for
+to
 
 `.box_table .thColor{
   border-bottom: 1px solid #1b1818;
@@ -125,7 +125,7 @@ for
 }`
 
 or change the background-color of reset all search button:
-change
+change for example
 
   `.btn_Reset{
   background-color: #677e11;
@@ -134,7 +134,7 @@ change
     background-color: #7e9b16;
   };`
 
-for:
+to:
 
   `.box_table .btn_Reset{
   background-color: #86c1e6;
@@ -142,6 +142,17 @@ for:
   .box_table .btn_Reset:hover{
     background-color: #1e92db;
   };`
+
+or if you want change the header of table :
+like this 
+![table](./column_reverse.png "example of other table's header")
+
+add in your css :
+ `.box_labelAndBtnsColumn{
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+};`
  
 ## Remove features :
 

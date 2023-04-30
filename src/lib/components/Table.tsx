@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchDropdown from './SearchDropdown';
 import { FaSearch } from 'react-icons/fa';
-import { customSort, hasPropertyDatePattern } from './../utils/sortDates';
+import { customSort, hasPropertyDatePattern } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
@@ -215,15 +215,17 @@ export default function Table<T>({ data, columns }: Props<T>) {
                   const isSortKey = sortKey === property;
                   return (
                     <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor`}>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div className='box_labelAndBtnsColumn'>
                         <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
-                        <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} usaDate={usaDate}/>
-                        <SearchDropdown
-                          inputValues={inputValues}
-                          property={property}
-                          handleSearchByProperty={handleSearchByProperty}
-                          handleReset={handleReset}
-                        />
+                        <div className='box_btnsColumn'>
+                          <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} usaDate={usaDate}/>
+                          <SearchDropdown
+                            inputValues={inputValues}
+                            property={property}
+                            handleSearchByProperty={handleSearchByProperty}
+                            handleReset={handleReset}
+                          />
+                        </div>
                       </div>
                     </th>
                   );
@@ -251,17 +253,18 @@ export default function Table<T>({ data, columns }: Props<T>) {
 
         </table> 
       </div>
-     
-      <div className='showingEntries' >
-        {filteredData.length > 0 ? `${page === 1 ? 'Showing 1' : `Showing ${(page - 1) * perPage + 1}`} to ${Math.min(page * perPage, filteredData.length)} of ${filteredData.length} entries` : ''}
-        {(filteredData.length <= 0) ? `0 result of ${data.length} entries filtered` : ''}
+      <div className='box_entriesAndPage'>
+        <div className='showingEntries' >
+          {filteredData.length > 0 ? `${page === 1 ? 'Showing 1' : `Showing ${(page - 1) * perPage + 1}`} to ${Math.min(page * perPage, filteredData.length)} of ${filteredData.length} entries` : ''}
+          {(filteredData.length <= 0) ? `0 result of ${data.length} entries filtered` : ''}
+        </div>
+      
+        <Pagination 
+          page={page} 
+          totalPages={totalPages} 
+          handlePageChange={handlePageChange} 
+          />
       </div>
-    
-      <Pagination 
-        page={page} 
-        totalPages={totalPages} 
-        handlePageChange={handlePageChange} 
-        />
     </div>
   );
 }

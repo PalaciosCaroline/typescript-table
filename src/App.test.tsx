@@ -310,7 +310,7 @@ describe('customSort', () => {
       { id: 3, value: 10 },
     ];
 
-    const sortedData = customSort(numberData, 'value', 'asc');
+    const sortedData = customSort(numberData, 'value', 'asc', false);
     expect(sortedData).toEqual([
       { id: 3, value: 10 },
       { id: 2, value: 30 },
@@ -326,14 +326,14 @@ describe('customSort', () => {
     ];
   
     // Tri en ordre décroissant pour s'assurer que les données sont mélangées
-    const descSortedData = customSort(booleanData, 'value', 'desc');
+    const descSortedData = customSort(booleanData, 'value', 'desc', false);
     expect(descSortedData).toEqual([
       { id: 1, value: true },
       { id: 3, value: true },
       { id: 2, value: false },
     ]);
 
-    const ascSortedData = customSort(descSortedData, 'value', 'asc');
+    const ascSortedData = customSort(descSortedData, 'value', 'asc', false);
     expect(ascSortedData).toEqual([
       { id: 2, value: false },
       { id: 1, value: true },
@@ -348,7 +348,7 @@ describe('customSort', () => {
       { id: 3, value: { key: 'B' } },
     ];
 
-    const sortedData = customSort(objectData, 'value', 'asc');
+    const sortedData = customSort(objectData, 'value', 'asc', false);
     expect(sortedData).toEqual([
       { id: 2, value: { key: 'A' } },
       { id: 3, value: { key: 'B' } },
@@ -363,7 +363,7 @@ describe('customSort', () => {
       { id: 3, value: ['B'] },
     ];
 
-    const sortedData = customSort(arrayData, 'value', 'asc');
+    const sortedData = customSort(arrayData, 'value', 'asc',false);
     expect(sortedData).toEqual([
       { id: 2, value: ['A'] },
       { id: 3, value: ['B'] },
@@ -421,7 +421,7 @@ describe('test function customSort', () => {
   test('should correctly sort by name in ascending order', () => {
     const sortKey = 'name';
     const sortOrder = 'asc';
-    const sortedData = customSort(data, sortKey, sortOrder);
+    const sortedData = customSort(data, sortKey, sortOrder, false);
     const expectedResult = [
       { id: 1, name: 'Alice', age: 30 },
       { id: 2, name: 'Bob', age: 25 },
@@ -433,7 +433,7 @@ describe('test function customSort', () => {
   test('should correctly sort by age in descending order', () => {
     const sortKey = 'age';
     const sortOrder = 'desc';
-    const sortedData = customSort(data, sortKey, sortOrder);
+    const sortedData = customSort(data, sortKey, sortOrder, false);
     const expectedResult = [
       { id: 3, name: 'Charlie', age: 35 },
       { id: 1, name: 'Alice', age: 30 },
@@ -445,7 +445,7 @@ describe('test function customSort', () => {
   test('should return original data when sortOrder is noSort', () => {
     const sortKey = 'name';
     const sortOrder = 'noSort';
-    const sortedData = customSort(data, sortKey, sortOrder);
+    const sortedData = customSort(data, sortKey, sortOrder, false);
     expect(sortedData).toEqual(data);
   });
 });

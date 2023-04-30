@@ -44,7 +44,7 @@ const SearchByProperty = <U extends string | number | readonly string[] | undefi
         type="button"
         className="btnSearchByPropertyReset"
         onClick={handleResetClose}
-        aria-label={`Effacer et fermer la recherche sur la ${property}`}
+        aria-label={`Clear and close the search by ${property}`}
         style={{
           position: 'absolute',
           top: 0,

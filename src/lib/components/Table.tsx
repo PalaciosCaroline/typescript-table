@@ -208,6 +208,11 @@ export default function Table<T>({ data, columns }: Props<T>) {
         <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
 
       <table className='tableComponent'>
+        <colgroup>
+            {columnsManaged.map(({ property, isVisible}) => {
+              if (isVisible) {
+              return(  <col key={`{col_${property}`} id={`col_${property}`}></col>);}})}
+        </colgroup>
           <thead>
             <tr role="row">
               {columnsManaged.map(({ label, property, isVisible, usaDate }) => {

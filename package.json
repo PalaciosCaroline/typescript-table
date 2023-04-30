@@ -70,6 +70,9 @@
     "pagination",
     "sorting",
     "filtering",
-    "managing columns"
+    "managing columns",
+    "eslint",
+    "jest",
+    "css3"
   ]
 }

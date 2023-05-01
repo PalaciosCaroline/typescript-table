@@ -2,7 +2,6 @@
 
 The Table React component is built with TypeScript and supports various custom data types for easy and flexible usage. It is 100% customizable and accessible.
 
-<p align="center">
 ![React](https://img.shields.io/badge/React-v18.2.0-61DAFB?logo=react)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0.4-3178C6?logo=typescript)
@@ -10,7 +9,6 @@ The Table React component is built with TypeScript and supports various custom d
 ![ESLint](https://img.shields.io/badge/ESLint-v8.38.0-4B32C3?logo=eslint)
 ![Responsive](https://img.shields.io/badge/Responsive-Yes-c85997?logo=responsive)
 ![Accessible](https://img.shields.io/badge/Accessible-Yes-677e11?logo=accessible)
-<p>
 
 This is a React component that displays a table with data. It also allows the user to sort, to filter (by column and general), to choice number of datas per page, and paging, choice order of columns and change their visibility. The component has several state variables that manage its behavior.
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent} from '@testing-library/react';
 import Table from './lib/components/Table';
 import {datasExample, columnsExample} from './dataForExample';
-import { compareArrays, parseDate, sortDates, customSort } from '../src/lib/utils/sortDates';
+import { compareArrays, parseDate, sortDates, customSort } from '../src/lib/utils/sortDatas';
 
 const columns = [
   { label: 'Name', property: 'name' },

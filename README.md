@@ -52,19 +52,21 @@ Customize your component and tailor it to your specific needs by providing the a
 ****************************************************************************************************************
 
 ## Exemple data
-```js
+
 For columns, labels and properties are required: a label must be assigned to each property of the data array that is to be displayed in a column. If no label is assigned to a property of the data array, that property will be ignored and will not generate a column. The label will be used to name each column in the table, based on each property; the property is the column data from the data array used to retrieve the various column entries.
 "The choice of locations for labels and properties in columns allows you to choose the placement of different columns in relation to each other."
 
 To use this package, you can use the following sample data.
 <Table data={datasExample} columns={columnsExample} />
 with :
+
+```js
 const columnsExample = [
     { label: 'First Name', property: 'firstName' },
     { label: 'Last Name', property: 'lastName' },
-    { label: 'Start Date', property: 'startDate' },
+    { label: 'Start Date', property: 'startDate', dateFormat:'DD/MM/YYYY' },
     { label: 'Department', property: 'department' },
-    { label: 'Date of Birth', property: 'dateOfBirth' },
+    { label: 'Date of Birth', property: 'dateOfBirth', dateFormat:'DD/MM/YYYY' },
     { label: 'Street', property: 'street' },
     { label: 'City', property: 'city' },
     { label: 'State', property: 'state' },
@@ -107,42 +109,86 @@ const datasExample = [
   }
 ]
 ```
+
+### Date format for columns (data as strings containing dates)
+
+When you provide data as strings containing dates, you need to specify the date format to use for each column containing a date in string format is essential to optimize the sorting functionality. You can do this by adding the dateFormat attribute to the corresponding column definition.
+
+The date format should be specified using the characters 'DD', 'MM', and 'YYYY' to represent the day, month, and year, respectively. For example:
+
+For a date string 'DD/MM/YYYY', 'DD-MM-YYYY', or 'DD.MM.YYYY', use:
+dateFormat: 'DD/MM/YYYY'
+
+For a date string 'MM/DD/YYYY', 'MM-DD-YYYY', or 'MM.DD.YYYY', use:
+dateFormat: 'MM/DD/YYYY'
+
+For a date string 'YYYY/MM/DD', 'YYYY-MM-DD', or 'YYYY.MM.DD', use:
+dateFormat: 'YYYY/MM/DD'
+
+The accepted and automatically managed separators are '/', '-', and '.'.
+Here's how to specify the date format for a column:
+
+```javascript
+{
+  label: 'Date of Birth',	
+  property: 'dateOfBirth',
+  dateFormat: 'DD/MM/YYYY' // Utilisez cette valeur pour les formats 'DD/MM/YYYY', 'DD-MM-YYYY' ou 'DD.MM.YYYY'
+}
+
+By adding the dateFormat attribute to the column definition, the Table component will know how to correctly process the dates provided as strings.
+
 ## Customize the component's style
 To customize the style of the component, you can increase the specificity of your CSS rules. This means that you can target the component more precisely by adding more specific selectors to your CSS rules.
 
 For example, to change the background color of the th of the table, you can use the following CSS rule (with for example .box_table):
 change for example:
 
-`.thColor{
+<pre>
+```css
+.thColor{
   border-bottom: 1px solid #1b1818;
   background-color: #b1c46c;
-}`
+}
+```
+</pre>
 
 to
 
-`.box_table .thColor{
+<pre>
+```css
+.box_table .thColor{
   border-bottom: 1px solid #1b1818;
   background-color: blue;
-}`
+}
+```
+</pre>
 
 or change the background-color of reset all search button:
 change for example
 
-  `.btn_Reset{
+<pre>
+```css
+.btn_Reset{
   background-color: #677e11;
-  }
-  .btn_Reset:hover{
+}
+.btn_Reset:hover{
     background-color: #7e9b16;
-  };`
+}
+```
+</pre>
 
 to:
 
-  `.box_table .btn_Reset{
+<pre>
+```css
+.box_table .btn_Reset{
   background-color: #86c1e6;
-  }
-  .box_table .btn_Reset:hover{
+}
+.box_table .btn_Reset:hover{
     background-color: #1e92db;
-  };`
+}
+```
+</pre>
 
 or if you want change the header of table :
 like this 
@@ -150,36 +196,41 @@ like this
 
 add in your css :
 
- `.box_labelAndBtnsColumn{
+```css
+.box_labelAndBtnsColumn{
   flex-direction: column-reverse;
-};`
- 
+}
+```
+
 ## Remove features :
 
 -Remove search global
-
-  `.box_table .box_searchReset{
+```css
+.box_table .box_searchReset{
     display:none;
-  }`
+}
+```
 
 -Remove choice of the number of entries per page:
-
-  `.box_table .box_ChoiceEntries{
+```css
+.box_table .box_ChoiceEntries{
     display:none;
-  }`
+}
+```
 
 -Remove sort the entries:
-
-  `.box_table .btnSort{
-      display:none;
-  }`
+```css
+.box_table .btnSort{
+  display:none;
+}
+```css
 
 -Remove search per column:
-
-  `.box_table .btnFilter{
-      display:none;
-  }`
-
+```css
+.box_table .btnFilter{
+  display:none;
+}
+```
 
 ## Sponsor the project
 If you find this package useful or if you want to do a kind and generous act, you can ❤️  [sponsoring my work](https://github.com/sponsors/palacioscaroline) . Your sponsorship will help me dedicate more time to maintaining the project and will encourage me to create new projects and continue my studies. If you're a company using typescript-table in a commercial project, you can also hire my services.

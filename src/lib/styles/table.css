@@ -31,7 +31,11 @@ ul {
 
 .box_table{
   box-sizing: border-box;
-  margin:20px 30px;
+  margin:20px 30px; 
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-width: 100%;
 }
 
 @media (max-width: 1000px) {
@@ -43,6 +47,7 @@ ul {
 
 .scrollerTable{
   width: 100%;
+  flex:inline-block;
   overflow-x: auto;
   scrollbar-color:#adca76;
   -webkit-overflow-scrolling: touch; 
@@ -61,6 +66,30 @@ ul {
 .box_table table {
   border-collapse: collapse;
   font-size: 14px;
+}
+
+/* à vérifier */
+ .box_table table{
+  width: auto;
+  max-width: 100%;
+}
+ .box_tableManaged {
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+} 
+
+.box_tableAndFeatures{
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.box_tableManaged {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 /* Style pour les cellules de l'en-tête */

@@ -1,45 +1,6 @@
 
 type SortableObject = { [key: string]: any };
 
-// function isString(value: any): value is string {
-//   return typeof value === 'string';
-// }
-
-export function parseDate(dateStr: string) {
-  const dateRegex1 = /^\d{2}([./-])\d{2}\1\d{4}$/;
-  const dateRegex2 = /^\d{4}([./-])\d{2}\1\d{2}$/;
-  const delimiter = dateStr.includes('/') ? '/' : dateStr.includes('.') ? '.' : '-';
-  
-  if (dateStr.match(dateRegex1)) {
-    const [day, month, year] = dateStr.split(delimiter).map((x: string) => parseInt(x, 10));
-    return new Date(year, month - 1, day);
-  } else if (dateStr.match(dateRegex2)) {
-    const [year, month, day] = dateStr.split(delimiter).map((x :string) => parseInt(x, 10));
-    return new Date(year, month - 1, day);
-  } else {
-    return null;
-  }
-}
-
-export function sortDates<T extends SortableObject> (
-  a: T,
-  b: T,
-  sortKey: keyof T,
-  sortOrder: 'asc' | 'desc'
-) : number {
-  const dateA = parseDate(a[sortKey]);
-  const dateB = parseDate(b[sortKey]);
-
-  if (dateA && dateB) {
-    if (dateA < dateB) return sortOrder === 'asc' ? -1 : 1;
-    if (dateA > dateB) return sortOrder === 'asc' ? 1 : -1;
-    return 0;
-  } else {
-    if (a[sortKey] < b[sortKey]) return sortOrder === 'asc' ? -1 : 1;
-    if (a[sortKey] > b[sortKey]) return sortOrder === 'asc' ? 1 : -1;
-    return 0;
-  }
-}
 
 export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "desc" | "noSort") {
   if (arrayA.length === 0 && arrayB.length === 0) {
@@ -59,116 +20,94 @@ export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "de
   return sortOrder === 'asc' ? comparisonResult : -comparisonResult;
 }
 
+function replaceSeparators(dateStr: string) {
+  return dateStr.replace(/[-.]/g, '/');
+}
+
 export function customSort<T extends SortableObject>(
   data: T[],
-  sortKey: keyof T | null,
+  sortKey: keyof T | undefined,
   sortOrder: "asc" | "desc" | "noSort",
-  sortUsaDate: boolean
+  dateFormatForSort: string
 ): T[] {
 
-  if (sortKey === null || sortOrder === 'noSort') {
+  function parseDate(dateString: string, format: string) {
+    let dateParts: string[], year: number, month: number, day: number;
+
+    if (format === 'YYYY/MM/DD') {
+      dateString = replaceSeparators(dateString);
+      dateParts = dateString.split('/');
+      year = parseInt(dateParts[0], 10);
+      month = parseInt(dateParts[1], 10) - 1;
+      day = parseInt(dateParts[2], 10);
+    } else if (format === 'DD/MM/YYYY') {
+      dateString = replaceSeparators(dateString);
+      dateParts = dateString.split('/');
+      year = parseInt(dateParts[2], 10);
+      month = parseInt(dateParts[1], 10) - 1;
+      day = parseInt(dateParts[0], 10);
+    } else if (format === 'MM/DD/YYYY') {
+      dateString = replaceSeparators(dateString);
+      dateParts = dateString.split('/');
+      year = parseInt(dateParts[2], 10);
+      month = parseInt(dateParts[0], 10) - 1;
+      day = parseInt(dateParts[1], 10);
+    } else {
+      return null;
+    }
+
+    return new Date(Date.UTC(year, month, day));
+  }
+
+  if (sortKey === undefined || sortOrder === 'noSort') {
     return data;
   }
 
-  return data.slice().sort((a: any, b: any) => {
+  return data.slice().sort((a: T, b: T) => {
     const valueA = a[sortKey];
     const valueB = b[sortKey];
     const typeA = typeof valueA;
     const typeB = typeof valueB;
 
-    if (sortUsaDate) {
-      const parseDateString = (dateString:any) => {
-        const [month, day, year] = dateString.split('/');
-        return new Date(year, month - 1, day);
-      };
+    if (typeA === 'string' && typeB === 'string' && dateFormatForSort !== 'none') {
+      const dateA = parseDate(valueA as string, dateFormatForSort);
+      const dateB = parseDate(valueB as string, dateFormatForSort);
 
-      if (typeA === 'string' && typeB === 'string')  {
-        const dateA = parseDateString(valueA);
-        const dateB = parseDateString(valueB);
-        return sortOrder === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
-       } else if (valueA instanceof Date && valueB instanceof Date) {
-    return sortOrder === 'asc'
-      ? valueA.getTime() - valueB.getTime()
-      : valueB.getTime() - valueA.getTime();
-    }
-  } else {
-    if (valueA instanceof Date && valueB instanceof Date) {
-      return sortOrder === 'asc' ? valueA.getTime() - valueB.getTime() : valueB.getTime() - valueA.getTime();
-    } else if (typeA === 'string' && typeB === 'string') {
-      if ((valueA as string).match(/^\d{2}([./-])\d{2}\1\d{4}$/)) {
-        return sortDates(a, b, sortKey, sortOrder);
-      } else {
-        return (
-          valueA
-            .toString()
-            .toLowerCase()
-            .localeCompare(valueB.toString().toLowerCase(), undefined, {
-              sensitivity: 'base',
-            }) * (sortOrder === 'asc' ? 1 : -1)
-        );
+      if (dateA && dateB) {
+        return sortOrder === 'asc'
+          ? dateA.getTime() - dateB.getTime()
+          : dateB.getTime() - dateA.getTime();
       }
-    } else if (typeA === 'number' && typeB === 'number') {
-      const numValueA = typeof valueA === 'number' ? valueA : 0;
-      const numValueB = typeof valueB === 'number' ? valueB : 0;
-      return sortOrder === 'asc' ? numValueA - numValueB : numValueB - numValueA;
-    } else if (typeof valueA === 'boolean' && typeof valueB === 'boolean') {
+    }
+    
+    if (typeA === 'string' && typeB === 'string') {
+      return valueA.toLowerCase().localeCompare(valueB.toLowerCase(), undefined, {
+        sensitivity: 'base',
+      }) * (sortOrder === 'asc' ? 1 : -1);
+    }
+
+    if (typeA === 'number' && typeB === 'number') {
+      return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
+    }
+
+    if (typeof valueA === 'boolean' && typeof valueB === 'boolean') {
       return sortOrder === 'asc'
         ? (valueA === valueB ? 0 : valueA ? 1 : -1)
         : (valueA === valueB ? 0 : valueA ? -1 : 1);
-    } else if (typeA === 'object' && typeB === 'object') {
+    }
+
+    if (typeA === 'object' && typeB === 'object') {
       const objectValueA = JSON.stringify(valueA);
       const objectValueB = JSON.stringify(valueB);
-      return (
-        objectValueA
-          .toLowerCase()
-          .localeCompare(objectValueB.toLowerCase(), undefined, {
-            sensitivity: 'base',
-          }) * (sortOrder === 'asc' ? 1 : -1)
-      );
-    } else if (Array.isArray(valueA) && Array.isArray(valueB)) {
-      return compareArrays(valueA, valueB, sortOrder);
-    } else {
-      return 0;
+      return objectValueA.toLowerCase().localeCompare(objectValueB.toLowerCase(), undefined, {
+        sensitivity: 'base',
+      }) * (sortOrder === 'asc' ? 1 : -1);
     }
-  }
+
+    if (Array.isArray(valueA) && Array.isArray(valueB)) {
+      return valueA.length - valueB.length;
+    }
+
+    return 0;
   });
-}
-
-export function hasPropertyDatePattern(data: any, property: string) {
-  const regex = /^\d{2}([./-])\d{2}\1\d{4}$/;
-  let hasPattern = false;
-  let isAmericanFormat = false;
-  let monthGreaterThan12 = false;
-  let dayGreaterThan12 = false;
-
-  for (const item of data) {
-    const value = item[property];
-    const match = typeof value === 'string' ? value.match(regex) : null;
-
-    if (match) {
-      hasPattern = true;
-      const originalMonth = parseInt(value.slice(0, 2), 10);
-      const originalDay = parseInt(value.slice(3, 5), 10);
-
-      if (originalMonth > 12) {
-        monthGreaterThan12 = true;
-      }
-
-      if (originalDay > 12) {
-        dayGreaterThan12 = true;
-      }
-
-      if (monthGreaterThan12 && dayGreaterThan12) {
-        // Ambiguous date format
-        hasPattern = false;
-        break;
-      }
-    }
-  }
-
-  if (hasPattern && !monthGreaterThan12 && dayGreaterThan12) {
-    isAmericanFormat = true;
-  }
-
-  return { hasPattern, isAmericanFormat };
 }

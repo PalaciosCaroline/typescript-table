@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import SearchDropdown from './SearchDropdown';
+import React, { useState, useEffect, useRef } from 'react';
+// import SearchDropdown from './SearchDropdown';
 import { FaSearch } from 'react-icons/fa';
-import { customSort, hasPropertyDatePattern } from '../utils/sortDatas';
+import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
 import Dropdown from './Dropdown';
 import ManageColumns from './ManageColumns';
-import SortButton from './SortButton';
+import {TableHeader} from './TableHeader';
+// import SortButton from './SortButton';
 
 interface Column {
   label: string;
   property: string;
+  dateFormat?: string;
 }
 
 export interface InputValues<T> {
@@ -34,7 +36,7 @@ interface Props<T> {
 }
 
 export default function Table<T>({ data, columns }: Props<T>) {
-  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);
   const defaultValueSelectedOption = 10;
@@ -43,24 +45,26 @@ export default function Table<T>({ data, columns }: Props<T>) {
   const [sortedData, setSortedData] = useState<object[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
-  const [sortUsaDate, setSortUsaDate] = useState<boolean>(false);
+  // const [sortUsaDate, setSortUsaDate] = useState<boolean>(false);
+  const [dateFormatForSort, setDateFormatForSort]= useState<string>('none');
   const initialInputValues: SearchByProp = {};
   columns.forEach(({ property }) => {
     initialInputValues[property] = '';
   });
   const [inputValues, setInputValues] = useState(initialInputValues);
 
+  //à vérifier (dateFormat possiblement undefined)
   useEffect(() => {
-    setSortedData(customSort(data, sortKey, sortOrder, sortUsaDate));
-  }, [data, sortKey, sortOrder]);
+    setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
+  }, [data, sortKey, sortOrder, dateFormatForSort]);
 
-  const handleSort = (property: string, usaDate: boolean) => {
+  const handleSort = (property: string, dateFormat:string) => {
     if (sortKey === property) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc');
     } else {
       setSortKey(property);
       setSortOrder('asc');
-      setSortUsaDate(usaDate);
+      setDateFormatForSort(dateFormat);
     }
   };
 
@@ -147,31 +151,14 @@ export default function Table<T>({ data, columns }: Props<T>) {
     setColumnsManaged(updatedColumns);
   };
 
-  function initializeColumnsManaged(columns: { label: string; property: string; }[], data: DataItem<T | undefined>[]) {
-    return columns.map(({ label, property }) => {
-      const { hasPattern, isAmericanFormat } = hasPropertyDatePattern(data, property);
-      const usaDate = hasPattern && isAmericanFormat;
-  
-      return {
-        label,
-        property,
-        isVisible: true,
-        usaDate,
-      };
-    });
-  }
-
   const [columnsManaged, setColumnsManaged] = useState(() => {
-    return initializeColumnsManaged(columns, data);
+    return columns.map(({ label, property, dateFormat }) => ({
+      label,
+      property,
+      isVisible: true,
+      dateFormat: dateFormat !== undefined ? dateFormat : 'none',
+    }));
   });
-  
-  // const [columnsManaged, setColumnsManaged] = useState(() => {
-  //   return columns.map(({ label, property }) => ({
-  //     label,
-  //     property,
-  //     isVisible: true,
-  //   }));
-  // });
 
   const start = (page - 1) * perPage;
   const end = start + perPage;
@@ -184,9 +171,26 @@ export default function Table<T>({ data, columns }: Props<T>) {
     return value;
   }
 
+  const tableRef = useRef<HTMLDivElement>(null);
+  // useEffect(() => {
+  //   function updateTableWidth() {
+  //     if (tableRef.current) {
+  //       const tableWidth = tableRef.current.clientWidth;
+  //       const windowWidth = window.innerWidth;
+  
+  //       if (tableWidth < windowWidth) {
+  //         setTableWidth(`${tableWidth}px`);
+  //       } else {
+  //         setTableWidth("100%");
+  //       }
+  //     }
+  //   }
+  
+  
+
     return (
     <div className='box_table'>
-
+      <div className='box_tableAndFeatures'>
       <div className='box_searchReset'>
           <div className='box_searchGlobal'>
               <input type="text" value={searchTerm} onChange={handleSearch} placeholder="Search..." id='searchGlobal'/>
@@ -204,10 +208,10 @@ export default function Table<T>({ data, columns }: Props<T>) {
         />
       </div>
     
-      <div className='box_tableManaged scrollerTable'>
+      <div className='box_tableManaged scrollerTable' ref={tableRef} style={{ maxWidth: '100%' }}>
         <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
 
-      <table className='tableComponent'>
+      <table className='tableComponent' >
         <colgroup>
             {columnsManaged.map(({ property, isVisible}) => {
               if (isVisible) {
@@ -215,26 +219,24 @@ export default function Table<T>({ data, columns }: Props<T>) {
         </colgroup>
           <thead>
             <tr role="row">
-              {columnsManaged.map(({ label, property, isVisible, usaDate }) => {
-                if (isVisible) {
-                  const isSortKey = sortKey === property;
-                  return (
-                    <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor`}>
-                      <div className='box_labelAndBtnsColumn'>
-                        <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
-                        <div className='box_btnsColumn'>
-                          <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} usaDate={usaDate}/>
-                          <SearchDropdown
-                            inputValues={inputValues}
-                            property={property}
-                            handleSearchByProperty={handleSearchByProperty}
-                            handleReset={handleReset}
-                          />
-                        </div>
-                      </div>
-                    </th>
-                  );
-                }
+              {columnsManaged.map(({ label, property, isVisible, dateFormat }) => {
+                const isSortKey = sortKey === property;
+
+                return (
+                  <TableHeader
+                    key={property}
+                    label={label}
+                    property={property}
+                    isVisible={isVisible}
+                    dateFormat={dateFormat}
+                    isSortKey={isSortKey}
+                    sortOrder={sortOrder}
+                    handleSort={handleSort}
+                    inputValues={inputValues}
+                    handleSearchByProperty={handleSearchByProperty}
+                    handleReset={handleReset}
+                  />
+                );
               })}
             </tr>
           </thead>
@@ -260,8 +262,29 @@ export default function Table<T>({ data, columns }: Props<T>) {
       </div>
       <div className='box_entriesAndPage'>
         <div className='showingEntries' >
-          {filteredData.length > 0 ? `${page === 1 ? 'Showing 1' : `Showing ${(page - 1) * perPage + 1}`} to ${Math.min(page * perPage, filteredData.length)} of ${filteredData.length} entries` : ''}
-          {(filteredData.length <= 0) ? `0 result of ${data.length} entries filtered` : ''}
+          {/* {filteredData.length > 0 ? `${page === 1 ? '1 -' : `${(page - 1) * perPage + 1}`} - ${Math.min(page * perPage, filteredData.length)} of ${filteredData.length} entries` : ''}
+          {(filteredData.length <= 0) ? `0 result of ${data.length} entries filtered` : ''} */}
+          {
+  filteredData.length > 0
+    ? `${
+        page === 1 ? "1" : `${(page - 1) * perPage + 1}`
+      }${
+        page * perPage < filteredData.length || (page - 1) * perPage + 1 === filteredData.length
+          ? filteredData.length === (page - 1) * perPage + 1
+            ? ""
+            : ` - ${Math.min(page * perPage, filteredData.length)}`
+          : ""
+      } of ${filteredData.length} ${
+        filteredData.length === 1 ? "entry" : "entries"
+      }`
+    : ""
+}
+{
+  filteredData.length <= 0
+    ? `0 result of ${data.length} entries`
+    : ""
+}
+
         </div>
       
         <Pagination 
@@ -269,6 +292,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
           totalPages={totalPages} 
           handlePageChange={handlePageChange} 
           />
+      </div>
       </div>
     </div>
   );

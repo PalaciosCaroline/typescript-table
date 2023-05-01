@@ -3,6 +3,7 @@ import './../styles/table.css';
 interface Column {
     label: string;
     property: string;
+    dateFormat?: string;
 }
 export interface InputValues<T> {
     [key: string]: T | undefined;

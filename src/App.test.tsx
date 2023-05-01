@@ -125,8 +125,8 @@ describe('Table', () => {
     fireEvent.click(dateOfBirthHeader);
   
     const sortedData = datasExample.slice().sort((a, b) => {
-      const datePartsA = a.dateOfBirth.split('/').map(Number);
-      const datePartsB = b.dateOfBirth.split('/').map(Number);
+      const datePartsA = a.dateOfBirth?.split('/').map(Number);
+      const datePartsB = b.dateOfBirth?.split('/').map(Number);
       const dateA = new Date(datePartsA[2], datePartsA[1] - 1, datePartsA[0]);
       const dateB = new Date(datePartsB[2], datePartsB[1] - 1, datePartsB[0]);
       return dateA.valueOf() - dateB.valueOf();
@@ -233,74 +233,74 @@ describe('Table', () => {
   });
 });
 
-describe('sortDates', () => {
-  const data = [
-    { id: 1, date: '25/04/2023' },
-    { id: 2, date: '30/04/2023' },
-    { id: 3, date: '15/04/2023' },
-  ];
+// describe('sortDates', () => {
+//   const data = [
+//     { id: 1, date: '25/04/2023' },
+//     { id: 2, date: '30/04/2023' },
+//     { id: 3, date: '15/04/2023' },
+//   ];
 
-  test('sorts the data array by date in ascending order', () => {
-    const sortedData = data.sort((a, b) => sortDates(a, b, 'date', 'asc'));
-    expect(sortedData).toEqual([
-      { id: 3, date: '15/04/2023' },
-      { id: 1, date: '25/04/2023' },
-      { id: 2, date: '30/04/2023' },
-    ]);
-  });
+//   test('sorts the data array by date in ascending order', () => {
+//     const sortedData = data.sort((a, b) => sortDates(a, b, 'date', 'asc'));
+//     expect(sortedData).toEqual([
+//       { id: 3, date: '15/04/2023' },
+//       { id: 1, date: '25/04/2023' },
+//       { id: 2, date: '30/04/2023' },
+//     ]);
+//   });
 
-  test('sorts the data array by date in descending order', () => {
-    const sortedData = data.sort((a, b) => sortDates(a, b, 'date', 'desc'));
-    expect(sortedData).toEqual([
-      { id: 2, date: '30/04/2023' },
-      { id: 1, date: '25/04/2023' },
-      { id: 3, date: '15/04/2023' },
-    ]);
-  });
+//   test('sorts the data array by date in descending order', () => {
+//     const sortedData = data.sort((a, b) => sortDates(a, b, 'date', 'desc'));
+//     expect(sortedData).toEqual([
+//       { id: 2, date: '30/04/2023' },
+//       { id: 1, date: '25/04/2023' },
+//       { id: 3, date: '15/04/2023' },
+//     ]);
+//   });
 
-  test('returns 0 when dates are equal', () => {
-    const equalData = [
-      { id: 1, date: '25/04/2023' },
-      { id: 2, date: '25/04/2023' },
-    ];
+//   test('returns 0 when dates are equal', () => {
+//     const equalData = [
+//       { id: 1, date: '25/04/2023' },
+//       { id: 2, date: '25/04/2023' },
+//     ];
 
-    const sortedData = equalData.sort((a, b) => sortDates(a, b, 'date', 'asc'));
-    expect(sortedData).toEqual([
-      { id: 1, date: '25/04/2023' },
-      { id: 2, date: '25/04/2023' },
-    ]);
-  });
+//     const sortedData = equalData.sort((a, b) => sortDates(a, b, 'date', 'asc'));
+//     expect(sortedData).toEqual([
+//       { id: 1, date: '25/04/2023' },
+//       { id: 2, date: '25/04/2023' },
+//     ]);
+//   });
 
-  test('sorts non-date strings in ascending order', () => {
-    const nonDateData = [
-      { id: 1, name: 'Alice' },
-      { id: 2, name: 'Bob' },
-      { id: 3, name: 'Charlie' },
-    ];
+//   test('sorts non-date strings in ascending order', () => {
+//     const nonDateData = [
+//       { id: 1, name: 'Alice' },
+//       { id: 2, name: 'Bob' },
+//       { id: 3, name: 'Charlie' },
+//     ];
 
-    const sortedData = nonDateData.sort((a, b) => sortDates(a, b, 'name', 'asc'));
-    expect(sortedData).toEqual([
-      { id: 1, name: 'Alice' },
-      { id: 2, name: 'Bob' },
-      { id: 3, name: 'Charlie' },
-    ]);
-  });
+//     const sortedData = nonDateData.sort((a, b) => sortDates(a, b, 'name', 'asc'));
+//     expect(sortedData).toEqual([
+//       { id: 1, name: 'Alice' },
+//       { id: 2, name: 'Bob' },
+//       { id: 3, name: 'Charlie' },
+//     ]);
+//   });
 
-  test('sorts non-date strings in descending order', () => {
-    const nonDateData = [
-      { id: 1, name: 'Alice' },
-      { id: 2, name: 'Bob' },
-      { id: 3, name: 'Charlie' },
-    ];
+//   test('sorts non-date strings in descending order', () => {
+//     const nonDateData = [
+//       { id: 1, name: 'Alice' },
+//       { id: 2, name: 'Bob' },
+//       { id: 3, name: 'Charlie' },
+//     ];
 
-    const sortedData = nonDateData.sort((a, b) => sortDates(a, b, 'name', 'desc'));
-    expect(sortedData).toEqual([
-      { id: 3, name: 'Charlie' },
-      { id: 2, name: 'Bob' },
-      { id: 1, name: 'Alice' },
-    ]);
-  });
-});
+//     const sortedData = nonDateData.sort((a, b) => sortDates(a, b, 'name', 'desc'));
+//     expect(sortedData).toEqual([
+//       { id: 3, name: 'Charlie' },
+//       { id: 2, name: 'Bob' },
+//       { id: 1, name: 'Alice' },
+//     ]);
+//   });
+// });
 
 describe('customSort', () => {
   test('sorts numbers in ascending order', () => {
@@ -373,43 +373,42 @@ describe('customSort', () => {
 });
 
 
+// describe('test function parseDate', () => {
+//   test('should correctly parse date in format dd/mm/yyyy', () => {
+//     const dateStr = '25/04/2023';
+//     const expectedResult = new Date(2023, 3, 25);
+//     expect(parseDate(dateStr)).toEqual(expectedResult);
+//   });
 
-describe('test function parseDate', () => {
-  test('should correctly parse date in format dd/mm/yyyy', () => {
-    const dateStr = '25/04/2023';
-    const expectedResult = new Date(2023, 3, 25);
-    expect(parseDate(dateStr)).toEqual(expectedResult);
-  });
+//   test('should correctly parse date in format yyyy-mm-dd', () => {
+//     const dateStr = '2023-04-25';
+//     const expectedResult = new Date(2023, 3, 25);
+//     expect(parseDate(dateStr)).toEqual(expectedResult);
+//   });
 
-  test('should correctly parse date in format yyyy-mm-dd', () => {
-    const dateStr = '2023-04-25';
-    const expectedResult = new Date(2023, 3, 25);
-    expect(parseDate(dateStr)).toEqual(expectedResult);
-  });
+//   test('should return null for invalid date string', () => {
+//     const dateStr = 'invalid_date';
+//     expect(parseDate(dateStr)).toBeNull();
+//   });
+// });
 
-  test('should return null for invalid date string', () => {
-    const dateStr = 'invalid_date';
-    expect(parseDate(dateStr)).toBeNull();
-  });
-});
+// describe('test function customsort', () => {
+//   test('should correctly sort dates in ascending order', () => {
+//     const a = { date: '25/04/2023' };
+//     const b = { date: '26/04/2023' };
+//     const sortKey = 'date';
+//     const sortOrder = 'asc';
+//     expect(sortDates(a, b, sortKey, sortOrder)).toBe(-1);
+//   });
 
-describe('test function sortDates', () => {
-  test('should correctly sort dates in ascending order', () => {
-    const a = { date: '25/04/2023' };
-    const b = { date: '26/04/2023' };
-    const sortKey = 'date';
-    const sortOrder = 'asc';
-    expect(sortDates(a, b, sortKey, sortOrder)).toBe(-1);
-  });
-
-  test('should correctly sort dates in descending order', () => {
-    const a = { date: '25/04/2023' };
-    const b = { date: '26/04/2023' };
-    const sortKey = 'date';
-    const sortOrder = 'desc';
-    expect(sortDates(a, b, sortKey, sortOrder)).toBe(1);
-  });
-});
+//   test('should correctly sort dates in descending order', () => {
+//     const a = { date: '25/04/2023' };
+//     const b = { date: '26/04/2023' };
+//     const sortKey = 'date';
+//     const sortOrder = 'desc';
+//     expect(sortDates(a, b, sortKey, sortOrder)).toBe(1);
+//   });
+// });
 
 describe('test function customSort', () => {
   const data = [
@@ -450,31 +449,6 @@ describe('test function customSort', () => {
   });
 });
 
-describe('sortDates', () => {
-  test('should correctly sort non-date values in ascending order', () => {
-    const a = { value: 'apple' };
-    const b = { value: 'banana' };
-    const sortKey = 'value';
-    const sortOrder = 'asc';
-    expect(sortDates(a, b, sortKey, sortOrder)).toBe(-1);
-  });
-
-  test('should correctly sort non-date values in descending order', () => {
-    const a = { value: 'apple' };
-    const b = { value: 'banana' };
-    const sortKey = 'value';
-    const sortOrder = 'desc';
-    expect(sortDates(a, b, sortKey, sortOrder)).toBe(1);
-  });
-
-  test('should return 0 when non-date values are equal', () => {
-    const a = { value: 'apple' };
-    const b = { value: 'apple' };
-    const sortKey = 'value';
-    const sortOrder = 'asc';
-    expect(sortDates(a, b, sortKey, sortOrder)).toBe(0);
-  });
-});
 
 describe('compareArrays', () => {
   test('should return 0 when both arrays are empty', () => {

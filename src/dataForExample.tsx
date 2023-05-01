@@ -1,33 +1,35 @@
 interface Column {
   label: string;
   property: string;
+  dateFormat?: string;
 }
 
-const columnsExample: Column[] = [
+ const columnsExample: Column[] = [
     { label: 'First Name', property: 'firstName' },
     { label: 'Last Name', property: 'lastName' },
-    { label: 'Start Date', property: 'startDate' },
+    { label: 'Start Date', property: 'startDate' , dateFormat: 'DD/MM/YYYY' },
     { label: 'Department', property: 'department' },
-    { label: 'Date of Birth', property: 'dateOfBirth' },
+    { label: 'Date of Birth', property: 'dateOfBirth',dateFormat: 'DD/MM/YYYY' },
     { label: 'Street', property: 'street' },
     { label: 'City', property: 'city' },
     { label: 'State', property: 'state' },
     { label: 'Zip Code', property: 'zipCode' },
-  ];
+];
 
 
   interface Data {
-    [key: string]: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    startDate: string ;
-    department: string;
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
+    [key: string]: string | undefined;
+    firstName: string |undefined;
+    lastName: string |undefined;
+    dateOfBirth: string | undefined;
+    startDate: string | undefined;
+    department: string | undefined;
+    street: string | undefined;
+    city: string | undefined;
+    state: string | undefined;
+    zipCode: string | undefined;
   }
+  
   
   const datasExample:  Data[] = [
     {

@@ -110,7 +110,7 @@ const datasExample = [
 ]
 ```
 
-### Date format for columns (data as strings containing dates)
+## Date format for columns (data as strings containing dates)
 
 When you provide data as strings containing dates, you need to specify the date format to use for each column containing a date in string format is essential to optimize the sorting functionality. You can do this by adding the dateFormat attribute to the corresponding column definition.
 
@@ -134,39 +134,37 @@ Here's how to specify the date format for a column:
   property: 'dateOfBirth',
   dateFormat: 'DD/MM/YYYY' // Utilisez cette valeur pour les formats 'DD/MM/YYYY', 'DD-MM-YYYY' ou 'DD.MM.YYYY'
 }
+```
 
 By adding the dateFormat attribute to the column definition, the Table component will know how to correctly process the dates provided as strings.
 
-## Customize the component's style
+## Customize the style'component
+
 To customize the style of the component, you can increase the specificity of your CSS rules. This means that you can target the component more precisely by adding more specific selectors to your CSS rules.
 
 For example, to change the background color of the th of the table, you can use the following CSS rule (with for example .box_table):
 change for example:
 
-<pre>
+
 ```css
 .thColor{
   border-bottom: 1px solid #1b1818;
   background-color: #b1c46c;
 }
 ```
-</pre>
 
 to
 
-<pre>
 ```css
 .box_table .thColor{
   border-bottom: 1px solid #1b1818;
   background-color: blue;
 }
 ```
-</pre>
 
 or change the background-color of reset all search button:
 change for example
 
-<pre>
 ```css
 .btn_Reset{
   background-color: #677e11;
@@ -175,11 +173,9 @@ change for example
     background-color: #7e9b16;
 }
 ```
-</pre>
 
 to:
 
-<pre>
 ```css
 .box_table .btn_Reset{
   background-color: #86c1e6;
@@ -188,7 +184,6 @@ to:
     background-color: #1e92db;
 }
 ```
-</pre>
 
 or if you want change the header of table :
 like this 

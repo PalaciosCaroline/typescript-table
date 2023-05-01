@@ -218,7 +218,7 @@ add in your css :
 .box_table .btnSort{
   display:none;
 }
-```css
+```
 
 -Remove search per column:
 ```css

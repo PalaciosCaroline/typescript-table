@@ -1,6 +1,6 @@
 # typescript-table: A package for easily importing a table to display your data .
 
-The Table React component is built with TypeScript and supports various custom data types for easy and flexible usage. It is 100% customizable and accessible.
+The Table React component is built with TypeScript and supports various custom data types for easy and flexible usage. It is 100% customizable and accessible, and responsive.
 
 ![React](https://img.shields.io/badge/React-v18.2.0-61DAFB?logo=react)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript)
@@ -10,9 +10,18 @@ The Table React component is built with TypeScript and supports various custom d
 ![Responsive](https://img.shields.io/badge/Responsive-Yes-c85997?logo=responsive)
 ![Accessible](https://img.shields.io/badge/Accessible-Yes-677e11?logo=accessible)
 
-This is a React component that displays a table with data. It also allows the user to sort, to filter (by column and general), to choice number of datas per page, and paging, choice order of columns and change their visibility. The component has several state variables that manage its behavior.
-
+This is a React component that displays a table with data. The component has several state variables that manage its behavior.
 The Table component receives two props: data, an array of objects with the data to display, and columns, an array of objects that define the columns of the table.
+
+# Features
+
+  - Sorting
+  - filter (global and column-specific)
+  - Pagination
+  - columns : visibility and order
+  - Customizable
+  - Accessible (focus, tabulation and aria-label)
+  - Responsive (via x-scroll/flex)
 
 ## Install the package 
 with npm:

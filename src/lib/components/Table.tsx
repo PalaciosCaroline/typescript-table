@@ -177,7 +177,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
       );
     } else if (typeof value === 'object' && value !== null) {
       return (
-        <ul className='ul_TableComponent'>
+        <ul className={`ul_TableComponent ul_TableComponent_${depth}`}>
           {Object.entries(value).map(([key, item], index) => (
             <li key={index} className={`liOjectData liOjectData_${depth}`}>
               {key}: {formatNestedDate(item, depth + 1)}
@@ -248,11 +248,11 @@ export default function Table<T>({ data, columns }: Props<T>) {
 
           <tbody>
             {currentData.map((item: DataItem<T>, index) => (
-              <tr key={index}  role="row">
+              <tr key={index}  role="row" className={`tr_${index}`}>
               {columnsManaged.map(({ property, isVisible }) => {
                 if (isVisible) {
                   return (
-                    <td key={`cell-${index}-${property}`} role="cell" className='table-cell'>
+                    <td key={`cell-${index}-${property}`} role="cell" className={`table-cell table-cell_${property}_${index}`}>
                       {formatDate(item[property])}
                     </td>
                   );
@@ -267,33 +267,18 @@ export default function Table<T>({ data, columns }: Props<T>) {
       </div>
       <div className='box_entriesAndPage'>
         <div className='showingEntries' >
-          { filteredData.length > 0
-            ? `${
-                page === 1 ? "1" : `${(page - 1) * perPage + 1}`
-              }${
-                page * perPage < filteredData.length || (page - 1) * perPage + 1 === filteredData.length
-                  ? filteredData.length === (page - 1) * perPage + 1
-                    ? ""
-                    : ` - ${Math.min(page * perPage, filteredData.length)}`
-                  : ""
-              } of ${filteredData.length} ${
-                filteredData.length === 1 ? "entry" : "entries"
-              }`
-            : ""
+          {filteredData.length <= 0
+            ? `0 results of ${data.length} entries`
+            : filteredData.length === 1
+            ? `1 entry` 
+            : `${(page - 1) * perPage + 1} - ${Math.min(page * perPage, filteredData.length)} of ${filteredData.length} entries`
           }
-          {
-          filteredData.length <= 0
-            ? `0 result of ${data.length} entries`
-            : ""
-          }
-
         </div>
-        
-          <Pagination 
-            page={page} 
-            totalPages={totalPages} 
-            handlePageChange={handlePageChange} 
-          />
+        <Pagination 
+          page={page} 
+          totalPages={totalPages} 
+          handlePageChange={handlePageChange} 
+        />
         </div>
       </div>
     </div>

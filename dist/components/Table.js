@@ -142,7 +142,7 @@ export default function Table(_a) {
             return (_jsx("ul", __assign({ className: 'ul_TableComponent' }, { children: value.map(function (item, index) { return (_jsx("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: formatNestedDate(item, depth + 1) }), index)); }) })));
         }
         else if (typeof value === 'object' && value !== null) {
-            return (_jsx("ul", __assign({ className: 'ul_TableComponent' }, { children: Object.entries(value).map(function (_a, index) {
+            return (_jsx("ul", __assign({ className: "ul_TableComponent ul_TableComponent_".concat(depth) }, { children: Object.entries(value).map(function (_a, index) {
                     var key = _a[0], item = _a[1];
                     return (_jsxs("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: [key, ": ", formatNestedDate(item, depth + 1)] }), index));
                 }) })));
@@ -161,19 +161,15 @@ export default function Table(_a) {
                                             var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat;
                                             var isSortKey = sortKey === property;
                                             return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleSort: handleSort, inputValues: inputValues, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset }, property));
-                                        }) })) }), _jsx("tbody", { children: currentData.map(function (item, index) { return (_jsx("tr", __assign({ role: "row" }, { children: columnsManaged.map(function (_a) {
+                                        }) })) }), _jsx("tbody", { children: currentData.map(function (item, index) { return (_jsx("tr", __assign({ role: "row", className: "tr_".concat(index) }, { children: columnsManaged.map(function (_a) {
                                             var property = _a.property, isVisible = _a.isVisible;
                                             if (isVisible) {
-                                                return (_jsx("td", __assign({ role: "cell", className: 'table-cell' }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property)));
+                                                return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index) }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property)));
                                             }
                                             return null;
-                                        }) }), index)); }) })] }))] })), _jsxs("div", __assign({ className: 'box_entriesAndPage' }, { children: [_jsxs("div", __assign({ className: 'showingEntries' }, { children: [filteredData.length > 0
-                                    ? "".concat(page === 1 ? "1" : "".concat((page - 1) * perPage + 1)).concat(page * perPage < filteredData.length || (page - 1) * perPage + 1 === filteredData.length
-                                        ? filteredData.length === (page - 1) * perPage + 1
-                                            ? ""
-                                            : " - ".concat(Math.min(page * perPage, filteredData.length))
-                                        : "", " of ").concat(filteredData.length, " ").concat(filteredData.length === 1 ? "entry" : "entries")
-                                    : "", filteredData.length <= 0
-                                    ? "0 result of ".concat(data.length, " entries")
-                                    : ""] })), _jsx(Pagination, { page: page, totalPages: totalPages, handlePageChange: handlePageChange })] }))] })) })));
+                                        }) }), index)); }) })] }))] })), _jsxs("div", __assign({ className: 'box_entriesAndPage' }, { children: [_jsx("div", __assign({ className: 'showingEntries' }, { children: filteredData.length <= 0
+                                ? "0 results of ".concat(data.length, " entries")
+                                : filteredData.length === 1
+                                    ? "1 entry"
+                                    : "".concat((page - 1) * perPage + 1, " - ").concat(Math.min(page * perPage, filteredData.length), " of ").concat(filteredData.length, " entries") })), _jsx(Pagination, { page: page, totalPages: totalPages, handlePageChange: handlePageChange })] }))] })) })));
 }

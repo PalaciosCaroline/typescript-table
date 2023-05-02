@@ -4,6 +4,7 @@ interface Column {
   dateFormat?: string;
 }
 
+ 
  const columnsExample: Column[] = [
     { label: 'First Name', property: 'firstName' },
     { label: 'Last Name', property: 'lastName' },
@@ -15,6 +16,7 @@ interface Column {
     { label: 'State', property: 'state' },
     { label: 'Zip Code', property: 'zipCode' },
 ];
+
 
 
   interface Data {
@@ -31,6 +33,7 @@ interface Column {
   }
   
   
+ 
   const datasExample:  Data[] = [
     {
     firstName: 'John',

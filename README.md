@@ -24,6 +24,7 @@ or yarn:
     `yarn add table-component-library`
 
 ## Import in your application
+
   `import {Table} from 'typescript-table'`
 
 The Table component is built with TypeScript and supports various custom data types for easy and flexible usage within the data={yourData} parameter. You can use different data types, like strings, numbers, dates, and booleans, together in the data you pass to the component. To ensure type safety and compatibility, define the structure of your data type in your TypeScript code.
@@ -31,6 +32,7 @@ The Table component is built with TypeScript and supports various custom data ty
 The following data types can be used together for data={yourData}:
 
 Use the component like this:
+
   `<Table data={yourData} columns={yourDataColumns} />`
 
 Customize your component and tailor it to your specific needs by providing the appropriate data types for data={yourData}.

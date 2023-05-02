@@ -30,15 +30,21 @@ The Table component is built with TypeScript and supports various custom data ty
 
 The following data types can be used together for data={yourData}:
 
-Strings: to represent text or alphanumeric characters. The component automatically handles sorting for various date types displayed as strings.
-Numbers: to represent numeric values, including integers and floating-point numbers.
-Dates: to represent dates and times, using the JavaScript Date object.
-Booleans: to represent logical true or false values.
-
 Use the component like this:
   `<Table data={yourData} columns={yourDataColumns} />`
 
 Customize your component and tailor it to your specific needs by providing the appropriate data types for data={yourData}.
+
+## All data types can be displayed in the table:
+
+The table displays all different types of data:
+
+String: for dates given as strings, sorting is done based on the dateFormat property passed in the columns prop to the relevant column.
+Number
+Boolean
+Date: displayed in the table as value.toLocaleDateString()
+Object: processed recursively up to a depth of 4
+Array: processed recursively up to a depth of 4
 
 ## Exemple of use
 ****************************************************************************************************************
@@ -48,6 +54,8 @@ Customize your component and tailor it to your specific needs by providing the a
 ```
 
 ![table](./imgTable.png "example of table")
+
+![example of datas displayed](./typeData.png "example of table")
 
 ****************************************************************************************************************
 
@@ -132,7 +140,7 @@ Here's how to specify the date format for a column:
 {
   label: 'Date of Birth',	
   property: 'dateOfBirth',
-  dateFormat: 'DD/MM/YYYY' // Utilisez cette valeur pour les formats 'DD/MM/YYYY', 'DD-MM-YYYY' ou 'DD.MM.YYYY'
+  dateFormat: 'DD/MM/YYYY' // Use this value for formats 'DD/MM/YYYY', 'DD-MM-YYYY' or 'DD.MM.YYYY'
 }
 ```
 

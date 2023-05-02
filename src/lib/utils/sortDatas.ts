@@ -1,7 +1,6 @@
 
 export type SortableObject = { [key: string]: any };
 
-
 export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "desc" | "noSort") {
   if (arrayA.length === 0 && arrayB.length === 0) {
     return 0;

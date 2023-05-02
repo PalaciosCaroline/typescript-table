@@ -23,7 +23,7 @@ var SearchByProperty = function (_a) {
         var value = event.target.value;
         handleSearchByProperty(property, value);
     };
-    return (_jsxs("div", __assign({ style: { position: 'relative', display: 'flex', alignItems: 'center' } }, { children: [_jsx("input", { type: "text", value: (_b = inputValues[property]) !== null && _b !== void 0 ? _b : inputValues[property], onChange: handleInputChange, placeholder: "Search...", name: property, className: "inputSearchByProperty", "data-testid": "btnSearch-".concat(property) }), _jsx("button", __assign({ type: "button", className: "btnSearchByPropertyReset", onClick: handleResetClose, "aria-label": "Clear and close the search by ".concat(property), style: {
+    return (_jsxs("div", __assign({ className: 'divSearchByProperty' }, { children: [_jsx("input", { type: "text", value: (_b = inputValues[property]) !== null && _b !== void 0 ? _b : inputValues[property], onChange: handleInputChange, placeholder: "Search...", name: property, className: "inputSearchByProperty", "data-testid": "btnSearch-".concat(property) }), _jsx("button", __assign({ type: "button", className: "btnSearchByPropertyReset", onClick: handleResetClose, "aria-label": "Clear and close the search by ".concat(property), style: {
                     position: 'absolute',
                     top: 0,
                     right: 0,

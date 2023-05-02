@@ -30,7 +30,7 @@ const SearchByProperty = <U extends string | number | readonly string[] | undefi
   };
 
   return (
-    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+    <div className='divSearchByProperty'>
       <input
         type="text"
         value={inputValues[property]?? inputValues[property]}

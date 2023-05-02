@@ -1,4 +1,3 @@
-declare const filterData: (data: Array<object>, searchTerm: string, searchTerms: {
-    [key: string]: string;
-}) => object[];
+import { DataItem } from './../components/Table';
+declare const filterData: <T>(data: DataItem<T>[], searchTerm: string, searchTerms: DataItem<string>) => DataItem<T>[];
 export default filterData;

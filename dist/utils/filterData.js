@@ -9,10 +9,8 @@ var filterData = function (data, searchTerm, searchTerms) {
     }
     filteredData = filteredData.filter(function (item) {
         return Object.keys(searchTerms).every(function (property) {
-            return item[property] && item[property]
-                .toString()
-                .toLowerCase()
-                .includes(searchTerms[property].toLowerCase());
+            var _a, _b, _c;
+            return item[property] && ((_a = item[property]) === null || _a === void 0 ? void 0 : _a.toString().toLowerCase().includes((_c = (_b = searchTerms[property]) === null || _b === void 0 ? void 0 : _b.toLowerCase()) !== null && _c !== void 0 ? _c : ''));
         });
     });
     return filteredData;

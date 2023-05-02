@@ -131,11 +131,27 @@ export default function Table(_a) {
     var start = (page - 1) * perPage;
     var end = start + perPage;
     var currentData = filteredData.slice(start, end);
-    function formatDate(value) {
+    function formatNestedDate(value, depth) {
+        if (depth === void 0) { depth = 0; }
+        if (depth >= 4) {
+            return _jsx("span", { children: "..." });
+        }
         if (value instanceof Date) {
             return value.toLocaleDateString();
         }
+        else if (Array.isArray(value)) {
+            return (_jsx("ul", __assign({ className: 'ul_TableComponent' }, { children: value.map(function (item, index) { return (_jsx("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: formatNestedDate(item, depth + 1) }), index)); }) })));
+        }
+        else if (typeof value === 'object' && value !== null) {
+            return (_jsx("ul", __assign({ className: 'ul_TableComponent' }, { children: Object.entries(value).map(function (_a, index) {
+                    var key = _a[0], item = _a[1];
+                    return (_jsxs("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: [key, ": ", formatNestedDate(item, depth + 1)] }), index));
+                }) })));
+        }
         return value;
+    }
+    function formatDate(value) {
+        return formatNestedDate(value);
     }
     return (_jsx("div", __assign({ className: 'box_table' }, { children: _jsxs("div", __assign({ className: 'box_tableAndFeatures' }, { children: [_jsxs("div", __assign({ className: 'box_searchReset' }, { children: [_jsxs("div", __assign({ className: 'box_searchGlobal' }, { children: [_jsx("input", { type: "text", value: searchTerm, onChange: handleSearch, placeholder: "Search...", id: 'searchGlobal' }), _jsx("label", __assign({ htmlFor: "searchGlobal" }, { children: _jsx(FaSearch, {}) }))] })), _jsx("button", __assign({ onClick: handleResetSearch, style: { marginRight: '20px' }, className: 'btn_Reset' }, { children: "Reset all search" }))] })), _jsxs("div", __assign({ className: 'box_ChoiceEntries' }, { children: [_jsx("span", { children: "Rows per page:" }), _jsx(Dropdown, { options: ['All', '5', '10', '25', '50', '100'], onOptionClick: function (option) { return handlePerPageChange(option); }, defaultValueSelectedOption: defaultValueSelectedOption.toString() })] })), _jsxs("div", __assign({ className: 'box_tableManaged scrollerTable' }, { children: [_jsx(ManageColumns, { columns: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns }), _jsxs("table", __assign({ className: 'tableComponent' }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
                                         var property = _a.property, isVisible = _a.isVisible;
@@ -149,7 +165,7 @@ export default function Table(_a) {
                                         }) })) }), _jsx("tbody", { children: currentData.map(function (item, index) { return (_jsx("tr", __assign({ role: "row" }, { children: columnsManaged.map(function (_a) {
                                             var property = _a.property, isVisible = _a.isVisible;
                                             if (isVisible) {
-                                                return (_jsx("td", __assign({ role: "cell" }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property)));
+                                                return (_jsx("td", __assign({ role: "cell", className: 'table-cell' }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property)));
                                             }
                                             return null;
                                         }) }), index)); }) })] }))] })), _jsxs("div", __assign({ className: 'box_entriesAndPage' }, { children: [_jsxs("div", __assign({ className: 'showingEntries' }, { children: [filteredData.length > 0

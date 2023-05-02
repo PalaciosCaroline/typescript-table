@@ -8,7 +8,7 @@ interface Column {
 export interface InputValues<T> {
     [key: string]: T | undefined;
 }
-interface DataItem<T> {
+export interface DataItem<T> {
     [key: string]: T | undefined;
 }
 interface Props<T> {

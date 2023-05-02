@@ -145,78 +145,7 @@ tableComponent button > svg {
   vertical-align: center;
 }
 
-.boxSearchPropertyContent{
-  position: absolute;
-  top: -50px;
-  width: 100%;
-  left: -1px;
-  background: #677e11;
-  padding: 10px;
-  z-index: 50;
-  border:none;
-  box-sizing: border-box;
-}
-
-.box_searchGlobal input,.inputSearchByProperty{
-  background: #fbfbfb;
-  border: none;
-  font-size: 14px;
-  border-radius: 50px;
-  box-shadow: inset 6px 6px 6px #d1d4db, inset -6px -6px 6px white;
-  outline:1px solid rgb(220, 239, 232);
-}
-
-.box_searchGlobal input{
-  padding: 10px;
-  padding-left: 20px;
-  height: 30px;
-}
-
-.inputSearchByProperty{
-  padding-left: 12px;
-    height: 30px;
-    width: 100%;
-    font-size: 0.8rem;
-    height: 30px;
-    padding-right: 32px;
-}
-
-.btn_Reset{
-  color: #fff;
-  box-shadow: 1px 1px 5px rgb(0 0 0 / 40%);
-  border-radius: 25px;
-  border: none;
-  background-color: #677e11;
-  padding-left:15px;
-  padding-right:15px;
-  height: 50px;
-}
-
-.btn_Reset:hover{
-  background-color: #7e9b16;
-  box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
-}
-
-#searchGlobal {
-  position: relative;
-  padding-left: 30px; 
-  width: 320px;
-}
-
-@media (max-width: 1000px) {
-  #searchGlobal {
-    width: 270px;
-  }
-}
-
-.box_searchGlobal label {
-  position: absolute;
-  right: 15px; 
-  top: 50%; 
-  transform: translateY(-50%); 
-  color:#4f4d4d;
-}
-
+/* global search */
 .box_searchGlobal{
   position: relative;
   margin:10px 20px; 
@@ -229,11 +158,58 @@ tableComponent button > svg {
   margin-bottom: 20px;
 }
 
+.box_searchGlobal input,.inputSearchByProperty{
+  background: #fbfbfb;
+  border: none;
+  font-size: 14px;
+  border-radius: 50px;
+  box-shadow: inset 6px 6px 6px #d1d4db, inset -6px -6px 6px white;
+  outline:1px solid rgb(220, 239, 232);
+}
+
+#searchGlobal {
+  position: relative;
+  padding-left: 30px; 
+  width: 280px;
+}
+
+@media (max-width: 1000px) {
+  #searchGlobal {
+    width: 270px;
+  }
+}
+
+.box_searchGlobal input{
+  padding: 10px;
+  padding-left: 20px;
+  height: 25px;
+}
+
 .btn_Reset{
+  color: #fff;
+  box-shadow: 1px 1px 5px rgb(0 0 0 / 40%);
+  border-radius: 25px;
+  border: none;
+  background-color: #677e11;
+  padding-left:15px;
+  padding-right:15px;
+  height: 45px;
   margin-left: 20px;
   font-weight: 600;
 }
 
+.btn_Reset:hover{
+  background-color: #7e9b16;
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
+}
+
+.box_searchGlobal label {
+  position: absolute;
+  right: 15px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  color:#4f4d4d;
+}
 
 @media (max-width: 1000px) {
   .box_searchReset{
@@ -246,46 +222,34 @@ tableComponent button > svg {
   }
 }
 
-
-.tr{
-  width: auto;
+/* search by property */
+.boxSearchPropertyContent{
+  position: absolute;
+  top: -50px;
+  width: 100%;
+  left: -1px;
+  background: #677e11;
+  padding: 10px;
+  z-index: 50;
+  border:none;
+  box-sizing: border-box;
 }
 
-thead button{
-  background-color: transparent;
-  border: none;
+.divSearchByProperty{
+  position: relative; 
+  display: flex;
+  align-items: center;
 }
 
-thead button > svg {
-  height:1.4rem;
-  width: 1.4rem;
-  vertical-align: center;
-  color: rgba(104,104,102,0.3);
+.inputSearchByProperty{
+  padding-left: 12px;
+  height: 30px;
+  width: 100%;
+  font-size: 0.8rem;
+  height: 30px;
+  padding-right: 32px;
 }
 
-thead button:hover > svg {
-  color: rgba(104,104,102,1);
-}
-
-.btnSort {
-  margin-left: 8px;
-}
-
-.selectedBtnFilter > svg{
-  color: #2e4506;
-}
-.selectedBtnFilter:hover > svg{
-  color: #2e4506;
-}
-
-.selectedBtnSort > svg{
-  color: #2e4506;
-}
-.selectedBtnSort:hover > svg{
-  color: #2e4506;
-}
-
- /* btnSearchByProperty */
 .btnSearchByPropertyClose{
   margin-left: auto;
 }
@@ -307,7 +271,66 @@ thead button:hover > svg {
   color: #000;
 }
 
-  /* checked manage-columns*/
+.dropdownContainerSearch {
+  width: auto;
+  display: flex;
+}
+
+.tr{
+  width: auto;
+}
+
+thead button{
+  background-color: transparent;
+  border: none;
+}
+
+thead button > svg {
+  height:1.4rem;
+  width: 1.4rem;
+  vertical-align: center;
+  color: rgba(104,104,102,0.3);
+}
+
+thead button:hover > svg {
+  color: rgba(104,104,102,1);
+}
+
+.ul_TableComponent{
+  padding-left: 0;
+  margin:0;
+}
+
+.table-cell {
+  max-width: 200px; /* Définir la largeur souhaitée */
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.btnSort {
+  margin-left: 8px;
+}
+
+.selectedBtnFilter > svg{
+  color: #2e4506;
+}
+.selectedBtnFilter:hover > svg{
+  color: #2e4506;
+}
+
+.selectedBtnSort > svg{
+  color: #2e4506;
+}
+.selectedBtnSort:hover > svg{
+  color: #2e4506;
+}
+
+/* checked manage-columns*/
+.box_tableManaged{
+  position:relative;
+  padding-top:60px;
+}
+
 .toggle-input {
   position: absolute;
   left: 0;
@@ -331,17 +354,17 @@ thead button:hover > svg {
   box-sizing: border-box;
 }
 .toggle-label:after {
-    content: '';
-    position: absolute;
-    width: 13px;
-    height: 13px;
-    border-radius: 100%;
-    left: -2px;
-    top: 0;
-    z-index: 2;
-    background: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    transition: 0.4s;
+  content: '';
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+  left: -2px;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
 }
 
 .toggle-input:checked + .toggle-label {
@@ -358,19 +381,13 @@ thead button:hover > svg {
   height: 35px;
 }
 
-.box_tableManaged{
-  /* margin-top:20px; */
-  position:relative;
-  padding-top:60px;
-}
-
 thead{
   border-bottom:none;
 }
+
 /* manage-columns button*/
 .tableComponent{
   position:relative;
-  /* margin-top:50px; */
 }
 
 .toggle-btnManagedColumns {
@@ -536,10 +553,7 @@ thead{
   }
 }
 
-.dropdownContainerSearch {
-  width: auto;
-  display: flex;
- }
+
 
  /* styles pour le dropdown */
 .dropdownTable {
@@ -601,4 +615,7 @@ thead{
   align-items: center;
 }
 
+.liOjectdata{
+  margin-left:10px;
+}
 

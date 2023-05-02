@@ -38,7 +38,6 @@ export default function Table(_a) {
         initialInputValues[property] = '';
     });
     var _l = useState(initialInputValues), inputValues = _l[0], setInputValues = _l[1];
-    //à vérifier (dateFormat possiblement undefined)
     useEffect(function () {
         setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
     }, [data, sortKey, sortOrder, dateFormatForSort]);

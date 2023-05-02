@@ -51,7 +51,6 @@ export default function Table<T>({ data, columns }: Props<T>) {
   });
   const [inputValues, setInputValues] = useState(initialInputValues);
 
-  //à vérifier (dateFormat possiblement undefined)
   useEffect(() => {
     setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
   }, [data, sortKey, sortOrder, dateFormatForSort]);

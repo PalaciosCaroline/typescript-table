@@ -15,15 +15,15 @@ import Modal from './Modal';
 import { FaEllipsisH } from 'react-icons/fa';
 function ManageColumns(props) {
     var _a = useState(false), isModalOpen = _a[0], setIsModalOpen = _a[1];
-    var handleToggleModal = function () {
-        setIsModalOpen(!isModalOpen);
+    var handleKeyDown = function (e, property) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            props.handleColumnVisibility(property);
+        }
     };
-    var handleCloseModal = function () {
-        setIsModalOpen(false);
-    };
-    return (_jsxs(_Fragment, { children: [_jsxs("button", __assign({ className: "toggle-btnManagedColumns ".concat(isModalOpen ? 'btnOpen' : ''), onClick: handleToggleModal, "aria-label": "managed columns" }, { children: [_jsx(FaEllipsisH, {}), _jsx("p", __assign({ className: isModalOpen ? 'btnManagedColumnsOpen' : '' }, { children: "Manage Columns" }))] })), _jsxs(Modal, __assign({ isOpen: isModalOpen, onClose: handleCloseModal }, { children: [_jsx("button", __assign({ className: "btnShowAllColumns", onClick: props.handleVisibleAllColumns }, { children: "Show All Columns" })), _jsx("ul", __assign({ className: "columns-list" }, { children: props.columns.map(function (_a) {
+    return (_jsxs(_Fragment, { children: [_jsxs("button", __assign({ className: "toggle-btnManagedColumns ".concat(isModalOpen ? 'btnOpen' : ''), onClick: function () { return setIsModalOpen(!isModalOpen); }, "aria-label": "managed columns" }, { children: [_jsx(FaEllipsisH, {}), _jsx("p", __assign({ className: isModalOpen ? 'btnManagedColumnsOpen' : '' }, { children: "Manage Columns" }))] })), _jsxs(Modal, __assign({ isOpen: isModalOpen, onClose: function () { return setIsModalOpen(false); } }, { children: [_jsx("button", __assign({ className: "btnShowAllColumns", onClick: props.handleVisibleAllColumns, "data-testId": "btnVisibleColumn" }, { children: "Show All Columns" })), _jsx("ul", __assign({ className: "columns-list" }, { children: props.columns.map(function (_a) {
                             var label = _a.label, property = _a.property, isVisible = _a.isVisible;
-                            return (_jsxs("li", __assign({ style: { display: 'flex', width: '200px', justifyContent: 'flex-start' }, "data-testid": "li-".concat(property) }, { children: [_jsxs("div", __assign({ className: "toggle-switch" }, { children: [_jsx("input", { className: "toggle-input", type: "checkbox", checked: isVisible, onChange: function () { return props.handleColumnVisibility(property); }, "data-testid": "inputManaged-".concat(property) }), _jsx("label", { className: "toggle-label" })] })), label] }), property));
+                            return (_jsxs("li", __assign({ style: { display: 'flex', width: '200px', justifyContent: 'flex-start' }, "data-testid": "li-".concat(property) }, { children: [_jsxs("div", __assign({ className: "toggle-switch" }, { children: [_jsx("input", { className: "toggle-input", type: "checkbox", checked: isVisible, onChange: function () { return props.handleColumnVisibility(property); }, onKeyDown: function (e) { return handleKeyDown(e, property); }, "data-testid": "inputManaged-".concat(property) }), _jsx("label", { className: "toggle-label" })] })), label] }), property));
                         }) }))] }))] }));
 }
 export default ManageColumns;

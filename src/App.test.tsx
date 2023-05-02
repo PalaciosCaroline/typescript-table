@@ -1,8 +1,19 @@
 import React from 'react';
 import { render, screen, fireEvent} from '@testing-library/react';
 import Table from './lib/components/Table';
+import { Table as ExportedTable } from './lib/index';
 import {datasExample, columnsExample} from './dataForExample';
-import { compareArrays, parseDate, sortDates, customSort } from '../src/lib/utils/sortDatas';
+import { compareArrays, customSort,SortableObject } from '../src/lib/utils/sortDatas';
+import ManageColumns from './lib/components/ManageColumns';
+import Modal from './lib/components/Modal';
+import Pagination from './lib/components/Pagination';
+import userEvent from '@testing-library/user-event';
+
+describe('Library index', () => {
+  it('should correctly import and export Table component', () => {
+    expect(ExportedTable).toBe(Table);
+  });
+});
 
 const columns = [
   { label: 'Name', property: 'name' },
@@ -233,75 +244,6 @@ describe('Table', () => {
   });
 });
 
-// describe('sortDates', () => {
-//   const data = [
-//     { id: 1, date: '25/04/2023' },
-//     { id: 2, date: '30/04/2023' },
-//     { id: 3, date: '15/04/2023' },
-//   ];
-
-//   test('sorts the data array by date in ascending order', () => {
-//     const sortedData = data.sort((a, b) => sortDates(a, b, 'date', 'asc'));
-//     expect(sortedData).toEqual([
-//       { id: 3, date: '15/04/2023' },
-//       { id: 1, date: '25/04/2023' },
-//       { id: 2, date: '30/04/2023' },
-//     ]);
-//   });
-
-//   test('sorts the data array by date in descending order', () => {
-//     const sortedData = data.sort((a, b) => sortDates(a, b, 'date', 'desc'));
-//     expect(sortedData).toEqual([
-//       { id: 2, date: '30/04/2023' },
-//       { id: 1, date: '25/04/2023' },
-//       { id: 3, date: '15/04/2023' },
-//     ]);
-//   });
-
-//   test('returns 0 when dates are equal', () => {
-//     const equalData = [
-//       { id: 1, date: '25/04/2023' },
-//       { id: 2, date: '25/04/2023' },
-//     ];
-
-//     const sortedData = equalData.sort((a, b) => sortDates(a, b, 'date', 'asc'));
-//     expect(sortedData).toEqual([
-//       { id: 1, date: '25/04/2023' },
-//       { id: 2, date: '25/04/2023' },
-//     ]);
-//   });
-
-//   test('sorts non-date strings in ascending order', () => {
-//     const nonDateData = [
-//       { id: 1, name: 'Alice' },
-//       { id: 2, name: 'Bob' },
-//       { id: 3, name: 'Charlie' },
-//     ];
-
-//     const sortedData = nonDateData.sort((a, b) => sortDates(a, b, 'name', 'asc'));
-//     expect(sortedData).toEqual([
-//       { id: 1, name: 'Alice' },
-//       { id: 2, name: 'Bob' },
-//       { id: 3, name: 'Charlie' },
-//     ]);
-//   });
-
-//   test('sorts non-date strings in descending order', () => {
-//     const nonDateData = [
-//       { id: 1, name: 'Alice' },
-//       { id: 2, name: 'Bob' },
-//       { id: 3, name: 'Charlie' },
-//     ];
-
-//     const sortedData = nonDateData.sort((a, b) => sortDates(a, b, 'name', 'desc'));
-//     expect(sortedData).toEqual([
-//       { id: 3, name: 'Charlie' },
-//       { id: 2, name: 'Bob' },
-//       { id: 1, name: 'Alice' },
-//     ]);
-//   });
-// });
-
 describe('customSort', () => {
   test('sorts numbers in ascending order', () => {
     const numberData = [
@@ -310,7 +252,7 @@ describe('customSort', () => {
       { id: 3, value: 10 },
     ];
 
-    const sortedData = customSort(numberData, 'value', 'asc', false);
+    const sortedData = customSort(numberData, 'value', 'asc', 'none');
     expect(sortedData).toEqual([
       { id: 3, value: 10 },
       { id: 2, value: 30 },
@@ -372,44 +314,6 @@ describe('customSort', () => {
   });
 });
 
-
-// describe('test function parseDate', () => {
-//   test('should correctly parse date in format dd/mm/yyyy', () => {
-//     const dateStr = '25/04/2023';
-//     const expectedResult = new Date(2023, 3, 25);
-//     expect(parseDate(dateStr)).toEqual(expectedResult);
-//   });
-
-//   test('should correctly parse date in format yyyy-mm-dd', () => {
-//     const dateStr = '2023-04-25';
-//     const expectedResult = new Date(2023, 3, 25);
-//     expect(parseDate(dateStr)).toEqual(expectedResult);
-//   });
-
-//   test('should return null for invalid date string', () => {
-//     const dateStr = 'invalid_date';
-//     expect(parseDate(dateStr)).toBeNull();
-//   });
-// });
-
-// describe('test function customsort', () => {
-//   test('should correctly sort dates in ascending order', () => {
-//     const a = { date: '25/04/2023' };
-//     const b = { date: '26/04/2023' };
-//     const sortKey = 'date';
-//     const sortOrder = 'asc';
-//     expect(sortDates(a, b, sortKey, sortOrder)).toBe(-1);
-//   });
-
-//   test('should correctly sort dates in descending order', () => {
-//     const a = { date: '25/04/2023' };
-//     const b = { date: '26/04/2023' };
-//     const sortKey = 'date';
-//     const sortOrder = 'desc';
-//     expect(sortDates(a, b, sortKey, sortOrder)).toBe(1);
-//   });
-// });
-
 describe('test function customSort', () => {
   const data = [
     { id: 1, name: 'Alice', age: 30 },
@@ -420,7 +324,8 @@ describe('test function customSort', () => {
   test('should correctly sort by name in ascending order', () => {
     const sortKey = 'name';
     const sortOrder = 'asc';
-    const sortedData = customSort(data, sortKey, sortOrder, false);
+    const dateFormatForSort = 'none';
+    const sortedData = customSort(data, sortKey, sortOrder, dateFormatForSort);
     const expectedResult = [
       { id: 1, name: 'Alice', age: 30 },
       { id: 2, name: 'Bob', age: 25 },
@@ -432,7 +337,8 @@ describe('test function customSort', () => {
   test('should correctly sort by age in descending order', () => {
     const sortKey = 'age';
     const sortOrder = 'desc';
-    const sortedData = customSort(data, sortKey, sortOrder, false);
+    const dateFormatForSort = 'none';
+    const sortedData = customSort(data, sortKey, sortOrder, dateFormatForSort);
     const expectedResult = [
       { id: 3, name: 'Charlie', age: 35 },
       { id: 1, name: 'Alice', age: 30 },
@@ -444,7 +350,8 @@ describe('test function customSort', () => {
   test('should return original data when sortOrder is noSort', () => {
     const sortKey = 'name';
     const sortOrder = 'noSort';
-    const sortedData = customSort(data, sortKey, sortOrder, false);
+    const dateFormatForSort = 'none';
+    const sortedData = customSort(data, sortKey, sortOrder,dateFormatForSort);
     expect(sortedData).toEqual(data);
   });
 });
@@ -484,6 +391,241 @@ describe('compareArrays', () => {
     const arrayB = ['banana'];
     const sortOrder = 'desc';
     expect(compareArrays(arrayA, arrayB, sortOrder)).toBe(1);
+  });
+});
+
+describe('Modal', () => {
+  test('renders modal when isOpen is true', () => {
+    render(<Modal isOpen={true} onClose={() => {}}><div>Modal content</div></Modal>);
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  test('does not render modal when isOpen is false', () => {
+    render(<Modal isOpen={false} onClose={() => {}}><div>Modal content</div></Modal>);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  test('closes the modal when the close button is clicked', () => {
+    const handleClose = jest.fn();
+    render(<Modal isOpen={true} onClose={handleClose}><div>Modal content</div></Modal>);
+    const closeButton = screen.getByRole('button', { name: 'Fermer la fenêtre' });
+    userEvent.click(closeButton);
+    expect(handleClose).toHaveBeenCalledTimes(1);
+  });
+
+  test('closes the modal when the escape key is pressed', () => {
+    const handleClose = jest.fn();
+    render(<Modal isOpen={true} onClose={handleClose}><div>Modal content</div></Modal>);
+
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(handleClose).toHaveBeenCalledTimes(1);
+  });
+
+  test('traps focus within the modal', () => {
+    const handleClose = jest.fn();
+    render(<Modal isOpen={true} onClose={handleClose}><div>Modal content</div></Modal>);
+    
+    const btnCloseModal = screen.getByTestId('btnCloseModal');
+
+
+    btnCloseModal.focus();
+    fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
+  
+
+    fireEvent.keyDown(btnCloseModal, { key: 'Tab' });
+
+  
+  });
+});
+
+
+describe('customSort', () => {
+  const sampleData: SortableObject[] = [
+    { id: 1, name: 'Alice', dateOfBirth: '1990/01/01' },
+    { id: 2, name: 'Bob', dateOfBirth: '2000/06/15' },
+    { id: 3, name: 'Charlie', dateOfBirth: '1985/11/23' },
+  ];
+
+  test('should not sort when sortKey is undefined', () => {
+    const result = customSort(sampleData, undefined, 'asc', 'none');
+    expect(result).toEqual(sampleData);
+  });
+
+  test('should not sort when sortOrder is noSort', () => {
+    const result = customSort(sampleData, 'id', 'noSort', 'none');
+    expect(result).toEqual(sampleData);
+  });
+
+  test('should sort strings in ascending order', () => {
+    const result = customSort(sampleData, 'name', 'asc', 'none');
+    expect(result).toEqual([sampleData[0], sampleData[1], sampleData[2]]);
+  });
+
+  test('should sort strings in descending order', () => {
+    const result = customSort(sampleData, 'name', 'desc', 'none');
+    expect(result).toEqual([sampleData[2], sampleData[1], sampleData[0]]);
+  });
+
+  test('should sort dates in ascending order', () => {
+    const result = customSort(sampleData, 'dateOfBirth', 'asc', 'YYYY/MM/DD');
+    expect(result).toEqual([sampleData[2], sampleData[0], sampleData[1]]);
+  });
+
+  test('should sort dates in descending order', () => {
+    const result = customSort(sampleData, 'dateOfBirth', 'desc', 'YYYY/MM/DD');
+    expect(result).toEqual([sampleData[1], sampleData[0], sampleData[2]]);
+  });
+
+  test('should sort numbers in ascending order', () => {
+    const result = customSort(sampleData, 'id', 'asc', 'none');
+    expect(result).toEqual([sampleData[0], sampleData[1], sampleData[2]]);
+  });
+
+  test('should sort numbers in descending order', () => {
+    const result = customSort(sampleData, 'id', 'desc', 'none');
+    expect(result).toEqual([sampleData[2], sampleData[1], sampleData[0]]);
+  });
+
+});
+
+describe('customSort date formats', () => {
+  const sampleData: SortableObject[] = [
+    { id: 1, name: 'Alice', dateOfBirth: '01/01/1990' },
+    { id: 2, name: 'Bob', dateOfBirth: '15/06/1985' },
+    { id: 3, name: 'Charlie', dateOfBirth: '23/11/1985' },
+  ];
+
+  const sampleDataReverse: SortableObject[] = [
+    { id: 1, name: 'Alice', dateOfBirth: '01/01/1990' },
+    { id: 2, name: 'Bob', dateOfBirth: '06/25/1985' },
+    { id: 3, name: 'Charlie', dateOfBirth: '11/02/1985' },  
+  ];
+
+  test('should sort dates in ascending order with format DD/MM/YYYY', () => {
+
+    const result = customSort(sampleData, 'dateOfBirth', 'asc', 'DD/MM/YYYY');
+    expect(result).toEqual([sampleData[1], sampleData[2], sampleData[0]]);
+  });
+
+  test('should sort dates in descending order with format DD/MM/YYYY', () => {
+
+    const result = customSort(sampleData, 'dateOfBirth', 'desc', 'DD/MM/YYYY');
+    expect(result).toEqual([sampleData[0], sampleData[2], sampleData[1]]);
+  });
+
+  test('should sort dates in ascending order with format MM/DD/YYYY', () => {
+    const result = customSort(sampleDataReverse, 'dateOfBirth', 'asc', 'MM/DD/YYYY');
+    expect(result).toEqual([sampleDataReverse[1], sampleDataReverse[2], sampleDataReverse[0]]);
+  });
+
+  test('should sort dates in descending order with format MM/DD/YYYY', () => {
+    const result = customSort(sampleDataReverse, 'dateOfBirth', 'desc', 'MM/DD/YYYY');
+    expect(result).toEqual([sampleDataReverse[0], sampleDataReverse[2], sampleDataReverse[1]]);
+  });
+});
+
+
+const mockColumns = [
+  { label: 'Name', property: 'name', isVisible: true },
+  { label: 'Age', property: 'age', isVisible: true },
+  { label: 'City', property: 'city', isVisible: false },
+];
+
+const handleColumnVisibility = jest.fn();
+const handleVisibleAllColumns = jest.fn();
+
+const defaultProps = {
+  columns: mockColumns,
+  handleColumnVisibility,
+  handleVisibleAllColumns,
+};
+
+describe('ManageColumns', () => {
+  test('renders ManageColumns component', () => {
+    render(<ManageColumns {...defaultProps} />);
+    const manageColumnsBtn = screen.getByLabelText('managed columns');
+    expect(manageColumnsBtn).toBeInTheDocument();
+  });
+
+  test('opens the modal on button click', () => {
+    render(<ManageColumns {...defaultProps} />);
+    const manageColumnsBtn = screen.getByLabelText('managed columns');
+    fireEvent.click(manageColumnsBtn);
+    const showModal = screen.getByText('Show All Columns');
+    expect(showModal).toBeInTheDocument();
+  });
+
+  test('calls handleVisibleAllColumns on "Show All Columns" button click', () => {
+    render(<ManageColumns {...defaultProps} />);
+    const manageColumnsBtn = screen.getByLabelText('managed columns');
+    fireEvent.click(manageColumnsBtn);
+    const showAllColumnsBtn = screen.getByTestId('btnVisibleColumn');
+    fireEvent.click(showAllColumnsBtn);
+    expect(handleVisibleAllColumns).toHaveBeenCalledTimes(1);
+  });
+
+  test('toggles column visibility on checkbox change', () => {
+    render(<ManageColumns {...defaultProps} />);
+    const manageColumnsBtn = screen.getByLabelText('managed columns');
+    fireEvent.click(manageColumnsBtn);
+    const nameInput = screen.getByTestId('inputManaged-name');
+    fireEvent.click(nameInput);
+    expect(handleColumnVisibility).toHaveBeenCalledWith('name');
+    expect(handleColumnVisibility).toHaveBeenCalledTimes(1);
+  });
+
+  test('toggles column visibility on checkbox key down (Enter)', () => {
+    render(<ManageColumns {...defaultProps} />);
+    const manageColumnsBtn = screen.getByLabelText('managed columns');
+    fireEvent.click(manageColumnsBtn);
+    const nameInput = screen.getByTestId('inputManaged-name');
+    userEvent.type(nameInput, '{enter}');
+    expect(handleColumnVisibility).toHaveBeenCalledWith('name');
+    expect(handleColumnVisibility).toHaveBeenCalledTimes(2);
+  });
+});
+
+const handlePageChange = jest.fn();
+
+const defaultPropsPagination = {
+  page: 1,
+  totalPages: 5,
+  handlePageChange,
+};
+
+describe("Pagination component", () => {
+  test("renders pagination component and checks button clicks", () => {
+    const { getByLabelText, rerender } = render(<Pagination {...defaultPropsPagination} />);
+
+    // Check if "go to the next page" button is rendered
+    const nextPageBtn = getByLabelText("go to the next page");
+    fireEvent.click(nextPageBtn);
+    expect(handlePageChange).toHaveBeenCalledWith(defaultPropsPagination.page + 1);
+
+    // Check if "go to the last page" button is rendered
+    const lastPageBtn = getByLabelText("go to the last page");
+    fireEvent.click(lastPageBtn);
+    expect(handlePageChange).toHaveBeenCalledWith(defaultPropsPagination.totalPages);
+
+    // Update props
+    const updatedProps = {
+      ...defaultPropsPagination,
+      page: 5,
+    };
+
+    // Re-render the component with updated props
+    rerender(<Pagination {...updatedProps} />);
+
+    // Check if "return to first page" button is rendered
+    const firstPageBtn = getByLabelText("return to first page");
+    fireEvent.click(firstPageBtn);
+    expect(handlePageChange).toHaveBeenCalledWith(1);
+
+    // Check if "go to the previous page" button is rendered
+    const prevPageBtn = getByLabelText("go to the previous page");
+    fireEvent.click(prevPageBtn);
+    expect(handlePageChange).toHaveBeenCalledWith(updatedProps.page - 1);
   });
 });
 

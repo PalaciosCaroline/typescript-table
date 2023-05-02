@@ -9,6 +9,7 @@ interface ModalProps {
 
 function Modal(props: ModalProps): JSX.Element {
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const lastActiveElement = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -22,8 +23,7 @@ function Modal(props: ModalProps): JSX.Element {
         const lastFocusableElement = focusableElements?.[focusableElements.length - 1] as HTMLElement;
         if (document.activeElement === lastFocusableElement && !event.shiftKey) {
           event.preventDefault();
-          const closeButton = modalRef.current?.querySelector('.btn_closeModalTable') as HTMLButtonElement | null;
-          closeButton?.focus();
+          firstFocusableElement.focus();
         } else if (document.activeElement === firstFocusableElement && event.shiftKey) {
           event.preventDefault();
           lastFocusableElement.focus();
@@ -32,9 +32,23 @@ function Modal(props: ModalProps): JSX.Element {
     };
 
     if (props.isOpen) {
+      lastActiveElement.current = document.activeElement as HTMLElement;
       document.addEventListener('keydown', handleKeyDown as unknown as EventListenerOrEventListenerObject);
+
+      // Move focus to the first focusable element inside the modal
+      requestAnimationFrame(() => {
+        const firstFocusableElement = modalRef.current?.querySelector(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        ) as HTMLElement | null;
+        firstFocusableElement?.focus();
+      });
     } else {
       document.removeEventListener('keydown', handleKeyDown as unknown as EventListenerOrEventListenerObject);
+
+      // Return focus to the previously focused element when the modal is closed
+      if (lastActiveElement.current) {
+        lastActiveElement.current.focus();
+      }
     }
 
     return () => {
@@ -46,7 +60,7 @@ function Modal(props: ModalProps): JSX.Element {
     <>
       {props.isOpen && (
         <div className="modalTable" role="dialog" aria-modal="true" aria-labelledby="modal-title" ref={modalRef}>
-          <button className="btn_closeModalTable" onClick={props.onClose} aria-label="Fermer la fenêtre" tabIndex={0}>
+          <button className="btn_closeModalTable" onClick={props.onClose} aria-label="Fermer la fenêtre" tabIndex={0} data-testId='btnCloseModal'>
             <FaTimes className="btn_closeModalTable_icon" />
           </button>
           <div className="modalTable-content">{props.children}</div>

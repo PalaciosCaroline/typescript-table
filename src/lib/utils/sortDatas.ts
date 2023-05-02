@@ -1,5 +1,5 @@
 
-type SortableObject = { [key: string]: any };
+export type SortableObject = { [key: string]: any };
 
 
 export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "desc" | "noSort") {

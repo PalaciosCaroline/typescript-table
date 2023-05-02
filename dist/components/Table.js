@@ -10,8 +10,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect, useRef } from 'react';
-// import SearchDropdown from './SearchDropdown';
+import { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
@@ -138,20 +137,7 @@ export default function Table(_a) {
         }
         return value;
     }
-    var tableRef = useRef(null);
-    // useEffect(() => {
-    //   function updateTableWidth() {
-    //     if (tableRef.current) {
-    //       const tableWidth = tableRef.current.clientWidth;
-    //       const windowWidth = window.innerWidth;
-    //       if (tableWidth < windowWidth) {
-    //         setTableWidth(`${tableWidth}px`);
-    //       } else {
-    //         setTableWidth("100%");
-    //       }
-    //     }
-    //   }
-    return (_jsx("div", __assign({ className: 'box_table' }, { children: _jsxs("div", __assign({ className: 'box_tableAndFeatures' }, { children: [_jsxs("div", __assign({ className: 'box_searchReset' }, { children: [_jsxs("div", __assign({ className: 'box_searchGlobal' }, { children: [_jsx("input", { type: "text", value: searchTerm, onChange: handleSearch, placeholder: "Search...", id: 'searchGlobal' }), _jsx("label", __assign({ htmlFor: "searchGlobal" }, { children: _jsx(FaSearch, {}) }))] })), _jsx("button", __assign({ onClick: handleResetSearch, style: { marginRight: '20px' }, className: 'btn_Reset' }, { children: "Reset all search" }))] })), _jsxs("div", __assign({ className: 'box_ChoiceEntries' }, { children: [_jsx("span", { children: "Rows per page:" }), _jsx(Dropdown, { options: ['All', '5', '10', '25', '50', '100'], onOptionClick: function (option) { return handlePerPageChange(option); }, defaultValueSelectedOption: defaultValueSelectedOption.toString() })] })), _jsxs("div", __assign({ className: 'box_tableManaged scrollerTable', ref: tableRef, style: { maxWidth: '100%' } }, { children: [_jsx(ManageColumns, { columns: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns }), _jsxs("table", __assign({ className: 'tableComponent' }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
+    return (_jsx("div", __assign({ className: 'box_table' }, { children: _jsxs("div", __assign({ className: 'box_tableAndFeatures' }, { children: [_jsxs("div", __assign({ className: 'box_searchReset' }, { children: [_jsxs("div", __assign({ className: 'box_searchGlobal' }, { children: [_jsx("input", { type: "text", value: searchTerm, onChange: handleSearch, placeholder: "Search...", id: 'searchGlobal' }), _jsx("label", __assign({ htmlFor: "searchGlobal" }, { children: _jsx(FaSearch, {}) }))] })), _jsx("button", __assign({ onClick: handleResetSearch, style: { marginRight: '20px' }, className: 'btn_Reset' }, { children: "Reset all search" }))] })), _jsxs("div", __assign({ className: 'box_ChoiceEntries' }, { children: [_jsx("span", { children: "Rows per page:" }), _jsx(Dropdown, { options: ['All', '5', '10', '25', '50', '100'], onOptionClick: function (option) { return handlePerPageChange(option); }, defaultValueSelectedOption: defaultValueSelectedOption.toString() })] })), _jsxs("div", __assign({ className: 'box_tableManaged scrollerTable' }, { children: [_jsx(ManageColumns, { columns: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns }), _jsxs("table", __assign({ className: 'tableComponent' }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
                                         var property = _a.property, isVisible = _a.isVisible;
                                         if (isVisible) {
                                             return (_jsx("col", { id: "col_".concat(property) }, "{col_".concat(property)));

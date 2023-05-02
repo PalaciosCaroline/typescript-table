@@ -14,9 +14,10 @@ import { useRef, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 function Modal(props) {
     var modalRef = useRef(null);
+    var lastActiveElement = useRef(null);
     useEffect(function () {
         var handleKeyDown = function (event) {
-            var _a, _b;
+            var _a;
             if (event.key === 'Escape') {
                 props.onClose();
             }
@@ -26,8 +27,7 @@ function Modal(props) {
                 var lastFocusableElement = focusableElements === null || focusableElements === void 0 ? void 0 : focusableElements[focusableElements.length - 1];
                 if (document.activeElement === lastFocusableElement && !event.shiftKey) {
                     event.preventDefault();
-                    var closeButton = (_b = modalRef.current) === null || _b === void 0 ? void 0 : _b.querySelector('.btn_closeModalTable');
-                    closeButton === null || closeButton === void 0 ? void 0 : closeButton.focus();
+                    firstFocusableElement.focus();
                 }
                 else if (document.activeElement === firstFocusableElement && event.shiftKey) {
                     event.preventDefault();
@@ -36,15 +36,26 @@ function Modal(props) {
             }
         };
         if (props.isOpen) {
+            lastActiveElement.current = document.activeElement;
             document.addEventListener('keydown', handleKeyDown);
+            // Move focus to the first focusable element inside the modal
+            requestAnimationFrame(function () {
+                var _a;
+                var firstFocusableElement = (_a = modalRef.current) === null || _a === void 0 ? void 0 : _a.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                firstFocusableElement === null || firstFocusableElement === void 0 ? void 0 : firstFocusableElement.focus();
+            });
         }
         else {
             document.removeEventListener('keydown', handleKeyDown);
+            // Return focus to the previously focused element when the modal is closed
+            if (lastActiveElement.current) {
+                lastActiveElement.current.focus();
+            }
         }
         return function () {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [props.isOpen]);
-    return (_jsx(_Fragment, { children: props.isOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable", onClick: props.onClose, "aria-label": "Fermer la fen\u00EAtre", tabIndex: 0 }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
+    return (_jsx(_Fragment, { children: props.isOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable", onClick: props.onClose, "aria-label": "Fermer la fen\u00EAtre", tabIndex: 0, "data-testId": 'btnCloseModal' }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
 }
 export default Modal;

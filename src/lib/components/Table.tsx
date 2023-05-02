@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-// import SearchDropdown from './SearchDropdown';
+import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
@@ -8,7 +7,6 @@ import './../styles/table.css';
 import Dropdown from './Dropdown';
 import ManageColumns from './ManageColumns';
 import {TableHeader} from './TableHeader';
-// import SortButton from './SortButton';
 
 interface Column {
   label: string;
@@ -170,23 +168,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
     }
     return value;
   }
-
-  const tableRef = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   function updateTableWidth() {
-  //     if (tableRef.current) {
-  //       const tableWidth = tableRef.current.clientWidth;
-  //       const windowWidth = window.innerWidth;
-  
-  //       if (tableWidth < windowWidth) {
-  //         setTableWidth(`${tableWidth}px`);
-  //       } else {
-  //         setTableWidth("100%");
-  //       }
-  //     }
-  //   }
-  
-  
+    
 
     return (
     <div className='box_table'>
@@ -208,7 +190,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
         />
       </div>
     
-      <div className='box_tableManaged scrollerTable' ref={tableRef} style={{ maxWidth: '100%' }}>
+      <div className='box_tableManaged scrollerTable'>
         <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
 
       <table className='tableComponent' >

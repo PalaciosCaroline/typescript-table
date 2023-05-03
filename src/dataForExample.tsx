@@ -2,19 +2,21 @@ interface Column {
   label: string;
   property: string;
   dateFormat?: string;
+  disableSort?: boolean;
+  disableFilter?: boolean;
 }
 
  
  const columnsExample: Column[] = [
-    { label: 'First Name', property: 'firstName' },
+    { label: 'First Name', property: 'firstName', disableSort:true, disableFilter:true },
     { label: 'Last Name', property: 'lastName' },
     { label: 'Start Date', property: 'startDate' , dateFormat: 'DD/MM/YYYY' },
     { label: 'Department', property: 'department' },
-    { label: 'Date of Birth', property: 'dateOfBirth',dateFormat: 'DD/MM/YYYY' },
-    { label: 'Street', property: 'street' },
+    { label: 'Date of Birth', property: 'dateOfBirth',dateFormat: 'DD/MM/YYYY',   disableSort:true, disableFilter:true },
+    { label: 'Street', property: 'street', disableSort:true, disableFilter:true},
     { label: 'City', property: 'city' },
-    { label: 'State', property: 'state' },
-    { label: 'Zip Code', property: 'zipCode' },
+    { label: 'State', property: 'state',disableSort:true },
+    { label: 'Zip Code', property: 'zipCode', disableSort:true },
 ];
 
 

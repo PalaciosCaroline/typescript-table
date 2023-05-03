@@ -93,14 +93,15 @@ ul {
 }
 
 /* Style pour les cellules de l'en-tête */
-.box_table th {
+.th_tableComponent{
   padding: 8px;
   text-align: left; 
-  height: 55px;
+  min-height: 45px;
   font-weight: 600;
+  border: 1px solid #dcdada;
 }
 
-p.label{
+p.label_tableComponent{
   margin:0;
 }
 
@@ -113,49 +114,55 @@ p.label{
 }
 
 /* Style pour les cellules du corps */
-.box_table td {
+.td_tableComponent {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-tbody tr:first-child td {
+.tbody_tableComponent tr:nth-child(1) td {
   border-top: 1px solid #7e7a7a;
 }
 
-tbody tr:last-child td {
-  border-bottom: 1px solid #726f6f;
+.tbody_tableComponent tr:last-child td {
+  border-bottom: 1px solid #9e9d9d;
 }
 
-tr:nth-child(even) {
+.tr_tableComponent:nth-child(even) {
   background-color: #fff;
 }
 
-tr:nth-child(odd) {
+.tr_tableComponent:nth-child(odd) {
   background-color: #fcfcfa;
+}
+
+.td_tableComponent {
+  padding: 8px;
+  text-align: left;
+  border-left: 1px solid #e1e0e0;
 }
 
 .tableComponent button {
    display: block;
 }
 
-tableComponent button > svg {
-  height:1.4rem;
-  width: 1.4rem;
-  vertical-align: center;
-}
-
 /* global search */
 .box_searchGlobal{
   position: relative;
-  margin:10px 20px; 
+  margin:10px 20px 10px 0; 
 }
+
+#searchGlobal {
+  position: relative;
+  padding-left: 30px; 
+  width: 280px;
+} 
 
 .box_searchReset{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .box_searchGlobal input,.inputSearchByProperty{
@@ -167,16 +174,15 @@ tableComponent button > svg {
   outline:1px solid rgb(220, 239, 232);
 }
 
-#searchGlobal {
-  position: relative;
-  padding-left: 30px; 
-  width: 280px;
-}
-
 @media (max-width: 1000px) {
   #searchGlobal {
     width: 270px;
   }
+  .box_searchGlobal{
+    position: relative;
+    margin:10px 20px 10px 20px; 
+  }
+
 }
 
 .box_searchGlobal input{
@@ -296,7 +302,7 @@ thead button:hover > svg {
   color: rgba(104,104,102,1);
 }
 
-.ul_TableComponent{
+.ul_tableComponent{
   padding-left: 0;
   margin:0;
 }

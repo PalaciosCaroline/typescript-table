@@ -20,7 +20,7 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(1)}
               aria-label="return to first page"
-              data-testId='btnFirstPage'
+              data-testid='btnFirstPage'
             >
               <FiChevronsLeft />
             </button>
@@ -29,7 +29,7 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(page - 1)}
               aria-label="go to the previous page"
-              data-testId='btnPreviousPage'
+              data-testid='btnPreviousPage'
             >
               <FiChevronLeft />
             </button>
@@ -47,7 +47,7 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(page + 1)}
               aria-label="go to the next page"
-              data-testId='btnNextPage'
+              data-testid='btnNextPage'
             >
               <FiChevronRight />
             </button>
@@ -56,7 +56,7 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(totalPages)}
               aria-label="go to the last page"
-              data-testId='btnLastPage'
+              data-testid='btnLastPage'
             >
               <FiChevronsRight />
             </button>

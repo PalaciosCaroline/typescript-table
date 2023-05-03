@@ -9,6 +9,8 @@ interface TableHeaderProps {
     dateFormat: string;
     isSortKey: boolean;
     sortOrder: 'asc' | 'desc' | 'noSort';
+    disableSort: boolean;
+    disableFilter: boolean;
     inputValues: { [key: string]: string | undefined };
     handleSort: (property: string, dateFormat: string) => void;
     handleSearchByProperty: (property: string, value: string) => void;
@@ -23,6 +25,8 @@ interface TableHeaderProps {
     isSortKey,
     sortOrder,
     handleSort,
+    disableSort,
+    disableFilter,
     handleSearchByProperty,
     inputValues,
     handleReset,
@@ -30,17 +34,21 @@ interface TableHeaderProps {
     if (!isVisible) return null;
   
     return (
-      <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor`}>
+      <th key={property} style={{ position: 'relative' }} className={`th_tableComponent th_${property} thColor`}>
         <div className='box_labelAndBtnsColumn'>
-          <p className='label' data-testid={`columnManaged-${property}`}>{label}</p>
+          <p className='label' data-testid={`columnManaged-${property} label__tableComponent`}>{label}</p>
           <div className='box_btnsColumn'>
+          {!disableSort && (
             <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} dateFormat={dateFormat}/>
+          )}
+          {!disableFilter && (
             <SearchDropdown
-              property={property}
-              inputValues={inputValues}
-              handleSearchByProperty={handleSearchByProperty}
-              handleReset={handleReset}
-            />
+            property={property}
+            inputValues={inputValues}
+            handleSearchByProperty={handleSearchByProperty}
+            handleReset={handleReset}
+          />
+          )}
           </div>
         </div>
       </th>

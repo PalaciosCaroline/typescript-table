@@ -13,7 +13,7 @@ const SortButton: React.FC<SortButtonProps> = ({ isSortKey, sortOrder, property,
     const renderSortButton = (icon: React.ReactNode, label: string, testIdSuffix: string) => (
         <button
         onClick={() => handleSort(property, dateFormat)}
-        className={`btnSort ${(isSortKey && sortOrder != 'noSort') ? " selectedBtnSort" : ""}`}
+        className={`btnSort btnSort_tableComponent ${(isSortKey && sortOrder != 'noSort') ? " selectedBtnSort" : ""}`}
         aria-label={label}
         data-testid={`btnSort${testIdSuffix}-${property}`}
         >

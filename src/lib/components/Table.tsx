@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa';
 import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
@@ -7,11 +6,14 @@ import './../styles/table.css';
 import Dropdown from './Dropdown';
 import ManageColumns from './ManageColumns';
 import {TableHeader} from './TableHeader';
+import { SearchAndResetGlobal } from './searchAndResetGlobal';
 
 interface Column {
   label: string;
   property: string;
   dateFormat?: string;
+  disableSort:boolean;
+  disableFilter:boolean;
 }
 
 export interface InputValues<T> {
@@ -43,7 +45,6 @@ export default function Table<T>({ data, columns }: Props<T>) {
   const [sortedData, setSortedData] = useState<DataItem<T | undefined>[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
-  // const [sortUsaDate, setSortUsaDate] = useState<boolean>(false);
   const [dateFormatForSort, setDateFormatForSort]= useState<string>('none');
   const initialInputValues: SearchByProp = {};
   columns.forEach(({ property }) => {
@@ -149,11 +150,13 @@ export default function Table<T>({ data, columns }: Props<T>) {
   };
 
   const [columnsManaged, setColumnsManaged] = useState(() => {
-    return columns.map(({ label, property, dateFormat }) => ({
+    return columns.map(({ label, property, dateFormat, disableSort, disableFilter }) => ({
       label,
       property,
       isVisible: true,
       dateFormat: dateFormat !== undefined ? dateFormat : 'none',
+      disableSort,
+      disableFilter
     }));
   });
 
@@ -169,7 +172,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
       return value.toLocaleDateString();
     } else if (Array.isArray(value)) {
       return (
-        <ul className='ul_TableComponent'>
+        <ul className='ul_tableComponent'>
           {value.map((item, index) => (
             <li key={index} className={`liOjectData liOjectData_${depth}`}>{formatNestedDate(item, depth + 1)}</li>
           ))}
@@ -177,7 +180,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
       );
     } else if (typeof value === 'object' && value !== null) {
       return (
-        <ul className={`ul_TableComponent ul_TableComponent_${depth}`}>
+        <ul className={`ul_tableComponent ul_tableComponent_${depth}`}>
           {Object.entries(value).map(([key, item], index) => (
             <li key={index} className={`liOjectData liOjectData_${depth}`}>
               {key}: {formatNestedDate(item, depth + 1)}
@@ -196,14 +199,11 @@ export default function Table<T>({ data, columns }: Props<T>) {
   return (
     <div className='box_table'>
       <div className='box_tableAndFeatures'>
-        <div className='box_searchReset'>
-          <div className='box_searchGlobal'>
-            <input type="text" value={searchTerm} onChange={handleSearch} placeholder="Search..." id='searchGlobal'/>
-            <label htmlFor="searchGlobal"><FaSearch/></label>  
-          </div>
-          <button onClick={handleResetSearch} style={{marginRight:'20px'}} className='btn_Reset'>Reset all search</button>
-        </div>
-        
+        <SearchAndResetGlobal
+          searchTerm={searchTerm}
+          handleSearch={handleSearch}
+          handleResetSearch={handleResetSearch}
+        />
         <div className='box_ChoiceEntries' >
           <span>Rows per page:</span>
           <Dropdown
@@ -216,17 +216,16 @@ export default function Table<T>({ data, columns }: Props<T>) {
         <div className='box_tableManaged scrollerTable'>
           <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
 
-        <table className='tableComponent' >
+        <table className='tableComponent'>
           <colgroup>
               {columnsManaged.map(({ property, isVisible}) => {
                 if (isVisible) {
                 return(  <col key={`{col_${property}`} id={`col_${property}`}></col>);}})}
           </colgroup>
-          <thead>
-            <tr role="row">
-              {columnsManaged.map(({ label, property, isVisible, dateFormat }) => {
+          <thead className='thead_tableComponent'>
+            <tr role="row" className='tr_tableComponent'>
+              {columnsManaged.map(({ label, property, isVisible, dateFormat, disableSort, disableFilter }) => {
                 const isSortKey = sortKey === property;
-
                 return (
                   <TableHeader
                     key={property}
@@ -240,19 +239,21 @@ export default function Table<T>({ data, columns }: Props<T>) {
                     inputValues={inputValues}
                     handleSearchByProperty={handleSearchByProperty}
                     handleReset={handleReset}
+                    disableSort={disableSort}
+                    disableFilter={disableFilter}
                   />
                 );
               })}
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className='tbody_tableComponent'>
             {currentData.map((item: DataItem<T>, index) => (
-              <tr key={index}  role="row" className={`tr_${index}`}>
+              <tr key={index}  role="row" className={`tr_${index} tr_tableComponent`}>
               {columnsManaged.map(({ property, isVisible }) => {
                 if (isVisible) {
                   return (
-                    <td key={`cell-${index}-${property}`} role="cell" className={`table-cell table-cell_${property}_${index}`}>
+                    <td key={`cell-${index}-${property} td_tableComponent`} role="cell" className={`table-cell table-cell_${property}_${index} td_tableComponent`}>
                       {formatDate(item[property])}
                     </td>
                   );

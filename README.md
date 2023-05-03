@@ -70,7 +70,19 @@ Array: processed recursively up to a depth of 4
 
 ****************************************************************************************************************
 
-## Exemple data
+## "Customizing Sorting and Filtering."
+"Sorting and filtering are implemented by default for each column in the table. However, if you want to remove these features for a specific column, you simply need to add the property disableSort: true to disable sorting, or disableFilter: true to disable filtering, in the object of the respective column."
+- example for a column :
+```js
+{
+  label: 'First Name',	
+  property: 'firstName',
+  disableSort: true, // for disable sorting
+  disableFilter: true // for disable filtering
+}
+```
+
+## Example datas
 
 For columns, labels and properties are required: a label must be assigned to each property of the data array that is to be displayed in a column. If no label is assigned to a property of the data array, that property will be ignored and will not generate a column. The label will be used to name each column in the table, based on each property; the property is the column data from the data array used to retrieve the various column entries.
 "The choice of locations for labels and properties in columns allows you to choose the placement of different columns in relation to each other."
@@ -80,17 +92,17 @@ To use this package, you can use the examples like the data in the following exa
 with :
 
 ```js
-const columnsExample = [
-    { label: 'First Name', property: 'firstName' },
+const columnsExample: Column[] = [
+    { label: 'First Name', property: 'firstName', disableSort:true, disableFilter:true },
     { label: 'Last Name', property: 'lastName' },
     { label: 'Start Date', property: 'startDate' },
     { label: 'Department', property: 'department' },
-    { label: 'Date of Birth', property: 'dateOfBirth', dateFormat:'DD/MM/YYYY' },
-    { label: 'Street', property: 'street' },
+    { label: 'Date of Birth', property: 'dateOfBirth',dateFormat: 'DD/MM/YYYY',   disableSort:true, disableFilter:true },
+    { label: 'Street', property: 'street', disableSort:true, disableFilter:true},
     { label: 'City', property: 'city' },
-    { label: 'State', property: 'state' },
-    { label: 'Zip Code', property: 'zipCode' },
-  ];
+    { label: 'State', property: 'state', disableSort:true },
+    { label: 'Zip Code', property: 'zipCode', disableSort:true },
+];
 
 const datasExample = [
   {
@@ -118,7 +130,7 @@ const datasExample = [
   {
     firstName: 'Bob',
     lastName: 'Johnson',
-    dateOfBirth: '30/09/1978'),
+    dateOfBirth: '30/09/1978',
     startDate: new Date('03/05/2019'),
     department: 'IT',
     street: '789 Maple Ave',
@@ -135,14 +147,17 @@ When you provide data as strings containing dates, you need to specify the date 
 
 The date format should be specified using the characters 'DD', 'MM', and 'YYYY' to represent the day, month, and year, respectively. For example:
 
-For a date string 'DD/MM/YYYY', 'DD-MM-YYYY', or 'DD.MM.YYYY', use:
-dateFormat: 'DD/MM/YYYY'
+- For a date string 'DD/MM/YYYY', 'DD-MM-YYYY', or 'DD.MM.YYYY', use:
 
-For a date string 'MM/DD/YYYY', 'MM-DD-YYYY', or 'MM.DD.YYYY', use:
-dateFormat: 'MM/DD/YYYY'
+`dateFormat: 'DD/MM/YYYY'`
 
-For a date string 'YYYY/MM/DD', 'YYYY-MM-DD', or 'YYYY.MM.DD', use:
-dateFormat: 'YYYY/MM/DD'
+ - For a date string 'MM/DD/YYYY', 'MM-DD-YYYY', or 'MM.DD.YYYY', use:
+
+ `dateFormat: 'MM/DD/YYYY'`
+
+ - For a date string 'YYYY/MM/DD', 'YYYY-MM-DD', or 'YYYY.MM.DD', use:
+
+  `dateFormat: 'YYYY/MM/DD'`
 
 The accepted and automatically managed separators are '/', '-', and '.'.
 Here's how to specify the date format for a column:

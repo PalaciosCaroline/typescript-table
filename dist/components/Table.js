@@ -11,7 +11,6 @@ var __assign = (this && this.__assign) || function () {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa';
 import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
@@ -19,6 +18,7 @@ import './../styles/table.css';
 import Dropdown from './Dropdown';
 import ManageColumns from './ManageColumns';
 import { TableHeader } from './TableHeader';
+import { SearchAndResetGlobal } from './searchAndResetGlobal';
 export default function Table(_a) {
     var data = _a.data, columns = _a.columns;
     var _b = useState(undefined), sortKey = _b[0], setSortKey = _b[1];
@@ -30,7 +30,6 @@ export default function Table(_a) {
     var _g = useState([]), sortedData = _g[0], setSortedData = _g[1];
     var _h = useState(''), searchTerm = _h[0], setSearchTerm = _h[1];
     var _j = useState({}), searchTerms = _j[0], setSearchTerms = _j[1];
-    // const [sortUsaDate, setSortUsaDate] = useState<boolean>(false);
     var _k = useState('none'), dateFormatForSort = _k[0], setDateFormatForSort = _k[1];
     var initialInputValues = {};
     columns.forEach(function (_a) {
@@ -118,12 +117,14 @@ export default function Table(_a) {
     };
     var _m = useState(function () {
         return columns.map(function (_a) {
-            var label = _a.label, property = _a.property, dateFormat = _a.dateFormat;
+            var label = _a.label, property = _a.property, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
             return ({
                 label: label,
                 property: property,
                 isVisible: true,
                 dateFormat: dateFormat !== undefined ? dateFormat : 'none',
+                disableSort: disableSort,
+                disableFilter: disableFilter
             });
         });
     }), columnsManaged = _m[0], setColumnsManaged = _m[1];
@@ -139,10 +140,10 @@ export default function Table(_a) {
             return value.toLocaleDateString();
         }
         else if (Array.isArray(value)) {
-            return (_jsx("ul", __assign({ className: 'ul_TableComponent' }, { children: value.map(function (item, index) { return (_jsx("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: formatNestedDate(item, depth + 1) }), index)); }) })));
+            return (_jsx("ul", __assign({ className: 'ul_tableComponent' }, { children: value.map(function (item, index) { return (_jsx("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: formatNestedDate(item, depth + 1) }), index)); }) })));
         }
         else if (typeof value === 'object' && value !== null) {
-            return (_jsx("ul", __assign({ className: "ul_TableComponent ul_TableComponent_".concat(depth) }, { children: Object.entries(value).map(function (_a, index) {
+            return (_jsx("ul", __assign({ className: "ul_tableComponent ul_tableComponent_".concat(depth) }, { children: Object.entries(value).map(function (_a, index) {
                     var key = _a[0], item = _a[1];
                     return (_jsxs("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: [key, ": ", formatNestedDate(item, depth + 1)] }), index));
                 }) })));
@@ -152,22 +153,22 @@ export default function Table(_a) {
     function formatDate(value) {
         return formatNestedDate(value);
     }
-    return (_jsx("div", __assign({ className: 'box_table' }, { children: _jsxs("div", __assign({ className: 'box_tableAndFeatures' }, { children: [_jsxs("div", __assign({ className: 'box_searchReset' }, { children: [_jsxs("div", __assign({ className: 'box_searchGlobal' }, { children: [_jsx("input", { type: "text", value: searchTerm, onChange: handleSearch, placeholder: "Search...", id: 'searchGlobal' }), _jsx("label", __assign({ htmlFor: "searchGlobal" }, { children: _jsx(FaSearch, {}) }))] })), _jsx("button", __assign({ onClick: handleResetSearch, style: { marginRight: '20px' }, className: 'btn_Reset' }, { children: "Reset all search" }))] })), _jsxs("div", __assign({ className: 'box_ChoiceEntries' }, { children: [_jsx("span", { children: "Rows per page:" }), _jsx(Dropdown, { options: ['All', '5', '10', '25', '50', '100'], onOptionClick: function (option) { return handlePerPageChange(option); }, defaultValueSelectedOption: defaultValueSelectedOption.toString() })] })), _jsxs("div", __assign({ className: 'box_tableManaged scrollerTable' }, { children: [_jsx(ManageColumns, { columns: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns }), _jsxs("table", __assign({ className: 'tableComponent' }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
+    return (_jsx("div", __assign({ className: 'box_table' }, { children: _jsxs("div", __assign({ className: 'box_tableAndFeatures' }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch }), _jsxs("div", __assign({ className: 'box_ChoiceEntries' }, { children: [_jsx("span", { children: "Rows per page:" }), _jsx(Dropdown, { options: ['All', '5', '10', '25', '50', '100'], onOptionClick: function (option) { return handlePerPageChange(option); }, defaultValueSelectedOption: defaultValueSelectedOption.toString() })] })), _jsxs("div", __assign({ className: 'box_tableManaged scrollerTable' }, { children: [_jsx(ManageColumns, { columns: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns }), _jsxs("table", __assign({ className: 'tableComponent' }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
                                         var property = _a.property, isVisible = _a.isVisible;
                                         if (isVisible) {
                                             return (_jsx("col", { id: "col_".concat(property) }, "{col_".concat(property)));
                                         }
-                                    }) }), _jsx("thead", { children: _jsx("tr", __assign({ role: "row" }, { children: columnsManaged.map(function (_a) {
-                                            var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat;
+                                    }) }), _jsx("thead", __assign({ className: 'thead_tableComponent' }, { children: _jsx("tr", __assign({ role: "row", className: 'tr_tableComponent' }, { children: columnsManaged.map(function (_a) {
+                                            var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
                                             var isSortKey = sortKey === property;
-                                            return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleSort: handleSort, inputValues: inputValues, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset }, property));
-                                        }) })) }), _jsx("tbody", { children: currentData.map(function (item, index) { return (_jsx("tr", __assign({ role: "row", className: "tr_".concat(index) }, { children: columnsManaged.map(function (_a) {
+                                            return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleSort: handleSort, inputValues: inputValues, handleSearchByProperty: handleSearchByProperty, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter }, property));
+                                        }) })) })), _jsx("tbody", __assign({ className: 'tbody_tableComponent' }, { children: currentData.map(function (item, index) { return (_jsx("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent") }, { children: columnsManaged.map(function (_a) {
                                             var property = _a.property, isVisible = _a.isVisible;
                                             if (isVisible) {
-                                                return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index) }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property)));
+                                                return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index, " td_tableComponent") }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property, " td_tableComponent")));
                                             }
                                             return null;
-                                        }) }), index)); }) })] }))] })), _jsxs("div", __assign({ className: 'box_entriesAndPage' }, { children: [_jsx("div", __assign({ className: 'showingEntries' }, { children: filteredData.length <= 0
+                                        }) }), index)); }) }))] }))] })), _jsxs("div", __assign({ className: 'box_entriesAndPage' }, { children: [_jsx("div", __assign({ className: 'showingEntries' }, { children: filteredData.length <= 0
                                 ? "0 results of ".concat(data.length, " entries")
                                 : filteredData.length === 1
                                     ? "1 entry"

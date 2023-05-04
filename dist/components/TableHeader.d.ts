@@ -6,8 +6,8 @@ interface TableHeaderProps {
     dateFormat: string;
     isSortKey: boolean;
     sortOrder: 'asc' | 'desc' | 'noSort';
-    disableSort: boolean;
-    disableFilter: boolean;
+    disableSort?: boolean;
+    disableFilter?: boolean;
     inputValues: {
         [key: string]: string | undefined;
     };

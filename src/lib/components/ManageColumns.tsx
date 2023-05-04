@@ -30,12 +30,13 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
                 className={`toggle-btnManagedColumns ${isModalOpen ? 'btnOpen' : ''}`}
                 onClick={() => setIsModalOpen(!isModalOpen)}
                 aria-label="managed columns"
+                data-testid='managed columns'
             >
                 <FaEllipsisH />
                 <p className={isModalOpen ? 'btnManagedColumnsOpen' : ''}>Manage Columns</p>
             </button>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <button className="btnShowAllColumns" onClick={props.handleVisibleAllColumns} data-testId="btnVisibleColumn">
+                <button className="btnShowAllColumns" onClick={props.handleVisibleAllColumns} data-testid="btnVisibleColumn">
                     Show All Columns
                 </button>
                 <ul className="columns-list">

@@ -12,8 +12,8 @@ interface Column {
   label: string;
   property: string;
   dateFormat?: string;
-  disableSort:boolean;
-  disableFilter:boolean;
+  disableSort?:boolean;
+  disableFilter?:boolean;
 }
 
 export interface InputValues<T> {
@@ -204,15 +204,18 @@ export default function Table<T>({ data, columns }: Props<T>) {
           handleSearch={handleSearch}
           handleResetSearch={handleResetSearch}
         />
-        <div className='box_ChoiceEntries' >
-          <span>Rows per page:</span>
-          <Dropdown
-            options={['All', '5','10','25','50', '100']}
-            onOptionClick={(option) => handlePerPageChange(option)}
-            defaultValueSelectedOption={defaultValueSelectedOption.toString()}
+ 
+          <div className='box_ChoiceEntries' >
+            <span>Rows per page:</span>
+            <Dropdown
+              options={['All', '5','10','25','50', '100']}
+              onOptionClick={(option) => handlePerPageChange(option)}
+              defaultValueSelectedOption={defaultValueSelectedOption.toString()}
           />
+
+
+   
         </div>
-      
         <div className='box_tableManaged scrollerTable'>
           <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
 

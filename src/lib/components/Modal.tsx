@@ -60,7 +60,7 @@ function Modal(props: ModalProps): JSX.Element {
     <>
       {props.isOpen && (
         <div className="modalTable" role="dialog" aria-modal="true" aria-labelledby="modal-title" ref={modalRef}>
-          <button className="btn_closeModalTable" onClick={props.onClose} aria-label="Fermer la fenêtre" tabIndex={0} data-testId='btnCloseModal'>
+          <button className="btn_closeModalTable" onClick={props.onClose} aria-label="Fermer la fenêtre" tabIndex={0} data-testid='btnCloseModal'>
             <FaTimes className="btn_closeModalTable_icon" />
           </button>
           <div className="modalTable-content">{props.children}</div>

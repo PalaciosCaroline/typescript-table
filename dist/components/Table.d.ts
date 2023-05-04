@@ -4,8 +4,8 @@ interface Column {
     label: string;
     property: string;
     dateFormat?: string;
-    disableSort: boolean;
-    disableFilter: boolean;
+    disableSort?: boolean;
+    disableFilter?: boolean;
 }
 export interface InputValues<T> {
     [key: string]: T | undefined;

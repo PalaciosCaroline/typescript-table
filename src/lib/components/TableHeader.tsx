@@ -1,6 +1,7 @@
 import React from 'react';
 import SortButton from './SortButton';
 import SearchDropdown from './SearchDropdown';
+import SearchByProperty from './SearchByProperty';
 
 interface TableHeaderProps {
     label: string;
@@ -15,6 +16,10 @@ interface TableHeaderProps {
     handleSort: (property: string, dateFormat: string) => void;
     handleSearchByProperty: (property: string, value: string) => void;
     handleReset: (property: string) => void;
+    // setIsOpenSearchBProp: (isOpen: boolean) => void;
+    isOpenSearchBProp: { [property: string]: boolean };
+    handleToggle: (property: string) => void;
+    // handleCloseSearchBProp?: () => void;
   }
   
  export const TableHeader: React.FC<TableHeaderProps> = ({
@@ -30,27 +35,44 @@ interface TableHeaderProps {
     handleSearchByProperty,
     inputValues,
     handleReset,
+    // setIsOpenSearchBProp,
+    isOpenSearchBProp,
+    handleToggle,
+    // handleCloseSearchBProp 
   }) => {
     if (!isVisible) return null;
   
     return (
-      <th key={property} style={{ position: 'relative' }} className={`th_tableComponent th_${property} thColor`}>
+      <th key={property} style={{ position: 'relative' }} className={`th_${property} thColor th_tableComponent`}>
+                    
         <div className='box_labelAndBtnsColumn'>
-          <p className='label label__tableComponent' data-testid={`columnManaged-${property}`}>{label}</p>
+          <p className='label label_tableComponent' data-testid={`columnManaged-${property}`}>{label}</p>
           <div className='box_btnsColumn'>
           {!disableSort && (
             <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} dateFormat={dateFormat}/>
-          )}
-          {!disableFilter && (
+            )}
+            {!disableFilter && (
             <SearchDropdown
-            property={property}
-            inputValues={inputValues}
-            handleSearchByProperty={handleSearchByProperty}
-            handleReset={handleReset}
-          />
-          )}
+              inputValues={inputValues}
+              property={property}
+              handleToggle={handleToggle} 
+            />
+            )}
           </div>
-        </div>
+      
+        </div>  
+        { isOpenSearchBProp[property]  && (
+          <div className='boxSearchPropertyContent'>
+              <SearchByProperty
+                key={property}
+                property={property}
+                inputValues={inputValues}
+                handleSearchByProperty={handleSearchByProperty}
+                handleReset={handleReset}
+                // handleCloseSearchBProp={handleCloseSearchBProp} 
+              />
+          </div>
+        )}
       </th>
     );
   };

@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 
 interface DropdownProps {
-defaultValueSelectedOption: string;
+defaultValueSelectedOption?:  string | undefined;
 options: string[];
-onOptionClick: (option: string) => void;
+onOptionClick: (option: string ) => void;
+className: string;
+classNameProps: string;
 }
 
 function Dropdown(props: DropdownProps): JSX.Element {
@@ -33,6 +35,14 @@ function Dropdown(props: DropdownProps): JSX.Element {
     }
   }
 
+  function handleKeyDown(event: React.KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleDropdown();
+    }
+  }
+
+
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {
@@ -41,39 +51,41 @@ function Dropdown(props: DropdownProps): JSX.Element {
   }, []);
 
   return (
-    <div className='dropdownTable dropdownRowPerPage' ref={dropdownRef}>
+    <div className={`dropdownTable dropdownTable${props.classNameProps}`} ref={dropdownRef}>
       <button
         type="button"
-        className='dropdownToggleTable buttonToggleRowPerPage'
+        className={`dropdownToggleTable buttonToggle${props.classNameProps}`}
         onClick={toggleDropdown}
+        onKeyDown={handleKeyDown}
         data-testid='btnPerPage'
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-labelledby="dropdown-label"
-        aria-label="Options de la liste déroulante"
+        aria-label="options of dropdown"
       >
         {selectedOption || props.defaultValueSelectedOption}
-        <span className='chevronTable chevronRowPerPage' onClick={handleChevronClick}>
+        <span className={`chevronTable chevron${props.classNameProps}`} onClick={handleChevronClick}>
           {isOpen ? <FiChevronUp /> : <FiChevronDown />}
         </span>
       </button>
       {isOpen && (
-        <ul className='dropdownMenuTable dropdownMenuRowPerPage' role="listbox">
+        <ul className={`dropdownMenuTable dropdownMenu${props.classNameProps}`}  role="listbox">
           {props.options.map((option) => (
           <li
             key={option}
-            data-testid={`optionPerPage-${option}`}
             className={`dropdownOptionTable dropdownOptionRowPerPage ${option === selectedOption ? `selectedTable selectedOption` : ''}`}
             onClick={() => handleOptionClick(option)}
             role="option"
             aria-selected={option === selectedOption}
+            data-testid={`optionPerPage-${option}`}
+            tabIndex={0}
           >
             {option}
           </li>
           ))}
         </ul>
       )}
-      <span id="dropdown-label" className="sr-only">Options de la liste déroulante</span>
+      <span id="dropdown-label" className="sr-only">options of dropdown</span>
     </div>
   );
 }

@@ -1,64 +1,31 @@
-import React, { useState, useRef, useEffect, MouseEvent } from 'react';
+import React, { useRef } from 'react';
 import { MdFilterAltOff, MdFilterAlt } from 'react-icons/md';
-import SearchByProperty from './SearchByProperty';
-import { InputValues } from './Table';
 
-interface SearchDropdownProps<U extends string | number | readonly string[] | undefined = string> {
-  inputValues: InputValues<U>;
+interface SearchDropdownProps {
+  inputValues: Record<string, string | undefined>;
   property: string;
-  handleSearchByProperty: (name: string, value: string) => void;
-  handleReset: (property: string) => void;
+  handleToggle: (property: string) => void;
 }
 
-const SearchDropdown = <U extends string | number | readonly string[] | undefined = string>({ inputValues, property, handleSearchByProperty, handleReset }: SearchDropdownProps<U>) => {
-  const [isOpen, setIsOpen] = useState(false);
+const SearchDropdown: React.FC<SearchDropdownProps> = ({ inputValues, property, handleToggle }) => {
   const dropdownSearchRef = useRef<HTMLDivElement>(null);
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
+  const handleClick = () => {
+    handleToggle(property);
   };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
-  function handleClickOutside(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    if (dropdownSearchRef.current && !dropdownSearchRef.current.contains(event.target as Node)) {
-      setIsOpen(false);
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside as unknown as EventListener);
-    return () => {
-      document.removeEventListener('click', handleClickOutside as unknown as EventListener);
-    };
-  }, []);
 
   const isFilterProperty = inputValues[property] ? true : false;
 
   return (
-    <div className="dropdownContainerSearch" ref={dropdownSearchRef}>
+    <div className='dropdownContainerSearch' ref={dropdownSearchRef}>
       <button
-        onClick={handleToggle}
+        onClick={handleClick}
         className={isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter'}
-        aria-label={`Show search filter by ${property}`}
         data-testid={`btnOpenSearch-${property}`}
+        aria-label={`Show search filter by ${property}`}
       >
         {isFilterProperty ? <MdFilterAlt /> : <MdFilterAltOff />}
       </button>
-      {isOpen && (
-        <div className="boxSearchPropertyContent">
-          <SearchByProperty<U>
-            key={property}
-            property={property}
-            inputValues={inputValues}
-            handleSearchByProperty={handleSearchByProperty}
-            handleReset={handleReset}
-            handleClose={handleClose}
-          />
-        </div>
-      )}
     </div>
   );
 };

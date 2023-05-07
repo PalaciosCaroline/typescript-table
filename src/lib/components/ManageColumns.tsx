@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
-import { FaEllipsisH } from 'react-icons/fa';
+import { FiChevronUp,FiChevronDown } from 'react-icons/fi';
 
 interface Column {
     label: string;
@@ -26,22 +26,21 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
 
     return (
         <>
-            <button
+           <button
                 className={`toggle-btnManagedColumns ${isModalOpen ? 'btnOpen' : ''}`}
                 onClick={() => setIsModalOpen(!isModalOpen)}
                 aria-label="managed columns"
-                data-testid='managed columns'
             >
-                <FaEllipsisH />
-                <p className={isModalOpen ? 'btnManagedColumnsOpen' : ''}>Manage Columns</p>
+                <span className={isModalOpen ? 'btnManagedColumnsOpen' : ''}>Manage Columns</span>
+                {!isModalOpen ? <FiChevronDown /> : <FiChevronUp/>}
             </button>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <button className="btnShowAllColumns" onClick={props.handleVisibleAllColumns} data-testid="btnVisibleColumn">
-                    Show All Columns
+                    <span className='btnShowSpan'>Show All Columns</span>
                 </button>
                 <ul className="columns-list">
                     {props.columns.map(({ label, property, isVisible }) => (
-                        <li key={property} style={{ display: 'flex', width: '200px', justifyContent: 'flex-start' }} data-testid={`li-${property}`}>
+                        <li key={property} className='liManagedColumns' data-testid={`li-${property}`}>
                             <div className="toggle-switch">
                                 <input
                                     className="toggle-input"

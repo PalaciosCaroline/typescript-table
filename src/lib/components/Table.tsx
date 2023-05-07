@@ -3,10 +3,11 @@ import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
-import Dropdown from './Dropdown';
-import ManageColumns from './ManageColumns';
+// import Dropdown from './Dropdown';
+// import ManageColumns from './ManageColumns';
 import {TableHeader} from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
+import ManageTable from './ManageTable';
 
 interface Column {
   label: string;
@@ -39,13 +40,18 @@ export default function Table<T>({ data, columns }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);
-  const defaultValueSelectedOption = 10;
-  const [perPage, setPerPage] = useState<number>(defaultValueSelectedOption);
+  // const defaultValueSelectedOption = '10';
+  const [perPage, setPerPage] = useState<number>(10);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [sortedData, setSortedData] = useState<DataItem<T | undefined>[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
   const [dateFormatForSort, setDateFormatForSort]= useState<string>('none');
+  const initialIsOpenSearchBProp : Record<string, boolean> = {};
+  columns.forEach(({ property }) => {
+    initialIsOpenSearchBProp[property] = false;
+  });
+  const [isOpenSearchBProp, setIsOpenSearchBProp] = useState<Record<string, boolean>>(initialIsOpenSearchBProp);
   const initialInputValues: SearchByProp = {};
   columns.forEach(({ property }) => {
     initialInputValues[property] = '';
@@ -195,29 +201,46 @@ export default function Table<T>({ data, columns }: Props<T>) {
   function formatDate(value: T | undefined): string | React.ReactNode {
     return formatNestedDate(value);
   }
+
+  const handleCloseSearchBProp = (): void => {
+    setIsOpenSearchBProp((prevState: Record<string, boolean>) => {
+      const newState: Record<string, boolean> = {};
+      for (const key in prevState) {
+        newState[key] = false;
+      }
+      return newState;
+    });
+  };
+  
+  const handleToggle = (property: string): void => {
+    setIsOpenSearchBProp((prevState: Record<string, boolean>) => ({
+      ...prevState,
+      [property]: !prevState[property],
+    }));
+  };
     
   return (
-    <div className='box_table'>
-      <div className='box_tableAndFeatures'>
+    <div className='box_table box_tableAndFeatures'>
+      
         <SearchAndResetGlobal
           searchTerm={searchTerm}
           handleSearch={handleSearch}
           handleResetSearch={handleResetSearch}
         />
  
-          <div className='box_ChoiceEntries' >
-            <span>Rows per page:</span>
-            <Dropdown
-              options={['All', '5','10','25','50', '100']}
-              onOptionClick={(option) => handlePerPageChange(option)}
-              defaultValueSelectedOption={defaultValueSelectedOption.toString()}
-          />
-
-
-   
-        </div>
         <div className='box_tableManaged scrollerTable'>
-          <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/>
+ 
+          {/* <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/> */}
+
+          <ManageTable
+        handlePerPageChange={handlePerPageChange}
+        // defaultValueSelectedOption={defaultValueSelectedOption}
+        filteredData={filteredData}
+        columnsManaged={columnsManaged}
+        handleColumnVisibility={handleColumnVisibility}
+        handleVisibleAllColumns={handleVisibleAllColumns}
+        // renderExportDataComponent={renderExportDataComponent}
+        />
 
         <table className='tableComponent'>
           <colgroup>
@@ -240,10 +263,12 @@ export default function Table<T>({ data, columns }: Props<T>) {
                     sortOrder={sortOrder}
                     handleSort={handleSort}
                     inputValues={inputValues}
-                    handleSearchByProperty={handleSearchByProperty}
                     handleReset={handleReset}
                     disableSort={disableSort}
                     disableFilter={disableFilter}
+                    handleSearchByProperty={handleSearchByProperty}
+                    isOpenSearchBProp={isOpenSearchBProp[property] ? { [property]: isOpenSearchBProp[property] } : {}}
+                    handleToggle={handleToggle} 
                   />
                 );
               })}
@@ -285,7 +310,7 @@ export default function Table<T>({ data, columns }: Props<T>) {
         />
         </div>
       </div>
-    </div>
+ 
   );
 }
       

@@ -16,10 +16,8 @@ interface TableHeaderProps {
     handleSort: (property: string, dateFormat: string) => void;
     handleSearchByProperty: (property: string, value: string) => void;
     handleReset: (property: string) => void;
-    // setIsOpenSearchBProp: (isOpen: boolean) => void;
     isOpenSearchBProp: { [property: string]: boolean };
     handleToggle: (property: string) => void;
-    // handleCloseSearchBProp?: () => void;
   }
   
  export const TableHeader: React.FC<TableHeaderProps> = ({
@@ -35,10 +33,8 @@ interface TableHeaderProps {
     handleSearchByProperty,
     inputValues,
     handleReset,
-    // setIsOpenSearchBProp,
     isOpenSearchBProp,
     handleToggle,
-    // handleCloseSearchBProp 
   }) => {
     if (!isVisible) return null;
   
@@ -49,7 +45,12 @@ interface TableHeaderProps {
           <p className='label label_tableComponent' data-testid={`columnManaged-${property}`}>{label}</p>
           <div className='box_btnsColumn'>
           {!disableSort && (
-            <SortButton isSortKey={isSortKey} sortOrder={sortOrder} property={property} handleSort={handleSort} dateFormat={dateFormat}/>
+            <SortButton 
+              isSortKey={isSortKey} 
+              sortOrder={sortOrder} 
+              property={property} 
+              handleSort={handleSort} 
+              dateFormat={dateFormat}/>
             )}
             {!disableFilter && (
             <SearchDropdown
@@ -59,7 +60,6 @@ interface TableHeaderProps {
             />
             )}
           </div>
-      
         </div>  
         { isOpenSearchBProp[property]  && (
           <div className='boxSearchPropertyContent'>
@@ -69,7 +69,6 @@ interface TableHeaderProps {
                 inputValues={inputValues}
                 handleSearchByProperty={handleSearchByProperty}
                 handleReset={handleReset}
-                // handleCloseSearchBProp={handleCloseSearchBProp} 
               />
           </div>
         )}

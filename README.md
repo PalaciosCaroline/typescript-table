@@ -26,11 +26,11 @@ The Table component receives two props: data, an array of objects with the data 
 ## Install the package 
 with npm:
 
-    `npm install table-component-library`
+    `npm install typescript-table`
 
 or yarn:
 
-    `yarn add table-component-library`
+    `yarn add typescript-table`
 
 ## Import in your application
 
@@ -64,9 +64,9 @@ Array: processed recursively up to a depth of 4
 @@ Example: Table of employees @@
 ```
 
-![table](./imgTable.png "example of table")
+![table](./imgTable1.png "example of table")
 
-![example of datas displayed](./typeData.png "example of table")
+![example of datas displayed](./typeData1.png "example of table")
 
 ****************************************************************************************************************
 
@@ -221,7 +221,7 @@ to:
 
 or if you want change the header of table :
 like this 
-![table](./column_reverse.png "example of other table's header")
+![table](./column_reverse1.png "example of other table's header")
 
 add in your css :
 

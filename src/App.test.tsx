@@ -98,27 +98,14 @@ describe('Table', () => {
     });
   });
 
-  // test('sorts the table by the ascendant firstName column', () => {
-  //   render(<Table data={datasExample} columns={columnsExample} />);
-    
-  //   const firstNameHeader = screen.getByTestId('btnSortByAsc-firstName');
-  //   fireEvent.click(firstNameHeader);
   
-  //   const sortedData = datasExample.slice().sort((a, b) => a.firstName?.localeCompare(b.firstName) ?? 0);
-  //   const table = screen.getByRole('table');
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
-  //     expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstName.toString());
-  //   });
-  // });
 
   // test('sorts the table by descendant the firstName column', () => {
   //   render(<Table data={datasExample} columns={columnsExample} />);
-
+  //   console.log(document.body.innerHTML);
   //   const firstNameAscHeader = screen.getByTestId('btnSortByAsc-firstName');
   //   fireEvent.click(firstNameAscHeader);
-  //   const firstNameDescHeader = screen.getByTestId('btnSortbyDesc-firstName');
+  //   const firstNameDescHeader = screen.getByTestId('btnSortByDesc-firstName'); // Change 'btnSortbyDesc' to 'btnSortByDesc'
   //   fireEvent.click(firstNameDescHeader);
   
   //   const sortedData = datasExample.slice().sort((a, b) => b.firstName?.localeCompare(a.firstName) ?? 0);

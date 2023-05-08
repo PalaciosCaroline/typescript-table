@@ -10,6 +10,7 @@ interface SortButtonProps {
 }
   
 const SortButton: React.FC<SortButtonProps> = ({ isSortKey, sortOrder, property, handleSort, dateFormat }) => {
+
     const renderSortButton = (icon: React.ReactNode, label: string, testIdSuffix: string) => (
         <button
         onClick={() => handleSort(property, dateFormat)}
@@ -20,7 +21,7 @@ const SortButton: React.FC<SortButtonProps> = ({ isSortKey, sortOrder, property,
         {icon}
         </button>
     );
-
+ 
     return (
         <>
         {(!isSortKey || (isSortKey && sortOrder === "noSort")) && renderSortButton(<FaSort />, "no sorted, change by ascendant", "ByAsc")}

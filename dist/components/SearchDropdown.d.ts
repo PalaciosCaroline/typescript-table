@@ -1,10 +1,8 @@
-/// <reference types="react" />
-import { InputValues } from './Table';
-interface SearchDropdownProps<U extends string | number | readonly string[] | undefined = string> {
-    inputValues: InputValues<U>;
+import React from 'react';
+interface SearchDropdownProps {
+    inputValues: Record<string, string | undefined>;
     property: string;
-    handleSearchByProperty: (name: string, value: string) => void;
-    handleReset: (property: string) => void;
+    handleToggle: (property: string) => void;
 }
-declare const SearchDropdown: <U extends string | number | readonly string[] | undefined = string>({ inputValues, property, handleSearchByProperty, handleReset }: SearchDropdownProps<U>) => JSX.Element;
+declare const SearchDropdown: React.FC<SearchDropdownProps>;
 export default SearchDropdown;

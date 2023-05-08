@@ -33,12 +33,18 @@ function Dropdown(props) {
             setIsOpen(false);
         }
     }
+    function handleKeyDown(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleDropdown();
+        }
+    }
     useEffect(function () {
         document.addEventListener('click', handleClickOutside);
         return function () {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
-    return (_jsxs("div", __assign({ className: 'dropdownTable dropdownRowPerPage', ref: dropdownRef }, { children: [_jsxs("button", __assign({ type: "button", className: 'dropdownToggleTable buttonToggleRowPerPage', onClick: toggleDropdown, "data-testid": 'btnPerPage', "aria-haspopup": "listbox", "aria-expanded": isOpen, "aria-labelledby": "dropdown-label", "aria-label": "Options de la liste d\u00E9roulante" }, { children: [selectedOption || props.defaultValueSelectedOption, _jsx("span", __assign({ className: 'chevronTable chevronRowPerPage', onClick: handleChevronClick }, { children: isOpen ? _jsx(FiChevronUp, {}) : _jsx(FiChevronDown, {}) }))] })), isOpen && (_jsx("ul", __assign({ className: 'dropdownMenuTable dropdownMenuRowPerPage', role: "listbox" }, { children: props.options.map(function (option) { return (_jsx("li", __assign({ "data-testid": "optionPerPage-".concat(option), className: "dropdownOptionTable dropdownOptionRowPerPage ".concat(option === selectedOption ? "selectedTable selectedOption" : ''), onClick: function () { return handleOptionClick(option); }, role: "option", "aria-selected": option === selectedOption }, { children: option }), option)); }) }))), _jsx("span", __assign({ id: "dropdown-label", className: "sr-only" }, { children: "Options de la liste d\u00E9roulante" }))] })));
+    return (_jsxs("div", __assign({ className: "dropdownTable dropdownTable".concat(props.classNameProps), ref: dropdownRef }, { children: [_jsxs("button", __assign({ type: "button", className: "dropdownToggleTable buttonToggle".concat(props.classNameProps), onClick: toggleDropdown, onKeyDown: handleKeyDown, "data-testid": 'btnPerPage', "aria-haspopup": "listbox", "aria-expanded": isOpen, "aria-labelledby": "dropdown-label", "aria-label": "options of dropdown" }, { children: [selectedOption || props.defaultValueSelectedOption, _jsx("span", __assign({ className: "chevronTable chevron".concat(props.classNameProps), onClick: handleChevronClick }, { children: isOpen ? _jsx(FiChevronUp, {}) : _jsx(FiChevronDown, {}) }))] })), isOpen && (_jsx("ul", __assign({ className: "dropdownMenuTable dropdownMenu".concat(props.classNameProps), role: "listbox" }, { children: props.options.map(function (option) { return (_jsx("li", __assign({ className: "dropdownOptionTable dropdownOptionRowPerPage ".concat(option === selectedOption ? "selectedTable selectedOption" : ''), onClick: function () { return handleOptionClick(option); }, role: "option", "aria-selected": option === selectedOption, "data-testid": "optionPerPage-".concat(option), tabIndex: 0 }, { children: option }), option)); }) }))), _jsx("span", __assign({ id: "dropdown-label", className: "sr-only" }, { children: "options of dropdown" }))] })));
 }
 export default Dropdown;

@@ -14,6 +14,10 @@ interface TableHeaderProps {
     handleSort: (property: string, dateFormat: string) => void;
     handleSearchByProperty: (property: string, value: string) => void;
     handleReset: (property: string) => void;
+    isOpenSearchBProp: {
+        [property: string]: boolean;
+    };
+    handleToggle: (property: string) => void;
 }
 export declare const TableHeader: React.FC<TableHeaderProps>;
 export {};

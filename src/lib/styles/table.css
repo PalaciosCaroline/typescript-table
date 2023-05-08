@@ -9,7 +9,6 @@
   align-items:center;
   height:100%;
   margin: 0 16px;
-  width: 170px;
   padding:0 5px 0 15px;
   background-color: #677e11;
   color:#fff;
@@ -434,6 +433,7 @@ thead{
   padding: 0 10px 0 10px;
   width: 40px;
   box-sizing: border-box;
+  font-size:1.3rem;
 }
 
 .li_manageColumns{
@@ -563,7 +563,7 @@ thead{
 }
 
 .buttonToggleRowPerPage {
-  padding: 8px 12px;
+  padding: 4px 8px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -571,8 +571,10 @@ thead{
   width: 60px;
 }
 
-.chevronTable {
+#box_ChoiceEntries .chevronTable {
   margin-left: 8px;
+  font-size:1.3rem;
+  display: flex;
 }
 
 .dropdownMenuRowPerPage {
@@ -585,7 +587,6 @@ thead{
   margin: 0;
   background-color: #fff;
   z-index: 999;
-  /* border:1px solid  #b1c46c; */
 }
 
 /* styles pour les options du menu déroulant */
@@ -756,6 +757,16 @@ thead{
   transform: translateX(0);
   visibility: visible;
   width: auto;
+}
+
+.manageTable-dropdown .buttonToggleRowPerPage > svg {
+  font-size:1.3rem;
+}
+
+.box_table #box_ChoiceEntries .dropdownTableRowPerPage .buttonToggleRowPerPage > svg{
+  font-size:1.3rem;
+  height: 1rem;
+  width: 1rem;
 }
 /* fin */
 

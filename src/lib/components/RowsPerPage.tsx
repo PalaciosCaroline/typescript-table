@@ -3,12 +3,10 @@ import Dropdown from './Dropdown';
 
 interface RowsPerPageProps {
   handlePerPageChange: (option: string) => void;
-  // defaultValueSelectedOption: number;
 }
 
 const RowsPerPage: React.FC<RowsPerPageProps> = ({
   handlePerPageChange,
-  // defaultValueSelectedOption,
 }): ReactElement => {
   return (
     <div className='box_ChoiceEntries' id='box_ChoiceEntries'>

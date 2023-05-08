@@ -27,7 +27,7 @@ const SearchByProperty = <U extends string | number | readonly string[] | undefi
   };
 
   return (
-    <div style={{ position: 'relative', display:'flex', alignItems: 'center' }}>
+    <div className="box-searchBProps">
         <input
             type="text"
             value={inputValues[property]}
@@ -41,7 +41,6 @@ const SearchByProperty = <U extends string | number | readonly string[] | undefi
             type="button"
             className='btnSearchByPropertyReset'
             onClick={handleResetClose}
-            style={{ position: 'absolute', top: 0, right: 0, width: '20px', height: '100%', backgroundColor: 'transparent' , margin:'0', paddingRight:'25px'}}
             data-testid={`btnResetClose-${property}`}
             aria-label={`Clear and close the search by ${property}`}
             >

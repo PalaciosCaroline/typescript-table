@@ -62,15 +62,15 @@ interface TableHeaderProps {
           </div>
         </div>  
         { isOpenSearchBProp[property]  && (
-          <div className='boxSearchPropertyContent'>
-              <SearchByProperty
-                key={property}
-                property={property}
-                inputValues={inputValues}
-                handleSearchByProperty={handleSearchByProperty}
-                handleReset={handleReset}
-              />
-          </div>
+        <div className='boxSearchPropertyContent'>
+            <SearchByProperty
+              key={property}
+              property={property}
+              inputValues={inputValues}
+              handleSearchByProperty={handleSearchByProperty}
+              handleReset={handleReset}
+            />
+        </div>
         )}
       </th>
     );

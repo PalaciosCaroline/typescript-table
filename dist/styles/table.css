@@ -147,6 +147,16 @@ p.label_tableComponent{
    display: block;
 }
 
+.tableComponent .btnSearchByPropertyReset{
+  position: absolute;
+  top: 0;
+  width: 25px;
+  height: 100%;
+  background-color: transparent;
+  margin:0;
+  right: 15px;
+}
+
 /* global search */
 .box_searchGlobal{
   position: relative;
@@ -232,12 +242,19 @@ p.label_tableComponent{
   }
 }
 
-/* search by property */
 .boxSearchPropertyContent{
   z-index: 50;
   padding-bottom:5px;
   padding-top:10px;
+  /* position:relative; 
+  max-width: calc(100% - 16px); */
   box-sizing: border-box;
+}
+
+.box-searchBProps{
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .divSearchByProperty{
@@ -248,9 +265,8 @@ p.label_tableComponent{
 
 .inputSearchByProperty{
   height: 30px;
-  width: 100% ;
+  width: calc(100% - 13px) ;
   font-size: 0.8rem;
-  height: 30px;
   padding-left: 10px;
   padding-right: 3px;
   box-shadow: inset 6px 6px 6px #d1d4db, inset -6px -6px 6px white;
@@ -262,6 +278,7 @@ p.label_tableComponent{
   border-bottom: none;
   font-size: 14px;
   border-radius: 15px;
+  box-sizing: content-box;
 }
 
 .btnSearchByPropertyClose{

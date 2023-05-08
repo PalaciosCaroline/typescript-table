@@ -201,16 +201,6 @@ export default function Table<T>({ data, columns }: Props<T>) {
   function formatDate(value: T | undefined): string | React.ReactNode {
     return formatNestedDate(value);
   }
-
-  const handleCloseSearchBProp = (): void => {
-    setIsOpenSearchBProp((prevState: Record<string, boolean>) => {
-      const newState: Record<string, boolean> = {};
-      for (const key in prevState) {
-        newState[key] = false;
-      }
-      return newState;
-    });
-  };
   
   const handleToggle = (property: string): void => {
     setIsOpenSearchBProp((prevState: Record<string, boolean>) => ({
@@ -230,16 +220,12 @@ export default function Table<T>({ data, columns }: Props<T>) {
  
         <div className='box_tableManaged scrollerTable'>
  
-          {/* <ManageColumns columns={columnsManaged} handleColumnVisibility={handleColumnVisibility} handleVisibleAllColumns={handleVisibleAllColumns}/> */}
-
           <ManageTable
         handlePerPageChange={handlePerPageChange}
-        // defaultValueSelectedOption={defaultValueSelectedOption}
         filteredData={filteredData}
         columnsManaged={columnsManaged}
         handleColumnVisibility={handleColumnVisibility}
         handleVisibleAllColumns={handleVisibleAllColumns}
-        // renderExportDataComponent={renderExportDataComponent}
         />
 
         <table className='tableComponent'>

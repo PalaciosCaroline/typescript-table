@@ -41,6 +41,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
                 className={`toggle-btnManageTable ${isDropDownOpen ? 'btnOpenManageTable' : ''}`}
                 onClick={toggleDropDown}
                 aria-label="manage Table"
+                data-testid="manageTable"
             >
             <div className="icon-container" >  
       <FaTimes className={`icon ${isDropDownOpen ? 'show' : 'hide'}`} />

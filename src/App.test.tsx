@@ -26,6 +26,7 @@ describe('Table', () => {
     expect(screen.getByText('Name')).toBeInTheDocument();
     expect(screen.getByText('Age')).toBeInTheDocument();
 
+    fireEvent.click(screen.getByTestId('manageTable'));
     fireEvent.click(screen.getByText('Manage Columns'));
 
     const listItem = screen.getByTestId('inputManaged-age');
@@ -43,6 +44,7 @@ describe('Table', () => {
     let displayedRows = screen.getAllByRole('row');
     expect(displayedRows.length).toBe(11); 
     // Ouvrir le menu déroulant
+    fireEvent.click(screen.getByTestId('manageTable'));
     const btnPerPage = screen.getByTestId('btnPerPage');
     fireEvent.click(btnPerPage);
 
@@ -431,8 +433,6 @@ describe('Modal', () => {
 
     btnCloseModal.focus();
     fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
-  
-
     fireEvent.keyDown(btnCloseModal, { key: 'Tab' });
 
   

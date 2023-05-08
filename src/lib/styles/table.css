@@ -3,16 +3,22 @@
   font-family: 'roboto', sans-serif;
 }
 
+.box_table *{
+  box-sizing: border-box;
+}
+
 .box_ChoiceEntries{
   display:flex;
   justify-content:space-between;
   align-items:center;
   height:100%;
+  width: 190px;
   margin: 0 16px;
   padding:0 5px 0 15px;
   background-color: #677e11;
   color:#fff;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 #box_ChoiceEntries span{
@@ -90,8 +96,8 @@ ul {
 .th_tableComponent{
   padding: 8px;
   text-align: left;
-  min-height: 40px;
-  height: 48px;
+  min-height: 50px;
+  height: 66px;
   font-weight: 600;
   border: 1px solid #dcdada;
 }
@@ -105,7 +111,7 @@ p.label_tableComponent{
 }
 
 .tableComponent{
-  border:1px solid rgba(0, 0, 0, 0.3)
+  border:1px solid #ededed;
 }
 
 /* Style pour les cellules du corps */
@@ -181,13 +187,12 @@ p.label_tableComponent{
   .box_searchReset{
     margin-left:0;
   }
-
 }
 
 .box_searchGlobal input{
   padding: 10px;
   padding-left: 20px;
-  height: 25px;
+  height: 45px;
 }
 
 .btn_Reset{
@@ -243,7 +248,7 @@ p.label_tableComponent{
 
 .inputSearchByProperty{
   height: 30px;
-  width: calc(100% - 13px);
+  width: 100% ;
   font-size: 0.8rem;
   height: 30px;
   padding-left: 10px;
@@ -405,7 +410,7 @@ thead{
   align-items: center;
   justify-content: space-between;
   z-index:40;
-  width: 200px;
+  width: 190px;
   margin:0 16px;
   white-space: nowrap;
   height: 100%;
@@ -569,6 +574,7 @@ thead{
   justify-content: space-between;
   align-items: center;
   width: 60px;
+  line-height: 100%;
 }
 
 #box_ChoiceEntries .chevronTable {
@@ -585,13 +591,12 @@ thead{
   list-style: none;
   padding: 0;
   margin: 0;
-  background-color: #fff;
   z-index: 999;
 }
 
 /* styles pour les options du menu déroulant */
 .dropdownOptionRowPerPage {
-  padding: 8px 12px;
+  padding: 4px 12px;
   cursor: pointer;
 }
 
@@ -600,10 +605,13 @@ thead{
 }
 .manageTable-dropdown .dropdownOptionRowPerPage {
   display: block;
-  height: 25px;
-
+  height: 40px;
   background-color:  #677e11;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
 }
+
 .manageTable-dropdown .buttonToggleRowPerPage {
   font-size:1rem;
   background-color:  #677e11;
@@ -621,7 +629,6 @@ thead{
 /* styles pour l'option sélectionnée */
 .dropdownOptionRowPerPage.selectedTable,.dropdownOptionRowPerPage.selectedTable:hover {
   background-color:  #7e9b16;
-
 }
 
 .box_btnsColumn{
@@ -707,7 +714,7 @@ thead{
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  height: 43px;
+  height: 51px;
   padding:4px 0;
   line-height: 100%; 
 }

@@ -3,8 +3,6 @@ import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
-// import Dropdown from './Dropdown';
-// import ManageColumns from './ManageColumns';
 import {TableHeader} from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
@@ -40,7 +38,6 @@ export default function Table<T>({ data, columns }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);
-  // const defaultValueSelectedOption = '10';
   const [perPage, setPerPage] = useState<number>(10);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [sortedData, setSortedData] = useState<DataItem<T | undefined>[]>([]);
@@ -221,12 +218,12 @@ export default function Table<T>({ data, columns }: Props<T>) {
         <div className='box_tableManaged scrollerTable'>
  
           <ManageTable
-        handlePerPageChange={handlePerPageChange}
-        filteredData={filteredData}
-        columnsManaged={columnsManaged}
-        handleColumnVisibility={handleColumnVisibility}
-        handleVisibleAllColumns={handleVisibleAllColumns}
-        />
+            handlePerPageChange={handlePerPageChange}
+            filteredData={filteredData}
+            columnsManaged={columnsManaged}
+            handleColumnVisibility={handleColumnVisibility}
+            handleVisibleAllColumns={handleVisibleAllColumns}
+          />
 
         <table className='tableComponent'>
           <colgroup>

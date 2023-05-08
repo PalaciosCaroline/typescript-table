@@ -170,15 +170,6 @@ p.label_tableComponent{
   box-shadow: inset 6px 6px 6px #d1d4db, inset -6px -6px 6px white;
   outline:1px solid rgb(220, 239, 232);
 }
-.inputSearchByProperty{
-  background: #fbfbfb;
-  border-bottom:1px solid  #677e11;
-  border-top:none;
-  border-left:none;
-  border-right: none;
-  font-size: 14px;
-  outline: #adca76;
-}
 
 @media (max-width: 1000px) {
   #searchGlobal {
@@ -253,11 +244,20 @@ p.label_tableComponent{
 
 .inputSearchByProperty{
   height: 30px;
-  width: 100%;
+  width: calc(100% - 13px);
   font-size: 0.8rem;
   height: 30px;
-  padding-left: 3px;
+  padding-left: 10px;
   padding-right: 3px;
+  box-shadow: inset 6px 6px 6px #d1d4db, inset -6px -6px 6px white;
+  outline: 1px solid rgb(220, 239, 232);
+  background: #fbfbfb;
+  border-top:none;
+  border-left:none;
+  border-right: none;
+  border-bottom: none;
+  font-size: 14px;
+  border-radius: 15px;
 }
 
 .btnSearchByPropertyClose{

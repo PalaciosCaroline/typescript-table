@@ -15,8 +15,6 @@ import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
-// import Dropdown from './Dropdown';
-// import ManageColumns from './ManageColumns';
 import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
@@ -25,7 +23,6 @@ export default function Table(_a) {
     var _b = useState(undefined), sortKey = _b[0], setSortKey = _b[1];
     var _c = useState('noSort'), sortOrder = _c[0], setSortOrder = _c[1];
     var _d = useState(1), page = _d[0], setPage = _d[1];
-    // const defaultValueSelectedOption = '10';
     var _e = useState(10), perPage = _e[0], setPerPage = _e[1];
     var _f = useState(0), totalPages = _f[0], setTotalPages = _f[1];
     var _g = useState([]), sortedData = _g[0], setSortedData = _g[1];

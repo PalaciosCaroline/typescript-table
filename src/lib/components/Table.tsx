@@ -34,7 +34,7 @@ interface Props<T> {
   columns: Column[];
 }
 
-export default function Table<T>({ data, columns }: Props<T>) {
+export function Table<T>({ data, columns }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);

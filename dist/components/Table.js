@@ -18,7 +18,7 @@ import './../styles/table.css';
 import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
-export default function Table(_a) {
+export function Table(_a) {
     var data = _a.data, columns = _a.columns;
     var _b = useState(undefined), sortKey = _b[0], setSortKey = _b[1];
     var _c = useState('noSort'), sortOrder = _c[0], setSortOrder = _c[1];

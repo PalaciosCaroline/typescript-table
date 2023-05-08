@@ -17,5 +17,5 @@ interface Props<T> {
     data: DataItem<T | undefined>[];
     columns: Column[];
 }
-export default function Table<T>({ data, columns }: Props<T>): JSX.Element;
+export declare function Table<T>({ data, columns }: Props<T>): JSX.Element;
 export {};

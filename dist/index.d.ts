@@ -1,2 +1,2 @@
 export { Table };
-import Table from './components/Table';
+import { Table } from './components/Table';

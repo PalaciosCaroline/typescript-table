@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from './lib/components/Table';
+import {Table} from './lib/components/Table';
 import { datasExample, columnsExample } from './dataForExample';
 
 function App() {

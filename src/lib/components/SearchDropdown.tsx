@@ -7,7 +7,11 @@ interface SearchDropdownProps {
   handleToggle: (property: string) => void;
 }
 
-const SearchDropdown: React.FC<SearchDropdownProps> = ({ inputValues, property, handleToggle }) => {
+const SearchDropdown: React.FC<SearchDropdownProps> = ({
+  inputValues,
+  property,
+  handleToggle,
+}) => {
   const dropdownSearchRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
@@ -17,10 +21,12 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({ inputValues, property, 
   const isFilterProperty = inputValues[property] ? true : false;
 
   return (
-    <div className='dropdownContainerSearch' ref={dropdownSearchRef}>
+    <div className="dropdownContainerSearch" ref={dropdownSearchRef}>
       <button
         onClick={handleClick}
-        className={isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter'}
+        className={
+          isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter'
+        }
         data-testid={`btnOpenSearch-${property}`}
         aria-label={`Show search filter by ${property}`}
       >

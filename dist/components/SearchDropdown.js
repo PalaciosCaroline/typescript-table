@@ -19,6 +19,6 @@ var SearchDropdown = function (_a) {
         handleToggle(property);
     };
     var isFilterProperty = inputValues[property] ? true : false;
-    return (_jsx("div", __assign({ className: 'dropdownContainerSearch', ref: dropdownSearchRef }, { children: _jsx("button", __assign({ onClick: handleClick, className: isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter', "data-testid": "btnOpenSearch-".concat(property), "aria-label": "Show search filter by ".concat(property) }, { children: isFilterProperty ? _jsx(MdFilterAlt, {}) : _jsx(MdFilterAltOff, {}) })) })));
+    return (_jsx("div", __assign({ className: "dropdownContainerSearch", ref: dropdownSearchRef }, { children: _jsx("button", __assign({ onClick: handleClick, className: isFilterProperty ? 'btnFilter selectedBtnFilter' : 'btnFilter', "data-testid": "btnOpenSearch-".concat(property), "aria-label": "Show search filter by ".concat(property) }, { children: isFilterProperty ? _jsx(MdFilterAlt, {}) : _jsx(MdFilterAltOff, {}) })) })));
 };
 export default SearchDropdown;

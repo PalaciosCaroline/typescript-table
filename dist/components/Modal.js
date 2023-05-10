@@ -25,11 +25,13 @@ function Modal(props) {
                 var focusableElements = (_a = modalRef.current) === null || _a === void 0 ? void 0 : _a.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
                 var firstFocusableElement = focusableElements === null || focusableElements === void 0 ? void 0 : focusableElements[0];
                 var lastFocusableElement = focusableElements === null || focusableElements === void 0 ? void 0 : focusableElements[focusableElements.length - 1];
-                if (document.activeElement === lastFocusableElement && !event.shiftKey) {
+                if (document.activeElement === lastFocusableElement &&
+                    !event.shiftKey) {
                     event.preventDefault();
                     firstFocusableElement.focus();
                 }
-                else if (document.activeElement === firstFocusableElement && event.shiftKey) {
+                else if (document.activeElement === firstFocusableElement &&
+                    event.shiftKey) {
                     event.preventDefault();
                     lastFocusableElement.focus();
                 }
@@ -56,6 +58,6 @@ function Modal(props) {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [props.isOpen]);
-    return (_jsx(_Fragment, { children: props.isOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable", onClick: props.onClose, "aria-label": "Fermer la fen\u00EAtre", tabIndex: 0, "data-testid": 'btnCloseModal' }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
+    return (_jsx(_Fragment, { children: props.isOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable", onClick: props.onClose, "aria-label": "Fermer la fen\u00EAtre", tabIndex: 0, "data-testid": "btnCloseModal" }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
 }
 export default Modal;

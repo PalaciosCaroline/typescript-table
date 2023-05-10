@@ -17,14 +17,22 @@ function Modal(props: ModalProps): JSX.Element {
         props.onClose();
       } else if (event.key === 'Tab') {
         const focusableElements = modalRef.current?.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         );
         const firstFocusableElement = focusableElements?.[0] as HTMLElement;
-        const lastFocusableElement = focusableElements?.[focusableElements.length - 1] as HTMLElement;
-        if (document.activeElement === lastFocusableElement && !event.shiftKey) {
+        const lastFocusableElement = focusableElements?.[
+          focusableElements.length - 1
+        ] as HTMLElement;
+        if (
+          document.activeElement === lastFocusableElement &&
+          !event.shiftKey
+        ) {
           event.preventDefault();
           firstFocusableElement.focus();
-        } else if (document.activeElement === firstFocusableElement && event.shiftKey) {
+        } else if (
+          document.activeElement === firstFocusableElement &&
+          event.shiftKey
+        ) {
           event.preventDefault();
           lastFocusableElement.focus();
         }
@@ -33,17 +41,23 @@ function Modal(props: ModalProps): JSX.Element {
 
     if (props.isOpen) {
       lastActiveElement.current = document.activeElement as HTMLElement;
-      document.addEventListener('keydown', handleKeyDown as unknown as EventListenerOrEventListenerObject);
+      document.addEventListener(
+        'keydown',
+        handleKeyDown as unknown as EventListenerOrEventListenerObject,
+      );
 
       // Move focus to the first focusable element inside the modal
       requestAnimationFrame(() => {
         const firstFocusableElement = modalRef.current?.querySelector(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         ) as HTMLElement | null;
         firstFocusableElement?.focus();
       });
     } else {
-      document.removeEventListener('keydown', handleKeyDown as unknown as EventListenerOrEventListenerObject);
+      document.removeEventListener(
+        'keydown',
+        handleKeyDown as unknown as EventListenerOrEventListenerObject,
+      );
 
       // Return focus to the previously focused element when the modal is closed
       if (lastActiveElement.current) {
@@ -52,15 +66,30 @@ function Modal(props: ModalProps): JSX.Element {
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown as unknown as EventListenerOrEventListenerObject);
+      document.removeEventListener(
+        'keydown',
+        handleKeyDown as unknown as EventListenerOrEventListenerObject,
+      );
     };
   }, [props.isOpen]);
 
   return (
     <>
       {props.isOpen && (
-        <div className="modalTable" role="dialog" aria-modal="true" aria-labelledby="modal-title" ref={modalRef}>
-          <button className="btn_closeModalTable" onClick={props.onClose} aria-label="Fermer la fenêtre" tabIndex={0} data-testid='btnCloseModal'>
+        <div
+          className="modalTable"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          ref={modalRef}
+        >
+          <button
+            className="btn_closeModalTable"
+            onClick={props.onClose}
+            aria-label="Fermer la fenêtre"
+            tabIndex={0}
+            data-testid="btnCloseModal"
+          >
             <FaTimes className="btn_closeModalTable_icon" />
           </button>
           <div className="modalTable-content">{props.children}</div>

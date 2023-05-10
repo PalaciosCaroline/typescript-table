@@ -1,5 +1,10 @@
-import React from "react";
-import { FiChevronsLeft, FiChevronsRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import React from 'react';
+import {
+  FiChevronsLeft,
+  FiChevronsRight,
+  FiChevronLeft,
+  FiChevronRight,
+} from 'react-icons/fi';
 
 interface Props {
   page: number;
@@ -20,7 +25,7 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(1)}
               aria-label="return to first page"
-              data-testid='btnFirstPage'
+              data-testid="btnFirstPage"
             >
               <FiChevronsLeft />
             </button>
@@ -29,12 +34,14 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(page - 1)}
               aria-label="go to the previous page"
-              data-testid='btnPreviousPage'
+              data-testid="btnPreviousPage"
             >
               <FiChevronLeft />
             </button>
           </>
-        ) : ''}
+        ) : (
+          ''
+        )}
       </div>
       <span className="paginationText">
         Page {page} of {totalPages}
@@ -47,7 +54,7 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(page + 1)}
               aria-label="go to the next page"
-              data-testid='btnNextPage'
+              data-testid="btnNextPage"
             >
               <FiChevronRight />
             </button>
@@ -56,12 +63,15 @@ function Pagination(props: Props) {
               style={{ border: 'none', fontSize: '1.2rem' }}
               onClick={() => handlePageChange(totalPages)}
               aria-label="go to the last page"
-              data-testid='btnLastPage'
+              data-testid="btnLastPage"
             >
               <FiChevronsRight />
             </button>
           </>
-        ) : ''} </div>
+        ) : (
+          ''
+        )}{' '}
+      </div>
     </div>
   );
 }

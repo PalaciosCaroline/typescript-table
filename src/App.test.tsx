@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent} from '@testing-library/react';
-import Table from './lib/components/Table';
+import {Table} from './lib/components/Table';
 import { Table as ExportedTable } from './lib/index';
 import {datasExample, columnsExample} from './dataForExample';
 import { compareArrays, customSort,SortableObject } from '../src/lib/utils/sortDatas';
@@ -97,48 +97,6 @@ describe('Table', () => {
       });
     });
   });
-
-  
-
-  // test('sorts the table by descendant the firstName column', () => {
-  //   render(<Table data={datasExample} columns={columnsExample} />);
-  //   console.log(document.body.innerHTML);
-  //   const firstNameAscHeader = screen.getByTestId('btnSortByAsc-firstName');
-  //   fireEvent.click(firstNameAscHeader);
-  //   const firstNameDescHeader = screen.getByTestId('btnSortByDesc-firstName'); // Change 'btnSortbyDesc' to 'btnSortByDesc'
-  //   fireEvent.click(firstNameDescHeader);
-  
-  //   const sortedData = datasExample.slice().sort((a, b) => b.firstName?.localeCompare(a.firstName) ?? 0);
-  //   const table = screen.getByRole('table');
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
-    
-  //     expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstName.toString());
-  //   });
-  // });
-
-  // test('sorts the table by the dateOfBirth column', () => {
-  //   render(<Table data={datasExample} columns={columnsExample} />);
-    
-  //   const dateOfBirthHeader = screen.getByTestId('btnSort-dateOfBirth');
-  //   fireEvent.click(dateOfBirthHeader);
-  
-  //   const sortedData = datasExample.slice().sort((a, b) => {
-  //     const datePartsA = a.dateOfBirth?.split('/').map(Number);
-  //     const datePartsB = b.dateOfBirth?.split('/').map(Number);
-  //     const dateA = new Date(datePartsA[2], datePartsA[1] - 1, datePartsA[0]);
-  //     const dateB = new Date(datePartsB[2], datePartsB[1] - 1, datePartsB[0]);
-  //     return dateA.valueOf() - dateB.valueOf();
-  //   });
-  
-  //   const table = screen.getByRole('table');
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
-  //     expect(cells[4]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
-  //   });
-  // });
 
   test('sorts the table by the dateOfBirth with YYYY/MM/DD column', () => {
    

@@ -27,7 +27,7 @@ const SearchByProperty = <U extends string | number | readonly string[] | undefi
   };
 
   return (
-    <div className="box-searchBProps">
+    <div className="box_searchBProps">
         <input
             type="text"
             value={inputValues[property]}

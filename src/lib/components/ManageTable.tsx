@@ -12,11 +12,11 @@ interface DataItem<T> {
 
 interface ManageTableProps<T> {
     handlePerPageChange: (optionValue: string) => void;
-    // defaultValueSelectedOption: number;
     columnsManaged: Column[];
     handleColumnVisibility: (property: string) => void;
     handleVisibleAllColumns: () => void;
     filteredData: DataItem<T | undefined>[];
+    renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: Column[]) => React.ReactNode;
 }
 
 interface Column {
@@ -52,15 +52,15 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
             {isDropDownOpen && (
                 <div className={`manageTable-dropdown ${isDropDownOpen ? 'box-manageFeatearesOpen' : ''}`}>
                     <ul className="manageTable-dropdownUl">
-                        {/* {props.renderExportDataComponent && 
+                        {props.renderExportDataComponent && 
                             <li className="manageTable-dropdownLi">
                                 {props.renderExportDataComponent(props.filteredData, props.columnsManaged)}
                             </li>
-                        } */}
+                        }
                         <li className="manageTable-dropdownLi">
                             <RowsPerPage
                                 handlePerPageChange={props.handlePerPageChange}
-                                // defaultValueSelectedOption={props.defaultValueSelectedOption}
+                            
                             />
                         </li>
                         <li className="manageTable-dropdownLi li_manageColumns">

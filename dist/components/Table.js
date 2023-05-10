@@ -19,7 +19,7 @@ import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
 export function Table(_a) {
-    var data = _a.data, columns = _a.columns;
+    var data = _a.data, columns = _a.columns, renderExportDataComponent = _a.renderExportDataComponent;
     var _b = useState(undefined), sortKey = _b[0], setSortKey = _b[1];
     var _c = useState('noSort'), sortOrder = _c[0], setSortOrder = _c[1];
     var _d = useState(1), page = _d[0], setPage = _d[1];
@@ -163,7 +163,7 @@ export function Table(_a) {
             return (__assign(__assign({}, prevState), (_a = {}, _a[property] = !prevState[property], _a)));
         });
     };
-    return (_jsxs("div", __assign({ className: 'box_table box_tableAndFeatures' }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch }), _jsxs("div", __assign({ className: 'box_tableManaged scrollerTable' }, { children: [_jsx(ManageTable, { handlePerPageChange: handlePerPageChange, filteredData: filteredData, columnsManaged: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns }), _jsxs("table", __assign({ className: 'tableComponent' }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
+    return (_jsxs("div", __assign({ className: 'box_table box_tableAndFeatures' }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch }), _jsxs("div", __assign({ className: 'box_tableManaged scrollerTable' }, { children: [_jsx(ManageTable, { handlePerPageChange: handlePerPageChange, filteredData: filteredData, columnsManaged: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns, renderExportDataComponent: renderExportDataComponent }), _jsxs("table", __assign({ className: 'tableComponent' }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
                                     var property = _a.property, isVisible = _a.isVisible;
                                     if (isVisible) {
                                         return (_jsx("col", { id: "col_".concat(property) }, "{col_".concat(property)));

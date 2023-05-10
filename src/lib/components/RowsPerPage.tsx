@@ -10,7 +10,7 @@ const RowsPerPage: React.FC<RowsPerPageProps> = ({
 }): ReactElement => {
   return (
     <div className='box_ChoiceEntries' id='box_ChoiceEntries'>
-      <span>Rows per page:</span>
+      <span className='box_ChoiceEntriesText'>Rows per page:</span>
       <Dropdown
         options={['All', '5', '10', '25', '50', '100']}
         onOptionClick={(option) => handlePerPageChange(option)}

@@ -8,6 +8,7 @@ interface ManageTableProps<T> {
     handleColumnVisibility: (property: string) => void;
     handleVisibleAllColumns: () => void;
     filteredData: DataItem<T | undefined>[];
+    renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: Column[]) => React.ReactNode;
 }
 interface Column {
     label: string;

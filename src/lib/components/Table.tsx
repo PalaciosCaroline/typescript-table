@@ -13,6 +13,15 @@ interface Column {
   dateFormat?: string;
   disableSort?:boolean;
   disableFilter?:boolean;
+
+}
+interface ColumnManaged {
+  label: string;
+  property: string;
+  isVisible?:boolean;
+  dateFormat?: string;
+  disableSort?: boolean;
+  disableFilter?: boolean;
 }
 
 export interface InputValues<T> {
@@ -32,9 +41,10 @@ export interface DataItem<T> {
 interface Props<T> {
   data: DataItem<T | undefined>[];
   columns: Column[];
+  renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[]) => React.ReactNode;
 }
 
-export function Table<T>({ data, columns }: Props<T>) {
+export function Table<T>({ data, columns, renderExportDataComponent }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>('noSort');
   const [page, setPage] = useState<number>(1);
@@ -223,6 +233,7 @@ export function Table<T>({ data, columns }: Props<T>) {
             columnsManaged={columnsManaged}
             handleColumnVisibility={handleColumnVisibility}
             handleVisibleAllColumns={handleVisibleAllColumns}
+            renderExportDataComponent={renderExportDataComponent}
           />
 
         <table className='tableComponent'>

@@ -19,6 +19,7 @@ The Table component receives two props: data, an array of objects with the data 
   - filter (global and column-specific)
   - Pagination
   - columns : visibility and order
+  - export data to csv, excel and pdf (with import 'exportDataComponent')
   - Customizable
   - Accessible (focus, tabulation and aria-label)
   - Responsive (via x-scroll/flex)
@@ -69,6 +70,58 @@ Array: processed recursively up to a depth of 4
 ![example of datas displayed](./typeData1.png "example of table")
 
 ****************************************************************************************************************
+
+## else use with boutons to export data: 
+Use Table with a ExportDataComponent.
+
+![table](./dropdownExport1.png "example with export buttons")
+
+Install before using buttons's functionality.
+
+  `npm install file-saver xlsx jspdf jspdf-autotable`
+
+after
+
+  ```js
+    import {Table} from 'typescript-table'
+    import {ExportDataComponent} from 'typescript-exportdata'
+
+    <Table
+      data={datasExample}
+      columns={columnsExample}
+      renderExportDataComponent={(filteredData,columnsManaged) => (
+        <ExportDataComponent
+          filteredData={filteredData} //don't change this
+          columnsManaged={columnsManaged}  //don't change this
+          csvExport={true} // to have an export bouton for csv format
+          excelExport={true} // to have an export bouton for excel format
+          pdfExport={true} // to have an export bouton for pdf format
+        />
+      )}
+    />
+  ```
+
+
+you can choice to display just one bouton to export, exemple with the pdf button :
+
+![table](./exportJustOne1.png "example with one button")
+
+    `<Table
+          data={datasExample}
+          columns={columnsExample}
+          renderExportDataComponent={(filteredData, columnsManaged) => (
+            <ExportDataComponent
+              filteredData={filteredData} // don't change this props
+              columnsManaged={columnsManaged} // don't change this props
+              pdfExport={true} // just this
+            />
+          )}
+        />`
+
+
+- Without the data export button.
+
+![table](./noExportData1.png "example without export button")
 
 ## "Customizing Sorting and Filtering."
 "Sorting and filtering are implemented by default for each column in the table. However, if you want to remove these features for a specific column, you simply need to add the property disableSort: true to disable sorting, or disableFilter: true to disable filtering, in the object of the respective column."
@@ -260,9 +313,6 @@ add in your css :
   display:none;
 }
 ```
-
-## Sponsor the project
-If you find this package useful or if you want to do a kind and generous act, you can ❤️  [sponsoring my work](https://github.com/sponsors/palacioscaroline) . Your sponsorship will help me dedicate more time to maintaining the project and will encourage me to create new projects and continue my studies. If you're a company using typescript-table in a commercial project, you can also hire my services.
 
 ## Hiring the author
 If you want to hire my services, don’t hesitate to drop me a line at the email address listed in my GitHub profile.

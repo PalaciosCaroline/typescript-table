@@ -12,17 +12,16 @@
   justify-content:space-between;
   align-items:center;
   height:100%;
-  width: 190px;
-  margin: 0 16px;
-  padding:0 5px 0 15px;
+  width: 195px;
   background-color: #677e11;
-  color:#fff;
+  color:#fff; 
   white-space: nowrap;
   box-sizing: border-box;
 }
 
-#box_ChoiceEntries span{
+.box_ChoiceEntriesText{
   font-size: 0.9rem;
+  padding-left:15px;
 }
 
 ul {
@@ -75,10 +74,6 @@ ul {
   width: auto;
   max-width: 100%;
 }
- .box_tableManaged {
-  width: auto;
-  max-width: 100%;
-}
 
 .box_tableAndFeatures{
   width: auto;
@@ -87,9 +82,12 @@ ul {
 
 .box_tableManaged {
   display: inline-block;
-  max-width: 100%;
   overflow-x: auto;
   white-space: nowrap;
+  width: auto;
+  max-width: 100%;
+  position:relative;
+  padding-top:60px;
 }
 
 /* Style pour les cellules de l'en-tête */
@@ -150,11 +148,12 @@ p.label_tableComponent{
 .tableComponent .btnSearchByPropertyReset{
   position: absolute;
   top: 0;
-  width: 25px;
+  width: 20px;
   height: 100%;
   background-color: transparent;
   margin:0;
-  right: 5px;
+  right: 0;
+  padding-right:25px;
 }
 
 /* global search */
@@ -171,7 +170,6 @@ p.label_tableComponent{
 
 .box_searchReset{
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   margin-bottom: 10px;
   margin-left:100px;
@@ -246,15 +244,8 @@ p.label_tableComponent{
   z-index: 50;
   padding-bottom:5px;
   padding-top:10px;
-  /* position:relative; 
-  max-width: calc(100% - 16px); */
   box-sizing: border-box;
-}
-
-.box-searchBProps{
-  position: relative;
-  display: flex;
-  align-items: center;
+  max-width: 100%;
 }
 
 .divSearchByProperty{
@@ -262,6 +253,14 @@ p.label_tableComponent{
   display: flex;
   align-items: center;
 }
+
+.box_searchBProps{
+  position: relative;
+  display:flex; 
+  align-items: center;
+}
+
+
 
 .inputSearchByProperty{
   height: 30px;
@@ -292,6 +291,7 @@ p.label_tableComponent{
   background-color: #677e11;
   color:#fff;
 }
+
 
 .btnSearchByPropertyReset > svg, .btnSearchByPropertyReset:hover > svg{
   width: 15px;
@@ -354,13 +354,6 @@ thead button:hover > svg {
 }
 .selectedBtnSort:hover > svg{
   color: #2e4506;
-}
-
-/* checked manage-columns*/
-.box_tableManaged{
-  position:relative;
-  padding-top:50px;
-  width: 100%;
 }
 
 .toggle-input {
@@ -427,20 +420,12 @@ thead{
   align-items: center;
   justify-content: space-between;
   z-index:40;
-  width: 190px;
-  margin:0 16px;
+  width:215px;
+  border-radius:0 25px 25px 0;
   white-space: nowrap;
   height: 100%;
-  background-color: #677e11;
-  box-shadow: 0 -3px 1px -3px rgba(0, 0, 0, 0.5), 3px 0 1px -3px rgba(0, 0, 0, 0.5);
-  color: #fff;
   border:none;
-  padding: 0 5px 0 15px;
-}
-
-.box-manageFeatearesTable .toggle-btnManagedColumns:hover{
-  background-color: #7e9b16;
-  box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
+  padding: 4px 5px 4px 15px;
 }
 
 .toggle-btnManagedColumns p {
@@ -459,7 +444,7 @@ thead{
 }
 
 .li_manageColumns{
-  width: 240px;
+  width: 215px;
 }
 
 /* modal ManagedColumns*/
@@ -470,10 +455,11 @@ thead{
   height: auto;
   font-weight: 600;
   background-color: #efefef;
-  top:61px;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
+  top:60px;
   z-index:99;
   padding:10px 20px 10px 20px;
+  -webkit-box-shadow: 5px 7px 10px -7px #000000, -19px -4px 15px 10px rgba(0,0,0,0); 
+  box-shadow: 5px 7px 10px -7px #000000, -19px -4px 15px 10px rgba(0,0,0,0);
 }
 
 .modalTable ul{
@@ -488,12 +474,10 @@ thead{
 }
 
 .btnShowAllColumns{
-  color: #fff;
   font-weight: 600;
   box-shadow: 1px 1px 5px rgb(0 0 0 / 40%);
   border-radius: 25px;
   border: none;
-  background-color: #677e11;
   padding-left:15px;
   padding-right:15px;
   height: 35px;
@@ -502,24 +486,20 @@ thead{
 }
 
 .btnShowAllColumns:hover{
-  background-color: #7e9b16;
   box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
 .btn_closeModalTable{
   border-radius: 50%;
   border:none;
-  color:#fff;
   width: 35px;
   height: 35px;
   position: absolute;
   right: 8px;
   top:8px;
-  background-color: #677e11;
 }
 
 .btn_closeModalTable:hover{
-  background-color: #7e9b16;
   box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
@@ -581,16 +561,18 @@ thead{
   position: relative;
   display: inline-block;
   z-index: 999;
-  margin:8px;
+  margin-left: 8px;
+  height: 51px;
 }
 
 .buttonToggleRowPerPage {
-  padding: 4px 8px;
+  padding: 4px 8px; 
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 60px;
+  height: 100%;
   line-height: 100%;
 }
 
@@ -609,6 +591,12 @@ thead{
   padding: 0;
   margin: 0;
   z-index: 999;
+  -webkit-box-shadow: 5px 7px 10px -7px #000000, -19px -4px 15px 10px rgba(0,0,0,0); 
+  box-shadow: 5px 7px 10px -7px #000000, -19px -4px 15px 10px rgba(0,0,0,0);
+}
+
+.manageTable-dropdown .manageTable-dropdown .dropdownMenuRowPerPageDown{
+  background-color: #f0f0f0;
 }
 
 /* styles pour les options du menu déroulant */
@@ -617,35 +605,32 @@ thead{
   cursor: pointer;
 }
 
-.manageTable-dropdownLi:hover {
+/* .manageTable-dropdownLi:hover {
   background-color: #dfdfdf;
-}
+} */
 .manageTable-dropdown .dropdownOptionRowPerPage {
   display: block;
   height: 40px;
-  background-color:  #677e11;
+  background-color:  #677e11; 
+  color:#fff;
   line-height: 100%;
   display: flex;
   align-items: center;
 }
 
+.manageTable-dropdown .dropdownOptionRowPerPage:hover {
+  background-color: #7e9b16;
+}
+
 .manageTable-dropdown .buttonToggleRowPerPage {
   font-size:1rem;
-  background-color:  #677e11;
   border:none;
-  color:#fff;
-}
-.manageTable-dropdown .dropdownOptionRowPerPage:hover {
-  background-color:  #7e9b16;
-}
-.manageTable-dropdown .buttonToggleRowPerPage:hover {
-  background-color:  #7e9b16;
-  color:#fff;
 }
 
 /* styles pour l'option sélectionnée */
 .dropdownOptionRowPerPage.selectedTable,.dropdownOptionRowPerPage.selectedTable:hover {
-  background-color:  #7e9b16;
+  background-color: #7e9b16;
+  color:#fff;
 }
 
 .box_btnsColumn{
@@ -662,21 +647,30 @@ thead{
   display: flex;
   position: absolute;
   font-size: 0.9rem;
-  top: 25px;
+  top: 36px;
   height: auto;
 
 }
 
+.box-manageFeatearesTable button{
+  background-color: #677e11;
+
+  color: #fff;
+}
+
+.box-manageFeatearesTable button:hover{
+  background-color: #7e9b16;
+  color: #fff;
+}
+
 .box-manageFeatearesOpen{
   top:0px;
-  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
-  border-top: 1px solid rgb(169 168 168 / 10%);
-  border-radius: 0 25px 25px 0;
 }
 
 .toggle-btnManageTable > svg{
   border:none;
 }
+
 .toggle-btnManageTable {
   border:none;
   display: inline-block;
@@ -684,8 +678,6 @@ thead{
   height: 25px;
   width: 60px;
   z-index:99;
-  background-color: #677e11;
-  color:#fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -694,14 +686,15 @@ thead{
 }
 
 .btnOpenManageTable {
-  border: 1px solid  #677e11;
-  height: 51px;
-  width: 35px;
+  /* border: 1px solid  #677e11; */
+  height: 60px;
+  width: 30px;
+  top:34px;
   border-radius: 0;
-}
-
-.toggle-btnManageTable:hover {
-  background-color: #7e9b16;
+  border-right: 1px solid #d1d4db;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 27% 100%, 0 100%, 0% 50%);
+  transform: perspective(500px) rotateX(5deg);
+  transform-origin: top;
 }
 
 .btnManageTableOpen {
@@ -712,10 +705,8 @@ thead{
   display: flex;
   align-items: center;
   height: 51px;
-  background-color: #f9f9f9;
   min-width: 160px;
   z-index: 1;
-
 }
 
 
@@ -732,8 +723,9 @@ thead{
   text-decoration: none;
   cursor: pointer;
   height: 51px;
-  padding:4px 0;
+  padding:0;
   line-height: 100%; 
+  border-left:1px solid #d4d3d3;
 }
 .manageTable-dropdownLi.li_manageColumns {
   border-radius: 0 25px 25px  0 ;
@@ -749,6 +741,11 @@ thead{
   width: 16px;
   height: 16px;
   cursor: pointer;
+ 
+}
+
+.btnOpenManageTable .icon-container{
+  padding-bottom: 26px;
 }
 
 .icon {
@@ -767,7 +764,7 @@ thead{
 .hide {
   opacity: 0;
 }
-/* fin */
+
 /* Manage Table */
 .manageTable-dropdown {
   opacity: 0;
@@ -781,6 +778,9 @@ thead{
   transform: translateX(0);
   visibility: visible;
   width: auto;
+  border-radius:0 25px 25px 0;
+  -webkit-box-shadow: 11px 11px 15px -7px #000000; 
+  box-shadow: 6px 6px 10px -7px #000000;
 }
 
 .manageTable-dropdown .buttonToggleRowPerPage > svg {
@@ -792,5 +792,4 @@ thead{
   height: 1rem;
   width: 1rem;
 }
-/* fin */
 

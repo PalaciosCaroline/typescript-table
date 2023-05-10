@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { InputValues } from './Table';
 interface Props<U extends string | number | readonly string[] | undefined = string> {
     inputValues: InputValues<U>;
@@ -6,5 +5,5 @@ interface Props<U extends string | number | readonly string[] | undefined = stri
     handleSearchByProperty: (name: string, value: string) => void;
     handleReset: (property: string) => void;
 }
-declare const SearchByProperty: <U extends string | number | readonly string[] | undefined = string>({ inputValues, property, handleSearchByProperty, handleReset, }: Props<U>) => JSX.Element;
+declare const SearchByProperty: <U extends string | number | readonly string[] | undefined = string>({ inputValues, property, handleSearchByProperty, handleReset, }: Props<U>) => import("react/jsx-runtime").JSX.Element;
 export default SearchByProperty;

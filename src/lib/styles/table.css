@@ -648,6 +648,9 @@ thead {
   font-size: 0.9rem;
   top: 31px;
   height: auto;
+
+  /* if selected rows */
+  left:23px;
 }
 
 .box-manageFeatearesTable button {
@@ -663,6 +666,7 @@ thead {
 
 .box-manageFeatearesOpen {
   top: 0px;
+  left:0px;
 }
 
 .toggle-btnManageTable > svg {

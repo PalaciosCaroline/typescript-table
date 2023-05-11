@@ -9,6 +9,7 @@ interface DataItem<T> {
 }
 
 interface ManageTableProps<T> {
+  selectedRows: any;
   handlePerPageChange: (optionValue: string) => void;
   columnsManaged: Column[];
   handleColumnVisibility: (property: string) => void;
@@ -35,6 +36,11 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
   const toggleDropDown = () => {
     setIsDropDownOpen(!isDropDownOpen);
   };
+
+  const getSelectedData = () => {
+    return props.filteredData.filter((item: any) => props.selectedRows.has(item.id));
+  };
+  const selectedData = getSelectedData();
 
   return (
     <div
@@ -67,7 +73,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
             {props.renderExportDataComponent && (
               <li className="manageTable-dropdownLi">
                 {props.renderExportDataComponent(
-                  props.filteredData,
+                  selectedData,
                   props.columnsManaged,
                 )}
               </li>

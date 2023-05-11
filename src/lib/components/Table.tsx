@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
@@ -51,17 +51,22 @@ export function Table<T>({
   columns,
   renderExportDataComponent,
 }: Props<T>) {
+  //useState to sort
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>(
     'noSort',
   );
+  const [sortedData, setSortedData] = useState<DataItem<T | undefined>[]>([]);
+  // useState pagination
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(10);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [sortedData, setSortedData] = useState<DataItem<T | undefined>[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
+  // useState formatDate for sort
   const [dateFormatForSort, setDateFormatForSort] = useState<string>('none');
+  // useState to global search
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  // useState search by property
+  const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
   const initialIsOpenSearchBProp: Record<string, boolean> = {};
   columns.forEach(({ property }) => {
     initialIsOpenSearchBProp[property] = false;
@@ -74,7 +79,13 @@ export function Table<T>({
     initialInputValues[property] = '';
   });
   const [inputValues, setInputValues] = useState(initialInputValues);
+  // useSate select rows to export
+  const [selectedRows, setSelectedRows] = useState(new Set());
+  const [selectAllChecked, setSelectAllChecked] = useState<boolean>(false);
+  const [isIndeterminate, setIndeterminate] = useState(false);
+  const selectAllRef = useRef<HTMLInputElement | null>(null);
 
+  // sort data (data => sortedData)
   useEffect(() => {
     setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
   }, [data, sortKey, sortOrder, dateFormatForSort]);
@@ -91,8 +102,10 @@ export function Table<T>({
     }
   };
 
+  // search global and by property (sortedData => filteredData) 
   const filteredData = filterData(sortedData, searchTerm, searchTerms);
 
+  // pagination display
   useEffect(() => {
     const newTotalPages =
       filteredData.length > perPage
@@ -107,6 +120,7 @@ export function Table<T>({
     });
   }, [filteredData, perPage]);
 
+  // manage rows per page display
   const handlePerPageChange = (optionValue: string) => {
     if (optionValue === 'All') {
       setPerPage(filteredData.length);
@@ -115,14 +129,17 @@ export function Table<T>({
     }
   };
 
+  // manage change page
   const handlePageChange = (newPage: number): void => {
     setPage(newPage);
   };
 
+  // manage global search record
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value);
   };
 
+  // manage search by property record
   const handleSearchByProperty = (property: string, value: string) => {
     setInputValues({
       ...inputValues,
@@ -134,6 +151,7 @@ export function Table<T>({
     });
   };
 
+  // manage all searchs
   const handleReset = (property: string): void => {
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
@@ -145,12 +163,14 @@ export function Table<T>({
     }));
   };
 
+  // manage button global reset search
   const handleResetSearch = (): void => {
     setSearchTerm('');
     setSearchTerms({});
     setInputValues(initialInputValues);
   };
 
+  // manage columns display instruction (isVisible change)
   const handleColumnVisibility = (property: string): void => {
     setColumnsManaged((prevColumns) => {
       const columnToToggle = prevColumns.find(
@@ -168,6 +188,7 @@ export function Table<T>({
     });
   };
 
+  // manage isVisible instruction
   const handleVisibleAllColumns = (): void => {
     const updatedColumns = columnsManaged.map((column) => {
       return {
@@ -179,6 +200,7 @@ export function Table<T>({
     setColumnsManaged(updatedColumns);
   };
 
+  // manage dateFormat instruction
   const [columnsManaged, setColumnsManaged] = useState(() => {
     return columns.map(
       ({ label, property, dateFormat, disableSort, disableFilter }) => ({
@@ -192,6 +214,7 @@ export function Table<T>({
     );
   });
 
+  //manage display data per page
   const start = (page - 1) * perPage;
   const end = start + perPage;
   const currentData: DataItem<T>[] = filteredData.slice(
@@ -199,6 +222,7 @@ export function Table<T>({
     end,
   ) as DataItem<T>[];
 
+  // manage display object array and date type
   function formatNestedDate<T>(value: T, depth = 0): string | React.ReactNode {
     if (depth >= 4) {
       return <span>...</span>;
@@ -209,7 +233,10 @@ export function Table<T>({
       return (
         <ul className="ul_tableComponent">
           {value.map((item, index) => (
-            <li key={index} className={`liOjectData liOjectData_${depth}`}>
+            <li
+              key={`item-${index}`}
+              className={`liOjectData liOjectData_${depth}`}
+            >
               {formatNestedDate(item, depth + 1)}
             </li>
           ))}
@@ -219,7 +246,10 @@ export function Table<T>({
       return (
         <ul className={`ul_tableComponent ul_tableComponent_${depth}`}>
           {Object.entries(value).map(([key, item], index) => (
-            <li key={index} className={`liOjectData liOjectData_${depth}`}>
+            <li
+              key={`key-${index}`}
+              className={`liOjectData liOjectData_${depth}`}
+            >
               {key}: {formatNestedDate(item, depth + 1)}
             </li>
           ))}
@@ -229,16 +259,63 @@ export function Table<T>({
     return value as React.ReactNode;
   }
 
+  // manage display object array and date type
   function formatDate(value: T | undefined): string | React.ReactNode {
     return formatNestedDate(value);
   }
 
+  // Toggle search by property
   const handleToggle = (property: string): void => {
     setIsOpenSearchBProp((prevState: Record<string, boolean>) => ({
       ...prevState,
       [property]: !prevState[property],
     }));
   };
+
+  // Fonction pour gérer la sélection des lignes
+  const handleRowSelection = (id: T | undefined) => {
+    if (id !== undefined) {
+      setSelectedRows((prevSelectedRows) => {
+        const newSelectedRows = new Set(prevSelectedRows);
+        if (newSelectedRows.has(id)) {
+          newSelectedRows.delete(id);
+        } else {
+          newSelectedRows.add(id);
+        }
+        return newSelectedRows;
+      });
+    }
+  };
+
+  // select or unselect all rows
+  const handleSelectAll = () => {
+    if (selectAllChecked) {
+      setSelectedRows(new Set());
+      setSelectAllChecked(false);
+    } else {
+      setSelectedRows(new Set(filteredData.map((item) => item.id)));
+      setSelectAllChecked(true);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedRows.size === filteredData.length - 1) {
+      setSelectAllChecked(true);
+      setIndeterminate(false);
+    } else if (selectedRows.size === 0) {
+      setSelectAllChecked(false);
+      setIndeterminate(false);
+    } else {
+      setSelectAllChecked(false);
+      setIndeterminate(true);
+    }
+  }, [selectedRows, filteredData]);
+
+  useEffect(() => {
+    if (selectAllRef.current) {
+      selectAllRef.current.indeterminate = isIndeterminate;
+    }
+  }, [isIndeterminate]);
 
   return (
     <div className="box_table box_tableAndFeatures">
@@ -256,6 +333,7 @@ export function Table<T>({
           handleColumnVisibility={handleColumnVisibility}
           handleVisibleAllColumns={handleVisibleAllColumns}
           renderExportDataComponent={renderExportDataComponent}
+          selectedRows={selectedRows}
         />
 
         <table className="tableComponent">
@@ -270,6 +348,16 @@ export function Table<T>({
           </colgroup>
           <thead className="thead_tableComponent">
             <tr role="row" className="tr_tableComponent">
+              <th>
+                <input
+                  type="checkbox"
+                  data-role="checkbox-three-state"
+                  data-caption="Checkbox"
+                  checked={selectAllChecked}
+                  onChange={handleSelectAll}
+                  ref={selectAllRef}
+                />
+              </th>
               {columnsManaged.map(
                 ({
                   label,
@@ -309,12 +397,30 @@ export function Table<T>({
           </thead>
 
           <tbody className="tbody_tableComponent">
-            {currentData.map((item: DataItem<T>, index) => (
+            {currentData.map((item: DataItem<T | undefined>, index) => (
               <tr
                 key={index}
                 role="row"
-                className={`tr_${index} tr_tableComponent`}
+                className={`tr_${index} tr_tableComponent ${
+                  selectedRows.has(item.id) ? 'selected' : ''
+                }`}
+                onClick={() => handleRowSelection(item.id)}
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onChange={() => {}}
               >
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedRows.has(item.id)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Empêcher la propagation de l'événement onClick
+                      handleRowSelection(item.id);
+                    }}
+                    // eslint-disable-next-line @typescript-eslint/no-empty-function
+                    onChange={() => {}}
+                  />
+                </td>
+
                 {columnsManaged.map(({ property, isVisible }) => {
                   if (isVisible) {
                     return (

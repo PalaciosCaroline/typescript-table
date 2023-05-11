@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from './lib/components/Table';
 import { datasExample, columnsExample } from './dataForExample';
-//import {ExportDataComponent} from 'typescript-exportdata';
+import {ExportDataComponent} from 'typescript-exportdata';
 
 function App() {
   document.title = 'typescript-table';
@@ -11,15 +11,15 @@ function App() {
       <Table
         data={datasExample}
         columns={columnsExample}
-        // renderExportDataComponent={(filteredData, columnsManaged) => (
-        //   <ExportDataComponent
-        //     filteredData={filteredData}
-        //     columnsManaged={columnsManaged}
-        //     csvExport={true}
-        //     excelExport={true}
-        //     pdfExport={true}
-        //   />
-        // )}
+        renderExportDataComponent={(filteredData, columnsManaged) => (
+          <ExportDataComponent
+            filteredData={filteredData}
+            columnsManaged={columnsManaged}
+            csvExport={true}
+            excelExport={true}
+            pdfExport={true}
+          />
+        )}
       />
     </div>
   );

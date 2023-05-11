@@ -35,7 +35,8 @@ const columnsExample: Column[] = [
 ];
 
 interface Data {
-  [key: string]: string | undefined;
+  id: number | string;
+  [key: string]: string | number | undefined;
   firstName: string | undefined;
   lastName: string | undefined;
   dateOfBirth: string | undefined;
@@ -49,6 +50,7 @@ interface Data {
 
 const datasExample: Data[] = [
   {
+    id: 1,
     firstName: 'John',
     lastName: 'Doe',
     dateOfBirth: '15/01/1975',
@@ -60,6 +62,7 @@ const datasExample: Data[] = [
     zipCode: '12345',
   },
   {
+    id: 2,
     firstName: 'Jane',
     lastName: 'Smith',
     dateOfBirth: '17/05/1985',
@@ -71,6 +74,7 @@ const datasExample: Data[] = [
     zipCode: '67890',
   },
   {
+    id: 3,
     firstName: 'Bob',
     lastName: 'Johnson',
     dateOfBirth: '30/09/1978',
@@ -82,6 +86,7 @@ const datasExample: Data[] = [
     zipCode: '54321',
   },
   {
+    id: 4,
     firstName: 'William',
     lastName: 'Smith',
     dateOfBirth: '10/03/1978',
@@ -93,6 +98,7 @@ const datasExample: Data[] = [
     zipCode: '67890',
   },
   {
+    id: 5,
     firstName: 'Sarah',
     lastName: 'Johnson',
     dateOfBirth: '12/12/1985',
@@ -104,6 +110,7 @@ const datasExample: Data[] = [
     zipCode: '23456',
   },
   {
+    id: 6,
     firstName: 'Michael',
     lastName: 'Brown',
     dateOfBirth: '01/05/1976',
@@ -115,6 +122,7 @@ const datasExample: Data[] = [
     zipCode: '87654',
   },
   {
+    id: 7,
     firstName: 'Emily',
     lastName: 'Wilson',
     dateOfBirth: '20/11/1990',
@@ -126,6 +134,7 @@ const datasExample: Data[] = [
     zipCode: '34567',
   },
   {
+    id: 8,
     firstName: 'David',
     lastName: 'Lee',
     dateOfBirth: '05/07/1979',
@@ -137,6 +146,7 @@ const datasExample: Data[] = [
     zipCode: '45678',
   },
   {
+    id: 9,
     firstName: 'Maria',
     lastName: 'Garcia',
     dateOfBirth: '30/04/1983',
@@ -148,6 +158,7 @@ const datasExample: Data[] = [
     zipCode: '56789',
   },
   {
+    id: 10,
     firstName: 'Christopher',
     lastName: 'Davis',
     dateOfBirth: '14/02/1981',
@@ -160,6 +171,7 @@ const datasExample: Data[] = [
   },
 
   {
+    id: 11,
     firstName: 'Joce',
     lastName: 'Pietr',
     dateOfBirth: '30/04/1983',
@@ -171,6 +183,7 @@ const datasExample: Data[] = [
     zipCode: '56789',
   },
   {
+    id: 12,
     firstName: 'hyrte',
     lastName: 'Porie',
     dateOfBirth: '14/02/1981',
@@ -182,6 +195,7 @@ const datasExample: Data[] = [
     zipCode: '12589',
   },
   {
+    id: 13,
     firstName: 'Samantha',
     lastName: 'Brown',
     dateOfBirth: '05/03/1984',
@@ -193,6 +207,7 @@ const datasExample: Data[] = [
     zipCode: '12345',
   },
   {
+    id: 14,
     firstName: 'Robert',
     lastName: 'Gonzalez',
     dateOfBirth: '18/06/1979',
@@ -204,6 +219,7 @@ const datasExample: Data[] = [
     zipCode: '54321',
   },
   {
+    id: 15,
     firstName: 'Olivia',
     lastName: 'Lee',
     dateOfBirth: '22/11/1992',
@@ -215,6 +231,7 @@ const datasExample: Data[] = [
     zipCode: '67890',
   },
   {
+    id: 16,
     firstName: 'Daniel',
     lastName: 'Nguyen',
     dateOfBirth: '10/10/1980',
@@ -226,6 +243,7 @@ const datasExample: Data[] = [
     zipCode: '23456',
   },
   {
+    id: 17,
     firstName: 'Avery',
     lastName: 'Taylor',
     dateOfBirth: '28/09/1988',
@@ -237,6 +255,7 @@ const datasExample: Data[] = [
     zipCode: '87654',
   },
   {
+    id: 18,
     firstName: 'Landon',
     lastName: 'Johnson',
     dateOfBirth: '14/07/1981',
@@ -248,6 +267,7 @@ const datasExample: Data[] = [
     zipCode: '34567',
   },
   {
+    id: 19,
     firstName: 'Sophia',
     lastName: 'Chen',
     dateOfBirth: '23/04/1995',
@@ -259,6 +279,7 @@ const datasExample: Data[] = [
     zipCode: '45678',
   },
   {
+    id: 20,
     firstName: 'Noah',
     lastName: 'Wilson',
     dateOfBirth: '01/12/1985',
@@ -270,6 +291,7 @@ const datasExample: Data[] = [
     zipCode: '56789',
   },
   {
+    id: 20,
     firstName: 'Mia',
     lastName: 'Robinson',
     dateOfBirth: '19/02/1998',

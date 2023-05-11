@@ -690,8 +690,10 @@ thead {
   border-radius: 0;
   border-right: 1px solid #d1d4db;
   clip-path: polygon(0 0, 100% 0, 100% 82%, 27% 100%, 0 100%);
-  transform: perspective(500px) rotateX(5deg);
+  /* transform: perspective(500px) rotateX(5deg); */
+  transform: perspective(500px) rotatey(150deg);
   transform-origin: top;
+  border-left: 4px solid #626561;
 }
 
 .btnManageTableOpen {
@@ -743,6 +745,8 @@ thead {
 
 .btnOpenManageTable .icon-container {
   padding-bottom: 26px;
+  transform: perspective(500px) rotatey(150deg);
+  transform-origin: top;
 }
 
 .icon {
@@ -771,6 +775,8 @@ thead {
 }
 
 .box-manageFeatearesOpen .manageTable-dropdown {
+  position: relative;
+  left:-2px;
   opacity: 1;
   transform: translateX(0);
   visibility: visible;
@@ -792,4 +798,42 @@ thead {
   font-size: 1.3rem;
   height: 1rem;
   width: 1rem;
+}
+
+.tr_tableComponent.selected {
+  background:rgba(175 228 145 / 31%);
+}
+
+.custom-checkbox {
+  display: flex;
+}
+
+.custom-checkbox input[type="radio"] {
+  display: none;
+}
+
+.custom-checkbox label {
+  position: relative;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+}
+
+/* Afficher un trait horizontal */
+#horizontal:checked + label:after {
+  content: '-';
+  position: absolute;
+  left: 5px;
+  top: 9px;
+  width: 10px;
+  border-top: 2px solid #000;
+}
+
+/* Afficher une coche */
+#check:checked + label:after {
+  content: '✓';
+  position: absolute;
+  left: 5px;
+  top: 3px;
 }

@@ -300,7 +300,7 @@ export function Table<T>({
   };
 
   useEffect(() => {
-    if (selectedRows.size === filteredData.length - 1) {
+    if (selectedRows.size === filteredData.length) {
       setSelectAllChecked(true);
       setIndeterminate(false);
     } else if (selectedRows.size === 0) {
@@ -311,12 +311,6 @@ export function Table<T>({
       setIndeterminate(true);
     }
   }, [selectedRows, filteredData]);
-
-  // useEffect(() => {
-  //   if (selectAllRef.current) {
-  //     selectAllRef.current.indeterminate = isIndeterminate;
-  //   }
-  // }, [isIndeterminate]);
 
   useEffect(() => {
     if (selectAllRef.current) {

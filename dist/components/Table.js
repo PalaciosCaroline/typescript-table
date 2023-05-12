@@ -219,7 +219,7 @@ export function Table(_a) {
         }
     };
     useEffect(function () {
-        if (selectedRows.size === filteredData.length - 1) {
+        if (selectedRows.size === filteredData.length) {
             setSelectAllChecked(true);
             setIndeterminate(false);
         }
@@ -232,11 +232,6 @@ export function Table(_a) {
             setIndeterminate(true);
         }
     }, [selectedRows, filteredData]);
-    // useEffect(() => {
-    //   if (selectAllRef.current) {
-    //     selectAllRef.current.indeterminate = isIndeterminate;
-    //   }
-    // }, [isIndeterminate]);
     useEffect(function () {
         if (selectAllRef.current) {
             selectAllRef.current.indeterminate = isIndeterminate;

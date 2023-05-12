@@ -24,7 +24,7 @@ export interface DataItem<T> {
 interface Props<T> {
     data: DataItem<T | undefined>[];
     columns: Column[];
-    renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[]) => React.ReactNode;
+    renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[], headerProperty?: string) => React.ReactNode;
 }
 export declare function Table<T>({ data, columns, renderExportDataComponent, }: Props<T>): import("react/jsx-runtime").JSX.Element;
 export {};

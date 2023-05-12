@@ -12,6 +12,8 @@ interface ManageColumnsProps {
   columns: Column[];
   handleColumnVisibility: (property: string) => void;
   handleVisibleAllColumns: () => void;
+  handleVisibleSelectRowsColumn: () => void;
+  selectRowColumnVisible:boolean
 }
 
 function ManageColumns(props: ManageColumnsProps): JSX.Element {
@@ -24,6 +26,15 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
     if (e.key === 'Enter') {
       e.preventDefault();
       props.handleColumnVisibility(property);
+    }
+  };
+
+  const handleKeyDownSelect = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      props.handleVisibleSelectRowsColumn();
     }
   };
 
@@ -48,12 +59,31 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
           <span className="btnShowSpan">Show All Columns</span>
         </button>
         <ul className="columns-list">
+            <li
+              key='selectRowsColumn'
+              className="liManagedColumns"
+              data-testid={`li-selectRows`}
+            >
+              <div className="toggle-switch">
+                <input
+                  className="toggle-input"
+                  type="checkbox"
+                  checked={props.selectRowColumnVisible}
+                  onChange={props.handleVisibleSelectRowsColumn}
+                  onKeyDown={(e) => handleKeyDownSelect(e)}
+                  data-testid='inputManaged-selectRowColumn'
+                />
+                <label className="toggle-label" />
+              </div>
+              Select Rows Column
+              </li>
           {props.columns.map(({ label, property, isVisible }) => (
             <li
               key={property}
               className="liManagedColumns"
               data-testid={`li-${property}`}
             >
+              
               <div className="toggle-switch">
                 <input
                   className="toggle-input"

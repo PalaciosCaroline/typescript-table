@@ -648,14 +648,18 @@ thead {
   font-size: 0.9rem;
   top: 31px;
   height: auto;
-
-  /* if selected rows */
-  left:23px;
 }
+
+.box-manageFeatearesTable.styleWithoutSelectColumn{
+  left:0;
+}
+.box-manageFeatearesTable.styleWithSelectColumn{
+  left:0;
+}
+
 
 .box-manageFeatearesTable button {
   background-color: #677e11;
-
   color: #fff;
 }
 

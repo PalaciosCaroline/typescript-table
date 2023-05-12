@@ -65,7 +65,7 @@ Array: processed recursively up to a depth of 4
 @@ Example: Table of employees @@
 ```
 
-![table](./imgTable1.png "example of table")
+![table](./imgTable.png "example of table")
 
 ![example of datas displayed](./typeData1.png "example of table")
 
@@ -74,7 +74,7 @@ Array: processed recursively up to a depth of 4
 ## else use with boutons to export data: 
 Use Table with a ExportDataComponent.
 
-![table](./dropdownExport1.png "example with export buttons")
+![table](./dropdownExport.png "example with export buttons")
 
 Install before using buttons's functionality.
 
@@ -136,7 +136,6 @@ you can choice to display just one bouton to export, exemple with the pdf button
   disableFilter: true // for disable filtering
 }
 ```
-
 ## Example datas
 
 For columns, labels and properties are required: a label must be assigned to each property of the data array that is to be displayed in a column. If no label is assigned to a property of the data array, that property will be ignored and will not generate a column. The label will be used to name each column in the table, based on each property; the property is the column data from the data array used to retrieve the various column entries.
@@ -161,6 +160,7 @@ const columnsExample: Column[] = [
 
 const datasExample = [
   {
+    id: 1,
     firstName: 'John',
     lastName: 'Doe',
     dateOfBirth: '15/01/1975',
@@ -172,6 +172,7 @@ const datasExample = [
     zipCode: 12345,
   },
   {
+    id: 2,
     firstName: 'Jane',
     lastName: 'Smith',
     dateOfBirth: '17/05/1985',
@@ -183,6 +184,7 @@ const datasExample = [
     zipCode: 67890,
   },
   {
+    id: 3,
     firstName: 'Bob',
     lastName: 'Johnson',
     dateOfBirth: '30/09/1978',

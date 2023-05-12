@@ -3,11 +3,14 @@ interface DataItem<T> {
     [key: string]: T | undefined;
 }
 interface ManageTableProps<T> {
+    selectedRows: any;
     handlePerPageChange: (optionValue: string) => void;
     columnsManaged: Column[];
     handleColumnVisibility: (property: string) => void;
     handleVisibleAllColumns: () => void;
     filteredData: DataItem<T | undefined>[];
+    handleVisibleSelectRowsColumn: () => void;
+    selectRowColumnVisible: boolean;
     renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: Column[]) => React.ReactNode;
 }
 interface Column {

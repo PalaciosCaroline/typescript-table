@@ -9,12 +9,15 @@ interface DataItem<T> {
 }
 
 interface ManageTableProps<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedRows: any;
   handlePerPageChange: (optionValue: string) => void;
   columnsManaged: Column[];
   handleColumnVisibility: (property: string) => void;
   handleVisibleAllColumns: () => void;
   filteredData: DataItem<T | undefined>[];
+  handleVisibleSelectRowsColumn: () => void;
+  selectRowColumnVisible:boolean;
   renderExportDataComponent?: (
     filteredData: DataItem<T | undefined>[],
     columnsManaged: Column[],
@@ -41,6 +44,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
     if(props.selectedRows.size === 0){
       return props.filteredData;
     } else 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return props.filteredData.filter((item: any) => props.selectedRows.has(item.id));
   };
 
@@ -50,7 +54,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
     <div
       className={`box-manageFeatearesTable ${
         isDropDownOpen ? 'box-manageFeatearesOpen' : ''
-      }`}
+      } ${props.selectRowColumnVisible ? 'styleWithSelectColumn' : 'styleWithoutSelectColumn' }`}
     >
       <button
         className={`toggle-btnManageTable ${
@@ -90,6 +94,8 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
                 columns={props.columnsManaged}
                 handleColumnVisibility={props.handleColumnVisibility}
                 handleVisibleAllColumns={props.handleVisibleAllColumns}
+                handleVisibleSelectRowsColumn={props.handleVisibleSelectRowsColumn}
+                selectRowColumnVisible={props.selectRowColumnVisible}
               />
             </li>
           </ul>

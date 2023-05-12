@@ -85,6 +85,7 @@ export function Table<T>({
   const [selectAllChecked, setSelectAllChecked] = useState<boolean>(false);
   const [isIndeterminate, setIndeterminate] = useState(false);
   const selectAllRef = useRef<HTMLInputElement | null>(null);
+  const [selectRowColumnVisible, setSelectRowColumnVisible] = useState(true);
 
   // sort data (data => sortedData)
   useEffect(() => {
@@ -197,7 +198,6 @@ export function Table<T>({
         isVisible: true,
       };
     });
-
     setColumnsManaged(updatedColumns);
   };
 
@@ -329,6 +329,11 @@ export function Table<T>({
     }
 }, [isIndeterminate]);
 
+// toggle visible row select column
+const handleVisibleSelectRowsColumn = () => {
+  setSelectRowColumnVisible(!selectRowColumnVisible);
+};
+
   return (
     <div className="box_table box_tableAndFeatures">
       <SearchAndResetGlobal
@@ -346,6 +351,8 @@ export function Table<T>({
           handleVisibleAllColumns={handleVisibleAllColumns}
           renderExportDataComponent={renderExportDataComponent}
           selectedRows={selectedRows}
+          handleVisibleSelectRowsColumn={handleVisibleSelectRowsColumn}
+          selectRowColumnVisible={selectRowColumnVisible}
         />
 
         <table className="tableComponent">
@@ -360,6 +367,7 @@ export function Table<T>({
           </colgroup>
           <thead className="thead_tableComponent">
             <tr role="row" className="tr_tableComponent">
+            {selectRowColumnVisible && 
               <th className='thColor th_tableComponent box_inputSelectAllRows'>
                 <input
                   type="checkbox"
@@ -371,6 +379,7 @@ export function Table<T>({
                   className='inputSelectAllRows inputSelectRows'
                 />
               </th>
+              }
               {columnsManaged.map(
                 ({
                   label,
@@ -421,19 +430,23 @@ export function Table<T>({
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 onChange={() => {}}
               >
+                {selectRowColumnVisible && 
                 <td className='box_inputSelectRow'>
-                  <input
-                    type="checkbox"
-                    checked={selectedRows.has(item.id)}
-                    className='inputSelectRows inputSelectRow'
-                    onClick={(e) => {
-                      e.stopPropagation(); // Empêcher la propagation de l'événement onClick
-                      handleRowSelection(item.id);
-                    }}
-                    // eslint-disable-next-line @typescript-eslint/no-empty-function
-                    onChange={() => {}}
-                  />
-                </td>
+                <input
+                  type="checkbox"
+                  checked={selectedRows.has(item.id)}
+                  className='inputSelectRows inputSelectRow'
+                  onClick={(e) => {
+                    e.stopPropagation(); // Empêcher la propagation de l'événement onClick
+                    handleRowSelection(item.id);
+                  }}
+                  // eslint-disable-next-line @typescript-eslint/no-empty-function
+                  onChange={() => {}}
+                />
+              </td>
+                
+                }
+                
 
                 {columnsManaged.map(({ property, isVisible }) => {
                   if (isVisible) {

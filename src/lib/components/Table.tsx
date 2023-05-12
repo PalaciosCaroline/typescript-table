@@ -43,6 +43,7 @@ interface Props<T> {
   renderExportDataComponent?: (
     filteredData: DataItem<T | undefined>[],
     columnsManaged: ColumnManaged[],
+    headerProperty?: string,
   ) => React.ReactNode;
 }
 
@@ -102,7 +103,7 @@ export function Table<T>({
     }
   };
 
-  // search global and by property (sortedData => filteredData) 
+  // search global and by property (sortedData => filteredData)
   const filteredData = filterData(sortedData, searchTerm, searchTerms);
 
   // pagination display
@@ -311,11 +312,22 @@ export function Table<T>({
     }
   }, [selectedRows, filteredData]);
 
+  // useEffect(() => {
+  //   if (selectAllRef.current) {
+  //     selectAllRef.current.indeterminate = isIndeterminate;
+  //   }
+  // }, [isIndeterminate]);
+
   useEffect(() => {
     if (selectAllRef.current) {
       selectAllRef.current.indeterminate = isIndeterminate;
+      if (isIndeterminate) {
+        selectAllRef.current.classList.add('indeterminate');
+      } else {
+        selectAllRef.current.classList.remove('indeterminate');
+      }
     }
-  }, [isIndeterminate]);
+}, [isIndeterminate]);
 
   return (
     <div className="box_table box_tableAndFeatures">
@@ -348,7 +360,7 @@ export function Table<T>({
           </colgroup>
           <thead className="thead_tableComponent">
             <tr role="row" className="tr_tableComponent">
-              <th>
+              <th className='thColor th_tableComponent box_inputSelectAllRows'>
                 <input
                   type="checkbox"
                   data-role="checkbox-three-state"
@@ -356,6 +368,7 @@ export function Table<T>({
                   checked={selectAllChecked}
                   onChange={handleSelectAll}
                   ref={selectAllRef}
+                  className='inputSelectAllRows inputSelectRows'
                 />
               </th>
               {columnsManaged.map(
@@ -408,10 +421,11 @@ export function Table<T>({
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 onChange={() => {}}
               >
-                <td>
+                <td className='box_inputSelectRow'>
                   <input
                     type="checkbox"
                     checked={selectedRows.has(item.id)}
+                    className='inputSelectRows inputSelectRow'
                     onClick={(e) => {
                       e.stopPropagation(); // Empêcher la propagation de l'événement onClick
                       handleRowSelection(item.id);

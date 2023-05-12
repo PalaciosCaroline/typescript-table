@@ -805,39 +805,71 @@ thead {
 }
 
 .tr_tableComponent.selected {
-  background:rgba(175 228 145 / 31%);
+  background:rgba(175 228 145 / 20%);
 }
 
-.custom-checkbox {
-  display: flex;
+.th_tableComponent.box_inputSelectAllRows{
+  padding:2px 4px;
+ 
+} 
+
+.tbody_tableComponent .box_inputSelectRow{
+  text-align: center;
 }
 
-.custom-checkbox input[type="radio"] {
-  display: none;
+.inputSelectAllRows {
+  width: 20px;
+  height: 20px; 
 }
 
-.custom-checkbox label {
+.inputSelectRows {
+  appearance: none;
   position: relative;
-  margin-right: 10px;
+  background-color: white;
+  border: 2px solid #838282;
+  margin:0;
+}
+
+.inputSelectRow{
+  width: 15px;
+  height: 15px;
+  text-align: center;
+}
+.inputSelectRows.indeterminate  {
+  appearance: none;
+  position: relative;
   width: 20px;
   height: 20px;
-  border: 2px solid #000;
+  background-color: #677e11;
+  border: 2px solid #677e11;
 }
 
-/* Afficher un trait horizontal */
-#horizontal:checked + label:after {
-  content: '-';
-  position: absolute;
-  left: 5px;
-  top: 9px;
-  width: 10px;
-  border-top: 2px solid #000;
+.inputSelectRows:checked {
+  background-color: #677e11;
+  border: 2px solid #677e11;
 }
 
-/* Afficher une coche */
-#check:checked + label:after {
-  content: '✓';
+.inputSelectRows:checked::after {
+  content: '';
   position: absolute;
-  left: 5px;
-  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
+
+.inputSelectRows.indeterminate::after {
+  content: '';
+  position: absolute;
+  width: 12px;  
+  height: 2px; 
+  background: white;  
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  
+}
+
+

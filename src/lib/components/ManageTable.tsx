@@ -38,8 +38,12 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
   };
 
   const getSelectedData = () => {
+    if(props.selectedRows.size === 0){
+      return props.filteredData;
+    } else 
     return props.filteredData.filter((item: any) => props.selectedRows.has(item.id));
   };
+
   const selectedData = getSelectedData();
 
   return (

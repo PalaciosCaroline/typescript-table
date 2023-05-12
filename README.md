@@ -93,6 +93,7 @@ after
         <ExportDataComponent
           filteredData={filteredData} //don't change this
           columnsManaged={columnsManaged}  //don't change this
+          headerProperty='label' //don't change this
           csvExport={true} // to have an export bouton for csv format
           excelExport={true} // to have an export bouton for excel format
           pdfExport={true} // to have an export bouton for pdf format
@@ -101,23 +102,24 @@ after
     />
   ```
 
-
 you can choice to display just one bouton to export, exemple with the pdf button :
 
 ![table](./exportJustOne1.png "example with one button")
 
-    `<Table
-          data={datasExample}
-          columns={columnsExample}
-          renderExportDataComponent={(filteredData, columnsManaged) => (
-            <ExportDataComponent
-              filteredData={filteredData} // don't change this props
-              columnsManaged={columnsManaged} // don't change this props
-              pdfExport={true} // just this
-            />
-          )}
-        />`
-
+  ```
+    <Table
+      data={datasExample}
+      columns={columnsExample}
+      renderExportDataComponent={(filteredData, columnsManaged) => (
+        <ExportDataComponent
+          filteredData={filteredData} // don't change this props
+          columnsManaged={columnsManaged} // don't change this props
+          headerProperty='label' //don't change this props
+          pdfExport={true} // just this
+        />
+      )}
+    />
+  ```
 
 - Without the data export button.
 

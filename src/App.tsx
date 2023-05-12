@@ -15,6 +15,7 @@ function App() {
           <ExportDataComponent
             filteredData={filteredData}
             columnsManaged={columnsManaged}
+            headerProperty='label'
             csvExport={true}
             excelExport={true}
             pdfExport={true}

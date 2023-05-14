@@ -46,7 +46,7 @@ export function Table(_a) {
         initialInputValues[property] = '';
     });
     var _m = useState(initialInputValues), inputValues = _m[0], setInputValues = _m[1];
-    // useSate select rows to export
+    // useState select rows to export
     var _o = useState(new Set()), selectedRows = _o[0], setSelectedRows = _o[1];
     var _p = useState(false), selectAllChecked = _p[0], setSelectAllChecked = _p[1];
     var _q = useState(false), isIndeterminate = _q[0], setIndeterminate = _q[1];
@@ -207,6 +207,10 @@ export function Table(_a) {
             });
         }
     };
+    // control if row is selected
+    var isRowSelected = function (id) {
+        return selectedRows.has(id);
+    };
     // select or unselect all rows
     var handleSelectAll = function () {
         if (selectAllChecked) {
@@ -252,8 +256,15 @@ export function Table(_a) {
                                     if (isVisible) {
                                         return (_jsx("col", { id: "col_".concat(property) }, "{col_".concat(property)));
                                     }
-                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [selectRowColumnVisible &&
-                                            _jsx("th", __assign({ className: 'thColor th_tableComponent box_inputSelectAllRows' }, { children: _jsx("input", { type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onChange: handleSelectAll, ref: selectAllRef, className: 'inputSelectAllRows inputSelectRows' }) })), columnsManaged.map(function (_a) {
+                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [selectRowColumnVisible && (_jsxs("th", __assign({ className: "thColor th_tableComponent box_inputSelectAllRows" }, { children: [_jsx("input", { id: "selectAll", type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onChange: handleSelectAll, ref: selectAllRef, className: "inputSelectAllRows inputSelectRows", role: "checkbox", "aria-checked": selectAllChecked
+                                                        ? 'true'
+                                                        : isIndeterminate
+                                                            ? 'mixed'
+                                                            : 'false', "aria-label": selectAllChecked
+                                                        ? 'all rows are checked'
+                                                        : isIndeterminate
+                                                            ? 'some rows are selected'
+                                                            : 'no row is checked' }), _jsx("label", __assign({ htmlFor: "selectAll", className: "sr-only" }, { children: "Select all rows" }))] }))), columnsManaged.map(function (_a) {
                                             var _b;
                                             var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
                                             var isSortKey = sortKey === property;
@@ -261,13 +272,12 @@ export function Table(_a) {
                                                     ? (_b = {}, _b[property] = isOpenSearchBProp[property], _b) : {}, handleToggle: handleToggle }, property));
                                         })] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, 
                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                    onChange: function () { } }, { children: [selectRowColumnVisible &&
-                                            _jsx("td", __assign({ className: 'box_inputSelectRow' }, { children: _jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: 'inputSelectRows inputSelectRow', onClick: function (e) {
-                                                        e.stopPropagation(); // Empêcher la propagation de l'événement onClick
+                                    onChange: function () { }, "aria-label": "Select this row" }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow", onClick: function (e) {
+                                                        e.stopPropagation();
                                                         handleRowSelection(item.id);
-                                                    }, 
+                                                    }, "aria-checked": isRowSelected(item.id) ? 'true' : 'false', "aria-label": "Select row with ".concat(item[1], " and ").concat(item[2]), "aria-labelledby": "row-".concat(item.id), 
                                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                                    onChange: function () { } }) })), columnsManaged.map(function (_a) {
+                                                    onChange: function () { } }), _jsx("label", __assign({ htmlFor: "selectRow-".concat(item.id), className: "sr-only" }, { children: "select this row" }))] }))), columnsManaged.map(function (_a) {
                                             var property = _a.property, isVisible = _a.isVisible;
                                             if (isVisible) {
                                                 return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index, " td_tableComponent") }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property, " td_tableComponent")));

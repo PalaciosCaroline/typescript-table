@@ -21,6 +21,7 @@ interface ManageTableProps<T> {
   renderExportDataComponent?: (
     filteredData: DataItem<T | undefined>[],
     columnsManaged: Column[],
+    headerProperty?: string
   ) => React.ReactNode;
 }
 

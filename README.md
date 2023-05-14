@@ -104,7 +104,7 @@ after
 
 you can choice to display just one bouton to export, exemple with the pdf button :
 
-![table](./exportJustOne1.png "example with one button")
+![table](./exportJustOne.png "example with one button")
 
   ```
     <Table

@@ -80,7 +80,7 @@ export function Table<T>({
     initialInputValues[property] = '';
   });
   const [inputValues, setInputValues] = useState(initialInputValues);
-  // useSate select rows to export
+  // useState select rows to export
   const [selectedRows, setSelectedRows] = useState(new Set());
   const [selectAllChecked, setSelectAllChecked] = useState<boolean>(false);
   const [isIndeterminate, setIndeterminate] = useState(false);
@@ -288,6 +288,11 @@ export function Table<T>({
     }
   };
 
+  // control if row is selected
+  const isRowSelected = (id: T | undefined) => {
+    return selectedRows.has(id);
+  };
+
   // select or unselect all rows
   const handleSelectAll = () => {
     if (selectAllChecked) {
@@ -321,12 +326,12 @@ export function Table<T>({
         selectAllRef.current.classList.remove('indeterminate');
       }
     }
-}, [isIndeterminate]);
+  }, [isIndeterminate]);
 
-// toggle visible row select column
-const handleVisibleSelectRowsColumn = () => {
-  setSelectRowColumnVisible(!selectRowColumnVisible);
-};
+  // toggle visible row select column
+  const handleVisibleSelectRowsColumn = () => {
+    setSelectRowColumnVisible(!selectRowColumnVisible);
+  };
 
   return (
     <div className="box_table box_tableAndFeatures">
@@ -361,19 +366,38 @@ const handleVisibleSelectRowsColumn = () => {
           </colgroup>
           <thead className="thead_tableComponent">
             <tr role="row" className="tr_tableComponent">
-            {selectRowColumnVisible && 
-              <th className='thColor th_tableComponent box_inputSelectAllRows'>
-                <input
-                  type="checkbox"
-                  data-role="checkbox-three-state"
-                  data-caption="Checkbox"
-                  checked={selectAllChecked}
-                  onChange={handleSelectAll}
-                  ref={selectAllRef}
-                  className='inputSelectAllRows inputSelectRows'
-                />
-              </th>
-              }
+              {selectRowColumnVisible && (
+                <th className="thColor th_tableComponent box_inputSelectAllRows">
+                  <input
+                    id="selectAll"
+                    type="checkbox"
+                    data-role="checkbox-three-state"
+                    data-caption="Checkbox"
+                    checked={selectAllChecked}
+                    onChange={handleSelectAll}
+                    ref={selectAllRef}
+                    className="inputSelectAllRows inputSelectRows"
+                    role="checkbox"
+                    aria-checked={
+                      selectAllChecked
+                        ? 'true'
+                        : isIndeterminate
+                        ? 'mixed'
+                        : 'false'
+                    }
+                    aria-label={
+                      selectAllChecked
+                        ? 'all rows are checked'
+                        : isIndeterminate
+                        ? 'some rows are selected'
+                        : 'no row is checked'
+                    }
+                  />
+                  <label htmlFor="selectAll" className="sr-only">
+                    Select all rows
+                  </label>
+                </th>
+              )}
               {columnsManaged.map(
                 ({
                   label,
@@ -423,24 +447,29 @@ const handleVisibleSelectRowsColumn = () => {
                 onClick={() => handleRowSelection(item.id)}
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 onChange={() => {}}
+                aria-label="Select this row"
               >
-                {selectRowColumnVisible && 
-                <td className='box_inputSelectRow'>
-                <input
-                  type="checkbox"
-                  checked={selectedRows.has(item.id)}
-                  className='inputSelectRows inputSelectRow'
-                  onClick={(e) => {
-                    e.stopPropagation(); // Empêcher la propagation de l'événement onClick
-                    handleRowSelection(item.id);
-                  }}
-                  // eslint-disable-next-line @typescript-eslint/no-empty-function
-                  onChange={() => {}}
-                />
-              </td>
-                
-                }
-                
+                {selectRowColumnVisible && (
+                  <td className="box_inputSelectRow">
+                    <input
+                      type="checkbox"
+                      checked={selectedRows.has(item.id)}
+                      className="inputSelectRows inputSelectRow"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRowSelection(item.id);
+                      }}
+                      aria-checked={isRowSelected(item.id) ? 'true' : 'false'}
+                      aria-label={`Select row with ${item[1]} and ${item[2]}`}
+                      aria-labelledby={`row-${item.id}`}
+                      // eslint-disable-next-line @typescript-eslint/no-empty-function
+                      onChange={() => {}}
+                    />
+                    <label htmlFor={`selectRow-${item.id}`} className="sr-only">
+                      select this row
+                    </label>
+                  </td>
+                )}
 
                 {columnsManaged.map(({ property, isVisible }) => {
                   if (isVisible) {

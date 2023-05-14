@@ -1,6 +1,7 @@
 
 export type SortableObject = { [key: string]: any };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "desc" | "noSort") {
   if (arrayA.length === 0 && arrayB.length === 0) {
     return 0;

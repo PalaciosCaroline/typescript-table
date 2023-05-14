@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function compareArrays(arrayA, arrayB, sortOrder) {
     if (arrayA.length === 0 && arrayB.length === 0) {
         return 0;

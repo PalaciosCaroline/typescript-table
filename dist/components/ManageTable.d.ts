@@ -11,7 +11,7 @@ interface ManageTableProps<T> {
     filteredData: DataItem<T | undefined>[];
     handleVisibleSelectRowsColumn: () => void;
     selectRowColumnVisible: boolean;
-    renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: Column[]) => React.ReactNode;
+    renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: Column[], headerProperty?: string) => React.ReactNode;
 }
 interface Column {
     label: string;

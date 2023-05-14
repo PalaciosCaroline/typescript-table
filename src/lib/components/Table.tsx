@@ -199,6 +199,9 @@ export function Table<T>({
       };
     });
     setColumnsManaged(updatedColumns);
+    if(!selectRowColumnVisible){
+      handleVisibleSelectRowsColumn();
+    }             
   };
 
   // manage dateFormat instruction

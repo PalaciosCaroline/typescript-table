@@ -356,20 +356,21 @@ thead button:hover > svg {
   color: #2e4506;
 }
 
-.toggle-input {
+.modalTable .toggle-input {
   position: absolute;
   left: 0;
   top: 0;
+  margin:0;
   width: 100%;
-  height: 25px;
+  height: 100%;
   z-index: 5;
   opacity: 0;
   cursor: pointer;
 }
 
-.toggle-label {
+.modalTable .toggle-label {
   width: 40px;
-  height: 10px;
+  height: 9px;
   background: #fefefe;
   border: 1px solid rgba(171, 168, 168, 0.2);
   position: relative;
@@ -381,8 +382,8 @@ thead button:hover > svg {
 .toggle-label:after {
   content: '';
   position: absolute;
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   border-radius: 100%;
   left: -2px;
   top: 0;
@@ -394,16 +395,17 @@ thead button:hover > svg {
 
 .toggle-input:checked + .toggle-label {
   background-color: #b1b3aa;
+  height: 8px;
 }
 
 .toggle-input:checked + .toggle-label:after {
-  left: 35px;
-}
+  left: 30px;
+} 
 
 .toggle-switch {
   position: relative;
   width: 65px;
-  height: 35px;
+  height: 25px;
 }
 
 thead {
@@ -468,6 +470,7 @@ thead {
   width: 200px;
   justify-content: flex-start;
   height: 25px;
+  line-height: 25px;
 }
 
 .btnShowAllColumns {

@@ -142,6 +142,9 @@ export function Table(_a) {
             return __assign(__assign({}, column), { isVisible: true });
         });
         setColumnsManaged(updatedColumns);
+        if (!selectRowColumnVisible) {
+            handleVisibleSelectRowsColumn();
+        }
     };
     // manage dateFormat instruction
     var _s = useState(function () {

@@ -56,17 +56,6 @@ export function Table(_a) {
     useEffect(function () {
         setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
     }, [data, sortKey, sortOrder, dateFormatForSort]);
-    // const handleColumnSort = (property: string, dateFormat: string) => {
-    //   if (sortKey === property) {
-    //     setSortOrder(
-    //       sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc',
-    //     );
-    //   } else {
-    //     setSortKey(property);
-    //     setSortOrder('asc');
-    //     setDateFormatForSort(dateFormat);
-    //   }
-    // };
     var updateSortOrder = function (sortOrder) {
         return sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc';
     };
@@ -80,7 +69,6 @@ export function Table(_a) {
             setDateFormatForSort(dateFormat);
         }
     };
-    // Cette fonction peut être extraite pour gérer la mise à jour des termes de recherche.
     var updateSearchTerms = function (property, value, prevSearchTerms, prevInputValues) {
         var _a, _b;
         var updatedSearchTerms = __assign(__assign({}, prevSearchTerms), (_a = {}, _a[property] = value, _a));
@@ -124,17 +112,6 @@ export function Table(_a) {
     var handleSearch = function (event) {
         setSearchTerm(event.target.value);
     };
-    // manage search by property record
-    // const handleSearchByProperty = (property: string, value: string) => {
-    //   setInputValues({
-    //     ...inputValues,
-    //     [property]: value,
-    //   });
-    //   setSearchTerms({
-    //     ...searchTerms,
-    //     [property]: value,
-    //   });
-    // };
     // manage all searchs
     var handleReset = function (property) {
         setSearchTerms(function (prevSearchTerms) {
@@ -195,7 +172,11 @@ export function Table(_a) {
     var start = (page - 1) * perPage;
     var end = start + perPage;
     var currentData = filteredData.slice(start, end);
-    // manage display object array and date type
+    // display data object or array
+    function renderList(items, itemRenderer, depth) {
+        return (_jsx("ul", __assign({ className: "ul_tableComponent ul_tableComponent_".concat(depth) }, { children: items.map(function (item, index) { return (_jsx("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: itemRenderer(item, index) }), "item-".concat(index))); }) })));
+    }
+    // manage display object, array and date type
     function formatNestedDate(value, depth) {
         if (depth === void 0) { depth = 0; }
         if (depth >= 4) {
@@ -205,13 +186,13 @@ export function Table(_a) {
             return value.toLocaleDateString();
         }
         else if (Array.isArray(value)) {
-            return (_jsx("ul", __assign({ className: "ul_tableComponent" }, { children: value.map(function (item, index) { return (_jsx("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: formatNestedDate(item, depth + 1) }), "item-".concat(index))); }) })));
+            return renderList(value, function (item) { return formatNestedDate(item, depth + 1); }, depth);
         }
         else if (typeof value === 'object' && value !== null) {
-            return (_jsx("ul", __assign({ className: "ul_tableComponent ul_tableComponent_".concat(depth) }, { children: Object.entries(value).map(function (_a, index) {
-                    var key = _a[0], item = _a[1];
-                    return (_jsxs("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: [key, ": ", formatNestedDate(item, depth + 1)] }), "key-".concat(index)));
-                }) })));
+            return renderList(Object.entries(value), function (_a) {
+                var key = _a[0], item = _a[1];
+                return "".concat(key, ": ").concat(formatNestedDate(item, depth + 1));
+            }, depth);
         }
         return value;
     }
@@ -318,7 +299,7 @@ export function Table(_a) {
                                             }
                                             return null;
                                         })] }), index)); }) }))] }))] })), _jsxs("div", __assign({ className: "box_entriesAndPage" }, { children: [_jsx("div", __assign({ className: "showingEntries" }, { children: filteredData.length <= 0
-                            ? "0 results of ".concat(data.length, " entries")
+                            ? "0 result of ".concat(data.length, " entries")
                             : filteredData.length === 1
                                 ? "1 entry"
                                 : "".concat((page - 1) * perPage + 1, " - ").concat(Math.min(page * perPage, filteredData.length), " of ").concat(filteredData.length, " entries") })), _jsx(Pagination, { page: page, totalPages: totalPages, handlePageChange: handlePageChange })] }))] })));

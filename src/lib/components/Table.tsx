@@ -7,20 +7,16 @@ import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
 
-interface Column {
+export interface Column {
   label: string;
   property: string;
   dateFormat?: string;
   disableSort?: boolean;
   disableFilter?: boolean;
 }
-interface ColumnManaged {
-  label: string;
-  property: string;
+
+export interface ColumnManaged extends Column {
   isVisible?: boolean;
-  dateFormat?: string;
-  disableSort?: boolean;
-  disableFilter?: boolean;
 }
 
 export interface InputValues<T> {
@@ -92,17 +88,6 @@ export function Table<T>({
     setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
   }, [data, sortKey, sortOrder, dateFormatForSort]);
 
-  // const handleColumnSort = (property: string, dateFormat: string) => {
-  //   if (sortKey === property) {
-  //     setSortOrder(
-  //       sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc',
-  //     );
-  //   } else {
-  //     setSortKey(property);
-  //     setSortOrder('asc');
-  //     setDateFormatForSort(dateFormat);
-  //   }
-  // };
   const updateSortOrder = (sortOrder: 'asc' | 'desc' | 'noSort') => {
     return sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc';
   };
@@ -117,7 +102,6 @@ export function Table<T>({
     }
   };
   
-  // Cette fonction peut être extraite pour gérer la mise à jour des termes de recherche.
   const updateSearchTerms = (property: string, value: string, prevSearchTerms: SearchTerms, prevInputValues: SearchByProp) => {
     const updatedSearchTerms = {
       ...prevSearchTerms,
@@ -173,18 +157,6 @@ export function Table<T>({
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value);
   };
-
-  // manage search by property record
-  // const handleSearchByProperty = (property: string, value: string) => {
-  //   setInputValues({
-  //     ...inputValues,
-  //     [property]: value,
-  //   });
-  //   setSearchTerms({
-  //     ...searchTerms,
-  //     [property]: value,
-  //   });
-  // };
 
   // manage all searchs
   const handleReset = (property: string): void => {
@@ -259,7 +231,23 @@ export function Table<T>({
     end,
   ) as DataItem<T>[];
 
-  // manage display object array and date type
+  // display data object or array
+  function renderList<T>(items: T[], itemRenderer: (item: T, index: number) => React.ReactNode, depth: number): React.ReactElement {
+    return (
+      <ul className={`ul_tableComponent ul_tableComponent_${depth}`}>
+        {items.map((item, index) => (
+          <li
+            key={`item-${index}`}
+            className={`liOjectData liOjectData_${depth}`}
+          >
+            {itemRenderer(item, index)}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  // manage display object, array and date type
   function formatNestedDate<T>(value: T, depth = 0): string | React.ReactNode {
     if (depth >= 4) {
       return <span>...</span>;
@@ -267,31 +255,9 @@ export function Table<T>({
     if (value instanceof Date) {
       return value.toLocaleDateString();
     } else if (Array.isArray(value)) {
-      return (
-        <ul className="ul_tableComponent">
-          {value.map((item, index) => (
-            <li
-              key={`item-${index}`}
-              className={`liOjectData liOjectData_${depth}`}
-            >
-              {formatNestedDate(item, depth + 1)}
-            </li>
-          ))}
-        </ul>
-      );
+      return renderList(value, (item) => formatNestedDate(item, depth + 1), depth);
     } else if (typeof value === 'object' && value !== null) {
-      return (
-        <ul className={`ul_tableComponent ul_tableComponent_${depth}`}>
-          {Object.entries(value).map(([key, item], index) => (
-            <li
-              key={`key-${index}`}
-              className={`liOjectData liOjectData_${depth}`}
-            >
-              {key}: {formatNestedDate(item, depth + 1)}
-            </li>
-          ))}
-        </ul>
-      );
+      return renderList(Object.entries(value), ([key, item]) => `${key}: ${formatNestedDate(item, depth + 1)}`, depth);
     }
     return value as React.ReactNode;
   }
@@ -529,7 +495,7 @@ export function Table<T>({
       <div className="box_entriesAndPage">
         <div className="showingEntries">
           {filteredData.length <= 0
-            ? `0 results of ${data.length} entries`
+            ? `0 result of ${data.length} entries`
             : filteredData.length === 1
             ? `1 entry`
             : `${(page - 1) * perPage + 1} - ${Math.min(

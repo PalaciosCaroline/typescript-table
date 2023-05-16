@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
-
-interface Column {
-  label: string;
-  property: string;
-  isVisible: boolean;
-}
+import { ColumnManaged } from './Table';
 
 interface ManageColumnsProps {
-  columns: Column[];
+  columns: ColumnManaged[];
   handleColumnVisibility: (property: string) => void;
   handleVisibleAllColumns: () => void;
   handleVisibleSelectRowsColumn: () => void;

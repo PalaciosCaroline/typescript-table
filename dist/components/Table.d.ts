@@ -1,19 +1,14 @@
 import React from 'react';
 import './../styles/table.css';
-interface Column {
+export interface Column {
     label: string;
     property: string;
     dateFormat?: string;
     disableSort?: boolean;
     disableFilter?: boolean;
 }
-interface ColumnManaged {
-    label: string;
-    property: string;
+export interface ColumnManaged extends Column {
     isVisible?: boolean;
-    dateFormat?: string;
-    disableSort?: boolean;
-    disableFilter?: boolean;
 }
 export interface InputValues<T> {
     [key: string]: T | undefined;

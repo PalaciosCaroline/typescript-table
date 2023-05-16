@@ -19,6 +19,7 @@ The Table component receives two props: data, an array of objects with the data 
   - filter (global and column-specific)
   - Pagination
   - columns : visibility and order
+  - column to select rows
   - export data to csv, excel and pdf (with import 'exportDataComponent')
   - Customizable
   - Accessible (focus, tabulation and aria-label)

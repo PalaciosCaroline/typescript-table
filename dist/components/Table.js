@@ -56,15 +56,41 @@ export function Table(_a) {
     useEffect(function () {
         setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
     }, [data, sortKey, sortOrder, dateFormatForSort]);
-    var handleSort = function (property, dateFormat) {
+    // const handleColumnSort = (property: string, dateFormat: string) => {
+    //   if (sortKey === property) {
+    //     setSortOrder(
+    //       sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc',
+    //     );
+    //   } else {
+    //     setSortKey(property);
+    //     setSortOrder('asc');
+    //     setDateFormatForSort(dateFormat);
+    //   }
+    // };
+    var updateSortOrder = function (sortOrder) {
+        return sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc';
+    };
+    var handleColumnSort = function (property, dateFormat) {
         if (sortKey === property) {
-            setSortOrder(sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc');
+            setSortOrder(updateSortOrder(sortOrder));
         }
         else {
             setSortKey(property);
             setSortOrder('asc');
             setDateFormatForSort(dateFormat);
         }
+    };
+    // Cette fonction peut être extraite pour gérer la mise à jour des termes de recherche.
+    var updateSearchTerms = function (property, value, prevSearchTerms, prevInputValues) {
+        var _a, _b;
+        var updatedSearchTerms = __assign(__assign({}, prevSearchTerms), (_a = {}, _a[property] = value, _a));
+        var updatedInputValues = __assign(__assign({}, prevInputValues), (_b = {}, _b[property] = value, _b));
+        return { updatedSearchTerms: updatedSearchTerms, updatedInputValues: updatedInputValues };
+    };
+    var handleSearchByProperty = function (property, value) {
+        var _a = updateSearchTerms(property, value, searchTerms, inputValues), updatedSearchTerms = _a.updatedSearchTerms, updatedInputValues = _a.updatedInputValues;
+        setSearchTerms(updatedSearchTerms);
+        setInputValues(updatedInputValues);
     };
     // search global and by property (sortedData => filteredData)
     var filteredData = filterData(sortedData, searchTerm, searchTerms);
@@ -99,11 +125,16 @@ export function Table(_a) {
         setSearchTerm(event.target.value);
     };
     // manage search by property record
-    var handleSearchByProperty = function (property, value) {
-        var _a, _b;
-        setInputValues(__assign(__assign({}, inputValues), (_a = {}, _a[property] = value, _a)));
-        setSearchTerms(__assign(__assign({}, searchTerms), (_b = {}, _b[property] = value, _b)));
-    };
+    // const handleSearchByProperty = (property: string, value: string) => {
+    //   setInputValues({
+    //     ...inputValues,
+    //     [property]: value,
+    //   });
+    //   setSearchTerms({
+    //     ...searchTerms,
+    //     [property]: value,
+    //   });
+    // };
     // manage all searchs
     var handleReset = function (property) {
         setSearchTerms(function (prevSearchTerms) {
@@ -271,7 +302,7 @@ export function Table(_a) {
                                             var _b;
                                             var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
                                             var isSortKey = sortKey === property;
-                                            return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleSort: handleSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchBProp: isOpenSearchBProp[property]
+                                            return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchBProp: isOpenSearchBProp[property]
                                                     ? (_b = {}, _b[property] = isOpenSearchBProp[property], _b) : {}, handleToggle: handleToggle }, property));
                                         })] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, 
                                     // eslint-disable-next-line @typescript-eslint/no-empty-function

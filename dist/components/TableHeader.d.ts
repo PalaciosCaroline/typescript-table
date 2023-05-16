@@ -11,7 +11,7 @@ interface TableHeaderProps {
     inputValues: {
         [key: string]: string | undefined;
     };
-    handleSort: (property: string, dateFormat: string) => void;
+    handleColumnSort: (property: string, dateFormat: string) => void;
     handleSearchByProperty: (property: string, value: string) => void;
     handleReset: (property: string) => void;
     isOpenSearchBProp: {

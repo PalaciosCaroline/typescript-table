@@ -69,10 +69,10 @@ describe('Table', () => {
     const table = getByRole('table');
     const rows = table.querySelectorAll('tbody > tr');
     const cells = rows[0].querySelectorAll('td');
-    expect(cells).toHaveLength(columnsExample.length); 
-    expect(cells[0]).toHaveTextContent('John');
-    expect(cells[1]).toHaveTextContent('Doe'); 
-    expect(cells[2]).toHaveTextContent('01/04/2022'); 
+    expect(cells).toHaveLength(columnsExample.length + 1);
+    expect(cells[1]).toHaveTextContent('John');
+    expect(cells[2]).toHaveTextContent('Doe'); 
+    expect(cells[3]).toHaveTextContent('01/04/2022'); 
   });
 
   it('renders a table with the correct data and columns', () => {
@@ -81,9 +81,10 @@ describe('Table', () => {
     expect(table).toBeInTheDocument();
 
     const headers = table.querySelectorAll('th');
-    expect(headers).toHaveLength(columnsExample.length);
+    expect(headers).toHaveLength(columnsExample.length + 1);
     headers.forEach((header, index) => {
-      expect(header).toHaveTextContent(columnsExample[index].label);
+      if(index === 0) return;
+      expect(header).toHaveTextContent(columnsExample[index - 1].label);
     });
 
     const rows = table.querySelectorAll('tbody > tr');
@@ -91,9 +92,11 @@ describe('Table', () => {
 
     rows.forEach((row, rowIndex) => {
       const cells = row.querySelectorAll('td');
-      expect(cells).toHaveLength(columnsExample.length);
+      expect(cells).toHaveLength(columnsExample.length + 1);
       cells.forEach((cell, cellIndex) => {
-        expect(cell).toHaveTextContent(datasExample[rowIndex][columnsExample[cellIndex].property]);
+        if(cellIndex === 0) return;
+        const employeeProperty : string = columnsExample[cellIndex-1].property;
+          expect(cell).toHaveTextContent(String(datasExample[rowIndex][employeeProperty]));
       });
     });
   });
@@ -102,13 +105,13 @@ describe('Table', () => {
    
     // Provide example data and columns for testing
     const datasForJest = [
-      { name: 'Alice', dateOfBirth : '1977/05/31' },
+      { name: 'Alice', dateOfBirth : '1977/05/31'},
       { name: 'Bob', dateOfBirth: '1980/01/30' },
       { name: 'Charlie', dateOfBirth: '2000/09/12' },
     ];
     const columnsForJest = [
       { label: 'Name', property: 'name' },
-      { label: 'Date Of Birth', property: 'dateOfBirth' },
+      { label: 'Date Of Birth', property: 'dateOfBirth', dateFormat:'YYYY/MM/DD' },
     ];
     render(<Table data={datasForJest} columns={columnsForJest} />);
     
@@ -125,7 +128,7 @@ describe('Table', () => {
     const rows = table.querySelectorAll('tbody > tr');
     rows.forEach((row, rowIndex) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[1]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
+      expect(cells[2]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
     });
   });
 

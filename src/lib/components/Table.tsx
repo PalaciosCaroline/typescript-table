@@ -92,16 +92,49 @@ export function Table<T>({
     setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
   }, [data, sortKey, sortOrder, dateFormatForSort]);
 
-  const handleSort = (property: string, dateFormat: string) => {
+  // const handleColumnSort = (property: string, dateFormat: string) => {
+  //   if (sortKey === property) {
+  //     setSortOrder(
+  //       sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc',
+  //     );
+  //   } else {
+  //     setSortKey(property);
+  //     setSortOrder('asc');
+  //     setDateFormatForSort(dateFormat);
+  //   }
+  // };
+  const updateSortOrder = (sortOrder: 'asc' | 'desc' | 'noSort') => {
+    return sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc';
+  };
+  
+  const handleColumnSort = (property: string, dateFormat: string) => {
     if (sortKey === property) {
-      setSortOrder(
-        sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc',
-      );
+      setSortOrder(updateSortOrder(sortOrder));
     } else {
       setSortKey(property);
       setSortOrder('asc');
       setDateFormatForSort(dateFormat);
     }
+  };
+  
+  // Cette fonction peut être extraite pour gérer la mise à jour des termes de recherche.
+  const updateSearchTerms = (property: string, value: string, prevSearchTerms: SearchTerms, prevInputValues: SearchByProp) => {
+    const updatedSearchTerms = {
+      ...prevSearchTerms,
+      [property]: value,
+    };
+    const updatedInputValues = {
+      ...prevInputValues,
+      [property]: value,
+    };
+  
+    return { updatedSearchTerms, updatedInputValues };
+  };
+  
+  const handleSearchByProperty = (property: string, value: string) => {
+    const { updatedSearchTerms, updatedInputValues } = updateSearchTerms(property, value, searchTerms, inputValues);
+    setSearchTerms(updatedSearchTerms);
+    setInputValues(updatedInputValues);
   };
 
   // search global and by property (sortedData => filteredData)
@@ -142,16 +175,16 @@ export function Table<T>({
   };
 
   // manage search by property record
-  const handleSearchByProperty = (property: string, value: string) => {
-    setInputValues({
-      ...inputValues,
-      [property]: value,
-    });
-    setSearchTerms({
-      ...searchTerms,
-      [property]: value,
-    });
-  };
+  // const handleSearchByProperty = (property: string, value: string) => {
+  //   setInputValues({
+  //     ...inputValues,
+  //     [property]: value,
+  //   });
+  //   setSearchTerms({
+  //     ...searchTerms,
+  //     [property]: value,
+  //   });
+  // };
 
   // manage all searchs
   const handleReset = (property: string): void => {
@@ -420,7 +453,7 @@ export function Table<T>({
                       dateFormat={dateFormat}
                       isSortKey={isSortKey}
                       sortOrder={sortOrder}
-                      handleSort={handleSort}
+                      handleColumnSort={handleColumnSort}
                       inputValues={inputValues}
                       handleReset={handleReset}
                       disableSort={disableSort}

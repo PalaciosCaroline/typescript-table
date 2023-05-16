@@ -13,7 +13,7 @@ interface TableHeaderProps {
   disableSort?: boolean;
   disableFilter?: boolean;
   inputValues: { [key: string]: string | undefined };
-  handleSort: (property: string, dateFormat: string) => void;
+  handleColumnSort: (property: string, dateFormat: string) => void;
   handleSearchByProperty: (property: string, value: string) => void;
   handleReset: (property: string) => void;
   isOpenSearchBProp: { [property: string]: boolean };
@@ -27,7 +27,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
   dateFormat,
   isSortKey,
   sortOrder,
-  handleSort,
+  handleColumnSort,
   disableSort,
   disableFilter,
   handleSearchByProperty,
@@ -57,7 +57,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
               isSortKey={isSortKey}
               sortOrder={sortOrder}
               property={property}
-              handleSort={handleSort}
+              handleColumnSort={handleColumnSort}
               dateFormat={dateFormat}
             />
           )}

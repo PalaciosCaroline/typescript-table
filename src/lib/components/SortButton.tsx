@@ -6,14 +6,14 @@ interface SortButtonProps {
   sortOrder: 'asc' | 'desc' | 'noSort';
   property: string;
   dateFormat: string;
-  handleSort: (property: string, dateFormat: string) => void;
+  handleColumnSort: (property: string, dateFormat: string) => void;
 }
 
 const SortButton: React.FC<SortButtonProps> = ({
   isSortKey,
   sortOrder,
   property,
-  handleSort,
+  handleColumnSort,
   dateFormat,
 }) => {
   const renderSortButton = (
@@ -22,7 +22,7 @@ const SortButton: React.FC<SortButtonProps> = ({
     testIdSuffix: string,
   ) => (
     <button
-      onClick={() => handleSort(property, dateFormat)}
+      onClick={() => handleColumnSort(property, dateFormat)}
       className={`btnSort btnSort_tableComponent ${
         isSortKey && sortOrder != 'noSort' ? ' selectedBtnSort' : ''
       }`}

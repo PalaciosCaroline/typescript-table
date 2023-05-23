@@ -8,12 +8,20 @@ interface ManageColumnsProps {
   handleColumnVisibility: (property: string) => void;
   handleVisibleAllColumns: () => void;
   handleVisibleSelectRowsColumn: () => void;
-  selectRowColumnVisible:boolean
+  selectRowColumnVisible: boolean;
 }
 
+/**
+ * Component for managing columns.
+ *
+ * @component
+ * @param {ManageColumnsProps} props - The props for the ManageColumns component.
+ * @returns {JSX.Element} The rendered ManageColumns component.
+ */
 function ManageColumns(props: ManageColumnsProps): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  // Handles keydown event for column visibility toggle
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     property: string,
@@ -24,8 +32,9 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
     }
   };
 
+  // Handles keydown event for select rows column visibility toggle
   const handleKeyDownSelect = (
-    e: React.KeyboardEvent<HTMLInputElement>
+    e: React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -35,6 +44,7 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
 
   return (
     <>
+     {/* Toggle button for managing columns */}
       <button
         className={`toggle-btnManagedColumns ${isModalOpen ? 'btnOpen' : ''}`}
         onClick={() => setIsModalOpen(!isModalOpen)}
@@ -45,7 +55,9 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
         </span>
         {!isModalOpen ? <FiChevronDown /> : <FiChevronUp />}
       </button>
+      {/* Modal for managing columns */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+         {/* Button for showing all columns */}
         <button
           className="btnShowAllColumns"
           onClick={props.handleVisibleAllColumns}
@@ -53,32 +65,34 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
         >
           <span className="btnShowSpan">Show All Columns</span>
         </button>
+        {/* List of columns */}
         <ul className="columns-list">
-            <li
-              key='selectRowsColumn'
-              className="liManagedColumns"
-              data-testid={`li-selectRows`}
-            >
-              <div className="toggle-switch">
-                <input
-                  className="toggle-input"
-                  type="checkbox"
-                  checked={props.selectRowColumnVisible}
-                  onChange={props.handleVisibleSelectRowsColumn}
-                  onKeyDown={(e) => handleKeyDownSelect(e)}
-                  data-testid='inputManaged-selectRowColumn'
-                />
-                <label className="toggle-label" />
-              </div>
-              Select Rows Column
-              </li>
+          {/* Select Rows Column */}
+          <li
+            key="selectRowsColumn"
+            className="liManagedColumns"
+            data-testid={`li-selectRows`}
+          >
+            <div className="toggle-switch">
+              <input
+                className="toggle-input"
+                type="checkbox"
+                checked={props.selectRowColumnVisible}
+                onChange={props.handleVisibleSelectRowsColumn}
+                onKeyDown={(e) => handleKeyDownSelect(e)}
+                data-testid="inputManaged-selectRowColumn"
+              />
+              <label className="toggle-label" />
+            </div>
+            Select Rows Column
+          </li>
+          {/* Columns by label of the table */}
           {props.columns.map(({ label, property, isVisible }) => (
             <li
               key={property}
               className="liManagedColumns"
               data-testid={`li-${property}`}
             >
-              
               <div className="toggle-switch">
                 <input
                   className="toggle-input"

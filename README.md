@@ -124,7 +124,7 @@ you can choice to display just one bouton to export, exemple with the pdf button
 
 - Without the data export button.
 
-![table](./noExportData1.png "example without export button")
+![table](./noExportData.png "example without export button")
 
 ## "Customizing Sorting and Filtering."
 "Sorting and filtering are implemented by default for each column in the table. However, if you want to remove these features for a specific column, you simply need to add the property disableSort: true to disable sorting, or disableFilter: true to disable filtering, in the object of the respective column."

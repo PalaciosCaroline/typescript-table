@@ -23,9 +23,18 @@ export interface InputValues<T> {
   [key: string]: T | undefined;
 }
 
-interface SearchByProp {
+/**
+ * L'interface SearchByProp permet de définir un enregistrement où la clé est une chaîne et la valeur est une chaîne ou undefined.
+ * Elle est utilisée pour la recherche par propriété.
+ */
+interface SearchByProperty {
   [key: string]: string | undefined;
 }
+
+/**
+ * L'interface SearchTerms permet de définir un enregistrement où la clé est une chaîne et la valeur est une chaîne.
+ * Elle est utilisée pour stocker les termes de recherche.
+ */
 interface SearchTerms {
   [key: string]: string;
 }
@@ -33,10 +42,15 @@ interface SearchTerms {
 export interface DataItem<T> {
   [key: string]: T | undefined;
 }
+
+/**
+ * L'interface Props représente les propriétés du composant Table.
+ */
 interface Props<T> {
-  data: DataItem<T | undefined>[];
-  columns: Column[];
+  data: DataItem<T | undefined>[]; // Les données à afficher dans le tableau
+  columns: Column[]; // Les colonnes du tableau
   renderExportDataComponent?: (
+    // Une fonction pour rendre un composant d'exportation de données
     filteredData: DataItem<T | undefined>[],
     columnsManaged: ColumnManaged[],
     headerProperty?: string,
@@ -48,50 +62,62 @@ export function Table<T>({
   columns,
   renderExportDataComponent,
 }: Props<T>) {
-  //useState to sort
+  // useState for sorting
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>(
     'noSort',
   );
   const [sortedData, setSortedData] = useState<DataItem<T | undefined>[]>([]);
-  // useState pagination
+  // useState for pagination
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(10);
   const [totalPages, setTotalPages] = useState<number>(0);
-  // useState formatDate for sort
+  // useState for date format used in sorting
   const [dateFormatForSort, setDateFormatForSort] = useState<string>('none');
-  // useState to global search
+  // useState for global search
   const [searchTerm, setSearchTerm] = useState<string>('');
-  // useState search by property
+  // useState for search by property
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({});
-  const initialIsOpenSearchBProp: Record<string, boolean> = {};
+  const initialIsOpenSearchByProperty: Record<string, boolean> = {};
   columns.forEach(({ property }) => {
-    initialIsOpenSearchBProp[property] = false;
+    initialIsOpenSearchByProperty[property] = false;
   });
-  const [isOpenSearchBProp, setIsOpenSearchBProp] = useState<
+  const [isOpenSearchByProperty, setIsOpenSearchByProperty] = useState<
     Record<string, boolean>
-  >(initialIsOpenSearchBProp);
-  const initialInputValues: SearchByProp = {};
+  >(initialIsOpenSearchByProperty);
+  const initialInputValues: SearchByProperty = {};
   columns.forEach(({ property }) => {
     initialInputValues[property] = '';
   });
   const [inputValues, setInputValues] = useState(initialInputValues);
-  // useState select rows to export
-  const [selectedRows, setSelectedRows] = useState(new Set());
+  // useState for selecting rows to export
+  const [selectedRows, setSelectedRows] = useState<Set<T | undefined>>(new Set());
   const [selectAllChecked, setSelectAllChecked] = useState<boolean>(false);
   const [isIndeterminate, setIndeterminate] = useState(false);
   const selectAllRef = useRef<HTMLInputElement | null>(null);
   const [selectRowColumnVisible, setSelectRowColumnVisible] = useState(true);
 
-  // sort data (data => sortedData)
+  // useEffect for sorting data
   useEffect(() => {
     setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
   }, [data, sortKey, sortOrder, dateFormatForSort]);
 
   const updateSortOrder = (sortOrder: 'asc' | 'desc' | 'noSort') => {
-    return sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc';
+    return sortOrder === 'asc'
+      ? 'desc'
+      : sortOrder === 'desc'
+      ? 'noSort'
+      : 'asc';
   };
-  
+
+  /**
+   * Handles the column sorting based on the provided property and date format.
+   *
+   * @param {string} property - The property of the column being sorted.
+   * @param {string} dateFormat - The date format used for sorting (e.g., 'YYYY/MM/DD').
+   * @function handleColumnSort
+   * @returns {void}
+   */
   const handleColumnSort = (property: string, dateFormat: string) => {
     if (sortKey === property) {
       setSortOrder(updateSortOrder(sortOrder));
@@ -101,8 +127,23 @@ export function Table<T>({
       setDateFormatForSort(dateFormat);
     }
   };
-  
-  const updateSearchTerms = (property: string, value: string, prevSearchTerms: SearchTerms, prevInputValues: SearchByProp) => {
+
+  /**
+   * Updates search terms and input values for a specific property.
+   *
+   * @param {string} property - The property to update.
+   * @param {string} value - The new search value for the property.
+   * @param {SearchTerms} prevSearchTerms - The previous search terms object.
+   * @param {SearchByProp} prevInputValues - The previous input values object.
+   *
+   * @returns {Object} An object containing the updated search terms and input values.
+   */
+  const updateSearchTerms = (
+    property: string,
+    value: string,
+    prevSearchTerms: SearchTerms,
+    prevInputValues: SearchByProperty,
+  ) => {
     const updatedSearchTerms = {
       ...prevSearchTerms,
       [property]: value,
@@ -111,20 +152,32 @@ export function Table<T>({
       ...prevInputValues,
       [property]: value,
     };
-  
+
     return { updatedSearchTerms, updatedInputValues };
   };
-  
+
+  /**
+   * Handles the update of search terms and input values when a search by property is performed.
+   *
+   * @param {string} property - The property to search on.
+   * @param {string} value - The search value for the property.
+   */
   const handleSearchByProperty = (property: string, value: string) => {
-    const { updatedSearchTerms, updatedInputValues } = updateSearchTerms(property, value, searchTerms, inputValues);
+    const { updatedSearchTerms, updatedInputValues } = updateSearchTerms(
+      property,
+      value,
+      searchTerms,
+      inputValues,
+    );
     setSearchTerms(updatedSearchTerms);
     setInputValues(updatedInputValues);
   };
 
-  // search global and by property (sortedData => filteredData)
+  // Filters the sorted data based on the searchTerm and searchTerms.
   const filteredData = filterData(sortedData, searchTerm, searchTerms);
 
-  // pagination display
+  // Calculates and sets the total number of pages based on the length of the filtered data.
+  // If the current page number exceeds the total pages, resets the page number to the total.
   useEffect(() => {
     const newTotalPages =
       filteredData.length > perPage
@@ -158,7 +211,13 @@ export function Table<T>({
     setSearchTerm(event.target.value);
   };
 
-  // manage all searchs
+  /**
+   * Resets the search term and input value for a given property in the respective states.
+   *
+   * @param {string} property - The property for which the search term and input value should be reset.
+   * @function handleReset
+   * @returns {void}
+   */
   const handleReset = (property: string): void => {
     setSearchTerms((prevSearchTerms) => ({
       ...prevSearchTerms,
@@ -177,7 +236,13 @@ export function Table<T>({
     setInputValues(initialInputValues);
   };
 
-  // manage columns display instruction (isVisible change)
+  /**
+   * Toggles the visibility of a column in a table based on its property name.
+   *
+   * @param {string} property - The property name of the column whose visibility will be toggled.
+   * @function handleColumnVisibility
+   * @returns {void}
+   */
   const handleColumnVisibility = (property: string): void => {
     setColumnsManaged((prevColumns) => {
       const columnToToggle = prevColumns.find(
@@ -195,7 +260,14 @@ export function Table<T>({
     });
   };
 
-  // manage isVisible instruction
+  /**
+   * Sets all columns in a table to visible.
+   *
+   * If the 'select row' column is not visible, the function will also make it visible.
+   *
+   * @function handleVisibleAllColumns
+   * @returns {void}
+   */
   const handleVisibleAllColumns = (): void => {
     const updatedColumns = columnsManaged.map((column) => {
       return {
@@ -204,9 +276,9 @@ export function Table<T>({
       };
     });
     setColumnsManaged(updatedColumns);
-    if(!selectRowColumnVisible){
+    if (!selectRowColumnVisible) {
       handleVisibleSelectRowsColumn();
-    }             
+    }
   };
 
   // manage dateFormat instruction
@@ -232,7 +304,11 @@ export function Table<T>({
   ) as DataItem<T>[];
 
   // display data object or array
-  function renderList<T>(items: T[], itemRenderer: (item: T, index: number) => React.ReactNode, depth: number): React.ReactElement {
+  function renderList<T>(
+    items: T[],
+    itemRenderer: (item: T, index: number) => React.ReactNode,
+    depth: number,
+  ): React.ReactElement {
     return (
       <ul className={`ul_tableComponent ul_tableComponent_${depth}`}>
         {items.map((item, index) => (
@@ -247,7 +323,15 @@ export function Table<T>({
     );
   }
 
-  // manage display object, array and date type
+  /**
+   * Formats a nested date structure into a readable format, handling Date objects, arrays, and other objects.
+   *
+   * @function formatNestedDate
+   * @template T - The type of value to be formatted
+   * @param {T} value - The value to be formatted. This can be a Date object, array, or other objects.
+   * @param {number} [depth=0] - The current nesting depth.
+   * @returns {string | React.ReactNode} - Returns a formatted string if the value is a Date object. If the value is an array or an object, the function recursively formats nested values and returns a React component. If the depth is 4 or more, it returns a '...' string wrapped in a span.
+   */
   function formatNestedDate<T>(value: T, depth = 0): string | React.ReactNode {
     if (depth >= 4) {
       return <span>...</span>;
@@ -255,9 +339,17 @@ export function Table<T>({
     if (value instanceof Date) {
       return value.toLocaleDateString();
     } else if (Array.isArray(value)) {
-      return renderList(value, (item) => formatNestedDate(item, depth + 1), depth);
+      return renderList(
+        value,
+        (item) => formatNestedDate(item, depth + 1),
+        depth,
+      );
     } else if (typeof value === 'object' && value !== null) {
-      return renderList(Object.entries(value), ([key, item]) => `${key}: ${formatNestedDate(item, depth + 1)}`, depth);
+      return renderList(
+        Object.entries(value),
+        ([key, item]) => `${key}: ${formatNestedDate(item, depth + 1)}`,
+        depth,
+      );
     }
     return value as React.ReactNode;
   }
@@ -269,13 +361,19 @@ export function Table<T>({
 
   // Toggle search by property
   const handleToggle = (property: string): void => {
-    setIsOpenSearchBProp((prevState: Record<string, boolean>) => ({
+    setIsOpenSearchByProperty((prevState: Record<string, boolean>) => ({
       ...prevState,
       [property]: !prevState[property],
     }));
   };
 
-  // Fonction pour gérer la sélection des lignes
+  /**
+   * Handles the selection or deselection of a row identified by its ID.
+   *
+   * @param {T | undefined} id - The ID of the row to be selected or deselected.
+   * @function handleRowSelection
+   * @returns {void}
+   */
   const handleRowSelection = (id: T | undefined) => {
     if (id !== undefined) {
       setSelectedRows((prevSelectedRows) => {
@@ -291,7 +389,7 @@ export function Table<T>({
   };
 
   // control if row is selected
-  const isRowSelected = (id: T | undefined) => {
+  const isRowSelected = (id: T | undefined): boolean => {
     return selectedRows.has(id);
   };
 
@@ -306,6 +404,7 @@ export function Table<T>({
     }
   };
 
+  // manage select case of head (allChecked, indeterminate, and noChecked)
   useEffect(() => {
     if (selectedRows.size === filteredData.length) {
       setSelectAllChecked(true);
@@ -319,6 +418,7 @@ export function Table<T>({
     }
   }, [selectedRows, filteredData]);
 
+  // manage style of indeterminate case
   useEffect(() => {
     if (selectAllRef.current) {
       selectAllRef.current.indeterminate = isIndeterminate;
@@ -425,9 +525,9 @@ export function Table<T>({
                       disableSort={disableSort}
                       disableFilter={disableFilter}
                       handleSearchByProperty={handleSearchByProperty}
-                      isOpenSearchBProp={
-                        isOpenSearchBProp[property]
-                          ? { [property]: isOpenSearchBProp[property] }
+                      isOpenSearchByProperty={
+                        isOpenSearchByProperty[property]
+                          ? { [property]: isOpenSearchByProperty[property] }
                           : {}
                       }
                       handleToggle={handleToggle}

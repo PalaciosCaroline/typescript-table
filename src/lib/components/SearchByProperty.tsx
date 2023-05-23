@@ -11,6 +11,14 @@ interface Props<
   handleReset: (property: string) => void;
 }
 
+/**
+ * Component for searching by property.
+ *
+ * @component
+ * @template U - The type of the input values.
+ * @param {Props<U>} props - The props for the SearchByProperty component.
+ * @returns {React.ReactElement} The rendered SearchByProperty component.
+ */
 const SearchByProperty = <
   U extends string | number | readonly string[] | undefined = string,
 >({
@@ -19,10 +27,16 @@ const SearchByProperty = <
   handleSearchByProperty,
   handleReset,
 }: Props<U>) => {
-  const handleResetClose = () => {
+
+  const handleResetSearchByProperty = () => {
     handleReset(property);
   };
 
+   /**
+   * Handles the input change event.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
+   */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const property = event.target.name;
     const value = event.target.value;
@@ -31,6 +45,7 @@ const SearchByProperty = <
 
   return (
     <div className="box_searchBProps">
+       {/* Input field for entering search term */}
       <input
         type="text"
         value={inputValues[property]}
@@ -40,12 +55,13 @@ const SearchByProperty = <
         className="inputSearchByProperty"
         data-testid={`btnSearch-${property}`}
       />
+       {/* Button for resetting the search */}
       <button
         type="button"
         className="btnSearchByPropertyReset"
-        onClick={handleResetClose}
+        onClick={handleResetSearchByProperty}
         data-testid={`btnResetClose-${property}`}
-        aria-label={`Clear and close the search by ${property}`}
+        aria-label={`Clear the search by ${property}`}
       >
         <FaTimes />
       </button>

@@ -20,45 +20,57 @@ import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
 export function Table(_a) {
     var data = _a.data, columns = _a.columns, renderExportDataComponent = _a.renderExportDataComponent;
-    //useState to sort
+    // useState for sorting
     var _b = useState(undefined), sortKey = _b[0], setSortKey = _b[1];
     var _c = useState('noSort'), sortOrder = _c[0], setSortOrder = _c[1];
     var _d = useState([]), sortedData = _d[0], setSortedData = _d[1];
-    // useState pagination
+    // useState for pagination
     var _e = useState(1), page = _e[0], setPage = _e[1];
     var _f = useState(10), perPage = _f[0], setPerPage = _f[1];
     var _g = useState(0), totalPages = _g[0], setTotalPages = _g[1];
-    // useState formatDate for sort
+    // useState for date format used in sorting
     var _h = useState('none'), dateFormatForSort = _h[0], setDateFormatForSort = _h[1];
-    // useState to global search
+    // useState for global search
     var _j = useState(''), searchTerm = _j[0], setSearchTerm = _j[1];
-    // useState search by property
+    // useState for search by property
     var _k = useState({}), searchTerms = _k[0], setSearchTerms = _k[1];
-    var initialIsOpenSearchBProp = {};
+    var initialIsOpenSearchByProperty = {};
     columns.forEach(function (_a) {
         var property = _a.property;
-        initialIsOpenSearchBProp[property] = false;
+        initialIsOpenSearchByProperty[property] = false;
     });
-    var _l = useState(initialIsOpenSearchBProp), isOpenSearchBProp = _l[0], setIsOpenSearchBProp = _l[1];
+    var _l = useState(initialIsOpenSearchByProperty), isOpenSearchByProperty = _l[0], setIsOpenSearchByProperty = _l[1];
     var initialInputValues = {};
     columns.forEach(function (_a) {
         var property = _a.property;
         initialInputValues[property] = '';
     });
     var _m = useState(initialInputValues), inputValues = _m[0], setInputValues = _m[1];
-    // useState select rows to export
+    // useState for selecting rows to export
     var _o = useState(new Set()), selectedRows = _o[0], setSelectedRows = _o[1];
     var _p = useState(false), selectAllChecked = _p[0], setSelectAllChecked = _p[1];
     var _q = useState(false), isIndeterminate = _q[0], setIndeterminate = _q[1];
     var selectAllRef = useRef(null);
     var _r = useState(true), selectRowColumnVisible = _r[0], setSelectRowColumnVisible = _r[1];
-    // sort data (data => sortedData)
+    // useEffect for sorting data
     useEffect(function () {
         setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
     }, [data, sortKey, sortOrder, dateFormatForSort]);
     var updateSortOrder = function (sortOrder) {
-        return sortOrder === 'asc' ? 'desc' : sortOrder === 'desc' ? 'noSort' : 'asc';
+        return sortOrder === 'asc'
+            ? 'desc'
+            : sortOrder === 'desc'
+                ? 'noSort'
+                : 'asc';
     };
+    /**
+     * Handles the column sorting based on the provided property and date format.
+     *
+     * @param {string} property - The property of the column being sorted.
+     * @param {string} dateFormat - The date format used for sorting (e.g., 'YYYY/MM/DD').
+     * @function handleColumnSort
+     * @returns {void}
+     */
     var handleColumnSort = function (property, dateFormat) {
         if (sortKey === property) {
             setSortOrder(updateSortOrder(sortOrder));
@@ -69,20 +81,37 @@ export function Table(_a) {
             setDateFormatForSort(dateFormat);
         }
     };
+    /**
+     * Updates search terms and input values for a specific property.
+     *
+     * @param {string} property - The property to update.
+     * @param {string} value - The new search value for the property.
+     * @param {SearchTerms} prevSearchTerms - The previous search terms object.
+     * @param {SearchByProp} prevInputValues - The previous input values object.
+     *
+     * @returns {Object} An object containing the updated search terms and input values.
+     */
     var updateSearchTerms = function (property, value, prevSearchTerms, prevInputValues) {
         var _a, _b;
         var updatedSearchTerms = __assign(__assign({}, prevSearchTerms), (_a = {}, _a[property] = value, _a));
         var updatedInputValues = __assign(__assign({}, prevInputValues), (_b = {}, _b[property] = value, _b));
         return { updatedSearchTerms: updatedSearchTerms, updatedInputValues: updatedInputValues };
     };
+    /**
+     * Handles the update of search terms and input values when a search by property is performed.
+     *
+     * @param {string} property - The property to search on.
+     * @param {string} value - The search value for the property.
+     */
     var handleSearchByProperty = function (property, value) {
         var _a = updateSearchTerms(property, value, searchTerms, inputValues), updatedSearchTerms = _a.updatedSearchTerms, updatedInputValues = _a.updatedInputValues;
         setSearchTerms(updatedSearchTerms);
         setInputValues(updatedInputValues);
     };
-    // search global and by property (sortedData => filteredData)
+    // Filters the sorted data based on the searchTerm and searchTerms.
     var filteredData = filterData(sortedData, searchTerm, searchTerms);
-    // pagination display
+    // Calculates and sets the total number of pages based on the length of the filtered data.
+    // If the current page number exceeds the total pages, resets the page number to the total.
     useEffect(function () {
         var newTotalPages = filteredData.length > perPage
             ? Math.ceil(filteredData.length / perPage)
@@ -112,7 +141,13 @@ export function Table(_a) {
     var handleSearch = function (event) {
         setSearchTerm(event.target.value);
     };
-    // manage all searchs
+    /**
+     * Resets the search term and input value for a given property in the respective states.
+     *
+     * @param {string} property - The property for which the search term and input value should be reset.
+     * @function handleReset
+     * @returns {void}
+     */
     var handleReset = function (property) {
         setSearchTerms(function (prevSearchTerms) {
             var _a;
@@ -129,7 +164,13 @@ export function Table(_a) {
         setSearchTerms({});
         setInputValues(initialInputValues);
     };
-    // manage columns display instruction (isVisible change)
+    /**
+     * Toggles the visibility of a column in a table based on its property name.
+     *
+     * @param {string} property - The property name of the column whose visibility will be toggled.
+     * @function handleColumnVisibility
+     * @returns {void}
+     */
     var handleColumnVisibility = function (property) {
         setColumnsManaged(function (prevColumns) {
             var columnToToggle = prevColumns.find(function (column) { return column.property === property; });
@@ -144,7 +185,14 @@ export function Table(_a) {
             return prevColumns;
         });
     };
-    // manage isVisible instruction
+    /**
+     * Sets all columns in a table to visible.
+     *
+     * If the 'select row' column is not visible, the function will also make it visible.
+     *
+     * @function handleVisibleAllColumns
+     * @returns {void}
+     */
     var handleVisibleAllColumns = function () {
         var updatedColumns = columnsManaged.map(function (column) {
             return __assign(__assign({}, column), { isVisible: true });
@@ -176,7 +224,15 @@ export function Table(_a) {
     function renderList(items, itemRenderer, depth) {
         return (_jsx("ul", __assign({ className: "ul_tableComponent ul_tableComponent_".concat(depth) }, { children: items.map(function (item, index) { return (_jsx("li", __assign({ className: "liOjectData liOjectData_".concat(depth) }, { children: itemRenderer(item, index) }), "item-".concat(index))); }) })));
     }
-    // manage display object, array and date type
+    /**
+     * Formats a nested date structure into a readable format, handling Date objects, arrays, and other objects.
+     *
+     * @function formatNestedDate
+     * @template T - The type of value to be formatted
+     * @param {T} value - The value to be formatted. This can be a Date object, array, or other objects.
+     * @param {number} [depth=0] - The current nesting depth.
+     * @returns {string | React.ReactNode} - Returns a formatted string if the value is a Date object. If the value is an array or an object, the function recursively formats nested values and returns a React component. If the depth is 4 or more, it returns a '...' string wrapped in a span.
+     */
     function formatNestedDate(value, depth) {
         if (depth === void 0) { depth = 0; }
         if (depth >= 4) {
@@ -202,12 +258,18 @@ export function Table(_a) {
     }
     // Toggle search by property
     var handleToggle = function (property) {
-        setIsOpenSearchBProp(function (prevState) {
+        setIsOpenSearchByProperty(function (prevState) {
             var _a;
             return (__assign(__assign({}, prevState), (_a = {}, _a[property] = !prevState[property], _a)));
         });
     };
-    // Fonction pour gérer la sélection des lignes
+    /**
+     * Handles the selection or deselection of a row identified by its ID.
+     *
+     * @param {T | undefined} id - The ID of the row to be selected or deselected.
+     * @function handleRowSelection
+     * @returns {void}
+     */
     var handleRowSelection = function (id) {
         if (id !== undefined) {
             setSelectedRows(function (prevSelectedRows) {
@@ -237,6 +299,7 @@ export function Table(_a) {
             setSelectAllChecked(true);
         }
     };
+    // manage select case of head (allChecked, indeterminate, and noChecked)
     useEffect(function () {
         if (selectedRows.size === filteredData.length) {
             setSelectAllChecked(true);
@@ -251,6 +314,7 @@ export function Table(_a) {
             setIndeterminate(true);
         }
     }, [selectedRows, filteredData]);
+    // manage style of indeterminate case
     useEffect(function () {
         if (selectAllRef.current) {
             selectAllRef.current.indeterminate = isIndeterminate;
@@ -283,8 +347,8 @@ export function Table(_a) {
                                             var _b;
                                             var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
                                             var isSortKey = sortKey === property;
-                                            return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchBProp: isOpenSearchBProp[property]
-                                                    ? (_b = {}, _b[property] = isOpenSearchBProp[property], _b) : {}, handleToggle: handleToggle }, property));
+                                            return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
+                                                    ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
                                         })] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, 
                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
                                     onChange: function () { }, "aria-label": "Select this row" }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow", onClick: function (e) {

@@ -15,11 +15,22 @@ import { FaEllipsisH } from 'react-icons/fa';
 import { FaTimes } from 'react-icons/fa';
 import ManageColumns from './ManageColumns';
 import RowsPerPage from './RowsPerPage';
+/**
+ * Component for managing a table.
+ *
+ * @component
+ * @template T - The type of data items in the table.
+ * @param {ManageTableProps<T>} props - The props for the ManageTable component.
+ * @returns {React.ReactElement} The rendered ManageTable component.
+ */
 var ManageTable = function (props) {
+    // useState for managing the dropdown open state
     var _a = useState(false), isDropDownOpen = _a[0], setIsDropDownOpen = _a[1];
+    // Toggles the dropdown to manage Table open
     var toggleDropDown = function () {
         setIsDropDownOpen(!isDropDownOpen);
     };
+    // Retrieves the selected data based on the selected rows
     var getSelectedData = function () {
         if (props.selectedRows.size === 0) {
             return props.filteredData;

@@ -16,6 +16,9 @@ export interface InputValues<T> {
 export interface DataItem<T> {
     [key: string]: T | undefined;
 }
+/**
+ * L'interface Props représente les propriétés du composant Table.
+ */
 interface Props<T> {
     data: DataItem<T | undefined>[];
     columns: Column[];

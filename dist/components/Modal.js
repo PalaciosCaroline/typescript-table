@@ -12,10 +12,19 @@ var __assign = (this && this.__assign) || function () {
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useRef, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
+/**
+ * Component for displaying a modal.
+ *
+ * @component
+ * @param {ModalProps} props - The props for the Modal component.
+ * @returns {JSX.Element} The rendered Modal component.
+ */
 function Modal(props) {
+    // useRef for storing references to the modal elements
     var modalRef = useRef(null);
     var lastActiveElement = useRef(null);
     useEffect(function () {
+        // Event handler for handling keydown events
         var handleKeyDown = function (event) {
             var _a;
             if (event.key === 'Escape') {

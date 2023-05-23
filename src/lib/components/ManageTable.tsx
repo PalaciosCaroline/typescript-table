@@ -10,8 +10,7 @@ interface DataItem<T> {
 }
 
 interface ManageTableProps<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedRows: any;
+  selectedRows: Set<T | undefined>;
   handlePerPageChange: (optionValue: string) => void;
   columnsManaged: ColumnManaged[];
   handleColumnVisibility: (property: string) => void;
@@ -26,13 +25,24 @@ interface ManageTableProps<T> {
   ) => React.ReactNode;
 }
 
+/**
+ * Component for managing a table.
+ *
+ * @component
+ * @template T - The type of data items in the table.
+ * @param {ManageTableProps<T>} props - The props for the ManageTable component.
+ * @returns {React.ReactElement} The rendered ManageTable component.
+ */
 const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
+  // useState for managing the dropdown open state
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
+  // Toggles the dropdown to manage Table open
   const toggleDropDown = () => {
     setIsDropDownOpen(!isDropDownOpen);
   };
 
+  // Retrieves the selected data based on the selected rows
   const getSelectedData = () => {
     if(props.selectedRows.size === 0){
       return props.filteredData;
@@ -49,6 +59,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
         isDropDownOpen ? 'box-manageFeatearesOpen' : ''
       } ${props.selectRowColumnVisible ? 'styleWithSelectColumn' : 'styleWithoutSelectColumn' }`}
     >
+      {/* Toggle button for managing the table */}
       <button
         className={`toggle-btnManageTable ${
           isDropDownOpen ? 'btnOpenManageTable' : ''
@@ -64,6 +75,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
           />
         </div>
       </button>
+      {/* Dropdown content for managing the table */}
       {isDropDownOpen && (
         <div
           className={`manageTable-dropdown ${
@@ -71,6 +83,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
           }`}
         >
           <ul className="manageTable-dropdownUl">
+             {/* Render export data component */}
             {props.renderExportDataComponent && (
               <li className="manageTable-dropdownLi">
                 {props.renderExportDataComponent(
@@ -79,9 +92,11 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
                 )}
               </li>
             )}
+             {/* Rows per page dropdown */}
             <li className="manageTable-dropdownLi">
               <RowsPerPage handlePerPageChange={props.handlePerPageChange} />
             </li>
+             {/* Manage columns component */}
             <li className="manageTable-dropdownLi li_manageColumns">
               <ManageColumns
                 columns={props.columnsManaged}

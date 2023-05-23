@@ -9,6 +9,13 @@ interface SortButtonProps {
   handleColumnSort: (property: string, dateFormat: string) => void;
 }
 
+/**
+ * Component for the sort button.
+ *
+ * @component
+ * @param {SortButtonProps} props - The props for the SortButton component.
+ * @returns {React.ReactElement} The rendered SortButton component.
+ */
 const SortButton: React.FC<SortButtonProps> = ({
   isSortKey,
   sortOrder,
@@ -16,6 +23,14 @@ const SortButton: React.FC<SortButtonProps> = ({
   handleColumnSort,
   dateFormat,
 }) => {
+  /**
+   * Renders the sort button.
+   *
+   * @param {React.ReactNode} icon - The icon for the sort button.
+   * @param {string} label - The label for the sort button.
+   * @param {string} testIdSuffix - The test ID suffix for the sort button.
+   * @returns {React.ReactElement} The rendered sort button.
+   */
   const renderSortButton = (
     icon: React.ReactNode,
     label: string,
@@ -35,8 +50,11 @@ const SortButton: React.FC<SortButtonProps> = ({
 
   return (
     <>
+      {/* Render the sort button for no sorted */}
       {(!isSortKey || (isSortKey && sortOrder === 'noSort')) &&
         renderSortButton(<FaSort />, 'no sorted, change by ascendant', 'ByAsc')}
+
+      {/* Render the sort button for ascending */}
       {isSortKey &&
         sortOrder === 'asc' &&
         renderSortButton(
@@ -44,6 +62,7 @@ const SortButton: React.FC<SortButtonProps> = ({
           'sorted by ascendant, change by descendant',
           'byDesc',
         )}
+      {/* Render the sort button for descending */}
       {isSortKey &&
         sortOrder === 'desc' &&
         renderSortButton(

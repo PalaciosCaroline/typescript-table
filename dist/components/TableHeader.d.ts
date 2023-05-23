@@ -14,7 +14,7 @@ interface TableHeaderProps {
     handleColumnSort: (property: string, dateFormat: string) => void;
     handleSearchByProperty: (property: string, value: string) => void;
     handleReset: (property: string) => void;
-    isOpenSearchBProp: {
+    isOpenSearchByProperty: {
         [property: string]: boolean;
     };
     handleToggle: (property: string) => void;

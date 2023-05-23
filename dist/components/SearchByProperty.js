@@ -11,16 +11,29 @@ var __assign = (this && this.__assign) || function () {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { FaTimes } from 'react-icons/fa';
+/**
+ * Component for searching by property.
+ *
+ * @component
+ * @template U - The type of the input values.
+ * @param {Props<U>} props - The props for the SearchByProperty component.
+ * @returns {React.ReactElement} The rendered SearchByProperty component.
+ */
 var SearchByProperty = function (_a) {
     var inputValues = _a.inputValues, property = _a.property, handleSearchByProperty = _a.handleSearchByProperty, handleReset = _a.handleReset;
-    var handleResetClose = function () {
+    var handleResetSearchByProperty = function () {
         handleReset(property);
     };
+    /**
+    * Handles the input change event.
+    *
+    * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
+    */
     var handleInputChange = function (event) {
         var property = event.target.name;
         var value = event.target.value;
         handleSearchByProperty(property, value);
     };
-    return (_jsxs("div", __assign({ className: "box_searchBProps" }, { children: [_jsx("input", { type: "text", value: inputValues[property], onChange: handleInputChange, placeholder: "Search...", name: property, className: "inputSearchByProperty", "data-testid": "btnSearch-".concat(property) }), _jsx("button", __assign({ type: "button", className: "btnSearchByPropertyReset", onClick: handleResetClose, "data-testid": "btnResetClose-".concat(property), "aria-label": "Clear and close the search by ".concat(property) }, { children: _jsx(FaTimes, {}) }))] })));
+    return (_jsxs("div", __assign({ className: "box_searchBProps" }, { children: [_jsx("input", { type: "text", value: inputValues[property], onChange: handleInputChange, placeholder: "Search...", name: property, className: "inputSearchByProperty", "data-testid": "btnSearch-".concat(property) }), _jsx("button", __assign({ type: "button", className: "btnSearchByPropertyReset", onClick: handleResetSearchByProperty, "data-testid": "btnResetClose-".concat(property), "aria-label": "Clear the search by ".concat(property) }, { children: _jsx(FaTimes, {}) }))] })));
 };
 export default SearchByProperty;

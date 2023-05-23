@@ -7,21 +7,38 @@ interface SearchDropdownProps {
   handleToggle: (property: string) => void;
 }
 
+/**
+ * Component for the search dropdown.
+ *
+ * @component
+ * @param {SearchDropdownProps} props - The props for the SearchDropdown component.
+ * @returns {React.ReactElement} The rendered SearchDropdown component.
+ */
 const SearchDropdown: React.FC<SearchDropdownProps> = ({
   inputValues,
   property,
   handleToggle,
 }) => {
+  /**
+   * Reference to the dropdown container element.
+   */
   const dropdownSearchRef = useRef<HTMLDivElement>(null);
 
+  /**
+   * Handles the click event on the dropdown button.
+   */
   const handleClick = () => {
     handleToggle(property);
   };
 
+  /**
+   * Determines whether the filter property is set or not.
+   */
   const isFilterProperty = inputValues[property] ? true : false;
 
   return (
     <div className="dropdownContainerSearch" ref={dropdownSearchRef}>
+       {/* Button for opening the search dropdown */}
       <button
         onClick={handleClick}
         className={

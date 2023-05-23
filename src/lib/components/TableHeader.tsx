@@ -16,7 +16,7 @@ interface TableHeaderProps {
   handleColumnSort: (property: string, dateFormat: string) => void;
   handleSearchByProperty: (property: string, value: string) => void;
   handleReset: (property: string) => void;
-  isOpenSearchBProp: { [property: string]: boolean };
+  isOpenSearchByProperty: { [property: string]: boolean };
   handleToggle: (property: string) => void;
 }
 
@@ -33,7 +33,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
   handleSearchByProperty,
   inputValues,
   handleReset,
-  isOpenSearchBProp,
+  isOpenSearchByProperty,
   handleToggle,
 }) => {
   if (!isVisible) return null;
@@ -70,7 +70,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
           )}
         </div>
       </div>
-      {isOpenSearchBProp[property] && (
+      {isOpenSearchByProperty[property] && (
         <div className="boxSearchPropertyContent">
           <SearchByProperty
             key={property}

@@ -7,11 +7,20 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
+/**
+ * Component for displaying a modal.
+ *
+ * @component
+ * @param {ModalProps} props - The props for the Modal component.
+ * @returns {JSX.Element} The rendered Modal component.
+ */
 function Modal(props: ModalProps): JSX.Element {
+   // useRef for storing references to the modal elements
   const modalRef = useRef<HTMLDivElement | null>(null);
   const lastActiveElement = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+     // Event handler for handling keydown events
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'Escape') {
         props.onClose();
@@ -83,6 +92,7 @@ function Modal(props: ModalProps): JSX.Element {
           aria-labelledby="modal-title"
           ref={modalRef}
         >
+            {/* Close button */}
           <button
             className="btn_closeModalTable"
             onClick={props.onClose}
@@ -92,6 +102,7 @@ function Modal(props: ModalProps): JSX.Element {
           >
             <FaTimes className="btn_closeModalTable_icon" />
           </button>
+           {/* Modal content */}
           <div className="modalTable-content">{props.children}</div>
         </div>
       )}

@@ -7,6 +7,13 @@ interface SearchAndResetGlobalProps {
   handleResetSearch: () => void;
 }
 
+/**
+ * Component for global search and reset all search (global and by property).
+ *
+ * @component
+ * @param {SearchAndResetGlobalProps} props - The props for the SearchAndResetGlobal component.
+ * @returns {React.ReactElement} The rendered SearchAndResetGlobal component.
+ */
 export const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
   searchTerm,
   handleSearch,
@@ -15,6 +22,7 @@ export const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
   return (
     <div className="box_searchReset">
       <div className="box_searchGlobal">
+         {/* Input field for entering search term */}
         <input
           type="text"
           value={searchTerm}
@@ -26,6 +34,7 @@ export const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
           <FaSearch />
         </label>
       </div>
+       {/* Button for resetting all searchs terms */}
       <button
         onClick={handleResetSearch}
         style={{ marginRight: '20px' }}

@@ -3,6 +3,7 @@ import Dropdown from './Dropdown';
 
 interface RowsPerPageProps {
   handlePerPageChange: (option: string) => void;
+  style: React.CSSProperties;
 }
 
 /**
@@ -14,9 +15,10 @@ interface RowsPerPageProps {
  */
 const RowsPerPage: React.FC<RowsPerPageProps> = ({
   handlePerPageChange,
+  style,
 }): ReactElement => {
   return (
-    <div className="box_ChoiceEntries" id="box_ChoiceEntries">
+    <div className="box_ChoiceEntries customComponent" id="box_ChoiceEntries" style={style}>
        {/* Text displaying "Rows per page" */}
       <span className="box_ChoiceEntriesText">Rows per page:</span>
        {/* Dropdown component for selecting the number of rows per page */}
@@ -26,6 +28,7 @@ const RowsPerPage: React.FC<RowsPerPageProps> = ({
         className="selectNumberOfEntriesPerPage"
         defaultValueSelectedOption="10"
         classNameProps="RowPerPage"
+        style={style}
       />
     </div>
   );

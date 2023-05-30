@@ -13,8 +13,8 @@
   align-items: center;
   height: 100%;
   width: 195px;
-  background-color: #677e11;
-  color: #fff;
+  /* background-color: #677e11; */
+  /* color: #fff; */
   white-space: nowrap;
   box-sizing: border-box;
 }
@@ -206,15 +206,16 @@ p.label_tableComponent {
   box-shadow: 1px 1px 5px rgb(0 0 0 / 40%);
   border-radius: 25px;
   border: none;
-  background-color: #677e11;
+  /* background-color: #677e11; */
   padding: 4px 15px 4px 15px;
   height: 40px;
   margin-left: 20px;
+  margin-right: 20px;
   font-weight: 600;
 }
 
 .btn_Reset:hover {
-  background-color: #7e9b16;
+  /* background-color: #7e9b16; */
   box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
@@ -612,17 +613,17 @@ thead {
 .manageTable-dropdown .dropdownOptionRowPerPage {
   display: block;
   height: 40px;
-  background-color: #677e11;
-  color: #fff;
+  /* background-color: #677e11;
+  color: #fff; */
   line-height: 100%;
   display: flex;
   align-items: center;
 }
 
-.manageTable-dropdown .dropdownOptionRowPerPage.focused ,
+/* .manageTable-dropdown .dropdownOptionRowPerPage.focused ,
 .manageTable-dropdown .dropdownOptionRowPerPage:hover {
   background-color: #7e9b16;
-}
+} */
 
 .manageTable-dropdown .buttonToggleRowPerPage {
   font-size: 1rem;
@@ -662,7 +663,7 @@ thead {
 }
 
 
-.box-manageFeatearesTable button {
+/* .box-manageFeatearesTable button {
   background-color: #677e11;
   color: #fff;
 }
@@ -670,7 +671,7 @@ thead {
 .box-manageFeatearesTable button:hover {
   background-color: #7e9b16;
   color: #fff;
-}
+} */
 
 .box-manageFeatearesOpen {
   top: 0px;
@@ -812,9 +813,9 @@ thead {
   width: 1rem;
 }
 
-.tr_tableComponent.selected {
+/* .tr_tableComponent.selected {
   background:rgba(175 228 145 / 20%);
-}
+} */
 
 .th_tableComponent.box_inputSelectAllRows{
   padding:2px 4px;
@@ -848,14 +849,14 @@ thead {
   position: relative;
   width: 20px;
   height: 20px;
-  background-color: #677e11;
-  border: 2px solid #677e11;
+  /* background-color: #677e11;
+  border: 2px solid #677e11; */
 }
 
-.inputSelectRows:checked {
+/* .inputSelectRows:checked {
   background-color: #677e11;
   border: 2px solid #677e11;
-}
+} */
 
 .inputSelectRows:checked::after {
   content: '';

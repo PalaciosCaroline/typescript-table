@@ -18,40 +18,47 @@ import './../styles/table.css';
 import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
+import './../styles/CustomComponent.css';
 export function Table(_a) {
-    var data = _a.data, columns = _a.columns, renderExportDataComponent = _a.renderExportDataComponent;
+    var data = _a.data, columns = _a.columns, _b = _a.background, background = _b === void 0 ? '#677e11' : _b, _c = _a.color, color = _c === void 0 ? 'white' : _c, _d = _a.hoverBackground, hoverBackground = _d === void 0 ? '#7e9b16' : _d, _e = _a.selectedRowsBackground, selectedRowsBackground = _e === void 0 ? 'rgba(175 228 145 / 20%)' : _e, renderExportDataComponent = _a.renderExportDataComponent;
     // useState for sorting
-    var _b = useState(undefined), sortKey = _b[0], setSortKey = _b[1];
-    var _c = useState('noSort'), sortOrder = _c[0], setSortOrder = _c[1];
-    var _d = useState([]), sortedData = _d[0], setSortedData = _d[1];
+    var _f = useState(undefined), sortKey = _f[0], setSortKey = _f[1];
+    var _g = useState('noSort'), sortOrder = _g[0], setSortOrder = _g[1];
+    var _h = useState([]), sortedData = _h[0], setSortedData = _h[1];
     // useState for pagination
-    var _e = useState(1), page = _e[0], setPage = _e[1];
-    var _f = useState(10), perPage = _f[0], setPerPage = _f[1];
-    var _g = useState(0), totalPages = _g[0], setTotalPages = _g[1];
+    var _j = useState(1), page = _j[0], setPage = _j[1];
+    var _k = useState(10), perPage = _k[0], setPerPage = _k[1];
+    var _l = useState(0), totalPages = _l[0], setTotalPages = _l[1];
     // useState for date format used in sorting
-    var _h = useState('none'), dateFormatForSort = _h[0], setDateFormatForSort = _h[1];
+    var _m = useState('none'), dateFormatForSort = _m[0], setDateFormatForSort = _m[1];
     // useState for global search
-    var _j = useState(''), searchTerm = _j[0], setSearchTerm = _j[1];
+    var _o = useState(''), searchTerm = _o[0], setSearchTerm = _o[1];
     // useState for search by property
-    var _k = useState({}), searchTerms = _k[0], setSearchTerms = _k[1];
+    var _p = useState({}), searchTerms = _p[0], setSearchTerms = _p[1];
     var initialIsOpenSearchByProperty = {};
     columns.forEach(function (_a) {
         var property = _a.property;
         initialIsOpenSearchByProperty[property] = false;
     });
-    var _l = useState(initialIsOpenSearchByProperty), isOpenSearchByProperty = _l[0], setIsOpenSearchByProperty = _l[1];
+    var _q = useState(initialIsOpenSearchByProperty), isOpenSearchByProperty = _q[0], setIsOpenSearchByProperty = _q[1];
     var initialInputValues = {};
     columns.forEach(function (_a) {
         var property = _a.property;
         initialInputValues[property] = '';
     });
-    var _m = useState(initialInputValues), inputValues = _m[0], setInputValues = _m[1];
+    var _r = useState(initialInputValues), inputValues = _r[0], setInputValues = _r[1];
     // useState for selecting rows to export
-    var _o = useState(new Set()), selectedRows = _o[0], setSelectedRows = _o[1];
-    var _p = useState(false), selectAllChecked = _p[0], setSelectAllChecked = _p[1];
-    var _q = useState(false), isIndeterminate = _q[0], setIndeterminate = _q[1];
+    var _s = useState(new Set()), selectedRows = _s[0], setSelectedRows = _s[1];
+    var _t = useState(false), selectAllChecked = _t[0], setSelectAllChecked = _t[1];
+    var _u = useState(false), isIndeterminate = _u[0], setIndeterminate = _u[1];
     var selectAllRef = useRef(null);
-    var _r = useState(true), selectRowColumnVisible = _r[0], setSelectRowColumnVisible = _r[1];
+    var _v = useState(true), selectRowColumnVisible = _v[0], setSelectRowColumnVisible = _v[1];
+    var style = {
+        '--background-color': background,
+        '--color': color,
+        '--hover-background-color': hoverBackground,
+        '--selected-background-color': selectedRowsBackground
+    };
     // useEffect for sorting data
     useEffect(function () {
         setSortedData(customSort(data, sortKey, sortOrder, dateFormatForSort));
@@ -203,7 +210,7 @@ export function Table(_a) {
         }
     };
     // manage dateFormat instruction
-    var _s = useState(function () {
+    var _w = useState(function () {
         return columns.map(function (_a) {
             var label = _a.label, property = _a.property, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
             return ({
@@ -215,7 +222,7 @@ export function Table(_a) {
                 disableFilter: disableFilter,
             });
         });
-    }), columnsManaged = _s[0], setColumnsManaged = _s[1];
+    }), columnsManaged = _w[0], setColumnsManaged = _w[1];
     //manage display data per page
     var start = (page - 1) * perPage;
     var end = start + perPage;
@@ -330,12 +337,12 @@ export function Table(_a) {
     var handleVisibleSelectRowsColumn = function () {
         setSelectRowColumnVisible(!selectRowColumnVisible);
     };
-    return (_jsxs("div", __assign({ className: "box_table box_tableAndFeatures" }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch }), _jsxs("div", __assign({ className: "box_tableManaged scrollerTable" }, { children: [_jsx(ManageTable, { handlePerPageChange: handlePerPageChange, filteredData: filteredData, columnsManaged: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns, renderExportDataComponent: renderExportDataComponent, selectedRows: selectedRows, handleVisibleSelectRowsColumn: handleVisibleSelectRowsColumn, selectRowColumnVisible: selectRowColumnVisible }), _jsxs("table", __assign({ className: "tableComponent" }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
+    return (_jsxs("div", __assign({ className: "box_table box_tableAndFeatures" }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch, style: style }), _jsxs("div", __assign({ className: "box_tableManaged scrollerTable" }, { children: [_jsx(ManageTable, { style: style, handlePerPageChange: handlePerPageChange, filteredData: filteredData, columnsManaged: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns, renderExportDataComponent: renderExportDataComponent, selectedRows: selectedRows, handleVisibleSelectRowsColumn: handleVisibleSelectRowsColumn, selectRowColumnVisible: selectRowColumnVisible }), _jsxs("table", __assign({ className: "tableComponent" }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
                                     var property = _a.property, isVisible = _a.isVisible;
                                     if (isVisible) {
                                         return (_jsx("col", { id: "col_".concat(property) }, "{col_".concat(property)));
                                     }
-                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [selectRowColumnVisible && (_jsxs("th", __assign({ className: "thColor th_tableComponent box_inputSelectAllRows" }, { children: [_jsx("input", { id: "selectAll", type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onChange: handleSelectAll, ref: selectAllRef, className: "inputSelectAllRows inputSelectRows", role: "checkbox", "aria-checked": selectAllChecked
+                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [selectRowColumnVisible && (_jsxs("th", __assign({ className: "thColor th_tableComponent box_inputSelectAllRows" }, { children: [_jsx("input", { id: "selectAll", type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onChange: handleSelectAll, ref: selectAllRef, className: "inputSelectAllRows inputSelectRows customComponent", role: "checkbox", "aria-checked": selectAllChecked
                                                         ? 'true'
                                                         : isIndeterminate
                                                             ? 'mixed'
@@ -343,7 +350,7 @@ export function Table(_a) {
                                                         ? 'all rows are checked'
                                                         : isIndeterminate
                                                             ? 'some rows are selected'
-                                                            : 'no row is checked' }), _jsx("label", __assign({ htmlFor: "selectAll", className: "sr-only" }, { children: "Select all rows" }))] }))), columnsManaged.map(function (_a) {
+                                                            : 'no row is checked', style: style }), _jsx("label", __assign({ htmlFor: "selectAll", className: "sr-only" }, { children: "Select all rows" }))] }))), columnsManaged.map(function (_a) {
                                             var _b;
                                             var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
                                             var isSortKey = sortKey === property;
@@ -351,12 +358,12 @@ export function Table(_a) {
                                                     ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
                                         })] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, 
                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                    onChange: function () { }, "aria-label": "Select this row" }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow", onClick: function (e) {
+                                    onChange: function () { }, "aria-label": "Select this row", style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
                                                         e.stopPropagation();
                                                         handleRowSelection(item.id);
                                                     }, "aria-checked": isRowSelected(item.id) ? 'true' : 'false', "aria-label": "Select row with ".concat(item[1], " and ").concat(item[2]), "aria-labelledby": "row-".concat(item.id), 
                                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                                    onChange: function () { } }), _jsx("label", __assign({ htmlFor: "selectRow-".concat(item.id), className: "sr-only" }, { children: "select this row" }))] }))), columnsManaged.map(function (_a) {
+                                                    onChange: function () { }, style: style }), _jsx("label", __assign({ htmlFor: "selectRow-".concat(item.id), className: "sr-only" }, { children: "select this row" }))] }))), columnsManaged.map(function (_a) {
                                             var property = _a.property, isVisible = _a.isVisible;
                                             if (isVisible) {
                                                 return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index, " td_tableComponent") }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property, " td_tableComponent")));

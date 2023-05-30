@@ -1,6 +1,7 @@
 import React from 'react';
 interface RowsPerPageProps {
     handlePerPageChange: (option: string) => void;
+    style: React.CSSProperties;
 }
 /**
  * Component for selecting the number of rows per page.

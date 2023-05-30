@@ -7,6 +7,7 @@ interface DropdownProps {
   onOptionClick: (option: string) => void;
   className: string;
   classNameProps: string;
+  style: React.CSSProperties;
 }
 
 function Dropdown(props: DropdownProps): JSX.Element {
@@ -61,13 +62,6 @@ function Dropdown(props: DropdownProps): JSX.Element {
       setIsOpen(false);
     }
   };
-
-  // function handleKeyDown(event: React.KeyboardEvent): void {
-  //   if (event.key === 'Enter' || event.key === ' ') {
-  //     event.preventDefault();
-  //     toggleDropdown();
-  //   }
-  // }
 
   const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
     switch (event.key) {
@@ -155,9 +149,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
     >
       <button
         type="button"
-        className={`dropdownToggleTable buttonToggle${props.classNameProps}`}
-        // onClick={toggleDropdown}
-        // onKeyDown={handleKeyDown}
+        className={`dropdownToggleTable buttonToggle${props.classNameProps} customComponent`}
         onClick={toggleDropdown}
         onKeyDown={handleTriggerKeyDown}
         data-testid="btnPerPage"
@@ -165,6 +157,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
         aria-expanded={isOpen}
         aria-labelledby="dropdown-label"
         aria-label="options of dropdown"
+        style={props.style}
       >
         {selectedOption || props.defaultValueSelectedOption}
         <span
@@ -182,7 +175,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
           {props.options.map((option, index) => (
             <li
               key={option}
-              className={`dropdownOptionTable dropdownOptionRowPerPage ${
+              className={`dropdownOptionTable dropdownOptionRowPerPage customComponent ${
                 index === focusedOptionIndex ? 'focused' : ''
               } ${
                 option === selectedOption ? `selectedTable selectedOption` : ''
@@ -190,14 +183,15 @@ function Dropdown(props: DropdownProps): JSX.Element {
               role="option"
               aria-selected={option === selectedOption}
               data-testid={`optionPerPage-${option}`}
+              style={props.style}
             >
-              {/* {option} */}
               <button
                 onKeyDown={(event) => handleOptionKeyDown(event, option)}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={() => setFocusedOptionIndex(index)}
-                className="dropdownOptionButton" // Ajoutez une classe pour styliser ce bouton comme vous le souhaitez
+                className="dropdownOptionButton customComponent" 
                 tabIndex={0}
+                style={props.style}
               >
                 {option}
               </button>

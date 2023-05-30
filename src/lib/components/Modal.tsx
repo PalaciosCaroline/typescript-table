@@ -5,6 +5,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  style: React.CSSProperties;
 }
 
 /**
@@ -94,11 +95,12 @@ function Modal(props: ModalProps): JSX.Element {
         >
             {/* Close button */}
           <button
-            className="btn_closeModalTable"
+            className="btn_closeModalTable customComponent"
             onClick={props.onClose}
             aria-label="Fermer la fenêtre"
             tabIndex={0}
             data-testid="btnCloseModal"
+            style={props.style}
           >
             <FaTimes className="btn_closeModalTable_icon" />
           </button>

@@ -1,0 +1,33 @@
+.customComponent {
+  background-color: var(--background-color);
+  color: var(--color);
+}
+
+.customComponent.focused,
+.customComponent:hover {
+  background-color: var(--hover-background-color);
+}
+
+.customComponent.inputSelectRows {
+  background-color: #fff;
+}
+
+.customComponent.inputSelectRows.indeterminate {
+  border: 2px solid var(--hover-background-color);
+  background-color: var(--hover-background-color);
+  color: var(--hover-background-color);
+}
+
+.customComponent.inputSelectRows:checked {
+  background-color: var(--hover-background-color);
+  border: 2px solid var(--hover-background-color);
+  color: var(--hover-background-color);
+}
+
+/* .tr_tableComponent.selected {
+    background:rgba(175 228 145 / 20%);
+  } */
+
+.tr_tableComponent.selected {
+  background-color: var(--selected-background-color);
+}

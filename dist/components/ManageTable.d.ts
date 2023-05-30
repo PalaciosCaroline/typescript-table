@@ -4,6 +4,7 @@ interface DataItem<T> {
     [key: string]: T | undefined;
 }
 interface ManageTableProps<T> {
+    style: React.CSSProperties;
     selectedRows: Set<T | undefined>;
     handlePerPageChange: (optionValue: string) => void;
     columnsManaged: ColumnManaged[];

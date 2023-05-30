@@ -232,6 +232,25 @@ By adding the dateFormat attribute to the column definition, the Table component
 
 ## Customize the style'component
 
+The default style :
+  background = '#677e11',
+  color = 'white',
+  hoverBackground = '#7e9b16',
+  selectedRowsBackground = 'rgba(175 228 145 / 20%)'
+
+```javascript
+ <Table
+        data={datasExample}
+        columns={columnsExample}
+        background='red' //change background button and dropdown
+        color='#fff' //change color button and dropdown
+        hoverBackground='salmon' //change background :hover button and dropdown
+        selectedRowsBackground='#ffdcd8' //change background selected rows
+  />
+```
+
+![table](./customStyle.png "example of other style")
+
 To customize the style of the component, you can increase the specificity of your CSS rules. This means that you can target the component more precisely by adding more specific selectors to your CSS rules.
 
 For example, to change the background color of the th of the table, you can use the following CSS rule (with for example .box_table):
@@ -251,29 +270,6 @@ to
 .box_table .thColor{
   border-bottom: 1px solid #1b1818;
   background-color: blue;
-}
-```
-
-or change the background-color of reset all search button:
-change for example
-
-```css
-.btn_Reset{
-  background-color: #677e11;
-}
-.btn_Reset:hover{
-    background-color: #7e9b16;
-}
-```
-
-to:
-
-```css
-.box_table .btn_Reset{
-  background-color: #86c1e6;
-}
-.box_table .btn_Reset:hover{
-    background-color: #1e92db;
 }
 ```
 

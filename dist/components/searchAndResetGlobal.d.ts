@@ -1,6 +1,7 @@
 import React from 'react';
 interface SearchAndResetGlobalProps {
     searchTerm: string;
+    style: React.CSSProperties;
     handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleResetSearch: () => void;
 }

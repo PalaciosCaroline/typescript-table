@@ -3,6 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 
 interface SearchAndResetGlobalProps {
   searchTerm: string;
+  style: React.CSSProperties;
   handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleResetSearch: () => void;
 }
@@ -16,8 +17,10 @@ interface SearchAndResetGlobalProps {
  */
 export const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
   searchTerm,
+  style,
   handleSearch,
   handleResetSearch,
+  
 }) => {
   return (
     <div className="box_searchReset">
@@ -37,8 +40,9 @@ export const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
        {/* Button for resetting all searchs terms */}
       <button
         onClick={handleResetSearch}
-        style={{ marginRight: '20px' }}
-        className="btn_Reset"
+        // style={{ marginRight: '20px' }}
+        className="btn_Reset customComponent"
+        style={style}
       >
         <p className="btnResetAllTexte">Reset all search</p>
       </button>

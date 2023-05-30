@@ -3,6 +3,7 @@ interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    style: React.CSSProperties;
 }
 /**
  * Component for displaying a modal.

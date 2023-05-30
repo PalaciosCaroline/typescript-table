@@ -6,6 +6,7 @@ import './../styles/table.css';
 import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
+import './../styles/CustomComponent.css';
 
 export interface Column {
   label: string;
@@ -49,6 +50,11 @@ export interface DataItem<T> {
 interface Props<T> {
   data: DataItem<T | undefined>[]; // Les données à afficher dans le tableau
   columns: Column[]; // Les colonnes du tableau
+  background?: string;
+  color?: string;
+  hoverBackground?: string;
+  selectedRowsBackground?: string;
+  // selectedBackground: string;
   renderExportDataComponent?: (
     // Une fonction pour rendre un composant d'exportation de données
     filteredData: DataItem<T | undefined>[],
@@ -60,6 +66,10 @@ interface Props<T> {
 export function Table<T>({
   data,
   columns,
+  background = '#677e11',
+  color = 'white',
+  hoverBackground = '#7e9b16',
+  selectedRowsBackground = 'rgba(175 228 145 / 20%)',
   renderExportDataComponent,
 }: Props<T>) {
   // useState for sorting
@@ -96,6 +106,12 @@ export function Table<T>({
   const [isIndeterminate, setIndeterminate] = useState(false);
   const selectAllRef = useRef<HTMLInputElement | null>(null);
   const [selectRowColumnVisible, setSelectRowColumnVisible] = useState(true);
+  const style = {
+    '--background-color': background,
+    '--color': color,
+    '--hover-background-color': hoverBackground,
+    '--selected-background-color': selectedRowsBackground
+  } as React.CSSProperties;
 
   // useEffect for sorting data
   useEffect(() => {
@@ -441,10 +457,12 @@ export function Table<T>({
         searchTerm={searchTerm}
         handleSearch={handleSearch}
         handleResetSearch={handleResetSearch}
+        style={style}
       />
 
       <div className="box_tableManaged scrollerTable">
         <ManageTable
+          style={style} 
           handlePerPageChange={handlePerPageChange}
           filteredData={filteredData}
           columnsManaged={columnsManaged}
@@ -478,7 +496,7 @@ export function Table<T>({
                     checked={selectAllChecked}
                     onChange={handleSelectAll}
                     ref={selectAllRef}
-                    className="inputSelectAllRows inputSelectRows"
+                    className="inputSelectAllRows inputSelectRows customComponent"
                     role="checkbox"
                     aria-checked={
                       selectAllChecked
@@ -494,6 +512,7 @@ export function Table<T>({
                         ? 'some rows are selected'
                         : 'no row is checked'
                     }
+                    style={style}
                   />
                   <label htmlFor="selectAll" className="sr-only">
                     Select all rows
@@ -550,13 +569,14 @@ export function Table<T>({
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 onChange={() => {}}
                 aria-label="Select this row"
+                style={style}
               >
                 {selectRowColumnVisible && (
                   <td className="box_inputSelectRow">
                     <input
                       type="checkbox"
                       checked={selectedRows.has(item.id)}
-                      className="inputSelectRows inputSelectRow"
+                      className="inputSelectRows inputSelectRow customComponent"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleRowSelection(item.id);
@@ -566,6 +586,7 @@ export function Table<T>({
                       aria-labelledby={`row-${item.id}`}
                       // eslint-disable-next-line @typescript-eslint/no-empty-function
                       onChange={() => {}}
+                      style={style}
                     />
                     <label htmlFor={`selectRow-${item.id}`} className="sr-only">
                       select this row

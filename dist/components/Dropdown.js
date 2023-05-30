@@ -51,12 +51,6 @@ function Dropdown(props) {
             setIsOpen(false);
         }
     };
-    // function handleKeyDown(event: React.KeyboardEvent): void {
-    //   if (event.key === 'Enter' || event.key === ' ') {
-    //     event.preventDefault();
-    //     toggleDropdown();
-    //   }
-    // }
     var handleTriggerKeyDown = function (event) {
         switch (event.key) {
             case 'ArrowUp':
@@ -125,10 +119,6 @@ function Dropdown(props) {
                 break;
         }
     };
-    return (_jsxs("div", __assign({ className: "dropdownTable dropdownTable".concat(props.classNameProps), ref: dropdownRef }, { children: [_jsxs("button", __assign({ type: "button", className: "dropdownToggleTable buttonToggle".concat(props.classNameProps), 
-                // onClick={toggleDropdown}
-                // onKeyDown={handleKeyDown}
-                onClick: toggleDropdown, onKeyDown: handleTriggerKeyDown, "data-testid": "btnPerPage", "aria-haspopup": "listbox", "aria-expanded": isOpen, "aria-labelledby": "dropdown-label", "aria-label": "options of dropdown" }, { children: [selectedOption || props.defaultValueSelectedOption, _jsx("span", __assign({ className: "chevronTable chevron".concat(props.classNameProps), onClick: handleChevronClick }, { children: isOpen ? _jsx(FiChevronUp, {}) : _jsx(FiChevronDown, {}) }))] })), isOpen && (_jsx("ul", __assign({ className: "dropdownMenuTable dropdownMenu".concat(props.classNameProps), role: "listbox" }, { children: props.options.map(function (option, index) { return (_jsx("li", __assign({ className: "dropdownOptionTable dropdownOptionRowPerPage ".concat(index === focusedOptionIndex ? 'focused' : '', " ").concat(option === selectedOption ? "selectedTable selectedOption" : ''), role: "option", "aria-selected": option === selectedOption, "data-testid": "optionPerPage-".concat(option) }, { children: _jsx("button", __assign({ onKeyDown: function (event) { return handleOptionKeyDown(event, option); }, onClick: function () { return handleOptionClick(option); }, onMouseOver: function () { return setFocusedOptionIndex(index); }, className: "dropdownOptionButton" // Ajoutez une classe pour styliser ce bouton comme vous le souhaitez
-                        , tabIndex: 0 }, { children: option })) }), option)); }) }))), _jsx("span", __assign({ id: "dropdown-label", className: "sr-only" }, { children: "options of dropdown" }))] })));
+    return (_jsxs("div", __assign({ className: "dropdownTable dropdownTable".concat(props.classNameProps), ref: dropdownRef }, { children: [_jsxs("button", __assign({ type: "button", className: "dropdownToggleTable buttonToggle".concat(props.classNameProps, " customComponent"), onClick: toggleDropdown, onKeyDown: handleTriggerKeyDown, "data-testid": "btnPerPage", "aria-haspopup": "listbox", "aria-expanded": isOpen, "aria-labelledby": "dropdown-label", "aria-label": "options of dropdown", style: props.style }, { children: [selectedOption || props.defaultValueSelectedOption, _jsx("span", __assign({ className: "chevronTable chevron".concat(props.classNameProps), onClick: handleChevronClick }, { children: isOpen ? _jsx(FiChevronUp, {}) : _jsx(FiChevronDown, {}) }))] })), isOpen && (_jsx("ul", __assign({ className: "dropdownMenuTable dropdownMenu".concat(props.classNameProps), role: "listbox" }, { children: props.options.map(function (option, index) { return (_jsx("li", __assign({ className: "dropdownOptionTable dropdownOptionRowPerPage customComponent ".concat(index === focusedOptionIndex ? 'focused' : '', " ").concat(option === selectedOption ? "selectedTable selectedOption" : ''), role: "option", "aria-selected": option === selectedOption, "data-testid": "optionPerPage-".concat(option), style: props.style }, { children: _jsx("button", __assign({ onKeyDown: function (event) { return handleOptionKeyDown(event, option); }, onClick: function () { return handleOptionClick(option); }, onMouseOver: function () { return setFocusedOptionIndex(index); }, className: "dropdownOptionButton customComponent", tabIndex: 0, style: props.style }, { children: option })) }), option)); }) }))), _jsx("span", __assign({ id: "dropdown-label", className: "sr-only" }, { children: "options of dropdown" }))] })));
 }
 export default Dropdown;

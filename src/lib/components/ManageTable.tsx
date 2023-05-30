@@ -10,6 +10,7 @@ interface DataItem<T> {
 }
 
 interface ManageTableProps<T> {
+  style: React.CSSProperties;
   selectedRows: Set<T | undefined>;
   handlePerPageChange: (optionValue: string) => void;
   columnsManaged: ColumnManaged[];
@@ -17,11 +18,11 @@ interface ManageTableProps<T> {
   handleVisibleAllColumns: () => void;
   filteredData: DataItem<T | undefined>[];
   handleVisibleSelectRowsColumn: () => void;
-  selectRowColumnVisible:boolean;
+  selectRowColumnVisible: boolean;
   renderExportDataComponent?: (
     filteredData: DataItem<T | undefined>[],
     columnsManaged: ColumnManaged[],
-    headerProperty?: string
+    headerProperty?: string,
   ) => React.ReactNode;
 }
 
@@ -44,11 +45,14 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
 
   // Retrieves the selected data based on the selected rows
   const getSelectedData = () => {
-    if(props.selectedRows.size === 0){
+    if (props.selectedRows.size === 0) {
       return props.filteredData;
-    } else 
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return props.filteredData.filter((item: any) => props.selectedRows.has(item.id));
+    else
+      return props.filteredData.filter((item: any) =>
+        props.selectedRows.has(item.id),
+      );
   };
 
   const selectedData = getSelectedData();
@@ -57,13 +61,18 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
     <div
       className={`box-manageFeatearesTable ${
         isDropDownOpen ? 'box-manageFeatearesOpen' : ''
-      } ${props.selectRowColumnVisible ? 'styleWithSelectColumn' : 'styleWithoutSelectColumn' }`}
+      } ${
+        props.selectRowColumnVisible
+          ? 'styleWithSelectColumn'
+          : 'styleWithoutSelectColumn'
+      }`}
     >
       {/* Toggle button for managing the table */}
       <button
         className={`toggle-btnManageTable ${
           isDropDownOpen ? 'btnOpenManageTable' : ''
-        }`}
+        } customComponent`}
+        style={props.style}
         onClick={toggleDropDown}
         aria-label="manage Table"
         data-testid="manageTable"
@@ -83,26 +92,33 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
           }`}
         >
           <ul className="manageTable-dropdownUl">
-             {/* Render export data component */}
+            {/* Render export data component */}
             {props.renderExportDataComponent && (
-              <li className="manageTable-dropdownLi">
+              <li className="manageTable-dropdownLi" >
                 {props.renderExportDataComponent(
                   selectedData,
                   props.columnsManaged,
                 )}
+                
               </li>
             )}
-             {/* Rows per page dropdown */}
+            {/* Rows per page dropdown */}
             <li className="manageTable-dropdownLi">
-              <RowsPerPage handlePerPageChange={props.handlePerPageChange} />
+              <RowsPerPage
+                handlePerPageChange={props.handlePerPageChange}
+                style={props.style}
+              />
             </li>
-             {/* Manage columns component */}
+            {/* Manage columns component */}
             <li className="manageTable-dropdownLi li_manageColumns">
               <ManageColumns
+                style={props.style}
                 columns={props.columnsManaged}
                 handleColumnVisibility={props.handleColumnVisibility}
                 handleVisibleAllColumns={props.handleVisibleAllColumns}
-                handleVisibleSelectRowsColumn={props.handleVisibleSelectRowsColumn}
+                handleVisibleSelectRowsColumn={
+                  props.handleVisibleSelectRowsColumn
+                }
                 selectRowColumnVisible={props.selectRowColumnVisible}
               />
             </li>

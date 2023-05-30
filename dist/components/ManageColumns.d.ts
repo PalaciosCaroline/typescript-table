@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { ColumnManaged } from './Table';
 interface ManageColumnsProps {
     columns: ColumnManaged[];
@@ -6,6 +6,7 @@ interface ManageColumnsProps {
     handleVisibleAllColumns: () => void;
     handleVisibleSelectRowsColumn: () => void;
     selectRowColumnVisible: boolean;
+    style: React.CSSProperties;
 }
 /**
  * Component for managing columns.

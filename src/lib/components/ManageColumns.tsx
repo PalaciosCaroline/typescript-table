@@ -9,6 +9,7 @@ interface ManageColumnsProps {
   handleVisibleAllColumns: () => void;
   handleVisibleSelectRowsColumn: () => void;
   selectRowColumnVisible: boolean;
+  style: React.CSSProperties;
 }
 
 /**
@@ -46,9 +47,10 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
     <>
      {/* Toggle button for managing columns */}
       <button
-        className={`toggle-btnManagedColumns ${isModalOpen ? 'btnOpen' : ''}`}
+        className={`toggle-btnManagedColumns customComponent ${isModalOpen ? 'btnOpen' : ''}`}
         onClick={() => setIsModalOpen(!isModalOpen)}
         aria-label="managed columns"
+        style={props.style}
       >
         <span className={isModalOpen ? 'btnManagedColumnsOpen' : ''}>
           Manage Columns
@@ -56,12 +58,13 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
         {!isModalOpen ? <FiChevronDown /> : <FiChevronUp />}
       </button>
       {/* Modal for managing columns */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} style={props.style}>
          {/* Button for showing all columns */}
         <button
-          className="btnShowAllColumns"
+          className="btnShowAllColumns customComponent"
           onClick={props.handleVisibleAllColumns}
           data-testid="btnVisibleColumn"
+          style={props.style}
         >
           <span className="btnShowSpan">Show All Columns</span>
         </button>

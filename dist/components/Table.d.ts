@@ -28,6 +28,12 @@ interface Props<T> {
     hoverBackground?: string;
     selectedRowsBackground?: string;
     renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[], headerProperty?: string) => React.ReactNode;
+    editRowColumnVisible?: boolean;
+    handleEditRow?: (id: T) => void;
+    archiveRowColumnVisible?: boolean;
+    handleArchiveRow?: (id: T) => void;
+    deleteRowColumnVisible?: boolean;
+    handleDeleteRow?: (id: T) => void;
 }
-export declare function Table<T>({ data, columns, background, color, hoverBackground, selectedRowsBackground, renderExportDataComponent, }: Props<T>): import("react/jsx-runtime").JSX.Element;
+export declare function Table<T>({ data, columns, background, color, hoverBackground, selectedRowsBackground, renderExportDataComponent, editRowColumnVisible, handleEditRow, archiveRowColumnVisible, handleArchiveRow, deleteRowColumnVisible, handleDeleteRow, }: Props<T>): import("react/jsx-runtime").JSX.Element;
 export {};

@@ -6,11 +6,27 @@ import { datasExample, columnsExample } from './dataForExample';
 function App() {
   document.title = 'typescript-table';
 
+  const handleEditRow = (id: any) => {
+    console.log(id);
+  };
+  const handleArchiveRow = (id: any) => {
+    console.log('archive: ' + id);
+  };
+  const handleDeleteRow = (id: any) => {
+    console.log('delete: ' + id);
+  };
+
   return (
     <div className="App">
       <Table
         data={datasExample}
         columns={columnsExample}
+        editRowColumnVisible
+        handleEditRow={handleEditRow}
+        archiveRowColumnVisible
+        handleArchiveRow={handleArchiveRow}
+        deleteRowColumnVisible
+        handleDeleteRow={handleDeleteRow}
         // renderExportDataComponent={(filteredData, columnsManaged) => (
         //   <ExportDataComponent
         //     filteredData={filteredData}

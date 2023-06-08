@@ -18,9 +18,10 @@ The Table component receives two props: data, an array of objects with the data 
   - Sorting
   - filter (global and column-specific)
   - Pagination
-  - columns : visibility and order
-  - column to select rows
-  - export data to csv, excel and pdf (with import 'exportDataComponent')
+  - Columns : visibility and order
+  - Column to select rows
+  - Export data to csv, excel and pdf (with import 'exportDataComponent')
+  - Table Row Interactions (edit, archive and delete)
   - Customizable
   - Accessible (focus, tabulation and aria-label)
   - Responsive (via x-scroll/flex)
@@ -66,7 +67,7 @@ Array: processed recursively up to a depth of 4
 @@ Example: Table of employees @@
 ```
 
-![table](./imgTable.png "example of table")
+![table](./imgTable1.png "example of table")
 
 ![example of datas displayed](./typeData1.png "example of table")
 
@@ -229,6 +230,34 @@ Here's how to specify the date format for a column:
 ```
 
 By adding the dateFormat attribute to the column definition, the Table component will know how to correctly process the dates provided as strings.
+
+## Table Row Interactions
+
+| Prop | Description | Required |
+| --- | --- | --- |
+| `editRowColumnVisible` | Controls the visibility of the "Edit" column. If passed and true, a column with an edit button will be visible for each row. Otherwise, the column will not be displayed. | No |
+| `handleEditRow` | Function called when the user clicks on the edit button. The ID of the row is passed as a parameter, allowing you to determine which row should be edited. | Yes, if `editRowColumnVisible` is true |
+| `archiveRowColumnVisible` | Controls the visibility of the "Archive" column. If passed and true, a column with an archive button will be visible for each row. Otherwise, the column will not be displayed. | No |
+| `handleArchiveRow` | Function called when the user clicks on the archive button. The ID of the row is passed as a parameter, allowing you to determine which row should be archived. | Yes, if `archiveRowColumnVisible` is true |
+| `deleteRowColumnVisible` | Controls the visibility of the "Delete" column. If passed and true, a column with a delete button will be visible for each row. Otherwise, the column will not be displayed. | No |
+| `handleDeleteRow` | Function called when the user clicks on the delete button. The ID of the row is passed as a parameter, allowing you to determine which row should be deleted. | Yes, if `deleteRowColumnVisible` is true |
+
+ ```
+    <Table
+      data={datasExample}
+      columns={columnsExample}
+      editRowColumnVisible
+      handleEditRow={handleEditRow}
+      archiveRowColumnVisible
+      handleArchiveRow={handleArchiveRow}
+      deleteRowColumnVisible
+      handleDeleteRow={handleDeleteRow}
+    />
+  ```
+
+### Notes
+
+To be able to use the editing, archiving, and deleting functionalities, your data must have an `id` field. These functions rely on the existence of a unique `id` for each row to identify which row should be edited, archived, or deleted. Ensure that each item in your data array has a unique `id` property.
 
 ## Customize the style'component
 

@@ -18,9 +18,12 @@ import './../styles/table.css';
 import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
+import ActionButton from './ActionButton';
+import { FiEdit3, FiArchive } from 'react-icons/fi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import './../styles/CustomComponent.css';
 export function Table(_a) {
-    var data = _a.data, columns = _a.columns, _b = _a.background, background = _b === void 0 ? '#677e11' : _b, _c = _a.color, color = _c === void 0 ? 'white' : _c, _d = _a.hoverBackground, hoverBackground = _d === void 0 ? '#7e9b16' : _d, _e = _a.selectedRowsBackground, selectedRowsBackground = _e === void 0 ? 'rgba(175 228 145 / 20%)' : _e, renderExportDataComponent = _a.renderExportDataComponent;
+    var data = _a.data, columns = _a.columns, _b = _a.background, background = _b === void 0 ? '#677e11' : _b, _c = _a.color, color = _c === void 0 ? 'white' : _c, _d = _a.hoverBackground, hoverBackground = _d === void 0 ? '#7e9b16' : _d, _e = _a.selectedRowsBackground, selectedRowsBackground = _e === void 0 ? 'rgba(175 228 145 / 20%)' : _e, renderExportDataComponent = _a.renderExportDataComponent, editRowColumnVisible = _a.editRowColumnVisible, handleEditRow = _a.handleEditRow, archiveRowColumnVisible = _a.archiveRowColumnVisible, handleArchiveRow = _a.handleArchiveRow, deleteRowColumnVisible = _a.deleteRowColumnVisible, handleDeleteRow = _a.handleDeleteRow;
     // useState for sorting
     var _f = useState(undefined), sortKey = _f[0], setSortKey = _f[1];
     var _g = useState('noSort'), sortOrder = _g[0], setSortOrder = _g[1];
@@ -57,7 +60,7 @@ export function Table(_a) {
         '--background-color': background,
         '--color': color,
         '--hover-background-color': hoverBackground,
-        '--selected-background-color': selectedRowsBackground
+        '--selected-background-color': selectedRowsBackground,
     };
     // useEffect for sorting data
     useEffect(function () {
@@ -356,7 +359,9 @@ export function Table(_a) {
                                             var isSortKey = sortKey === property;
                                             return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
                                                     ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
-                                        })] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, 
+                                        }), (editRowColumnVisible && handleEditRow) ||
+                                            (archiveRowColumnVisible && handleArchiveRow) ||
+                                            (deleteRowColumnVisible && handleDeleteRow) ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, 
                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
                                     onChange: function () { }, "aria-label": "Select this row", style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
                                                         e.stopPropagation();
@@ -369,7 +374,31 @@ export function Table(_a) {
                                                 return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index, " td_tableComponent") }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property, " td_tableComponent")));
                                             }
                                             return null;
-                                        })] }), index)); }) }))] }))] })), _jsxs("div", __assign({ className: "box_entriesAndPage" }, { children: [_jsx("div", __assign({ className: "showingEntries" }, { children: filteredData.length <= 0
+                                        }), (editRowColumnVisible && handleEditRow) ||
+                                            (archiveRowColumnVisible && handleArchiveRow) ||
+                                            (deleteRowColumnVisible && handleDeleteRow)
+                                            ? item.id !== undefined && (_jsxs("td", __assign({ className: "td_tableComponent box_btnEditArchiveDelete" }, { children: [_jsx(ActionButton, { actionType: "edit", visible: (editRowColumnVisible && !!handleEditRow) || false, handleAction: function (itemId) {
+                                                            if (handleEditRow) {
+                                                                handleEditRow(itemId);
+                                                            }
+                                                        }, itemId: item.id, icons: {
+                                                            edit: _jsx(FiEdit3, {}),
+                                                        } }), _jsx(ActionButton, { actionType: "archive", visible: (archiveRowColumnVisible && !!handleArchiveRow) ||
+                                                            false, handleAction: function (itemId) {
+                                                            if (handleArchiveRow) {
+                                                                handleArchiveRow(itemId);
+                                                            }
+                                                        }, itemId: item.id, icons: {
+                                                            archive: _jsx(FiArchive, {}),
+                                                        } }), _jsx(ActionButton, { actionType: "delete", visible: (deleteRowColumnVisible && !!handleDeleteRow) ||
+                                                            false, handleAction: function (itemId) {
+                                                            if (handleDeleteRow) {
+                                                                handleDeleteRow(itemId);
+                                                            }
+                                                        }, itemId: item.id, icons: {
+                                                            delete: _jsx(RiDeleteBin6Line, {}),
+                                                        } })] })))
+                                            : null] }), index)); }) }))] }))] })), _jsxs("div", __assign({ className: "box_entriesAndPage" }, { children: [_jsx("div", __assign({ className: "showingEntries" }, { children: filteredData.length <= 0
                             ? "0 result of ".concat(data.length, " entries")
                             : filteredData.length === 1
                                 ? "1 entry"

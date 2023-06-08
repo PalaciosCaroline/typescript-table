@@ -6,6 +6,9 @@ import './../styles/table.css';
 import { TableHeader } from './TableHeader';
 import { SearchAndResetGlobal } from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
+import ActionButton from './ActionButton';
+import { FiEdit3, FiArchive } from 'react-icons/fi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import './../styles/CustomComponent.css';
 
 export interface Column {
@@ -61,6 +64,12 @@ interface Props<T> {
     columnsManaged: ColumnManaged[],
     headerProperty?: string,
   ) => React.ReactNode;
+  editRowColumnVisible?: boolean;
+  handleEditRow?: (id: T) => void;
+  archiveRowColumnVisible?: boolean;
+  handleArchiveRow?: (id: T) => void;
+  deleteRowColumnVisible?: boolean;
+  handleDeleteRow?: (id: T) => void;
 }
 
 export function Table<T>({
@@ -71,6 +80,12 @@ export function Table<T>({
   hoverBackground = '#7e9b16',
   selectedRowsBackground = 'rgba(175 228 145 / 20%)',
   renderExportDataComponent,
+  editRowColumnVisible,
+  handleEditRow,
+  archiveRowColumnVisible,
+  handleArchiveRow,
+  deleteRowColumnVisible,
+  handleDeleteRow,
 }: Props<T>) {
   // useState for sorting
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
@@ -101,7 +116,9 @@ export function Table<T>({
   });
   const [inputValues, setInputValues] = useState(initialInputValues);
   // useState for selecting rows to export
-  const [selectedRows, setSelectedRows] = useState<Set<T | undefined>>(new Set());
+  const [selectedRows, setSelectedRows] = useState<Set<T | undefined>>(
+    new Set(),
+  );
   const [selectAllChecked, setSelectAllChecked] = useState<boolean>(false);
   const [isIndeterminate, setIndeterminate] = useState(false);
   const selectAllRef = useRef<HTMLInputElement | null>(null);
@@ -110,7 +127,7 @@ export function Table<T>({
     '--background-color': background,
     '--color': color,
     '--hover-background-color': hoverBackground,
-    '--selected-background-color': selectedRowsBackground
+    '--selected-background-color': selectedRowsBackground,
   } as React.CSSProperties;
 
   // useEffect for sorting data
@@ -462,7 +479,7 @@ export function Table<T>({
 
       <div className="box_tableManaged scrollerTable">
         <ManageTable
-          style={style} 
+          style={style}
           handlePerPageChange={handlePerPageChange}
           filteredData={filteredData}
           columnsManaged={columnsManaged}
@@ -554,6 +571,13 @@ export function Table<T>({
                   );
                 },
               )}
+              {(editRowColumnVisible && handleEditRow) ||
+              (archiveRowColumnVisible && handleArchiveRow) ||
+              (deleteRowColumnVisible && handleDeleteRow) ? (
+                <th className="thColor th_tableComponent">
+                  <span>Action</span>
+                </th>
+              ) : null}
             </tr>
           </thead>
 
@@ -608,6 +632,61 @@ export function Table<T>({
                   }
                   return null;
                 })}
+                {(editRowColumnVisible && handleEditRow) ||
+                (archiveRowColumnVisible && handleArchiveRow) ||
+                (deleteRowColumnVisible && handleDeleteRow)
+                  ? item.id !== undefined && (
+                      <td className="td_tableComponent box_btnEditArchiveDelete">
+                        <ActionButton
+                          actionType="edit"
+                          visible={
+                            (editRowColumnVisible && !!handleEditRow) || false
+                          }
+                          handleAction={(itemId) => {
+                            if (handleEditRow) {
+                              handleEditRow(itemId);
+                            }
+                          }}
+                          itemId={item.id}
+                          icons={{
+                            edit: <FiEdit3 />,
+                          }}
+                        />
+                        <ActionButton
+                          actionType="archive"
+                          visible={
+                            (archiveRowColumnVisible && !!handleArchiveRow) ||
+                            false
+                          }
+                          handleAction={(itemId) => {
+                            if (handleArchiveRow) {
+                              handleArchiveRow(itemId);
+                            }
+                          }}
+                          itemId={item.id}
+                          icons={{
+                            archive: <FiArchive />,
+                          }}
+                        />
+                        <ActionButton
+                          actionType="delete"
+                          visible={
+                            (deleteRowColumnVisible && !!handleDeleteRow) ||
+                            false
+                          }
+                          handleAction={(itemId) => {
+                            if (handleDeleteRow) {
+                              handleDeleteRow(itemId);
+                            }
+                          }}
+                          itemId={item.id}
+                          icons={{
+                            delete: <RiDeleteBin6Line />,
+                          }}
+                        />
+                      </td>
+                    )
+                  : null}
               </tr>
             ))}
           </tbody>

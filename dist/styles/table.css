@@ -113,17 +113,6 @@ p.label_tableComponent {
   border: 1px solid #ededed;
 }
 
-/* Style pour les cellules du corps */
-.td_tableComponent {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.tbody_tableComponent tr:nth-child(1) td {
-  border-top: 1px solid #7e7a7a;
-}
-
 .tbody_tableComponent tr:last-child td {
   border-bottom: 1px solid #9e9d9d;
 }
@@ -140,6 +129,7 @@ p.label_tableComponent {
   padding: 8px;
   text-align: left;
   border-left: 1px solid #e1e0e0;
+  border-bottom: 1px solid #ddd;
 }
 
 .tableComponent button {
@@ -892,4 +882,40 @@ button.dropdownOptionButton{
   border:none;
   padding: 4px 12px;
 }
+
+.box_btnEditArchiveDelete{
+  display: flex;
+  height: 100%;
+}
+
+.td_tableComponent.box_btnEditArchiveDelete{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.box_btnEditArchiveDelete button{
+  padding-left:10px;
+  padding-right:10px;
+  height: 100%;
+  margin-left:5px;
+  margin-right:5px;
+  background-color: transparent;
+}
+
+.box_btnEditArchiveDelete button > svg {
+  height: 1.2rem;
+  width: 1.2rem;
+  color: rgba(104, 104, 102, 1);
+  transition: transform 0.1s, color 0.2s;
+}
+
+.box_btnEditArchiveDelete button:hover > svg {
+  transform: scale(1.2);
+  color: rgb(57, 57, 57);
+}
+
+.btnEdit, .btnArchive, .btnDelete {
+  border:none;
+}
+
 

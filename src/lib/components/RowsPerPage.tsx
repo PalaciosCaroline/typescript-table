@@ -29,6 +29,7 @@ const RowsPerPage: React.FC<RowsPerPageProps> = ({
         defaultValueSelectedOption="10"
         classNameProps="RowPerPage"
         style={style}
+        dataTestId='RowPerPage'
       />
     </div>
   );

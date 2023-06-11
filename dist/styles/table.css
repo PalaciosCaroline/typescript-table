@@ -884,8 +884,9 @@ button.dropdownOptionButton{
 }
 
 .box_btnEditArchiveDelete{
-  display: flex;
   height: 100%;
+  justify-content: stretch;
+  align-items: stretch;
 }
 
 .td_tableComponent.box_btnEditArchiveDelete{
@@ -900,6 +901,7 @@ button.dropdownOptionButton{
   margin-left:5px;
   margin-right:5px;
   background-color: transparent;
+  display: inline-block;
 }
 
 .box_btnEditArchiveDelete button > svg {

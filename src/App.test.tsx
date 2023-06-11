@@ -45,7 +45,7 @@ describe('Table', () => {
     expect(displayedRows.length).toBe(11); 
     // Ouvrir le menu déroulant
     fireEvent.click(screen.getByTestId('manageTable'));
-    const btnPerPage = screen.getByTestId('btnPerPage');
+    const btnPerPage = screen.getByTestId('RowPerPage');
     fireEvent.click(btnPerPage);
 
     const optionElement = screen.getByTestId(`optionPerPage-5`);

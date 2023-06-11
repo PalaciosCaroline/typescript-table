@@ -377,23 +377,23 @@ export function Table(_a) {
                                         }), (editRowColumnVisible && handleEditRow) ||
                                             (archiveRowColumnVisible && handleArchiveRow) ||
                                             (deleteRowColumnVisible && handleDeleteRow)
-                                            ? item.id !== undefined && (_jsxs("td", __assign({ className: "td_tableComponent box_btnEditArchiveDelete" }, { children: [_jsx(ActionButton, { actionType: "edit", visible: (editRowColumnVisible && !!handleEditRow) || false, handleAction: function (itemId) {
+                                            ? item.id !== undefined && (_jsxs("td", __assign({ role: "cell", className: "td_tableComponent box_btnEditArchiveDelete" }, { children: [_jsx(ActionButton, { actionType: "edit", visible: (editRowColumnVisible && !!handleEditRow) || false, handleAction: function (itemId, e) {
                                                             if (handleEditRow) {
-                                                                handleEditRow(itemId);
+                                                                handleEditRow(itemId, e);
                                                             }
                                                         }, itemId: item.id, icons: {
                                                             edit: _jsx(FiEdit3, {}),
                                                         } }), _jsx(ActionButton, { actionType: "archive", visible: (archiveRowColumnVisible && !!handleArchiveRow) ||
-                                                            false, handleAction: function (itemId) {
+                                                            false, handleAction: function (itemId, e) {
                                                             if (handleArchiveRow) {
-                                                                handleArchiveRow(itemId);
+                                                                handleArchiveRow(itemId, e);
                                                             }
                                                         }, itemId: item.id, icons: {
                                                             archive: _jsx(FiArchive, {}),
                                                         } }), _jsx(ActionButton, { actionType: "delete", visible: (deleteRowColumnVisible && !!handleDeleteRow) ||
-                                                            false, handleAction: function (itemId) {
+                                                            false, handleAction: function (itemId, e) {
                                                             if (handleDeleteRow) {
-                                                                handleDeleteRow(itemId);
+                                                                handleDeleteRow(itemId, e);
                                                             }
                                                         }, itemId: item.id, icons: {
                                                             delete: _jsx(RiDeleteBin6Line, {}),

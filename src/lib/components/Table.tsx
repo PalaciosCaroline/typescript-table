@@ -65,11 +65,11 @@ interface Props<T> {
     headerProperty?: string,
   ) => React.ReactNode;
   editRowColumnVisible?: boolean;
-  handleEditRow?: (id: T) => void;
+  handleEditRow?: (id: T, e?: any) => void;
   archiveRowColumnVisible?: boolean;
-  handleArchiveRow?: (id: T) => void;
+  handleArchiveRow?: (id: T, e?: any) => void;
   deleteRowColumnVisible?: boolean;
-  handleDeleteRow?: (id: T) => void;
+  handleDeleteRow?: (id: T, e?: any) => void;
 }
 
 export function Table<T>({
@@ -636,15 +636,15 @@ export function Table<T>({
                 (archiveRowColumnVisible && handleArchiveRow) ||
                 (deleteRowColumnVisible && handleDeleteRow)
                   ? item.id !== undefined && (
-                      <td className="td_tableComponent box_btnEditArchiveDelete">
+                      <td role="cell" className="td_tableComponent box_btnEditArchiveDelete">
                         <ActionButton
                           actionType="edit"
                           visible={
                             (editRowColumnVisible && !!handleEditRow) || false
                           }
-                          handleAction={(itemId) => {
+                          handleAction={(itemId,e) => {
                             if (handleEditRow) {
-                              handleEditRow(itemId);
+                              handleEditRow(itemId,e);
                             }
                           }}
                           itemId={item.id}
@@ -658,9 +658,9 @@ export function Table<T>({
                             (archiveRowColumnVisible && !!handleArchiveRow) ||
                             false
                           }
-                          handleAction={(itemId) => {
+                          handleAction={(itemId, e) => {
                             if (handleArchiveRow) {
-                              handleArchiveRow(itemId);
+                              handleArchiveRow(itemId, e);
                             }
                           }}
                           itemId={item.id}
@@ -674,9 +674,9 @@ export function Table<T>({
                             (deleteRowColumnVisible && !!handleDeleteRow) ||
                             false
                           }
-                          handleAction={(itemId) => {
+                          handleAction={(itemId, e) => {
                             if (handleDeleteRow) {
-                              handleDeleteRow(itemId);
+                              handleDeleteRow(itemId, e);
                             }
                           }}
                           itemId={item.id}

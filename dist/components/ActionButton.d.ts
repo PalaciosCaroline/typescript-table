@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 type ActionButtonProps = {
     actionType: 'edit' | 'archive' | 'delete';
     visible: boolean;
-    handleAction: (id: any) => void;
+    handleAction: (id: any, e?: any) => void;
     itemId: any;
     icons: {
         [key: string]: ReactNode;

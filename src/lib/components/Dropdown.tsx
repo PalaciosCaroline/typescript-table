@@ -8,6 +8,7 @@ interface DropdownProps {
   className: string;
   classNameProps: string;
   style: React.CSSProperties;
+  dataTestId: string
 }
 
 function Dropdown(props: DropdownProps): JSX.Element {
@@ -152,7 +153,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
         className={`dropdownToggleTable buttonToggle${props.classNameProps} customComponent`}
         onClick={toggleDropdown}
         onKeyDown={handleTriggerKeyDown}
-        data-testid="btnPerPage"
+        data-testid={props.dataTestId}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-labelledby="dropdown-label"
@@ -182,7 +183,6 @@ function Dropdown(props: DropdownProps): JSX.Element {
               }`}
               role="option"
               aria-selected={option === selectedOption}
-              data-testid={`optionPerPage-${option}`}
               style={props.style}
             >
               <button
@@ -192,6 +192,8 @@ function Dropdown(props: DropdownProps): JSX.Element {
                 className="dropdownOptionButton customComponent" 
                 tabIndex={0}
                 style={props.style}
+                data-testid={`optionPerPage-${option}`}
+
               >
                 {option}
               </button>

@@ -6,6 +6,7 @@ interface DropdownProps {
     className: string;
     classNameProps: string;
     style: React.CSSProperties;
+    dataTestId: string;
 }
 declare function Dropdown(props: DropdownProps): JSX.Element;
 export default Dropdown;

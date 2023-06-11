@@ -259,7 +259,7 @@ By adding the dateFormat attribute to the column definition, the Table component
 
 To be able to use the editing, archiving, and deleting functionalities, your data must have an `id` field. These functions rely on the existence of a unique `id` for each row to identify which row should be edited, archived, or deleted. Ensure that each item in your data array has a unique `id` property.
 
-## Customize the style'component
+## Customize the Component's Style
 
 The default style :
   background = '#677e11',

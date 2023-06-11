@@ -236,11 +236,11 @@ By adding the dateFormat attribute to the column definition, the Table component
 | Prop | Description | Required |
 | --- | --- | --- |
 | `editRowColumnVisible` | Controls the visibility of the "Edit" column. If passed and true, a column with an edit button will be visible for each row. Otherwise, the column will not be displayed. | No |
-| `handleEditRow` | Function called when the user clicks on the edit button. The ID of the row is passed as a parameter, allowing you to determine which row should be edited. | Yes, if `editRowColumnVisible` is true |
+| `handleEditRow` | Function called when the user clicks on the edit button. The ID of the row is passed as a parameter, which allows you to determine which row should be edited. This function should have the following signature: `function(itemId, e?)`. | Yes, if `editRowColumnVisible` is true |
 | `archiveRowColumnVisible` | Controls the visibility of the "Archive" column. If passed and true, a column with an archive button will be visible for each row. Otherwise, the column will not be displayed. | No |
-| `handleArchiveRow` | Function called when the user clicks on the archive button. The ID of the row is passed as a parameter, allowing you to determine which row should be archived. | Yes, if `archiveRowColumnVisible` is true |
+| `handleArchiveRow` | Function called when the user clicks on the archive button. The ID of the row is passed as a parameter, which allows you to determine which row should be archived. This function should have the following signature: `function(itemId, e?)`. | Yes, if `archiveRowColumnVisible` is true |
 | `deleteRowColumnVisible` | Controls the visibility of the "Delete" column. If passed and true, a column with a delete button will be visible for each row. Otherwise, the column will not be displayed. | No |
-| `handleDeleteRow` | Function called when the user clicks on the delete button. The ID of the row is passed as a parameter, allowing you to determine which row should be deleted. | Yes, if `deleteRowColumnVisible` is true |
+| `handleDeleteRow` | Function called when the user clicks on the delete button. The ID of the row is passed as a parameter, which allows you to determine which row should be deleted. This function should have the following signature: `function(itemId, e?)`. | Yes, if `deleteRowColumnVisible` is true |
 
  ```
     <Table

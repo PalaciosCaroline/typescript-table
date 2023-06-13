@@ -12,11 +12,11 @@ var __assign = (this && this.__assign) || function () {
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { FaSearch } from 'react-icons/fa';
 /**
- * Component for global search and reset all search (global and by property).
+ * SearchAndResetGlobal: A component for global search and reset all search (global and by property).
  *
  * @component
- * @param {SearchAndResetGlobalProps} props - The props for the SearchAndResetGlobal component.
- * @returns {React.ReactElement} The rendered SearchAndResetGlobal component.
+ * @param {SearchAndResetGlobalProps} props - The properties passed to the SearchAndResetGlobal component.
+ * @returns {React.ReactElement} - Returns a JSX element representing the rendered SearchAndResetGlobal component.
  */
 export var SearchAndResetGlobal = function (_a) {
     var searchTerm = _a.searchTerm, style = _a.style, handleSearch = _a.handleSearch, handleResetSearch = _a.handleResetSearch;

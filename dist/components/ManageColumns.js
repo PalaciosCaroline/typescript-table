@@ -14,11 +14,12 @@ import { useState } from 'react';
 import Modal from './Modal';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 /**
- * Component for managing columns.
+/**
+ * ManageColumns: A component for managing the visibility of columns in a table.
  *
- * @component
- * @param {ManageColumnsProps} props - The props for the ManageColumns component.
- * @returns {JSX.Element} The rendered ManageColumns component.
+ * @param {ManageColumnsProps} props - The props passed to the ManageColumns component.
+ *
+ * @returns {JSX.Element} - Returns a JSX element representing the ManageColumns component.
  */
 function ManageColumns(props) {
     var _a = useState(false), isModalOpen = _a[0], setIsModalOpen = _a[1];

@@ -13,6 +13,13 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import SortButton from './SortButton';
 import SearchDropdown from './SearchDropdown';
 import SearchByProperty from './SearchByProperty';
+/**
+ * The TableHeader component displays the header of the table.
+ *
+ * @component
+ * @param {TableHeaderProps} props - The props for the TableHeader component.
+ * @returns {React.ReactElement | null} The rendered TableHeader component or null if the header is not visible.
+ */
 export var TableHeader = function (_a) {
     var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat, isSortKey = _a.isSortKey, sortOrder = _a.sortOrder, handleColumnSort = _a.handleColumnSort, disableSort = _a.disableSort, disableFilter = _a.disableFilter, handleSearchByProperty = _a.handleSearchByProperty, inputValues = _a.inputValues, handleReset = _a.handleReset, isOpenSearchByProperty = _a.isOpenSearchByProperty, handleToggle = _a.handleToggle;
     if (!isVisible)

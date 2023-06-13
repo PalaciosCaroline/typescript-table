@@ -16,12 +16,12 @@ import { FaTimes } from 'react-icons/fa';
 import ManageColumns from './ManageColumns';
 import RowsPerPage from './RowsPerPage';
 /**
- * Component for managing a table.
+ * ManageTable: A component for managing the elements of a table.
  *
  * @component
  * @template T - The type of data items in the table.
- * @param {ManageTableProps<T>} props - The props for the ManageTable component.
- * @returns {React.ReactElement} The rendered ManageTable component.
+ * @param {ManageTableProps<T>} props - The props passed to the ManageTable component.
+ * @returns {React.ReactElement} - Returns a React element representing the ManageTable component.
  */
 var ManageTable = function (props) {
     // useState for managing the dropdown open state

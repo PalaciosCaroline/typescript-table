@@ -13,11 +13,11 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useRef, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 /**
- * Component for displaying a modal.
+ * Modal: A component for rendering a modal.
  *
  * @component
- * @param {ModalProps} props - The props for the Modal component.
- * @returns {JSX.Element} The rendered Modal component.
+ * @param {ModalProps} props - The properties passed to the Modal component.
+ * @returns {JSX.Element} - Returns a JSX element representing the rendered Modal.
  */
 function Modal(props) {
     // useRef for storing references to the modal elements

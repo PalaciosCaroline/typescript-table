@@ -1,0 +1,237 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>typescript-table</title><meta name="description" content="Documentation for typescript-table"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/search.js" id="tsd-search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">typescript-table</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<h2>typescript-table</h2></div>
+<div class="tsd-panel tsd-typography"><a id="md:typescript-table-a-package-for-easily-importing-a-table-to-display-your-data-" class="tsd-anchor"></a><h1><a href="#md:typescript-table-a-package-for-easily-importing-a-table-to-display-your-data-">typescript-table: A package for easily importing a table to display your data .</a></h1><p>The Table React component is built with TypeScript and supports various custom data types for easy and flexible usage. It is 100% customizable and accessible, and responsive.</p>
+<p><img src="https://img.shields.io/badge/React-v18.2.0-61DAFB?logo=react" alt="React">
+<img src="https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript" alt="JavaScript">
+<img src="https://img.shields.io/badge/TypeScript-5.0.4-3178C6?logo=typescript" alt="TypeScript">
+<a href="https://github.com/facebook/jest"><img src="https://img.shields.io/badge/tested_with-jest-99424f.svg?logo=jest" alt="tested with jest"></a>
+<img src="https://img.shields.io/badge/ESLint-v8.38.0-4B32C3?logo=eslint" alt="ESLint">
+<img src="https://img.shields.io/badge/Responsive-Yes-c85997?logo=responsive" alt="Responsive">
+<img src="https://img.shields.io/badge/Accessible-Yes-677e11?logo=accessible" alt="Accessible"></p>
+<p>This is a React component that displays a table with data. The component has several state variables that manage its behavior.
+The Table component receives two props: data, an array of objects with the data to display, and columns, an array of objects that define the columns of the table.</p>
+<a id="md:features" class="tsd-anchor"></a><h1><a href="#md:features">Features</a></h1><ul>
+<li>Sorting</li>
+<li>filter (global and column-specific)</li>
+<li>Pagination</li>
+<li>Columns : visibility and order</li>
+<li>Column to select rows</li>
+<li>Export data to csv, excel and pdf (with import &#39;exportDataComponent&#39;)</li>
+<li>Table Row Interactions (edit, archive and delete)</li>
+<li>Customizable</li>
+<li>Accessible (focus, tabulation and aria-label)</li>
+<li>Responsive (via x-scroll/flex)</li>
+</ul>
+<a id="md:install-the-package" class="tsd-anchor"></a><h2><a href="#md:install-the-package">Install the package</a></h2><p>with npm:</p>
+<pre><code><span class="hl-0">`npm install typescript-table`</span>
+</code><button>Copy</button></pre>
+<p>or yarn:</p>
+<pre><code><span class="hl-0">`yarn add typescript-table`</span>
+</code><button>Copy</button></pre>
+<a id="md:import-in-your-application" class="tsd-anchor"></a><h2><a href="#md:import-in-your-application">Import in your application</a></h2><p>  <code>import {Table} from &#39;typescript-table&#39;</code></p>
+<p>The Table component is built with TypeScript and supports various custom data types for easy and flexible usage within the data={yourData} parameter. You can use different data types, like strings, numbers, dates, and booleans, together in the data you pass to the component. To ensure type safety and compatibility, define the structure of your data type in your TypeScript code.</p>
+<p>The following data types can be used together for data={yourData}:</p>
+<p>Use the component like this:</p>
+<p>  <code>&lt;Table data={yourData} columns={yourDataColumns} /&gt;</code></p>
+<p>Customize your component and tailor it to your specific needs by providing the appropriate data types for data={yourData}.</p>
+<a id="md:all-data-types-can-be-displayed-in-the-table" class="tsd-anchor"></a><h2><a href="#md:all-data-types-can-be-displayed-in-the-table">All data types can be displayed in the table:</a></h2><p>The table displays all different types of data:</p>
+<p>String: for dates given as strings, sorting is done based on the dateFormat property passed in the columns prop to the relevant column.
+Number
+Boolean
+Date: displayed in the table as value.toLocaleDateString()
+Object: processed recursively up to a depth of 4
+Array: processed recursively up to a depth of 4</p>
+<a id="md:exemple-of-use" class="tsd-anchor"></a><h2><a href="#md:exemple-of-use">Exemple of use</a></h2><hr>
+<pre><code class="language-diff"><span class="hl-1">@@ Example: Table of employees @@</span>
+</code><button>Copy</button></pre>
+<p><img src="./imgTable1.png" alt="table" title="example of table"></p>
+<p><img src="./typeData1.png" alt="example of datas displayed" title="example of table"></p>
+<hr>
+<a id="md:else-use-with-boutons-to-export-data" class="tsd-anchor"></a><h2><a href="#md:else-use-with-boutons-to-export-data">else use with boutons to export data:</a></h2><p>Use Table with a ExportDataComponent.</p>
+<p><img src="./dropdownExport.png" alt="table" title="example with export buttons"></p>
+<p>Install before using buttons&#39;s functionality.</p>
+<p>  <code>npm install file-saver xlsx jspdf jspdf-autotable</code></p>
+<p>after</p>
+<pre><code class="language-js"><span class="hl-1">  </span><span class="hl-2">import</span><span class="hl-1"> {</span><span class="hl-3">Table</span><span class="hl-1">} </span><span class="hl-2">from</span><span class="hl-1"> </span><span class="hl-0">&#39;typescript-table&#39;</span><br/><span class="hl-1">  </span><span class="hl-2">import</span><span class="hl-1"> {</span><span class="hl-3">ExportDataComponent</span><span class="hl-1">} </span><span class="hl-2">from</span><span class="hl-1"> </span><span class="hl-0">&#39;typescript-exportdata&#39;</span><br/><br/><span class="hl-1">  </span><span class="hl-4">&lt;</span><span class="hl-5">Table</span><br/><span class="hl-1">    </span><span class="hl-6">data</span><span class="hl-1">=</span><span class="hl-7">{</span><span class="hl-3">datasExample</span><span class="hl-7">}</span><br/><span class="hl-1">    </span><span class="hl-6">columns</span><span class="hl-1">=</span><span class="hl-7">{</span><span class="hl-3">columnsExample</span><span class="hl-7">}</span><br/><span class="hl-1">    </span><span class="hl-6">renderExportDataComponent</span><span class="hl-1">=</span><span class="hl-7">{</span><span class="hl-8">(</span><span class="hl-3">filteredData</span><span class="hl-8">,</span><span class="hl-3">columnsManaged</span><span class="hl-8">) </span><span class="hl-7">=&gt;</span><span class="hl-8"> (</span><br/><span class="hl-8">      </span><span class="hl-4">&lt;</span><span class="hl-5">ExportDataComponent</span><br/><span class="hl-8">        </span><span class="hl-6">filteredData</span><span class="hl-1">=</span><span class="hl-7">{</span><span class="hl-3">filteredData</span><span class="hl-7">}</span><span class="hl-8"> </span><span class="hl-9">//don&#39;t change this</span><br/><span class="hl-8">        </span><span class="hl-6">columnsManaged</span><span class="hl-1">=</span><span class="hl-7">{</span><span class="hl-3">columnsManaged</span><span class="hl-7">}</span><span class="hl-8">  </span><span class="hl-9">//don&#39;t change this</span><br/><span class="hl-8">        </span><span class="hl-6">headerProperty</span><span class="hl-1">=</span><span class="hl-0">&#39;label&#39;</span><span class="hl-8"> </span><span class="hl-9">//don&#39;t change this</span><br/><span class="hl-8">        </span><span class="hl-6">csvExport</span><span class="hl-1">=</span><span class="hl-7">{true}</span><span class="hl-8"> </span><span class="hl-9">// to have an export bouton for csv format</span><br/><span class="hl-8">        </span><span class="hl-6">excelExport</span><span class="hl-1">=</span><span class="hl-7">{true}</span><span class="hl-8"> </span><span class="hl-9">// to have an export bouton for excel format</span><br/><span class="hl-8">        </span><span class="hl-6">pdfExport</span><span class="hl-1">=</span><span class="hl-7">{true}</span><span class="hl-8"> </span><span class="hl-9">// to have an export bouton for pdf format</span><br/><span class="hl-8">      </span><span class="hl-4">/&gt;</span><br/><span class="hl-8">    )</span><span class="hl-7">}</span><br/><span class="hl-1">  </span><span class="hl-4">/&gt;</span>
+</code><button>Copy</button></pre>
+<p>you can choice to display just one bouton to export, exemple with the pdf button :</p>
+<p><img src="./exportJustOne.png" alt="table" title="example with one button"></p>
+<pre><code><span class="hl-1">  &lt;</span><span class="hl-3">Table</span><br/><span class="hl-1">    </span><span class="hl-3">data</span><span class="hl-1">={</span><span class="hl-3">datasExample</span><span class="hl-1">}</span><br/><span class="hl-1">    </span><span class="hl-3">columns</span><span class="hl-1">={</span><span class="hl-3">columnsExample</span><span class="hl-1">}</span><br/><span class="hl-1">    </span><span class="hl-3">renderExportDataComponent</span><span class="hl-1">={(</span><span class="hl-3">filteredData</span><span class="hl-1">, columnsManaged) =&gt; (</span><br/><span class="hl-1">      &lt;</span><span class="hl-3">ExportDataComponent</span><br/><span class="hl-1">        </span><span class="hl-3">filteredData</span><span class="hl-1">={</span><span class="hl-3">filteredData</span><span class="hl-1">} </span><span class="hl-9">// don&#39;t change this props</span><br/><span class="hl-1">        </span><span class="hl-3">columnsManaged</span><span class="hl-1">={</span><span class="hl-3">columnsManaged</span><span class="hl-1">} </span><span class="hl-9">// don&#39;t change this props</span><br/><span class="hl-1">        </span><span class="hl-3">headerProperty</span><span class="hl-1">=</span><span class="hl-0">&#39;label&#39;</span><span class="hl-1"> </span><span class="hl-9">//don&#39;t change this props</span><br/><span class="hl-1">        </span><span class="hl-3">pdfExport</span><span class="hl-1">={</span><span class="hl-3">true</span><span class="hl-1">} </span><span class="hl-9">// just this</span><br/><span class="hl-1">      /&gt;</span><br/><span class="hl-1">    )}</span><br/><span class="hl-1">  /&gt;</span>
+</code><button>Copy</button></pre>
+<ul>
+<li>Without the data export button.</li>
+</ul>
+<p><img src="./noExportData.png" alt="table" title="example without export button"></p>
+<a id="md:quotcustomizing-sorting-and-filteringquot" class="tsd-anchor"></a><h2><a href="#md:quotcustomizing-sorting-and-filteringquot">&quot;Customizing Sorting and Filtering.&quot;</a></h2><p>&quot;Sorting and filtering are implemented by default for each column in the table. However, if you want to remove these features for a specific column, you simply need to add the property disableSort: true to disable sorting, or disableFilter: true to disable filtering, in the object of the respective column.&quot;</p>
+<ul>
+<li>example for a column :</li>
+</ul>
+<pre><code class="language-js"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-10">label</span><span class="hl-1">: </span><span class="hl-0">&#39;First Name&#39;</span><span class="hl-1">,	</span><br/><span class="hl-1">  </span><span class="hl-10">property</span><span class="hl-1">: </span><span class="hl-0">&#39;firstName&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">disableSort</span><span class="hl-1">: </span><span class="hl-7">true</span><span class="hl-1">, </span><span class="hl-9">// for disable sorting</span><br/><span class="hl-1">  </span><span class="hl-10">disableFilter</span><span class="hl-1">: </span><span class="hl-7">true</span><span class="hl-1"> </span><span class="hl-9">// for disable filtering</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:example-datas" class="tsd-anchor"></a><h2><a href="#md:example-datas">Example datas</a></h2><p>For columns, labels and properties are required: a label must be assigned to each property of the data array that is to be displayed in a column. If no label is assigned to a property of the data array, that property will be ignored and will not generate a column. The label will be used to name each column in the table, based on each property; the property is the column data from the data array used to retrieve the various column entries.
+&quot;The choice of locations for labels and properties in columns allows you to choose the placement of different columns in relation to each other.&quot;</p>
+<p>To use this package, you can use the examples like the data in the following example.
+<Table data={datasExample} columns={columnsExample} />
+with :</p>
+<pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-11">columnsExample</span><span class="hl-1">: </span><span class="hl-5">Column</span><span class="hl-1">[] = [</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;First Name&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;firstName&#39;</span><span class="hl-1">, </span><span class="hl-3">disableSort:</span><span class="hl-7">true</span><span class="hl-1">, </span><span class="hl-3">disableFilter:</span><span class="hl-7">true</span><span class="hl-1"> },</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;Last Name&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;lastName&#39;</span><span class="hl-1"> },</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;Start Date&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;startDate&#39;</span><span class="hl-1"> },</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;Department&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;department&#39;</span><span class="hl-1"> },</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;Date of Birth&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;dateOfBirth&#39;</span><span class="hl-1">,</span><span class="hl-3">dateFormat:</span><span class="hl-1"> </span><span class="hl-0">&#39;DD/MM/YYYY&#39;</span><span class="hl-1">,   </span><span class="hl-3">disableSort:</span><span class="hl-7">true</span><span class="hl-1">, </span><span class="hl-3">disableFilter:</span><span class="hl-7">true</span><span class="hl-1"> },</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;Street&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;street&#39;</span><span class="hl-1">, </span><span class="hl-3">disableSort:</span><span class="hl-7">true</span><span class="hl-1">, </span><span class="hl-3">disableFilter:</span><span class="hl-7">true</span><span class="hl-1">},</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;City&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;city&#39;</span><span class="hl-1"> },</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;State&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;state&#39;</span><span class="hl-1">, </span><span class="hl-3">disableSort:</span><span class="hl-7">true</span><span class="hl-1"> },</span><br/><span class="hl-1">    { </span><span class="hl-3">label:</span><span class="hl-1"> </span><span class="hl-0">&#39;Zip Code&#39;</span><span class="hl-1">, </span><span class="hl-3">property:</span><span class="hl-1"> </span><span class="hl-0">&#39;zipCode&#39;</span><span class="hl-1">, </span><span class="hl-3">disableSort:</span><span class="hl-7">true</span><span class="hl-1"> },</span><br/><span class="hl-1">];</span><br/><br/><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-11">datasExample</span><span class="hl-1"> = [</span><br/><span class="hl-1">  {</span><br/><span class="hl-1">    </span><span class="hl-3">id:</span><span class="hl-1"> </span><span class="hl-12">1</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">firstName:</span><span class="hl-1"> </span><span class="hl-0">&#39;John&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">lastName:</span><span class="hl-1"> </span><span class="hl-0">&#39;Doe&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">dateOfBirth:</span><span class="hl-1"> </span><span class="hl-0">&#39;15/01/1975&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">startDate:</span><span class="hl-1"> </span><span class="hl-7">new</span><span class="hl-1"> </span><span class="hl-13">Date</span><span class="hl-1">(</span><span class="hl-0">&#39;01/04/2022&#39;</span><span class="hl-1">),</span><br/><span class="hl-1">    </span><span class="hl-3">department:</span><span class="hl-1"> </span><span class="hl-0">&#39;Sales&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">street:</span><span class="hl-1"> </span><span class="hl-0">&#39;123 Main St&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">city:</span><span class="hl-1"> </span><span class="hl-0">&#39;Anytown&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">state:</span><span class="hl-1"> </span><span class="hl-0">&#39;CA&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">zipCode:</span><span class="hl-1"> </span><span class="hl-12">12345</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  {</span><br/><span class="hl-1">    </span><span class="hl-3">id:</span><span class="hl-1"> </span><span class="hl-12">2</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">firstName:</span><span class="hl-1"> </span><span class="hl-0">&#39;Jane&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">lastName:</span><span class="hl-1"> </span><span class="hl-0">&#39;Smith&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">dateOfBirth:</span><span class="hl-1"> </span><span class="hl-0">&#39;17/05/1985&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">startDate:</span><span class="hl-1"> </span><span class="hl-7">new</span><span class="hl-1"> </span><span class="hl-13">Date</span><span class="hl-1">(</span><span class="hl-0">&#39;25/02/2020&#39;</span><span class="hl-1">),</span><br/><span class="hl-1">    </span><span class="hl-3">department:</span><span class="hl-1"> </span><span class="hl-0">&#39;Marketing&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">street:</span><span class="hl-1"> </span><span class="hl-0">&#39;456 Oak St&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">city:</span><span class="hl-1"> </span><span class="hl-0">&#39;Othertown&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">state:</span><span class="hl-1"> </span><span class="hl-0">&#39;NY&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">zipCode:</span><span class="hl-1"> </span><span class="hl-12">67890</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  {</span><br/><span class="hl-1">    </span><span class="hl-3">id:</span><span class="hl-1"> </span><span class="hl-12">3</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">firstName:</span><span class="hl-1"> </span><span class="hl-0">&#39;Bob&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">lastName:</span><span class="hl-1"> </span><span class="hl-0">&#39;Johnson&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">dateOfBirth:</span><span class="hl-1"> </span><span class="hl-0">&#39;30/09/1978&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">startDate:</span><span class="hl-1"> </span><span class="hl-7">new</span><span class="hl-1"> </span><span class="hl-13">Date</span><span class="hl-1">(</span><span class="hl-0">&#39;03/05/2019&#39;</span><span class="hl-1">),</span><br/><span class="hl-1">    </span><span class="hl-3">department:</span><span class="hl-1"> </span><span class="hl-0">&#39;IT&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">street:</span><span class="hl-1"> </span><span class="hl-0">&#39;789 Maple Ave&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">city:</span><span class="hl-1"> </span><span class="hl-0">&#39;Somewhere&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">state:</span><span class="hl-1"> </span><span class="hl-0">&#39;TX&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">zipCode:</span><span class="hl-1"> </span><span class="hl-12">54321</span><span class="hl-1">,</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">]</span>
+</code><button>Copy</button></pre>
+<a id="md:date-format-for-columns-data-as-strings-containing-dates" class="tsd-anchor"></a><h2><a href="#md:date-format-for-columns-data-as-strings-containing-dates">Date format for columns (data as strings containing dates)</a></h2><p>When you provide data as strings containing dates, you need to specify the date format to use for each column containing a date in string format is essential to optimize the sorting functionality. You can do this by adding the dateFormat attribute to the corresponding column definition.</p>
+<p>The date format should be specified using the characters &#39;DD&#39;, &#39;MM&#39;, and &#39;YYYY&#39; to represent the day, month, and year, respectively. For example:</p>
+<ul>
+<li>For a date string &#39;DD/MM/YYYY&#39;, &#39;DD-MM-YYYY&#39;, or &#39;DD.MM.YYYY&#39;, use:</li>
+</ul>
+<p><code>dateFormat: &#39;DD/MM/YYYY&#39;</code></p>
+<ul>
+<li>For a date string &#39;MM/DD/YYYY&#39;, &#39;MM-DD-YYYY&#39;, or &#39;MM.DD.YYYY&#39;, use:</li>
+</ul>
+<p> <code>dateFormat: &#39;MM/DD/YYYY&#39;</code></p>
+<ul>
+<li>For a date string &#39;YYYY/MM/DD&#39;, &#39;YYYY-MM-DD&#39;, or &#39;YYYY.MM.DD&#39;, use:</li>
+</ul>
+<p>  <code>dateFormat: &#39;YYYY/MM/DD&#39;</code></p>
+<p>The accepted and automatically managed separators are &#39;/&#39;, &#39;-&#39;, and &#39;.&#39;.
+Here&#39;s how to specify the date format for a column:</p>
+<pre><code class="language-javascript"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-10">label</span><span class="hl-1">: </span><span class="hl-0">&#39;Date of Birth&#39;</span><span class="hl-1">,	</span><br/><span class="hl-1">  </span><span class="hl-10">property</span><span class="hl-1">: </span><span class="hl-0">&#39;dateOfBirth&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-10">dateFormat</span><span class="hl-1">: </span><span class="hl-0">&#39;DD/MM/YYYY&#39;</span><span class="hl-1"> </span><span class="hl-9">// Use this value for formats &#39;DD/MM/YYYY&#39;, &#39;DD-MM-YYYY&#39; or &#39;DD.MM.YYYY&#39;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p>By adding the dateFormat attribute to the column definition, the Table component will know how to correctly process the dates provided as strings.</p>
+<a id="md:table-row-interactions" class="tsd-anchor"></a><h2><a href="#md:table-row-interactions">Table Row Interactions</a></h2><table>
+<thead>
+<tr>
+<th>Prop</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>editRowColumnVisible</code></td>
+<td>Controls the visibility of the &quot;Edit&quot; column. If passed and true, a column with an edit button will be visible for each row. Otherwise, the column will not be displayed.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>handleEditRow</code></td>
+<td>Function called when the user clicks on the edit button. The ID of the row is passed as a parameter, which allows you to determine which row should be edited. This function should have the following signature: <code>function(itemId, e?)</code>.</td>
+<td>Yes, if <code>editRowColumnVisible</code> is true</td>
+</tr>
+<tr>
+<td><code>archiveRowColumnVisible</code></td>
+<td>Controls the visibility of the &quot;Archive&quot; column. If passed and true, a column with an archive button will be visible for each row. Otherwise, the column will not be displayed.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>handleArchiveRow</code></td>
+<td>Function called when the user clicks on the archive button. The ID of the row is passed as a parameter, which allows you to determine which row should be archived. This function should have the following signature: <code>function(itemId, e?)</code>.</td>
+<td>Yes, if <code>archiveRowColumnVisible</code> is true</td>
+</tr>
+<tr>
+<td><code>deleteRowColumnVisible</code></td>
+<td>Controls the visibility of the &quot;Delete&quot; column. If passed and true, a column with a delete button will be visible for each row. Otherwise, the column will not be displayed.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>handleDeleteRow</code></td>
+<td>Function called when the user clicks on the delete button. The ID of the row is passed as a parameter, which allows you to determine which row should be deleted. This function should have the following signature: <code>function(itemId, e?)</code>.</td>
+<td>Yes, if <code>deleteRowColumnVisible</code> is true</td>
+</tr>
+</tbody></table>
+<pre><code><span class="hl-1">   &lt;</span><span class="hl-3">Table</span><br/><span class="hl-1">     </span><span class="hl-3">data</span><span class="hl-1">={</span><span class="hl-3">datasExample</span><span class="hl-1">}</span><br/><span class="hl-1">     </span><span class="hl-3">columns</span><span class="hl-1">={</span><span class="hl-3">columnsExample</span><span class="hl-1">}</span><br/><span class="hl-1">     </span><span class="hl-3">editRowColumnVisible</span><br/><span class="hl-1">     </span><span class="hl-3">handleEditRow</span><span class="hl-1">={</span><span class="hl-3">handleEditRow</span><span class="hl-1">}</span><br/><span class="hl-1">     </span><span class="hl-3">archiveRowColumnVisible</span><br/><span class="hl-1">     </span><span class="hl-3">handleArchiveRow</span><span class="hl-1">={</span><span class="hl-3">handleArchiveRow</span><span class="hl-1">}</span><br/><span class="hl-1">     </span><span class="hl-3">deleteRowColumnVisible</span><br/><span class="hl-1">     </span><span class="hl-3">handleDeleteRow</span><span class="hl-1">={</span><span class="hl-3">handleDeleteRow</span><span class="hl-1">}</span><br/><span class="hl-1">   /&gt;</span>
+</code><button>Copy</button></pre>
+<a id="md:notes" class="tsd-anchor"></a><h3><a href="#md:notes">Notes</a></h3><p>To be able to use the editing, archiving, and deleting functionalities, your data must have an <code>id</code> field. These functions rely on the existence of a unique <code>id</code> for each row to identify which row should be edited, archived, or deleted. Ensure that each item in your data array has a unique <code>id</code> property.</p>
+<a id="md:customize-the-component39s-style" class="tsd-anchor"></a><h2><a href="#md:customize-the-component39s-style">Customize the Component&#39;s Style</a></h2><p>The default style :
+  background = &#39;#677e11&#39;,
+  color = &#39;white&#39;,
+  hoverBackground = &#39;#7e9b16&#39;,
+  selectedRowsBackground = &#39;rgba(175 228 145 / 20%)&#39;</p>
+<pre><code class="language-javascript"><span class="hl-1"> </span><span class="hl-4">&lt;</span><span class="hl-5">Table</span><br/><span class="hl-1">        </span><span class="hl-6">data</span><span class="hl-1">=</span><span class="hl-7">{</span><span class="hl-3">datasExample</span><span class="hl-7">}</span><br/><span class="hl-1">        </span><span class="hl-6">columns</span><span class="hl-1">=</span><span class="hl-7">{</span><span class="hl-3">columnsExample</span><span class="hl-7">}</span><br/><span class="hl-1">        </span><span class="hl-6">background</span><span class="hl-1">=</span><span class="hl-0">&#39;red&#39;</span><span class="hl-1"> </span><span class="hl-9">//change background button and dropdown</span><br/><span class="hl-1">        </span><span class="hl-6">color</span><span class="hl-1">=</span><span class="hl-0">&#39;#fff&#39;</span><span class="hl-1"> </span><span class="hl-9">//change color button and dropdown</span><br/><span class="hl-1">        </span><span class="hl-6">hoverBackground</span><span class="hl-1">=</span><span class="hl-0">&#39;salmon&#39;</span><span class="hl-1"> </span><span class="hl-9">//change background :hover button and dropdown</span><br/><span class="hl-1">        </span><span class="hl-6">selectedRowsBackground</span><span class="hl-1">=</span><span class="hl-0">&#39;#ffdcd8&#39;</span><span class="hl-1"> </span><span class="hl-9">//change background selected rows</span><br/><span class="hl-1">  </span><span class="hl-4">/&gt;</span>
+</code><button>Copy</button></pre>
+<p><img src="./customStyle.png" alt="table" title="example of other style"></p>
+<p>To customize the style of the component, you can increase the specificity of your CSS rules. This means that you can target the component more precisely by adding more specific selectors to your CSS rules.</p>
+<p>For example, to change the background color of the th of the table, you can use the following CSS rule (with for example .box_table):
+change for example:</p>
+<pre><code class="language-css"><span class="hl-14">.thColor</span><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-6">border-bottom</span><span class="hl-1">: </span><span class="hl-12">1px</span><span class="hl-1"> </span><span class="hl-15">solid</span><span class="hl-1"> </span><span class="hl-15">#1b1818</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-6">background-color</span><span class="hl-1">: </span><span class="hl-15">#b1c46c</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p>to</p>
+<pre><code class="language-css"><span class="hl-14">.box_table</span><span class="hl-1"> </span><span class="hl-14">.thColor</span><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-6">border-bottom</span><span class="hl-1">: </span><span class="hl-12">1px</span><span class="hl-1"> </span><span class="hl-15">solid</span><span class="hl-1"> </span><span class="hl-15">#1b1818</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-6">background-color</span><span class="hl-1">: </span><span class="hl-15">blue</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p>or if you want change the header of table :
+like this 
+<img src="./column_reverse1.png" alt="table" title="example of other table&#39;s header"></p>
+<p>add in your css :</p>
+<pre><code class="language-css"><span class="hl-14">.box_labelAndBtnsColumn</span><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-6">flex-direction</span><span class="hl-1">: </span><span class="hl-15">column-reverse</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:remove-features-" class="tsd-anchor"></a><h2><a href="#md:remove-features-">Remove features :</a></h2><p>-Remove search global</p>
+<pre><code class="language-css"><span class="hl-14">.box_table</span><span class="hl-1"> </span><span class="hl-14">.box_searchReset</span><span class="hl-1">{</span><br/><span class="hl-1">    </span><span class="hl-6">display</span><span class="hl-1">:</span><span class="hl-15">none</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p>-Remove choice of the number of entries per page:</p>
+<pre><code class="language-css"><span class="hl-14">.box_table</span><span class="hl-1"> </span><span class="hl-14">.box_ChoiceEntries</span><span class="hl-1">{</span><br/><span class="hl-1">    </span><span class="hl-6">display</span><span class="hl-1">:</span><span class="hl-15">none</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p>-Remove sort the entries:</p>
+<pre><code class="language-css"><span class="hl-14">.box_table</span><span class="hl-1"> </span><span class="hl-14">.btnSort</span><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-6">display</span><span class="hl-1">:</span><span class="hl-15">none</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<p>-Remove search per column:</p>
+<pre><code class="language-css"><span class="hl-14">.box_table</span><span class="hl-1"> </span><span class="hl-14">.btnFilter</span><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-6">display</span><span class="hl-1">:</span><span class="hl-15">none</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:hiring-the-author" class="tsd-anchor"></a><h2><a href="#md:hiring-the-author">Hiring the author</a></h2><p>If you want to hire my services, don’t hesitate to drop me a line at the email address listed in my GitHub profile.</p>
+<a id="md:license" class="tsd-anchor"></a><h4><a href="#md:license">License</a></h4><p>This project is licensed under the MIT License - see the <a href="(https://github.com/palacioscaroline/typescript-table/blob/master/LICENSE).">LICENSE</a> file for details.</p>
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)" id="icon-chevronDown"></path></svg>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li>
+<ul>
+<li><a href="#md:typescript-table-a-package-for-easily-importing-a-table-to-display-your-data-"><span>typescript-<wbr/>table: <wbr/>A package for easily importing a table to display your data .</span></a></li>
+<li><a href="#md:features"><span>Features</span></a></li>
+<li>
+<ul>
+<li><a href="#md:install-the-package"><span>Install the package</span></a></li>
+<li><a href="#md:import-in-your-application"><span>Import in your application</span></a></li>
+<li><a href="#md:all-data-types-can-be-displayed-in-the-table"><span>All data types can be displayed in the table:</span></a></li>
+<li><a href="#md:exemple-of-use"><span>Exemple of use</span></a></li>
+<li><a href="#md:else-use-with-boutons-to-export-data"><span>else use with boutons to export data:</span></a></li>
+<li><a href="#md:quotcustomizing-sorting-and-filteringquot"><span>&quot;<wbr/>Customizing <wbr/>Sorting and <wbr/>Filtering.&quot;</span></a></li>
+<li><a href="#md:example-datas"><span>Example datas</span></a></li>
+<li><a href="#md:date-format-for-columns-data-as-strings-containing-dates"><span>Date format for columns (data as strings containing dates)</span></a></li>
+<li><a href="#md:table-row-interactions"><span>Table <wbr/>Row <wbr/>Interactions</span></a></li>
+<li>
+<ul>
+<li><a href="#md:notes"><span>Notes</span></a></li></ul></li>
+<li><a href="#md:customize-the-component39s-style"><span>Customize the <wbr/>Component&#39;s <wbr/>Style</span></a></li>
+<li><a href="#md:remove-features-"><span>Remove features :</span></a></li>
+<li><a href="#md:hiring-the-author"><span>Hiring the author</span></a></li>
+<li>
+<ul>
+<li><a href="#md:license"><span>License</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>typescript-<wbr/>table</span></a>
+<ul class="tsd-small-nested-navigation">
+<li><a href="functions/Table.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-64"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)"></path></g></svg><span>Table</span></a></li></ul></nav></div></div></div>
+<div class="tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div></body></html>

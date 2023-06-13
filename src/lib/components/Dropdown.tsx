@@ -1,6 +1,17 @@
 import React, { useState, useEffect, useRef, createRef } from 'react';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 
+/**
+ * DropdownProps: The props passed to the Dropdown component.
+ * 
+ * @param {string | undefined} defaultValueSelectedOption - The default selected option when the dropdown is first initialized.
+ * @param {string[]} options - An array of strings representing the options available in the dropdown.
+ * @param {(option: string) => void} onOptionClick - A function that is triggered when an option in the dropdown is clicked.
+ * @param {string} className - A string representing the className of the dropdown component.
+ * @param {string} classNameProps - A string representing the className of the dropdown's properties.
+ * @param {React.CSSProperties} style - The CSS properties to be applied to the dropdown component.
+ * @param {string} dataTestId - A string representing the test-id for testing purposes.
+ */
 interface DropdownProps {
   defaultValueSelectedOption?: string | undefined;
   options: string[];
@@ -11,6 +22,13 @@ interface DropdownProps {
   dataTestId: string
 }
 
+/**
+ * Dropdown: A Dropdown component that allows a user to choose an option from a dropdown menu.
+ * 
+ * @param {DropdownProps} props - The props passed to the Dropdown component.
+ * 
+ * @returns {JSX.Element} - Returns a JSX element representing the Dropdown component.
+ */
 function Dropdown(props: DropdownProps): JSX.Element {
   const [selectedOption, setSelectedOption] = useState<string>(
     props.defaultValueSelectedOption || '',
@@ -26,7 +44,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
     );
   }, [props.options]);
 
-  // Focus sur le bouton de l'option lorsque l'option est mise en évidence
+  // Focus on the option button when the option is highlighted
   useEffect(() => {
     if (isOpen && focusedOptionIndex !== -1) {
       optionRefs.current[focusedOptionIndex].current?.focus();
@@ -42,7 +60,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
   const toggleDropdown = (): void => {
     setIsOpen((prevIsOpen) => {
       if (!prevIsOpen) {
-        setFocusedOptionIndex(0); // Sélectionnez la première option lors de l'ouverture du menu déroulant
+        setFocusedOptionIndex(0); // Select the first option when opening the dropdown menu
       }
       return !prevIsOpen;
     });
@@ -51,7 +69,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
   const handleChevronClick = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
   ): void => {
-    event.stopPropagation(); // Arrêter la propagation de l'événement pour éviter que le clic ne soit transmis au bouton parent
+    event.stopPropagation(); 
     toggleDropdown();
   };
 
@@ -88,7 +106,6 @@ function Dropdown(props: DropdownProps): JSX.Element {
         }
         break;
       case 'Tab':
-        // Si l'utilisateur appuie sur 'Tab', fermez le menu déroulant
         // event.preventDefault();
         setIsOpen(false);
         break;

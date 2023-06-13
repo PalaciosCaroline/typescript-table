@@ -1,6 +1,13 @@
 import React, { useRef } from 'react';
 import { MdFilterAltOff, MdFilterAlt } from 'react-icons/md';
 
+/**
+ * SearchDropdownProps: The properties passed to the SearchDropdown component.
+ * @param {Record<string, string | undefined>} inputValues : The name of the property associated with the search dropdown.
+ * @param {string} property The name of the property associated with the search dropdown.
+ * @param {(property: string) => void} handleToggle: A function that is called when the search dropdown is toggled.;
+ */
+
 interface SearchDropdownProps {
   inputValues: Record<string, string | undefined>;
   property: string;
@@ -18,7 +25,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
   inputValues,
   property,
   handleToggle,
-}) => {
+}: SearchDropdownProps): React.ReactElement => {
   /**
    * Reference to the dropdown container element.
    */

@@ -1,6 +1,14 @@
 import React, { useRef, useEffect, KeyboardEvent } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
+/**
+ * ModalProps: The properties passed to the Modal component.
+ * 
+ * @param {boolean} isOpen - A boolean that indicates if the modal is open.
+ * @param {() => void} onClose - A function that is called to close the modal.
+ * @param {React.ReactNode} children - The elements to be rendered in the modal.
+ * @param {React.CSSProperties} style - The CSS properties to be applied to the modal.
+ */
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -9,11 +17,11 @@ interface ModalProps {
 }
 
 /**
- * Component for displaying a modal.
+ * Modal: A component for rendering a modal.
  *
  * @component
- * @param {ModalProps} props - The props for the Modal component.
- * @returns {JSX.Element} The rendered Modal component.
+ * @param {ModalProps} props - The properties passed to the Modal component.
+ * @returns {JSX.Element} - Returns a JSX element representing the rendered Modal.
  */
 function Modal(props: ModalProps): JSX.Element {
    // useRef for storing references to the modal elements

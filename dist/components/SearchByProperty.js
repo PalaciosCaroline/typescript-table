@@ -12,12 +12,12 @@ var __assign = (this && this.__assign) || function () {
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { FaTimes } from 'react-icons/fa';
 /**
- * Component for searching by property.
+ * SearchByProperty: A component for searching by property.
  *
  * @component
- * @template U - The type of the input values.
- * @param {Props<U>} props - The props for the SearchByProperty component.
- * @returns {React.ReactElement} The rendered SearchByProperty component.
+ * @template U - The type of the input values. By default, it's set to 'string'.
+ * @param {Props<U>} props - The properties passed to the SearchByProperty component.
+ * @returns {React.ReactElement} - Returns a JSX element representing the rendered SearchByProperty component.
  */
 var SearchByProperty = function (_a) {
     var inputValues = _a.inputValues, property = _a.property, handleSearchByProperty = _a.handleSearchByProperty, handleReset = _a.handleReset;

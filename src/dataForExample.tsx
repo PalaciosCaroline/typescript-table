@@ -35,7 +35,7 @@ const columnsExample: Column[] = [
 ];
 
 interface Data {
-  id: number | string;
+  id: number;
   [key: string]: string | number | undefined;
   firstName: string | undefined;
   lastName: string | undefined;

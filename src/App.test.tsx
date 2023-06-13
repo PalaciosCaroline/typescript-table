@@ -8,6 +8,9 @@ import ManageColumns from './lib/components/ManageColumns';
 import Modal from './lib/components/Modal';
 import Pagination from './lib/components/Pagination';
 import userEvent from '@testing-library/user-event';
+import ActionButton from './lib/components/ActionButton';
+import { FiEdit3, FiArchive } from 'react-icons/fi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 describe('Library index', () => {
   it('should correctly import and export Table component', () => {
@@ -346,18 +349,18 @@ describe('compareArrays', () => {
 
 describe('Modal', () => {
   test('renders modal when isOpen is true', () => {
-    render(<Modal isOpen={true} onClose={() => {}}><div>Modal content</div></Modal>);
+    render(<Modal isOpen={true} onClose={() => {}} style={{}}><div>Modal content</div></Modal>);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
   test('does not render modal when isOpen is false', () => {
-    render(<Modal isOpen={false} onClose={() => {}}><div>Modal content</div></Modal>);
+    render(<Modal isOpen={false} onClose={() => {}} style={{}}><div>Modal content</div></Modal>);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   test('closes the modal when the close button is clicked', () => {
     const handleClose = jest.fn();
-    render(<Modal isOpen={true} onClose={handleClose}><div>Modal content</div></Modal>);
+    render(<Modal isOpen={true} onClose={handleClose} style={{}}><div>Modal content</div></Modal>);
     const closeButton = screen.getByRole('button', { name: 'Fermer la fenêtre' });
     userEvent.click(closeButton);
     expect(handleClose).toHaveBeenCalledTimes(1);
@@ -365,7 +368,7 @@ describe('Modal', () => {
 
   test('closes the modal when the escape key is pressed', () => {
     const handleClose = jest.fn();
-    render(<Modal isOpen={true} onClose={handleClose}><div>Modal content</div></Modal>);
+    render(<Modal isOpen={true} onClose={handleClose} style={{}}><div>Modal content</div></Modal>);
 
 
     fireEvent.keyDown(document, { key: 'Escape' });
@@ -374,10 +377,9 @@ describe('Modal', () => {
 
   test('traps focus within the modal', () => {
     const handleClose = jest.fn();
-    render(<Modal isOpen={true} onClose={handleClose}><div>Modal content</div></Modal>);
+    render(<Modal isOpen={true} onClose={handleClose} style={{}}><div>Modal content</div></Modal>);
     
     const btnCloseModal = screen.getByTestId('btnCloseModal');
-
 
     btnCloseModal.focus();
     fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
@@ -482,22 +484,30 @@ const mockColumns = [
 
 const handleColumnVisibility = jest.fn();
 const handleVisibleAllColumns = jest.fn();
+const selectRowColumnVisible = true;
+const style = {};
 
 const defaultProps = {
   columns: mockColumns,
   handleColumnVisibility,
   handleVisibleAllColumns,
+  selectRowColumnVisible,
+  style,
 };
 
 describe('ManageColumns', () => {
   test('renders ManageColumns component', () => {
-    render(<ManageColumns {...defaultProps} />);
+    render(<ManageColumns handleVisibleSelectRowsColumn={function (): void {
+      throw new Error('Function not implemented.');
+    } } {...defaultProps} />);
     const manageColumnsBtn = screen.getByLabelText('managed columns');
     expect(manageColumnsBtn).toBeInTheDocument();
   });
 
   test('opens the modal on button click', () => {
-    render(<ManageColumns {...defaultProps} />);
+    render(<ManageColumns handleVisibleSelectRowsColumn={function (): void {
+      throw new Error('Function not implemented.');
+    } } {...defaultProps} />);
     const manageColumnsBtn = screen.getByLabelText('managed columns');
     fireEvent.click(manageColumnsBtn);
     const showModal = screen.getByText('Show All Columns');
@@ -505,7 +515,9 @@ describe('ManageColumns', () => {
   });
 
   test('calls handleVisibleAllColumns on "Show All Columns" button click', () => {
-    render(<ManageColumns {...defaultProps} />);
+    render(<ManageColumns handleVisibleSelectRowsColumn={function (): void {
+      throw new Error('Function not implemented.');
+    } } {...defaultProps}  />);
     const manageColumnsBtn = screen.getByLabelText('managed columns');
     fireEvent.click(manageColumnsBtn);
     const showAllColumnsBtn = screen.getByTestId('btnVisibleColumn');
@@ -514,7 +526,9 @@ describe('ManageColumns', () => {
   });
 
   test('toggles column visibility on checkbox change', () => {
-    render(<ManageColumns {...defaultProps} />);
+    render(<ManageColumns handleVisibleSelectRowsColumn={function (): void {
+      throw new Error('Function not implemented.');
+    } } {...defaultProps} />);
     const manageColumnsBtn = screen.getByLabelText('managed columns');
     fireEvent.click(manageColumnsBtn);
     const nameInput = screen.getByTestId('inputManaged-name');
@@ -524,7 +538,9 @@ describe('ManageColumns', () => {
   });
 
   test('toggles column visibility on checkbox key down (Enter)', () => {
-    render(<ManageColumns {...defaultProps} />);
+    render(<ManageColumns handleVisibleSelectRowsColumn={function (): void {
+      throw new Error('Function not implemented.');
+    } } {...defaultProps}  />);
     const manageColumnsBtn = screen.getByLabelText('managed columns');
     fireEvent.click(manageColumnsBtn);
     const nameInput = screen.getByTestId('inputManaged-name');
@@ -574,6 +590,60 @@ describe("Pagination component", () => {
     const prevPageBtn = getByLabelText("go to the previous page");
     fireEvent.click(prevPageBtn);
     expect(handlePageChange).toHaveBeenCalledWith(updatedProps.page - 1);
+  });
+});
+
+describe('ActionButton', () => {
+  const mockHandleEdit = jest.fn();
+  const mockHandleArchive = jest.fn();
+  const mockHandleDelete = jest.fn();
+
+  it('calls handleEdit when edit button is clicked', () => {
+    const { getByTestId } = render(
+      <ActionButton
+        actionType="edit"
+        visible={true}
+        handleAction={mockHandleEdit}
+        itemId="1"
+        icons={{ edit: <FiEdit3 /> }}
+      />
+    );
+
+    fireEvent.click(getByTestId('edit'));
+
+    expect(mockHandleEdit).toHaveBeenCalledWith("1", expect.any(Object));
+  });
+
+  it('calls handleArchive when archive button is clicked', () => {
+    const { getByTestId } = render(
+      <ActionButton
+        actionType="archive"
+        visible={true}
+        handleAction={mockHandleArchive}
+        itemId="2"
+        icons={{ archive: <FiArchive /> }}
+      />
+    );
+
+    fireEvent.click(getByTestId('archive'));
+
+    expect(mockHandleArchive).toHaveBeenCalledWith("2", expect.any(Object));
+  });
+
+  it('calls handleDelete when delete button is clicked', () => {
+    const { getByTestId } = render(
+      <ActionButton
+        actionType="delete"
+        visible={true}
+        handleAction={mockHandleDelete}
+        itemId="3"
+        icons={{ delete: <RiDeleteBin6Line /> }}
+      />
+    );
+
+    fireEvent.click(getByTestId('delete'));
+
+    expect(mockHandleDelete).toHaveBeenCalledWith("3", expect.any(Object));
   });
 });
 

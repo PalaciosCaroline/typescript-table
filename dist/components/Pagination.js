@@ -12,11 +12,11 @@ var __assign = (this && this.__assign) || function () {
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { FiChevronsLeft, FiChevronsRight, FiChevronLeft, FiChevronRight, } from 'react-icons/fi';
 /**
- * Component for rendering pagination controls.
+ * Pagination: A component for rendering pagination controls.
  *
  * @component
- * @param {Props} props - The props for the Pagination component.
- * @returns {JSX.Element} The rendered Pagination component.
+ * @param {Props} props - The properties passed to the Pagination component.
+ * @returns {JSX.Element} - Returns a JSX element representing the rendered Pagination.
  */
 function Pagination(props) {
     var page = props.page, totalPages = props.totalPages, handlePageChange = props.handlePageChange;

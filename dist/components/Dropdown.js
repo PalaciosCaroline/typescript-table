@@ -12,6 +12,13 @@ var __assign = (this && this.__assign) || function () {
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect, useRef, createRef } from 'react';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
+/**
+ * Dropdown: A Dropdown component that allows a user to choose an option from a dropdown menu.
+ *
+ * @param {DropdownProps} props - The props passed to the Dropdown component.
+ *
+ * @returns {JSX.Element} - Returns a JSX element representing the Dropdown component.
+ */
 function Dropdown(props) {
     var _a = useState(props.defaultValueSelectedOption || ''), selectedOption = _a[0], setSelectedOption = _a[1];
     var _b = useState(false), isOpen = _b[0], setIsOpen = _b[1];
@@ -21,7 +28,7 @@ function Dropdown(props) {
     useEffect(function () {
         optionRefs.current = props.options.map(function (_, i) { var _a; return (_a = optionRefs.current[i]) !== null && _a !== void 0 ? _a : createRef(); });
     }, [props.options]);
-    // Focus sur le bouton de l'option lorsque l'option est mise en évidence
+    // Focus on the option button when the option is highlighted
     useEffect(function () {
         var _a;
         if (isOpen && focusedOptionIndex !== -1) {
@@ -36,13 +43,13 @@ function Dropdown(props) {
     var toggleDropdown = function () {
         setIsOpen(function (prevIsOpen) {
             if (!prevIsOpen) {
-                setFocusedOptionIndex(0); // Sélectionnez la première option lors de l'ouverture du menu déroulant
+                setFocusedOptionIndex(0); // Select the first option when opening the dropdown menu
             }
             return !prevIsOpen;
         });
     };
     var handleChevronClick = function (event) {
-        event.stopPropagation(); // Arrêter la propagation de l'événement pour éviter que le clic ne soit transmis au bouton parent
+        event.stopPropagation();
         toggleDropdown();
     };
     var handleClickOutside = function (event) {
@@ -76,7 +83,6 @@ function Dropdown(props) {
                 }
                 break;
             case 'Tab':
-                // Si l'utilisateur appuie sur 'Tab', fermez le menu déroulant
                 // event.preventDefault();
                 setIsOpen(false);
                 break;

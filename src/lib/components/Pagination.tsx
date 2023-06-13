@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   FiChevronsLeft,
   FiChevronsRight,
@@ -7,6 +6,13 @@ import {
   FiChevronRight,
 } from 'react-icons/fi';
 
+/**
+ * Props: The properties passed to the Pagination component.
+ * 
+ * @param {number} page - The current page number.
+ * @param {number} totalPages - The total number of pages.
+ * @param {(page: number) => void} handlePageChange - A function that is called when the page number changes.
+ */
 interface Props {
   page: number;
   totalPages: number;
@@ -14,11 +20,11 @@ interface Props {
 }
 
 /**
- * Component for rendering pagination controls.
+ * Pagination: A component for rendering pagination controls.
  *
  * @component
- * @param {Props} props - The props for the Pagination component.
- * @returns {JSX.Element} The rendered Pagination component.
+ * @param {Props} props - The properties passed to the Pagination component.
+ * @returns {JSX.Element} - Returns a JSX element representing the rendered Pagination.
  */
 function Pagination(props: Props) {
   const { page, totalPages, handlePageChange } = props;

@@ -12,11 +12,11 @@ var __assign = (this && this.__assign) || function () {
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import Dropdown from './Dropdown';
 /**
- * Component for selecting the number of rows per page.
+ * RowsPerPage: A component for selecting the number of rows to display per page.
  *
  * @component
- * @param {RowsPerPageProps} props - The props for the RowsPerPage component.
- * @returns {React.ReactElement} The rendered RowsPerPage component.
+ * @param {RowsPerPageProps} props - The properties passed to the RowsPerPage component.
+ * @returns {React.ReactElement} - Returns a JSX element representing the rendered RowsPerPage component.
  */
 var RowsPerPage = function (_a) {
     var handlePerPageChange = _a.handlePerPageChange, style = _a.style;

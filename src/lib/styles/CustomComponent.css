@@ -7,6 +7,10 @@
 .customComponent:hover {
   background-color: var(--hover-background-color);
 }
+.customComponent.noHoverEffect.focused,
+.customComponent.noHoverEffect:hover {
+  background-color: var(--background-color);
+}
 
 .customComponent.inputSelectRows {
   background-color: #fff;

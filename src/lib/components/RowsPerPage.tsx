@@ -25,7 +25,7 @@ const RowsPerPage: React.FC<RowsPerPageProps> = ({
   style,
 }: RowsPerPageProps): ReactElement => {
   return (
-    <div className="box_ChoiceEntries customComponent" id="box_ChoiceEntries" style={style}>
+    <div className="box_ChoiceEntries customComponent noHoverEffect" id="box_ChoiceEntries" style={style}>
        {/* Text displaying "Rows per page" */}
       <span className="box_ChoiceEntriesText">Rows per page:</span>
        {/* Dropdown component for selecting the number of rows per page */}

@@ -34,6 +34,10 @@ var SearchByProperty = function (_a) {
         var value = event.target.value;
         handleSearchByProperty(property, value);
     };
-    return (_jsxs("div", __assign({ className: "box_searchBProps" }, { children: [_jsx("input", { type: "text", value: inputValues[property], onChange: handleInputChange, placeholder: "Search...", name: property, className: "inputSearchByProperty", "data-testid": "btnSearch-".concat(property) }), _jsx("button", __assign({ type: "button", className: "btnSearchByPropertyReset", onClick: handleResetSearchByProperty, "data-testid": "btnResetClose-".concat(property), "aria-label": "Clear the search by ".concat(property) }, { children: _jsx(FaTimes, {}) }))] })));
+    return (_jsxs("div", __assign({ className: "box_searchBProps" }, { children: [_jsx("input", { type: "text", value: inputValues[property], onChange: handleInputChange, placeholder: "Search...", name: property, className: "inputSearchByProperty", "data-testid": "btnSearch-".concat(property) }), _jsx("button", __assign({ type: "button", className: "btnSearchByPropertyReset", onClick: handleResetSearchByProperty, onKeyDown: function (e) {
+                    if (e.key === 'Enter') {
+                        handleResetSearchByProperty();
+                    }
+                }, "data-testid": "btnResetClose-".concat(property), "aria-label": "Clear the search by ".concat(property) }, { children: _jsx(FaTimes, {}) }))] })));
 };
 export default SearchByProperty;

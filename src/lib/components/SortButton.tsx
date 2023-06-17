@@ -47,6 +47,11 @@ const SortButton: React.FC<SortButtonProps> = ({
   ): React.ReactElement => (
     <button
       onClick={() => handleColumnSort(property, dateFormat)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          handleColumnSort(property, dateFormat);
+        }
+      }}
       className={`btnSort btnSort_tableComponent ${
         isSortKey && sortOrder != 'noSort' ? ' selectedBtnSort' : ''
       }`}

@@ -124,7 +124,7 @@ p.label_tableComponent {
 }
 
 .td_tableComponent {
-  padding: 8px;
+  padding:5px;
   text-align: left;
   border-left: 1px solid #e1e0e0;
   border-bottom: 1px solid #ddd;
@@ -872,21 +872,24 @@ button.dropdownOptionButton{
 
 .box_btnEditArchiveDelete{
   height: 100%;
-  justify-content: stretch;
-  align-items: stretch;
 }
 
 .td_tableComponent.box_btnEditArchiveDelete{
   padding-left: 0;
   padding-right: 0;
+  padding-top:0;
+  padding-bottom:0;
 }
 
 .box_btnEditArchiveDelete button{
   padding-left:12px;
   padding-right:12px;
+  padding-top:12px;
+  padding-bottom:12px;
+  display: inline-table;
   height: 100%;
   background-color: transparent;
-  display: inline-block;
+  flex-grow: 1;
 }
 
 .box_btnEditArchiveDelete button > svg {

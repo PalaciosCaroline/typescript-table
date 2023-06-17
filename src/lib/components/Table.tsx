@@ -578,6 +578,11 @@ export function Table<T>({
                     data-role="checkbox-three-state"
                     data-caption="Checkbox"
                     checked={selectAllChecked}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSelectAll();
+                      }
+                    }}
                     onChange={handleSelectAll}
                     ref={selectAllRef}
                     className="inputSelectAllRows inputSelectRows customComponent"
@@ -655,6 +660,11 @@ export function Table<T>({
                   selectedRows.has(item.id) ? 'selected' : ''
                 }`}
                 onClick={() => handleRowSelection(item.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleRowSelection(item.id);
+                  }
+                }}
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 onChange={() => {}}
                 aria-label="Select this row"

@@ -28,7 +28,11 @@ var SortButton = function (_a) {
     * @param {string} testIdSuffix - The test ID suffix for the sort button.
     * @returns {React.ReactElement} The rendered sort button.
     */
-    var renderSortButton = function (icon, label, testIdSuffix) { return (_jsx("button", __assign({ onClick: function () { return handleColumnSort(property, dateFormat); }, className: "btnSort btnSort_tableComponent ".concat(isSortKey && sortOrder != 'noSort' ? ' selectedBtnSort' : ''), "aria-label": label, "data-testid": "btnSort".concat(testIdSuffix, "-").concat(property) }, { children: icon }))); };
+    var renderSortButton = function (icon, label, testIdSuffix) { return (_jsx("button", __assign({ onClick: function () { return handleColumnSort(property, dateFormat); }, onKeyDown: function (e) {
+            if (e.key === 'Enter') {
+                handleColumnSort(property, dateFormat);
+            }
+        }, className: "btnSort btnSort_tableComponent ".concat(isSortKey && sortOrder != 'noSort' ? ' selectedBtnSort' : ''), "aria-label": label, "data-testid": "btnSort".concat(testIdSuffix, "-").concat(property) }, { children: icon }))); };
     return (_jsxs(_Fragment, { children: [(!isSortKey || (isSortKey && sortOrder === 'noSort')) &&
                 renderSortButton(_jsx(FaSort, {}), 'no sorted, change by ascendant', 'ByAsc'), isSortKey &&
                 sortOrder === 'asc' &&

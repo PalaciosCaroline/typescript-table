@@ -69,6 +69,11 @@ const SearchByProperty = <
         type="button"
         className="btnSearchByPropertyReset"
         onClick={handleResetSearchByProperty}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleResetSearchByProperty();
+          }
+        }}
         data-testid={`btnResetClose-${property}`}
         aria-label={`Clear the search by ${property}`}
       >

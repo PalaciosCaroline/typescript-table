@@ -25,6 +25,11 @@ var ActionButton = function (_a) {
     return (_jsx("button", __assign({ className: "btn".concat(actionType.charAt(0).toUpperCase() + actionType.slice(1)), onClick: function (e) {
             e.stopPropagation(); // to prevent triggering row selection
             handleAction(itemId, e);
+        }, onKeyDown: function (e) {
+            if (e.key === 'Enter') {
+                e.stopPropagation();
+                handleAction(itemId, e);
+            }
         }, "aria-label": "".concat(actionType, " this row"), "data-testid": actionType }, { children: icons[actionType] })));
 };
 export default ActionButton;

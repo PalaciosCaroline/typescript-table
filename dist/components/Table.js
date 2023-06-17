@@ -371,7 +371,11 @@ export function Table(_a) {
                                     if (isVisible) {
                                         return (_jsx("col", { id: "col_".concat(property) }, "{col_".concat(property)));
                                     }
-                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [selectRowColumnVisible && (_jsxs("th", __assign({ className: "thColor th_tableComponent box_inputSelectAllRows" }, { children: [_jsx("input", { id: "selectAll", type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onChange: handleSelectAll, ref: selectAllRef, className: "inputSelectAllRows inputSelectRows customComponent", role: "checkbox", "aria-checked": selectAllChecked
+                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [selectRowColumnVisible && (_jsxs("th", __assign({ className: "thColor th_tableComponent box_inputSelectAllRows" }, { children: [_jsx("input", { id: "selectAll", type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onKeyDown: function (e) {
+                                                        if (e.key === 'Enter') {
+                                                            handleSelectAll();
+                                                        }
+                                                    }, onChange: handleSelectAll, ref: selectAllRef, className: "inputSelectAllRows inputSelectRows customComponent", role: "checkbox", "aria-checked": selectAllChecked
                                                         ? 'true'
                                                         : isIndeterminate
                                                             ? 'mixed'
@@ -385,7 +389,11 @@ export function Table(_a) {
                                             var isSortKey = sortKey === property;
                                             return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
                                                     ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
-                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, 
+                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), onClick: function () { return handleRowSelection(item.id); }, onKeyDown: function (e) {
+                                        if (e.key === 'Enter') {
+                                            handleRowSelection(item.id);
+                                        }
+                                    }, 
                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
                                     onChange: function () { }, "aria-label": "Select this row", style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
                                                         e.stopPropagation();

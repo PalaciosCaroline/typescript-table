@@ -23,7 +23,7 @@ interface SearchAndResetGlobalProps {
  * @param {SearchAndResetGlobalProps} props - The properties passed to the SearchAndResetGlobal component.
  * @returns {React.ReactElement} - Returns a JSX element representing the rendered SearchAndResetGlobal component.
  */
-export const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
+const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
   searchTerm,
   style,
   handleSearch,
@@ -57,3 +57,5 @@ export const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
     </div>
   );
 };
+
+export default SearchAndResetGlobal;

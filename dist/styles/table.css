@@ -801,10 +801,6 @@ thead {
   width: 1rem;
 }
 
-/* .tr_tableComponent.selected {
-  background:rgba(175 228 145 / 20%);
-} */
-
 .th_tableComponent.box_inputSelectAllRows{
   padding:2px 4px;
  
@@ -837,14 +833,7 @@ thead {
   position: relative;
   width: 20px;
   height: 20px;
-  /* background-color: #677e11;
-  border: 2px solid #677e11; */
 }
-
-/* .inputSelectRows:checked {
-  background-color: #677e11;
-  border: 2px solid #677e11;
-} */
 
 .inputSelectRows:checked::after {
   content: '';

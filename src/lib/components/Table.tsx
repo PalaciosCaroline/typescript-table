@@ -3,21 +3,22 @@ import { customSort } from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
 import './../styles/table.css';
-import { TableHeader } from './TableHeader';
-import { SearchAndResetGlobal } from './searchAndResetGlobal';
+import TableHeader from './TableHeader';
+import SearchAndResetGlobal from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
 import ActionButton from './ActionButton';
+import EntriesInfo from './EntriesInfo';
 import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import './../styles/CustomComponent.css';
 
 /**
- * The Column interface represents a column in the table. 
- * @interface 
- * @property {string} label - The label of the column. 
- * @property {string} property - The property of the column. 
- * @property {string} [dateFormat] - The date format of the column (optional). 
- * @property {boolean} [disableSort] - Flag indicating if sorting is disabled for the column (optional). 
+ * The Column interface represents a column in the table.
+ * @interface
+ * @property {string} label - The label of the column.
+ * @property {string} property - The property of the column.
+ * @property {string} [dateFormat] - The date format of the column (optional).
+ * @property {boolean} [disableSort] - Flag indicating if sorting is disabled for the column (optional).
  * @property {boolean} [disableFilter] - Flag indicating if filtering is disabled for the column (optional).
  */
 export interface Column {
@@ -29,8 +30,8 @@ export interface Column {
 }
 
 /**
- * The ColumnManaged interface extends the Column interface with visibility property. 
- * @interface 
+ * The ColumnManaged interface extends the Column interface with visibility property.
+ * @interface
  * @property {boolean} [isVisible] - Flag indicating if the column is visible (optional).
  */
 export interface ColumnManaged extends Column {
@@ -49,7 +50,7 @@ export interface InputValues<T> {
 /**
  * The SearchByProperty interface represents a record where the key is a string and the value is a string or undefined.
  * It's used for searching by property.
- * @interface 
+ * @interface
  */
 interface SearchByProperty {
   [key: string]: string | undefined;
@@ -58,7 +59,7 @@ interface SearchByProperty {
 /**
  * The SearchTerms interface represents a record where the key is a string and the value is a string.
  * It's used for storing search terms.
- * @interface 
+ * @interface
  */
 interface SearchTerms {
   [key: string]: string;
@@ -75,30 +76,29 @@ export interface DataItem<T> {
 
 /**
  * The Props interface represents the properties of the Table component.
- * @interface 
- * @property {DataItem<T | undefined>[]} data - The data to be displayed in the table. 
- * @property {Column[]} columns - The columns of the table. 
- * @property {string} [background] - The background color of the table (optional). 
- * @property {string} [color] - The color of the text in the table (optional). 
- * @property {string} [hoverBackground] - The background color of the hovered rows in the table (optional). 
- * @property {string} [selectedRowsBackground] - The background color of the selected rows in the table (optional). 
- * @property {(filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[], headerProperty?: string) => React.ReactNode} [renderExportDataComponent] - A function to render a data export component (optional). 
- * @property {boolean} [editRowColumnVisible] - Flag indicating if the edit row column is visible (optional). 
- * @property {(id: T, e?: any) => void} [handleEditRow] - The function to handle row editing (optional). 
- * @property {boolean} [archiveRowColumnVisible] - Flag indicating if the archive row column is visible (optional). 
- * @property {(id: T, e?: any) => void} [handleArchiveRow] - The function to handle row archiving (optional). 
- * @property {boolean} [deleteRowColumnVisible] - Flag indicating if the delete row column is visible (optional). 
- * @property {(id: T, e?: any) => void} [handleDeleteRow] - The function to handle row deletion (optional). 
+ * @interface
+ * @property {DataItem<T | undefined>[]} data - The data to be displayed in the table.
+ * @property {Column[]} columns - The columns of the table.
+ * @property {string} [background] - The background color of the table (optional).
+ * @property {string} [color] - The color of the text in the table (optional).
+ * @property {string} [hoverBackground] - The background color of the hovered rows in the table (optional).
+ * @property {string} [selectedRowsBackground] - The background color of the selected rows in the table (optional).
+ * @property {(filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[], headerProperty?: string) => React.ReactNode} [renderExportDataComponent] - A function to render a data export component (optional).
+ * @property {boolean} [editRowColumnVisible] - Flag indicating if the edit row column is visible (optional).
+ * @property {(id: T, e?: any) => void} [handleEditRow] - The function to handle row editing (optional).
+ * @property {boolean} [archiveRowColumnVisible] - Flag indicating if the archive row column is visible (optional).
+ * @property {(id: T, e?: any) => void} [handleArchiveRow] - The function to handle row archiving (optional).
+ * @property {boolean} [deleteRowColumnVisible] - Flag indicating if the delete row column is visible (optional).
+ * @property {(id: T, e?: any) => void} [handleDeleteRow] - The function to handle row deletion (optional).
  */
 export interface TableProps<T> {
-  data: DataItem<T | undefined>[]; // Les données à afficher dans le tableau
-  columns: Column[]; // Les colonnes du tableau
+  data: DataItem<T | undefined>[]; // data to display
+  columns: Column[]; // columns of table
   background?: string;
   color?: string;
   hoverBackground?: string;
   selectedRowsBackground?: string;
   renderExportDataComponent?: (
-    // Une fonction pour rendre un composant d'exportation de données
     filteredData: DataItem<T | undefined>[],
     columnsManaged: ColumnManaged[],
     headerProperty?: string,
@@ -446,7 +446,7 @@ export function Table<T>({
    * @function handleRowSelection
    * @returns {void}
    */
-  const handleRowSelection = (id: T | undefined) => {
+  const handleRowSelection = (id: T | undefined): void => {
     if (id !== undefined) {
       setSelectedRows((prevSelectedRows) => {
         const newSelectedRows = new Set(prevSelectedRows);
@@ -478,7 +478,10 @@ export function Table<T>({
 
   // manage select case of head (allChecked, indeterminate, and noChecked)
   useEffect(() => {
-    if (selectedRows.size === filteredData.length) {
+    if (filteredData.length === 0) {
+      setSelectAllChecked(false);
+      setIndeterminate(false);
+    } else if (selectedRows.size === filteredData.length) {
       setSelectAllChecked(true);
       setIndeterminate(false);
     } else if (selectedRows.size === 0) {
@@ -506,6 +509,31 @@ export function Table<T>({
   const handleVisibleSelectRowsColumn = () => {
     setSelectRowColumnVisible(!selectRowColumnVisible);
   };
+
+  const actionButtons = [
+    {
+      type: 'edit' as const,
+      isVisible: editRowColumnVisible,
+      handler: handleEditRow,
+      icon: <FiEdit3 />,
+    },
+    {
+      type: 'archive' as const,
+      isVisible: archiveRowColumnVisible,
+      handler: handleArchiveRow,
+      icon: <FiArchive />,
+    },
+    {
+      type: 'delete' as const,
+      isVisible: deleteRowColumnVisible,
+      handler: handleDeleteRow,
+      icon: <RiDeleteBin6Line />,
+    },
+  ];
+
+  const isAtLeastOneButtonVisible = actionButtons.some(
+    (button) => button.isVisible && typeof button.handler === 'function',
+  );
 
   return (
     <div className="box_table box_tableAndFeatures">
@@ -610,9 +638,7 @@ export function Table<T>({
                   );
                 },
               )}
-              {(editRowColumnVisible && handleEditRow) ||
-              (archiveRowColumnVisible && handleArchiveRow) ||
-              (deleteRowColumnVisible && handleDeleteRow) ? (
+              {isAtLeastOneButtonVisible ? (
                 <th className="thColor th_tableComponent">
                   <span>Action</span>
                 </th>
@@ -671,77 +697,42 @@ export function Table<T>({
                   }
                   return null;
                 })}
-                {(editRowColumnVisible && handleEditRow) ||
-                (archiveRowColumnVisible && handleArchiveRow) ||
-                (deleteRowColumnVisible && handleDeleteRow)
-                  ? item.id !== undefined && (
-                      <td role="cell" className="td_tableComponent box_btnEditArchiveDelete">
+
+                {isAtLeastOneButtonVisible ? (
+                  <td
+                    role="cell"
+                    className="td_tableComponent box_btnEditArchiveDelete"
+                  >
+                    {actionButtons.map(({ type, isVisible, handler, icon }) =>
+                      isVisible && handler && item.id !== undefined ? (
                         <ActionButton
-                          actionType="edit"
-                          visible={
-                            (editRowColumnVisible && !!handleEditRow) || false
-                          }
-                          handleAction={(itemId,e) => {
-                            if (handleEditRow) {
-                              handleEditRow(itemId,e);
-                            }
-                          }}
-                          itemId={item.id}
-                          icons={{
-                            edit: <FiEdit3 />,
-                          }}
-                        />
-                        <ActionButton
-                          actionType="archive"
-                          visible={
-                            (archiveRowColumnVisible && !!handleArchiveRow) ||
-                            false
-                          }
+                          key={`${type}_btnAction`}
+                          actionType={type}
+                          visible={isVisible && !!handler}
                           handleAction={(itemId, e) => {
-                            if (handleArchiveRow) {
-                              handleArchiveRow(itemId, e);
-                            }
+                            handler(itemId, e);
                           }}
                           itemId={item.id}
                           icons={{
-                            archive: <FiArchive />,
+                            [type]: icon,
                           }}
                         />
-                        <ActionButton
-                          actionType="delete"
-                          visible={
-                            (deleteRowColumnVisible && !!handleDeleteRow) ||
-                            false
-                          }
-                          handleAction={(itemId, e) => {
-                            if (handleDeleteRow) {
-                              handleDeleteRow(itemId, e);
-                            }
-                          }}
-                          itemId={item.id}
-                          icons={{
-                            delete: <RiDeleteBin6Line />,
-                          }}
-                        />
-                      </td>
-                    )
-                  : null}
+                      ) : null,
+                    )}
+                  </td>
+                ) : null}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <div className="box_entriesAndPage">
-        <div className="showingEntries">
-          {filteredData.length <= 0
-            ? `0 result of ${data.length} entries`
-            : filteredData.length === 1
-            ? `1 entry`
-            : `${(page - 1) * perPage + 1} - ${Math.min(
-                page * perPage,
-                filteredData.length,
-              )} of ${filteredData.length} entries`}
-        </div>
+        <EntriesInfo
+          filteredDataLength={filteredData.length}
+          dataLength={data.length}
+          page={page}
+          perPage={perPage}
+        />
         <Pagination
           page={page}
           totalPages={totalPages}

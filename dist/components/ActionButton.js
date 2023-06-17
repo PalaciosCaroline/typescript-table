@@ -26,10 +26,7 @@ var ActionButton = function (_a) {
             e.stopPropagation(); // to prevent triggering row selection
             handleAction(itemId, e);
         }, onKeyDown: function (e) {
-            if (e.key === 'Enter') {
-                e.stopPropagation();
-                handleAction(itemId, e);
-            }
+            e.stopPropagation();
         }, "aria-label": "".concat(actionType, " this row"), "data-testid": actionType }, { children: icons[actionType] })));
 };
 export default ActionButton;

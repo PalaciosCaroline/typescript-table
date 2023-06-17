@@ -13,12 +13,18 @@ function App() {
     }
   };
   
-  const handleArchiveRow = (id:any) => {
+  const handleArchiveRow = (id:any, e:any) => {
     console.log('archive: ' + id);
+    if (e) {
+      console.log("Click event:", e);
+    }
   };
 
-  const handleDeleteRow = (id:any) => {
+  const handleDeleteRow = (id:any, e:any) => {
     console.log('delete: ' + id);
+    if (e) {
+      console.log("Click event:", e);
+    }
   };
 
   return (

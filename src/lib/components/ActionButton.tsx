@@ -44,10 +44,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
           handleAction(itemId,e);
         }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') {
             e.stopPropagation();
-            handleAction(itemId,e);
-          }
         }}
         aria-label={`${actionType} this row`}
         data-testid={actionType}

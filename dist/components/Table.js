@@ -389,19 +389,13 @@ export function Table(_a) {
                                             var isSortKey = sortKey === property;
                                             return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
                                                     ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
-                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), 
-                                    // onClick={() => handleRowSelection(item.id)}
-                                    // onKeyDown={(e) => {
-                                    //   if (e.key === 'Enter') {
-                                    //     handleRowSelection(item.id);
-                                    //   }
-                                    // }}
-                                    // // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                    // onChange={() => {}}
-                                    // aria-label="Select this row"
-                                    style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
+                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
                                                         e.stopPropagation();
                                                         handleRowSelection(item.id);
+                                                    }, onKeyDown: function (e) {
+                                                        if (e.key === 'Enter') {
+                                                            handleRowSelection(item.id);
+                                                        }
                                                     }, "aria-checked": isRowSelected(item.id) ? 'true' : 'false', "aria-label": "Select row with ".concat(item[1], " and ").concat(item[2]), "aria-labelledby": "row-".concat(item.id, "-label"), 
                                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
                                                     onChange: function () { }, style: style, id: "selectRow-".concat(item.id), name: "selectRow-".concat(item.id) }), _jsx("label", __assign({ htmlFor: "selectRow-".concat(item.id), className: "sr-only", id: "row-".concat(item.id, "-label") }, { children: "select this row" }))] }))), columnsManaged.map(function (_a) {

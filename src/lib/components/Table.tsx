@@ -671,6 +671,11 @@ export function Table<T>({
                         e.stopPropagation();
                         handleRowSelection(item.id);
                       }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleRowSelection(item.id);
+                        }
+                      }}
                       aria-checked={isRowSelected(item.id) ? 'true' : 'false'}
                       aria-label={`Select row with ${item[1]} and ${item[2]}`}
                       aria-labelledby={`row-${item.id}-label`}

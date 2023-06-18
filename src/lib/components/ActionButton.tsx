@@ -40,11 +40,8 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       <button
         className={`btn${actionType.charAt(0).toUpperCase() + actionType.slice(1)}`}
         onClick={(e) => {
-          e.stopPropagation(); // to prevent triggering row selection
+          // e.stopPropagation(); // to prevent triggering row selection
           handleAction(itemId,e);
-        }}
-        onKeyDown={(e) => {
-            e.stopPropagation();
         }}
         aria-label={`${actionType} this row`}
         data-testid={actionType}

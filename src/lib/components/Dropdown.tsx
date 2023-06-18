@@ -77,48 +77,50 @@ function Dropdown(props: DropdownProps): JSX.Element {
     if (
       dropdownRef.current &&
       !dropdownRef.current.contains(event.target as Node)
+      && isOpen
     ) {
       setIsOpen(false);
     }
   };
 
-  // const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
-  //   if (event.currentTarget !== event.target) {
-  //     return;
-  //   }
-  //   switch (event.key) {
-  //     case 'ArrowUp':
-  //       event.preventDefault();
-  //       setFocusedOptionIndex((prevIndex) =>
-  //         prevIndex > 0 ? prevIndex - 1 : prevIndex,
-  //       );
-  //       break;
-  //     case 'ArrowDown':
-  //       event.preventDefault();
-  //       setFocusedOptionIndex((prevIndex) =>
-  //         prevIndex < props.options.length - 1 ? prevIndex + 1 : prevIndex,
-  //       );
-  //       break;
-  //     case 'Enter':
-  //     case ' ':
-  //       if (isOpen) {
-  //         event.preventDefault();
-  //         if (focusedOptionIndex >= 0) {
-  //           handleOptionClick(props.options[focusedOptionIndex]);
+  const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
+    if (event.currentTarget !== event.target) {
+      return;
+    }
+    switch (event.key) {
+      case 'ArrowUp':
+        event.preventDefault();
+        setFocusedOptionIndex((prevIndex) =>
+          prevIndex > 0 ? prevIndex - 1 : prevIndex,
+        );
+        break;
+      case 'ArrowDown':
+        event.preventDefault();
+        setFocusedOptionIndex((prevIndex) =>
+          prevIndex < props.options.length - 1 ? prevIndex + 1 : prevIndex,
+        );
+        break;
+      case 'Enter':
+      case ' ':
+        if (isOpen) {
+          event.preventDefault();
+          if (focusedOptionIndex >= 0) {
+            handleOptionClick(props.options[focusedOptionIndex]);
           
-  //       } else {
-  //         toggleDropdown();
-  //       }
-  //     }
-  //      break;
-  //     case 'Tab':
-  //       // event.preventDefault();
-  //       setIsOpen(false);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
+        } else {
+          // event.preventDefault();
+          toggleDropdown();
+        }
+      }
+       break;
+      case 'Tab':
+        // event.preventDefault();
+        setIsOpen(false);
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     if (
@@ -148,28 +150,29 @@ function Dropdown(props: DropdownProps): JSX.Element {
     };
   }, []);
 
-  // const handleOptionKeyDown = (
-  //   event: React.KeyboardEvent,
-  //   option: string,
-  // ): void => {
-  //   if (event.currentTarget !== event.target) {
-  //     return;
-  //   }
-  //   switch (event.key) {
-  //     case 'Enter':
-  //     case ' ':
-  //      if (isOpen){
-  //       event.preventDefault();
-  //       handleOptionClick(option);
-  //      }
-  //       break;
-  //     // case 'Tab':
-  //     //   setIsOpen(false);
-  //     //   break;
-  //     default:
-  //       break;
-  //   }
-  // };
+  const handleOptionKeyDown = (
+    event: React.KeyboardEvent,
+    option: string,
+  ): void => {
+    if (event.currentTarget !== event.target) {
+      return;
+    }
+    switch (event.key) {
+
+      case 'Enter':
+      case ' ':
+       if (isOpen){
+        event.preventDefault();
+        handleOptionClick(option);
+       }
+        break;
+      case 'Tab':
+        setIsOpen(false);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div
@@ -180,7 +183,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
         type="button"
         className={`dropdownToggleTable buttonToggle${props.classNameProps} customComponent`}
         onClick={toggleDropdown}
-        // onKeyDown={handleTriggerKeyDown}
+        onKeyDown={handleTriggerKeyDown}
         data-testid={props.dataTestId}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -214,7 +217,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
               style={props.style}
             >
               <button
-                // onKeyDown={(event) => handleOptionKeyDown(event, option)}
+                onKeyDown={(event) => handleOptionKeyDown(event, option)}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={() => setFocusedOptionIndex(index)}
                 className="dropdownOptionButton customComponent" 

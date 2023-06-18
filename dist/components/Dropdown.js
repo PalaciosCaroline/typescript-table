@@ -58,43 +58,42 @@ function Dropdown(props) {
             setIsOpen(false);
         }
     };
-    var handleTriggerKeyDown = function (event) {
-        if (event.currentTarget !== event.target) {
-            return;
-        }
-        switch (event.key) {
-            case 'ArrowUp':
-                event.preventDefault();
-                setFocusedOptionIndex(function (prevIndex) {
-                    return prevIndex > 0 ? prevIndex - 1 : prevIndex;
-                });
-                break;
-            case 'ArrowDown':
-                event.preventDefault();
-                setFocusedOptionIndex(function (prevIndex) {
-                    return prevIndex < props.options.length - 1 ? prevIndex + 1 : prevIndex;
-                });
-                break;
-            case 'Enter':
-            case ' ':
-                if (isOpen) {
-                    event.preventDefault();
-                    if (focusedOptionIndex >= 0) {
-                        handleOptionClick(props.options[focusedOptionIndex]);
-                    }
-                    else {
-                        toggleDropdown();
-                    }
-                }
-                break;
-            case 'Tab':
-                // event.preventDefault();
-                setIsOpen(false);
-                break;
-            default:
-                break;
-        }
-    };
+    // const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
+    //   if (event.currentTarget !== event.target) {
+    //     return;
+    //   }
+    //   switch (event.key) {
+    //     case 'ArrowUp':
+    //       event.preventDefault();
+    //       setFocusedOptionIndex((prevIndex) =>
+    //         prevIndex > 0 ? prevIndex - 1 : prevIndex,
+    //       );
+    //       break;
+    //     case 'ArrowDown':
+    //       event.preventDefault();
+    //       setFocusedOptionIndex((prevIndex) =>
+    //         prevIndex < props.options.length - 1 ? prevIndex + 1 : prevIndex,
+    //       );
+    //       break;
+    //     case 'Enter':
+    //     case ' ':
+    //       if (isOpen) {
+    //         event.preventDefault();
+    //         if (focusedOptionIndex >= 0) {
+    //           handleOptionClick(props.options[focusedOptionIndex]);
+    //       } else {
+    //         toggleDropdown();
+    //       }
+    //     }
+    //      break;
+    //     case 'Tab':
+    //       // event.preventDefault();
+    //       setIsOpen(false);
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // };
     useEffect(function () {
         if (isOpen &&
             focusedOptionIndex >= 0 &&
@@ -116,25 +115,30 @@ function Dropdown(props) {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
-    var handleOptionKeyDown = function (event, option) {
-        if (event.currentTarget !== event.target) {
-            return;
-        }
-        switch (event.key) {
-            case 'Enter':
-            case ' ':
-                if (isOpen) {
-                    event.preventDefault();
-                    handleOptionClick(option);
-                }
-                break;
-            case 'Tab':
-                setIsOpen(false);
-                break;
-            default:
-                break;
-        }
-    };
-    return (_jsxs("div", __assign({ className: "dropdownTable dropdownTable".concat(props.classNameProps), ref: dropdownRef }, { children: [_jsxs("button", __assign({ type: "button", className: "dropdownToggleTable buttonToggle".concat(props.classNameProps, " customComponent"), onClick: toggleDropdown, onKeyDown: handleTriggerKeyDown, "data-testid": props.dataTestId, "aria-haspopup": "listbox", "aria-expanded": isOpen, "aria-labelledby": "dropdown-label", "aria-label": "options of dropdown", style: props.style }, { children: [selectedOption || props.defaultValueSelectedOption, _jsx("span", __assign({ className: "chevronTable chevron".concat(props.classNameProps), onClick: handleChevronClick }, { children: isOpen ? _jsx(FiChevronUp, {}) : _jsx(FiChevronDown, {}) }))] })), isOpen && (_jsx("ul", __assign({ className: "dropdownMenuTable dropdownMenu".concat(props.classNameProps), role: "listbox" }, { children: props.options.map(function (option, index) { return (_jsx("li", __assign({ className: "dropdownOptionTable dropdownOptionRowPerPage customComponent ".concat(index === focusedOptionIndex ? 'focused' : '', " ").concat(option === selectedOption ? "selectedTable selectedOption" : ''), role: "option", "aria-selected": option === selectedOption, style: props.style }, { children: _jsx("button", __assign({ onKeyDown: function (event) { return handleOptionKeyDown(event, option); }, onClick: function () { return handleOptionClick(option); }, onMouseOver: function () { return setFocusedOptionIndex(index); }, className: "dropdownOptionButton customComponent", tabIndex: 0, style: props.style, "data-testid": "optionPerPage-".concat(option) }, { children: option })) }), option)); }) }))), _jsx("span", __assign({ id: "dropdown-label", className: "sr-only" }, { children: "options of dropdown" }))] })));
+    // const handleOptionKeyDown = (
+    //   event: React.KeyboardEvent,
+    //   option: string,
+    // ): void => {
+    //   if (event.currentTarget !== event.target) {
+    //     return;
+    //   }
+    //   switch (event.key) {
+    //     case 'Enter':
+    //     case ' ':
+    //      if (isOpen){
+    //       event.preventDefault();
+    //       handleOptionClick(option);
+    //      }
+    //       break;
+    //     // case 'Tab':
+    //     //   setIsOpen(false);
+    //     //   break;
+    //     default:
+    //       break;
+    //   }
+    // };
+    return (_jsxs("div", __assign({ className: "dropdownTable dropdownTable".concat(props.classNameProps), ref: dropdownRef }, { children: [_jsxs("button", __assign({ type: "button", className: "dropdownToggleTable buttonToggle".concat(props.classNameProps, " customComponent"), onClick: toggleDropdown, "data-testid": props.dataTestId, "aria-haspopup": "listbox", "aria-expanded": isOpen, "aria-labelledby": "dropdown-label", "aria-label": "options of dropdown", style: props.style }, { children: [selectedOption || props.defaultValueSelectedOption, _jsx("span", __assign({ className: "chevronTable chevron".concat(props.classNameProps), onClick: handleChevronClick }, { children: isOpen ? _jsx(FiChevronUp, {}) : _jsx(FiChevronDown, {}) }))] })), isOpen && (_jsx("ul", __assign({ className: "dropdownMenuTable dropdownMenu".concat(props.classNameProps), role: "listbox" }, { children: props.options.map(function (option, index) { return (_jsx("li", __assign({ className: "dropdownOptionTable dropdownOptionRowPerPage customComponent ".concat(index === focusedOptionIndex ? 'focused' : '', " ").concat(option === selectedOption ? "selectedTable selectedOption" : ''), role: "option", "aria-selected": option === selectedOption, style: props.style }, { children: _jsx("button", __assign({ 
+                        // onKeyDown={(event) => handleOptionKeyDown(event, option)}
+                        onClick: function () { return handleOptionClick(option); }, onMouseOver: function () { return setFocusedOptionIndex(index); }, className: "dropdownOptionButton customComponent", tabIndex: 0, style: props.style, "data-testid": "optionPerPage-".concat(option) }, { children: option })) }), option)); }) }))), _jsx("span", __assign({ id: "dropdown-label", className: "sr-only" }, { children: "options of dropdown" }))] })));
 }
 export default Dropdown;

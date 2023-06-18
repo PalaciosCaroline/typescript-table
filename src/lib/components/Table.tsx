@@ -687,6 +687,7 @@ export function Table<T>({
                       onChange={() => {}}
                       style={style}
                       id={`selectRow-${item.id}`}
+                      name={`selectRow-${item.id}`}
                     />
                     <label
                       htmlFor={`selectRow-${item.id}`}

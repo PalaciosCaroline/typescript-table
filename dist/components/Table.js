@@ -400,7 +400,7 @@ export function Table(_a) {
                                                         handleRowSelection(item.id);
                                                     }, "aria-checked": isRowSelected(item.id) ? 'true' : 'false', "aria-label": "Select row with ".concat(item[1], " and ").concat(item[2]), "aria-labelledby": "row-".concat(item.id, "-label"), 
                                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                                    onChange: function () { }, style: style, id: "selectRow-".concat(item.id) }), _jsx("label", __assign({ htmlFor: "selectRow-".concat(item.id), className: "sr-only", id: "row-".concat(item.id, "-label") }, { children: "select this row" }))] }))), columnsManaged.map(function (_a) {
+                                                    onChange: function () { }, style: style, id: "selectRow-".concat(item.id), name: "selectRow-".concat(item.id) }), _jsx("label", __assign({ htmlFor: "selectRow-".concat(item.id), className: "sr-only", id: "row-".concat(item.id, "-label") }, { children: "select this row" }))] }))), columnsManaged.map(function (_a) {
                                             var property = _a.property, isVisible = _a.isVisible;
                                             if (isVisible) {
                                                 return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index, " td_tableComponent") }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property, " td_tableComponent")));

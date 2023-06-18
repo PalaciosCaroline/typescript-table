@@ -659,15 +659,6 @@ export function Table<T>({
                 className={`tr_${index} tr_tableComponent ${
                   selectedRows.has(item.id) ? 'selected' : ''
                 }`}
-                onClick={() => handleRowSelection(item.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleRowSelection(item.id);
-                  }
-                }}
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                onChange={() => {}}
-                aria-label="Select this row"
                 style={style}
               >
                 {selectRowColumnVisible && (
@@ -706,6 +697,15 @@ export function Table<T>({
                         key={`cell-${index}-${property} td_tableComponent`}
                         role="cell"
                         className={`table-cell table-cell_${property}_${index} td_tableComponent`}
+                        onClick={() => handleRowSelection(item.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            handleRowSelection(item.id);
+                          }
+                        }}
+                        // eslint-disable-next-line @typescript-eslint/no-empty-function
+                        onChange={() => {}}
+                        aria-label="Select this row"
                       >
                         {formatDate(item[property])}
                       </td>

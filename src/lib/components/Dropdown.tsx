@@ -102,15 +102,16 @@ function Dropdown(props: DropdownProps): JSX.Element {
       case 'Enter':
       case ' ':
         if (isOpen) {
-          event.preventDefault();
+          // event.preventDefault();
           if (focusedOptionIndex >= 0) {
             handleOptionClick(props.options[focusedOptionIndex]);
-          }
+          
         } else {
-          event.preventDefault();
+          // event.preventDefault();
           toggleDropdown();
         }
-        break;
+      }
+       break;
       case 'Tab':
         // event.preventDefault();
         setIsOpen(false);
@@ -156,10 +157,13 @@ function Dropdown(props: DropdownProps): JSX.Element {
       return;
     }
     switch (event.key) {
+
       case 'Enter':
       case ' ':
+       if (isOpen){
         event.preventDefault();
         handleOptionClick(option);
+       }
         break;
       case 'Tab':
         setIsOpen(false);

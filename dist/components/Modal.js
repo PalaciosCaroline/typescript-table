@@ -49,7 +49,7 @@ function Modal(props) {
                 }
             }
         };
-        if (props.isOpen) {
+        if (props.isModalTableOpen) {
             lastActiveElement.current = document.activeElement;
             document.addEventListener('keydown', handleKeyDown);
             // Move focus to the first focusable element inside the modal
@@ -69,7 +69,7 @@ function Modal(props) {
         return function () {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [props.isOpen]);
-    return (_jsx(_Fragment, { children: props.isOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable customComponent", onClick: props.onClose, "aria-label": "Fermer la fen\u00EAtre", tabIndex: 0, "data-testid": "btnCloseModal", style: props.style }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
+    }, [props.isModalTableOpen]);
+    return (_jsx(_Fragment, { children: props.isModalTableOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable customComponent", onClick: props.onClose, "aria-label": "Fermer la fen\u00EAtre", tabIndex: 0, "data-testid": "btnCloseModal", style: props.style }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
 }
 export default Modal;

@@ -31,45 +31,24 @@ interface ManageColumnsProps {
  * @returns {JSX.Element} - Returns a JSX element representing the ManageColumns component.
  */
 function ManageColumns(props: ManageColumnsProps): JSX.Element {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  // Handles keydown event for column visibility toggle
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    property: string,
-  ): void => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      props.handleColumnVisibility(property);
-    }
-  };
-
-  // Handles keydown event for select rows column visibility toggle
-  const handleKeyDownSelect = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ): void => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      props.handleVisibleSelectRowsColumn();
-    }
-  };
+  const [isModalColumnsOpen, setIsModalColumnsOpen] = useState<boolean>(false);
 
   return (
     <>
      {/* Toggle button for managing columns */}
       <button
-        className={`toggle-btnManagedColumns customComponent ${isModalOpen ? 'btnOpen' : ''}`}
-        onClick={() => setIsModalOpen(!isModalOpen)}
+        className={`toggle-btnManagedColumns customComponent ${isModalColumnsOpen ? 'btnOpen' : ''}`}
+        onClick={() => setIsModalColumnsOpen(!isModalColumnsOpen)}
         aria-label="managed columns"
         style={props.style}
       >
-        <span className={isModalOpen ? 'btnManagedColumnsOpen' : ''}>
+        <span className={isModalColumnsOpen ? 'btnManagedColumnsOpen' : ''}>
           Manage Columns
         </span>
-        {!isModalOpen ? <FiChevronDown /> : <FiChevronUp />}
+        {!isModalColumnsOpen ? <FiChevronDown /> : <FiChevronUp />}
       </button>
       {/* Modal for managing columns */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} style={props.style}>
+      <Modal isModalTableOpen={isModalColumnsOpen} onClose={() => setIsModalColumnsOpen(false)} style={props.style}>
          {/* Button for showing all columns */}
         <button
           className="btnShowAllColumns customComponent"
@@ -93,7 +72,12 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
                 type="checkbox"
                 checked={props.selectRowColumnVisible}
                 onChange={props.handleVisibleSelectRowsColumn}
-                onKeyDown={(e) => handleKeyDownSelect(e)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    props.handleVisibleSelectRowsColumn();
+                  }
+                }}
+                // onKeyDown={(e) => handleKeyDownSelect(e)}
                 data-testid="inputManaged-selectRowColumn"
               />
               <label className="toggle-label" />
@@ -113,7 +97,12 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
                   type="checkbox"
                   checked={isVisible}
                   onChange={() => props.handleColumnVisibility(property)}
-                  onKeyDown={(e) => handleKeyDown(e, property)}
+                  // onKeyDown={(e) => handleKeyDown(e, property)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      props.handleColumnVisibility(property);
+                    }
+                  }}
                   data-testid={`inputManaged-${property}`}
                 />
                 <label className="toggle-label" />

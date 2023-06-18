@@ -10,7 +10,7 @@ import { FaTimes } from 'react-icons/fa';
  * @param {React.CSSProperties} style - The CSS properties to be applied to the modal.
  */
 interface ModalProps {
-  isOpen: boolean;
+  isModalTableOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   style: React.CSSProperties;
@@ -59,7 +59,7 @@ function Modal(props: ModalProps): JSX.Element {
       }
     };
 
-    if (props.isOpen) {
+    if (props.isModalTableOpen) {
       lastActiveElement.current = document.activeElement as HTMLElement;
       document.addEventListener(
         'keydown',
@@ -91,11 +91,11 @@ function Modal(props: ModalProps): JSX.Element {
         handleKeyDown as unknown as EventListenerOrEventListenerObject,
       );
     };
-  }, [props.isOpen]);
+  }, [props.isModalTableOpen]);
 
   return (
     <>
-      {props.isOpen && (
+      {props.isModalTableOpen && (
         <div
           className="modalTable"
           role="dialog"

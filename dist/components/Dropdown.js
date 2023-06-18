@@ -78,14 +78,14 @@ function Dropdown(props) {
             case 'Enter':
             case ' ':
                 if (isOpen) {
-                    event.preventDefault();
+                    // event.preventDefault();
                     if (focusedOptionIndex >= 0) {
                         handleOptionClick(props.options[focusedOptionIndex]);
                     }
-                }
-                else {
-                    event.preventDefault();
-                    toggleDropdown();
+                    else {
+                        // event.preventDefault();
+                        toggleDropdown();
+                    }
                 }
                 break;
             case 'Tab':
@@ -124,8 +124,10 @@ function Dropdown(props) {
         switch (event.key) {
             case 'Enter':
             case ' ':
-                event.preventDefault();
-                handleOptionClick(option);
+                if (isOpen) {
+                    event.preventDefault();
+                    handleOptionClick(option);
+                }
                 break;
             case 'Tab':
                 setIsOpen(false);

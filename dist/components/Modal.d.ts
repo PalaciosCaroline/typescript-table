@@ -8,7 +8,7 @@ import React from 'react';
  * @param {React.CSSProperties} style - The CSS properties to be applied to the modal.
  */
 interface ModalProps {
-    isOpen: boolean;
+    isModalTableOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
     style: React.CSSProperties;

@@ -31,7 +31,9 @@ function Modal(props: ModalProps): JSX.Element {
   useEffect(() => {
      // Event handler for handling keydown events
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'Escape') {
+      // eslint-disable-next-line no-empty
+      if (event.key === 'Enter') {
+      } else if (event.key === 'Escape') {
         props.onClose();
       } else if (event.key === 'Tab') {
         const focusableElements = modalRef.current?.querySelectorAll(

@@ -83,6 +83,9 @@ function Dropdown(props: DropdownProps): JSX.Element {
   };
 
   const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
+    if (event.currentTarget !== event.target) {
+      return;
+    }
     switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
@@ -98,10 +101,13 @@ function Dropdown(props: DropdownProps): JSX.Element {
         break;
       case 'Enter':
       case ' ':
-        event.preventDefault();
-        if (isOpen && focusedOptionIndex >= 0) {
-          handleOptionClick(props.options[focusedOptionIndex]);
+        if (isOpen) {
+          event.preventDefault();
+          if (focusedOptionIndex >= 0) {
+            handleOptionClick(props.options[focusedOptionIndex]);
+          }
         } else {
+          event.preventDefault();
           toggleDropdown();
         }
         break;
@@ -146,6 +152,9 @@ function Dropdown(props: DropdownProps): JSX.Element {
     event: React.KeyboardEvent,
     option: string,
   ): void => {
+    if (event.currentTarget !== event.target) {
+      return;
+    }
     switch (event.key) {
       case 'Enter':
       case ' ':

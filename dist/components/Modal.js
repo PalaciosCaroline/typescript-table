@@ -27,7 +27,10 @@ function Modal(props) {
         // Event handler for handling keydown events
         var handleKeyDown = function (event) {
             var _a;
-            if (event.key === 'Escape') {
+            // eslint-disable-next-line no-empty
+            if (event.key === 'Enter') {
+            }
+            else if (event.key === 'Escape') {
                 props.onClose();
             }
             else if (event.key === 'Tab') {

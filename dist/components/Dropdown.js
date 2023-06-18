@@ -59,6 +59,9 @@ function Dropdown(props) {
         }
     };
     var handleTriggerKeyDown = function (event) {
+        if (event.currentTarget !== event.target) {
+            return;
+        }
         switch (event.key) {
             case 'ArrowUp':
                 event.preventDefault();
@@ -74,11 +77,14 @@ function Dropdown(props) {
                 break;
             case 'Enter':
             case ' ':
-                event.preventDefault();
-                if (isOpen && focusedOptionIndex >= 0) {
-                    handleOptionClick(props.options[focusedOptionIndex]);
+                if (isOpen) {
+                    event.preventDefault();
+                    if (focusedOptionIndex >= 0) {
+                        handleOptionClick(props.options[focusedOptionIndex]);
+                    }
                 }
                 else {
+                    event.preventDefault();
                     toggleDropdown();
                 }
                 break;
@@ -112,6 +118,9 @@ function Dropdown(props) {
         };
     }, []);
     var handleOptionKeyDown = function (event, option) {
+        if (event.currentTarget !== event.target) {
+            return;
+        }
         switch (event.key) {
             case 'Enter':
             case ' ':

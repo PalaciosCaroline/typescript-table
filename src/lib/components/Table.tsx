@@ -682,12 +682,17 @@ export function Table<T>({
                       }}
                       aria-checked={isRowSelected(item.id) ? 'true' : 'false'}
                       aria-label={`Select row with ${item[1]} and ${item[2]}`}
-                      aria-labelledby={`row-${item.id}`}
+                      aria-labelledby={`row-${item.id}-label`}
                       // eslint-disable-next-line @typescript-eslint/no-empty-function
                       onChange={() => {}}
                       style={style}
+                      id={`selectRow-${item.id}`}
                     />
-                    <label htmlFor={`selectRow-${item.id}`} className="sr-only">
+                    <label
+                      htmlFor={`selectRow-${item.id}`}
+                      className="sr-only"
+                      id={`row-${item.id}-label`}
+                    >
                       select this row
                     </label>
                   </td>

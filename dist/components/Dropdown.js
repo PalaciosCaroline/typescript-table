@@ -78,12 +78,11 @@ function Dropdown(props) {
             case 'Enter':
             case ' ':
                 if (isOpen) {
-                    // event.preventDefault();
+                    event.preventDefault();
                     if (focusedOptionIndex >= 0) {
                         handleOptionClick(props.options[focusedOptionIndex]);
                     }
                     else {
-                        // event.preventDefault();
                         toggleDropdown();
                     }
                 }

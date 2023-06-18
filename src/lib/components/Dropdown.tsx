@@ -106,15 +106,12 @@ function Dropdown(props: DropdownProps): JSX.Element {
           event.preventDefault();
           if (focusedOptionIndex >= 0) {
             handleOptionClick(props.options[focusedOptionIndex]);
-          
         } else {
-          // event.preventDefault();
           toggleDropdown();
         }
       }
        break;
       case 'Tab':
-        // event.preventDefault();
         setIsOpen(false);
         break;
       default:
@@ -127,16 +124,16 @@ function Dropdown(props: DropdownProps): JSX.Element {
       isOpen &&
       focusedOptionIndex >= 0 &&
       focusedOptionIndex < props.options.length &&
-      dropdownRef.current // Ajoutez une vérification pour s'assurer que dropdownRef.current n'est pas null
+      dropdownRef.current // Add a check to ensure that dropdownRef.current is not null.
     ) {
       const optionElement = dropdownRef.current.querySelector(
         `li:nth-child(${focusedOptionIndex + 1})`,
       );
 
-      // Convertir l'élément en HTMLElement avant de faire appel à la méthode focus
+      // Convert the element to an HTMLElement before calling the focus method
       const htmlElement = optionElement as HTMLElement;
 
-      // Ajoutez une vérification pour s'assurer que l'élément existe
+      // Add a check to ensure that the element exists.
       if (htmlElement) {
         htmlElement.focus();
       }
@@ -158,7 +155,6 @@ function Dropdown(props: DropdownProps): JSX.Element {
       return;
     }
     switch (event.key) {
-
       case 'Enter':
       case ' ':
        if (isOpen){

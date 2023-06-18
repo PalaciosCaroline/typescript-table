@@ -84,13 +84,11 @@ function Dropdown(props) {
                         handleOptionClick(props.options[focusedOptionIndex]);
                     }
                     else {
-                        // event.preventDefault();
                         toggleDropdown();
                     }
                 }
                 break;
             case 'Tab':
-                // event.preventDefault();
                 setIsOpen(false);
                 break;
             default:
@@ -101,12 +99,12 @@ function Dropdown(props) {
         if (isOpen &&
             focusedOptionIndex >= 0 &&
             focusedOptionIndex < props.options.length &&
-            dropdownRef.current // Ajoutez une vérification pour s'assurer que dropdownRef.current n'est pas null
+            dropdownRef.current // Add a check to ensure that dropdownRef.current is not null.
         ) {
             var optionElement = dropdownRef.current.querySelector("li:nth-child(".concat(focusedOptionIndex + 1, ")"));
-            // Convertir l'élément en HTMLElement avant de faire appel à la méthode focus
+            // Convert the element to an HTMLElement before calling the focus method
             var htmlElement = optionElement;
-            // Ajoutez une vérification pour s'assurer que l'élément existe
+            // Add a check to ensure that the element exists.
             if (htmlElement) {
                 htmlElement.focus();
             }

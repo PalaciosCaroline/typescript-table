@@ -67,16 +67,16 @@ Array: processed recursively up to a depth of 4
 @@ Example: Table of employees @@
 ```
 
-![table](./imgTable1.png "example of table")
+![table](./assets/imgTable1.png "example of table")
 
-![example of datas displayed](./typeData1.png "example of table")
+![example of datas displayed](./assets/typeData1.png "example of table")
 
 ****************************************************************************************************************
 
 ## else use with boutons to export data: 
 Use Table with a ExportDataComponent.
 
-![table](./dropdownExport.png "example with export buttons")
+![table](./assets/dropdownExport.png "example with export buttons")
 
 Install before using buttons's functionality.
 
@@ -106,7 +106,7 @@ after
 
 you can choice to display just one bouton to export, exemple with the pdf button :
 
-![table](./exportJustOne.png "example with one button")
+![table](./assets/exportJustOne.png "example with one button")
 
   ```
     <Table
@@ -125,7 +125,7 @@ you can choice to display just one bouton to export, exemple with the pdf button
 
 - Without the data export button.
 
-![table](./noExportData.png "example without export button")
+![table](./assets/noExportData.png "example without export button")
 
 ## "Customizing Sorting and Filtering."
 "Sorting and filtering are implemented by default for each column in the table. However, if you want to remove these features for a specific column, you simply need to add the property disableSort: true to disable sorting, or disableFilter: true to disable filtering, in the object of the respective column."
@@ -278,7 +278,7 @@ The default style :
   />
 ```
 
-![table](./customStyle.png "example of other style")
+![table](./assets/customStyle.png "example of other style")
 
 To customize the style of the component, you can increase the specificity of your CSS rules. This means that you can target the component more precisely by adding more specific selectors to your CSS rules.
 
@@ -304,7 +304,7 @@ to
 
 or if you want change the header of table :
 like this 
-![table](./column_reverse1.png "example of other table's header")
+![table](./assets/column_reverse1.png "example of other table's header")
 
 add in your css :
 

@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 
 /**
  * ModalProps: The properties passed to the Modal component.
- *
+ * 
  * @param {boolean} isOpen - A boolean that indicates if the modal is open.
  * @param {() => void} onClose - A function that is called to close the modal.
  * @param {React.ReactNode} children - The elements to be rendered in the modal.
@@ -24,12 +24,12 @@ interface ModalProps {
  * @returns {JSX.Element} - Returns a JSX element representing the rendered Modal.
  */
 function Modal(props: ModalProps): JSX.Element {
-  // useRef for storing references to the modal elements
+   // useRef for storing references to the modal elements
   const modalRef = useRef<HTMLDivElement | null>(null);
   const lastActiveElement = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    // Event handler for handling keydown events
+     // Event handler for handling keydown events
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       // eslint-disable-next-line no-empty
       if (event.key === 'Enter') {
@@ -103,7 +103,7 @@ function Modal(props: ModalProps): JSX.Element {
           aria-labelledby="modal-title"
           ref={modalRef}
         >
-          {/* Close button */}
+            {/* Close button */}
           <button
             className="btn_closeModalTable customComponent"
             onClick={props.onClose}
@@ -114,7 +114,7 @@ function Modal(props: ModalProps): JSX.Element {
           >
             <FaTimes className="btn_closeModalTable_icon" />
           </button>
-          {/* Modal content */}
+           {/* Modal content */}
           <div className="modalTable-content">{props.children}</div>
         </div>
       )}

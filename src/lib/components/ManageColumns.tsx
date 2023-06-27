@@ -74,6 +74,8 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
           >
             <div className="toggle-switch">
               <input
+                id="toggle-input-allColumnVisible"
+                name="toggle-input-allColumnVisible"
                 className="toggle-input"
                 type="checkbox"
                 checked={props.selectRowColumnVisible}
@@ -83,10 +85,12 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
                     props.handleVisibleSelectRowsColumn();
                   }
                 }}
-                // onKeyDown={(e) => handleKeyDownSelect(e)}
                 data-testid="inputManaged-selectRowColumn"
               />
-              <label className="toggle-label" />
+              <label
+                className="toggle-label"
+                htmlFor="toggle-input-allColumnVisible"
+              />
             </div>
             Select Rows Column
           </li>
@@ -105,7 +109,6 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
                   type="checkbox"
                   checked={isVisible}
                   onChange={() => props.handleColumnVisibility(property)}
-                  // onKeyDown={(e) => handleKeyDown(e, property)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       props.handleColumnVisibility(property);

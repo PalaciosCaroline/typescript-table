@@ -29,13 +29,13 @@ function ManageColumns(props) {
                                                     }
                                                 }, "data-testid": "inputManaged-selectRowColumn" }), _jsx("label", { className: "toggle-label" })] })), "Select Rows Column"] }), "selectRowsColumn"), props.columns.map(function (_a) {
                                 var label = _a.label, property = _a.property, isVisible = _a.isVisible;
-                                return (_jsxs("li", __assign({ className: "liManagedColumns", "data-testid": "li-".concat(property) }, { children: [_jsxs("div", __assign({ className: "toggle-switch" }, { children: [_jsx("input", { className: "toggle-input", type: "checkbox", checked: isVisible, onChange: function () { return props.handleColumnVisibility(property); }, 
+                                return (_jsxs("li", __assign({ className: "liManagedColumns", "data-testid": "li-".concat(property) }, { children: [_jsxs("div", __assign({ className: "toggle-switch" }, { children: [_jsx("input", { id: "toggle-input-".concat(property), name: "toggle-input-".concat(property), className: "toggle-input", type: "checkbox", checked: isVisible, onChange: function () { return props.handleColumnVisibility(property); }, 
                                                     // onKeyDown={(e) => handleKeyDown(e, property)}
                                                     onKeyDown: function (e) {
                                                         if (e.key === 'Enter') {
                                                             props.handleColumnVisibility(property);
                                                         }
-                                                    }, "data-testid": "inputManaged-".concat(property) }), _jsx("label", { className: "toggle-label" })] })), label] }), property));
+                                                    }, "data-testid": "inputManaged-".concat(property) }), _jsx("label", { className: "toggle-label", htmlFor: "toggle-input-".concat(property) })] })), label] }), property));
                             })] }))] }))] }));
 }
 export default ManageColumns;

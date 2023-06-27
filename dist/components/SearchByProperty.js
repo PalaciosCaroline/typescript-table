@@ -25,10 +25,10 @@ var SearchByProperty = function (_a) {
         handleReset(property);
     };
     /**
-    * Handles the input change event.
-    *
-    * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
-    */
+     * Handles the input change event.
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
+     */
     var handleInputChange = function (event) {
         var property = event.target.name;
         var value = event.target.value;

@@ -20,6 +20,6 @@ import Dropdown from './Dropdown';
  */
 var RowsPerPage = function (_a) {
     var handlePerPageChange = _a.handlePerPageChange, style = _a.style;
-    return (_jsxs("div", __assign({ className: "box_ChoiceEntries customComponent noHoverEffect", id: "box_ChoiceEntries", style: style }, { children: [_jsx("span", __assign({ className: "box_ChoiceEntriesText" }, { children: "Rows per page:" })), _jsx(Dropdown, { options: ['All', '5', '10', '25', '50', '100'], onOptionClick: function (option) { return handlePerPageChange(option); }, className: "selectNumberOfEntriesPerPage", defaultValueSelectedOption: "10", classNameProps: "RowPerPage", style: style, dataTestId: 'RowPerPage' })] })));
+    return (_jsxs("div", __assign({ className: "box_ChoiceEntries customComponent noHoverEffect", id: "box_ChoiceEntries", style: style }, { children: [_jsx("span", __assign({ className: "box_ChoiceEntriesText" }, { children: "Rows per page:" })), _jsx(Dropdown, { options: ['All', '5', '10', '25', '50', '100'], onOptionClick: function (option) { return handlePerPageChange(option); }, className: "selectNumberOfEntriesPerPage", defaultValueSelectedOption: "10", classNameProps: "RowPerPage", style: style, dataTestId: "RowPerPage" })] })));
 };
 export default RowsPerPage;

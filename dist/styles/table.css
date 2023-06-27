@@ -332,17 +332,17 @@ thead button:hover > svg {
 }
 
 .selectedBtnFilter > svg {
-  color: #2e4506;
+  color: #677e11;
 }
 .selectedBtnFilter:hover > svg {
-  color: #2e4506;
+  color: #677e11;
 }
 
 .selectedBtnSort > svg {
-  color: #2e4506;
+  color: #677e11;
 }
 .selectedBtnSort:hover > svg {
-  color: #2e4506;
+  color: #677e11;
 }
 
 .modalTable .toggle-input {

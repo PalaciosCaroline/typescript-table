@@ -54,8 +54,8 @@ function Dropdown(props) {
     };
     var handleClickOutside = function (event) {
         if (dropdownRef.current &&
-            !dropdownRef.current.contains(event.target)
-            && isOpen) {
+            !dropdownRef.current.contains(event.target) &&
+            isOpen) {
             setIsOpen(false);
         }
     };

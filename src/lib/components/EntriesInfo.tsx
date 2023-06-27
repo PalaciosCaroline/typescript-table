@@ -27,7 +27,6 @@ const EntriesInfo: React.FC<EntriesInfoProps> = ({
   }
 
   return <div className="showingEntries">{content}</div>;
-
 };
 
 export default EntriesInfo;

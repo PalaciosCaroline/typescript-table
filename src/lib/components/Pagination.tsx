@@ -8,7 +8,7 @@ import {
 
 /**
  * Props: The properties passed to the Pagination component.
- * 
+ *
  * @param {number} page - The current page number.
  * @param {number} totalPages - The total number of pages.
  * @param {(page: number) => void} handlePageChange - A function that is called when the page number changes.

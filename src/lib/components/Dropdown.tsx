@@ -3,7 +3,7 @@ import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 
 /**
  * DropdownProps: The props passed to the Dropdown component.
- * 
+ *
  * @param {string | undefined} defaultValueSelectedOption - The default selected option when the dropdown is first initialized.
  * @param {string[]} options - An array of strings representing the options available in the dropdown.
  * @param {(option: string) => void} onOptionClick - A function that is triggered when an option in the dropdown is clicked.
@@ -19,14 +19,14 @@ interface DropdownProps {
   className: string;
   classNameProps: string;
   style: React.CSSProperties;
-  dataTestId: string
+  dataTestId: string;
 }
 
 /**
  * Dropdown: A Dropdown component that allows a user to choose an option from a dropdown menu.
- * 
+ *
  * @param {DropdownProps} props - The props passed to the Dropdown component.
- * 
+ *
  * @returns {JSX.Element} - Returns a JSX element representing the Dropdown component.
  */
 function Dropdown(props: DropdownProps): JSX.Element {
@@ -69,15 +69,15 @@ function Dropdown(props: DropdownProps): JSX.Element {
   const handleChevronClick = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
   ): void => {
-    event.stopPropagation(); 
+    event.stopPropagation();
     toggleDropdown();
   };
 
   const handleClickOutside = (event: MouseEvent): void => {
     if (
       dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-      && isOpen
+      !dropdownRef.current.contains(event.target as Node) &&
+      isOpen
     ) {
       setIsOpen(false);
     }
@@ -106,11 +106,11 @@ function Dropdown(props: DropdownProps): JSX.Element {
           event.preventDefault();
           if (focusedOptionIndex >= 0) {
             handleOptionClick(props.options[focusedOptionIndex]);
-        } else {
-          toggleDropdown();
+          } else {
+            toggleDropdown();
+          }
         }
-      }
-       break;
+        break;
       case 'Tab':
         setIsOpen(false);
         break;
@@ -157,10 +157,10 @@ function Dropdown(props: DropdownProps): JSX.Element {
     switch (event.key) {
       case 'Enter':
       case ' ':
-       if (isOpen){
-        event.preventDefault();
-        handleOptionClick(option);
-       }
+        if (isOpen) {
+          event.preventDefault();
+          handleOptionClick(option);
+        }
         break;
       case 'Tab':
         setIsOpen(false);
@@ -216,11 +216,10 @@ function Dropdown(props: DropdownProps): JSX.Element {
                 onKeyDown={(event) => handleOptionKeyDown(event, option)}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={() => setFocusedOptionIndex(index)}
-                className="dropdownOptionButton customComponent" 
+                className="dropdownOptionButton customComponent"
                 tabIndex={0}
                 style={props.style}
                 data-testid={`optionPerPage-${option}`}
-
               >
                 {option}
               </button>

@@ -114,12 +114,11 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
           <ul className="manageTable-dropdownUl">
             {/* Render export data component */}
             {props.renderExportDataComponent && (
-              <li className="manageTable-dropdownLi" >
+              <li className="manageTable-dropdownLi">
                 {props.renderExportDataComponent(
                   selectedData,
                   props.columnsManaged,
                 )}
-                
               </li>
             )}
             {/* Rows per page dropdown */}

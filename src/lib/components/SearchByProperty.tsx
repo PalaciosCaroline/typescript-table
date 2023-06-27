@@ -36,12 +36,11 @@ const SearchByProperty = <
   handleSearchByProperty,
   handleReset,
 }: Props<U>): React.ReactElement => {
-
   const handleResetSearchByProperty = () => {
     handleReset(property);
   };
 
-   /**
+  /**
    * Handles the input change event.
    *
    * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
@@ -54,7 +53,7 @@ const SearchByProperty = <
 
   return (
     <div className="box_searchBProps">
-       {/* Input field for entering search term */}
+      {/* Input field for entering search term */}
       <input
         type="text"
         value={inputValues[property]}
@@ -64,7 +63,7 @@ const SearchByProperty = <
         className="inputSearchByProperty"
         data-testid={`btnSearch-${property}`}
       />
-       {/* Button for resetting the search */}
+      {/* Button for resetting the search */}
       <button
         type="button"
         className="btnSearchByPropertyReset"

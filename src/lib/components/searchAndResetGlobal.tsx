@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 
 /**
  * SearchAndResetGlobalProps: The properties passed to the SearchAndResetGlobal component.
- * 
+ *
  * @param {string} searchTerm - The current search term.
  * @param {React.CSSProperties} style - The CSS styles to be applied to the component.
  * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearch - A function that is called when the search term changes.
@@ -28,12 +28,11 @@ const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
   style,
   handleSearch,
   handleResetSearch,
-  
 }: SearchAndResetGlobalProps): React.ReactElement => {
   return (
     <div className="box_searchReset">
       <div className="box_searchGlobal">
-         {/* Input field for entering search term */}
+        {/* Input field for entering search term */}
         <input
           type="text"
           value={searchTerm}
@@ -45,7 +44,7 @@ const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
           <FaSearch />
         </label>
       </div>
-       {/* Button for resetting all searchs terms */}
+      {/* Button for resetting all searchs terms */}
       <button
         onClick={handleResetSearch}
         // style={{ marginRight: '20px' }}

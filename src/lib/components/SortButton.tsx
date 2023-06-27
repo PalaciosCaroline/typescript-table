@@ -32,7 +32,7 @@ const SortButton: React.FC<SortButtonProps> = ({
   handleColumnSort,
   dateFormat,
 }: SortButtonProps): React.ReactElement => {
-   /**
+  /**
    * Renders the sort button.
    *
    * @param {React.ReactNode} icon - The icon for the sort button.

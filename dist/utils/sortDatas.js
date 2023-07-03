@@ -48,7 +48,7 @@ function replaceSeparators(dateStr) {
  *
  * @returns {T[]} - The sorted array of objects.
  */
-export function customSort(data, sortKey, sortOrder, dateFormatForSort) {
+export default function customSort(data, sortKey, sortOrder, dateFormatForSort) {
     function parseDate(dateString, format) {
         var dateParts, year, month, day;
         if (format === 'YYYY/MM/DD') {

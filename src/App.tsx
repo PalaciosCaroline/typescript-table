@@ -6,21 +6,21 @@ import { datasExample, columnsExample } from './dataForExample';
 function App() {
   document.title = 'typescript-table';
 
-  const handleEditRow = (id: any, e:any) => {
+  const handleEditRow = (id:number | string, e?:Event) => {
     console.log(id);
     if (e) {
       console.log("Click event:", e);
     }
   };
   
-  const handleArchiveRow = (id:any, e:any) => {
+  const handleArchiveRow = (id: number | string, e?:Event) => {
     console.log('archive: ' + id);
     if (e) {
       console.log("Click event:", e);
     }
   };
 
-  const handleDeleteRow = (id:any, e:any) => {
+  const handleDeleteRow = (id:number | string, e?:Event) => {
     console.log('delete: ' + id);
     if (e) {
       console.log("Click event:", e);

@@ -11,10 +11,9 @@ var __assign = (this && this.__assign) || function () {
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect, useRef } from 'react';
-import { customSort } from '../utils/sortDatas';
+import customSort from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
-import './../styles/table.css';
 import TableHeader from './TableHeader';
 import SearchAndResetGlobal from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
@@ -22,6 +21,7 @@ import ActionButton from './ActionButton';
 import EntriesInfo from './EntriesInfo';
 import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import './../styles/table.css';
 import './../styles/CustomComponent.css';
 export function Table(_a) {
     var data = _a.data, columns = _a.columns, _b = _a.background, background = _b === void 0 ? '#677e11' : _b, _c = _a.color, color = _c === void 0 ? 'white' : _c, _d = _a.hoverBackground, hoverBackground = _d === void 0 ? '#7e9b16' : _d, _e = _a.selectedRowsBackground, selectedRowsBackground = _e === void 0 ? 'rgba(175 228 145 / 20%)' : _e, renderExportDataComponent = _a.renderExportDataComponent, editRowColumnVisible = _a.editRowColumnVisible, handleEditRow = _a.handleEditRow, archiveRowColumnVisible = _a.archiveRowColumnVisible, handleArchiveRow = _a.handleArchiveRow, deleteRowColumnVisible = _a.deleteRowColumnVisible, handleDeleteRow = _a.handleDeleteRow;
@@ -366,6 +366,16 @@ export function Table(_a) {
         },
     ];
     var isAtLeastOneButtonVisible = actionButtons.some(function (button) { return button.isVisible && typeof button.handler === 'function'; });
+    var totalColumns = columnsManaged.reduce(function (count, _a) {
+        var isVisible = _a.isVisible;
+        return (isVisible ? count + 1 : count);
+    }, 0);
+    if (selectRowColumnVisible) {
+        totalColumns += 1;
+    }
+    if (isAtLeastOneButtonVisible) {
+        totalColumns += 1;
+    }
     return (_jsxs("div", __assign({ className: "box_table box_tableAndFeatures" }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch, style: style }), _jsxs("div", __assign({ className: "box_tableManaged scrollerTable" }, { children: [_jsx(ManageTable, { style: style, handlePerPageChange: handlePerPageChange, filteredData: filteredData, columnsManaged: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns, renderExportDataComponent: renderExportDataComponent, selectedRows: selectedRows, handleVisibleSelectRowsColumn: handleVisibleSelectRowsColumn, selectRowColumnVisible: selectRowColumnVisible }), _jsxs("table", __assign({ className: "tableComponent" }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
                                     var property = _a.property, isVisible = _a.isVisible;
                                     if (isVisible) {
@@ -389,7 +399,7 @@ export function Table(_a) {
                                             var isSortKey = sortKey === property;
                                             return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
                                                     ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
-                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
+                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: data === undefined || filteredData.length === 0 ? (_jsx("tr", { children: _jsx("td", __assign({ colSpan: totalColumns, className: "table_noData" }, { children: "No data to display" })) })) : (currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
                                                         e.stopPropagation();
                                                         handleRowSelection(item.id);
                                                     }, onKeyDown: function (e) {
@@ -418,5 +428,5 @@ export function Table(_a) {
                                                     }, itemId: item.id, icons: (_b = {},
                                                         _b[type] = icon,
                                                         _b) }, "".concat(type, "_btnAction"))) : null;
-                                            }) }))) : null] }), index)); }) }))] }))] })), _jsxs("div", __assign({ className: "box_entriesAndPage" }, { children: [_jsx(EntriesInfo, { filteredDataLength: filteredData.length, dataLength: data.length, page: page, perPage: perPage }), _jsx(Pagination, { page: page, totalPages: totalPages, handlePageChange: handlePageChange })] }))] })));
+                                            }) }))) : null] }), index)); })) }))] }))] })), _jsxs("div", __assign({ className: "box_entriesAndPage" }, { children: [_jsx(EntriesInfo, { filteredDataLength: filteredData.length, dataLength: data.length, page: page, perPage: perPage }), _jsx(Pagination, { page: page, totalPages: totalPages, handlePageChange: handlePageChange })] }))] })));
 }

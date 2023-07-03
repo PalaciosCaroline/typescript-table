@@ -67,10 +67,10 @@ export interface TableProps<T> {
     selectedRowsBackground?: string;
     renderExportDataComponent?: (filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[], headerProperty?: string) => React.ReactNode;
     editRowColumnVisible?: boolean;
-    handleEditRow?: (id: T, e?: any) => void;
+    handleEditRow?: (id: number | string, e?: Event) => void;
     archiveRowColumnVisible?: boolean;
-    handleArchiveRow?: (id: T, e?: any) => void;
+    handleArchiveRow?: (id: number | string, e?: Event) => void;
     deleteRowColumnVisible?: boolean;
-    handleDeleteRow?: (id: T, e?: any) => void;
+    handleDeleteRow?: (id: number | string, e?: Event) => void;
 }
 export declare function Table<T>({ data, columns, background, color, hoverBackground, selectedRowsBackground, renderExportDataComponent, editRowColumnVisible, handleEditRow, archiveRowColumnVisible, handleArchiveRow, deleteRowColumnVisible, handleDeleteRow, }: TableProps<T>): import("react/jsx-runtime").JSX.Element;

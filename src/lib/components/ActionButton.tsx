@@ -33,7 +33,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
   handleAction,
   itemId,
   icons,
-}) => {
+}: ActionButtonProps): JSX.Element | null => {
   if (!visible) return null;
 
   return (
@@ -42,7 +42,6 @@ const ActionButton: React.FC<ActionButtonProps> = ({
         actionType.charAt(0).toUpperCase() + actionType.slice(1)
       }`}
       onClick={(e) => {
-        // e.stopPropagation(); // to prevent triggering row selection
         handleAction(itemId, e);
       }}
       aria-label={`${actionType} this row`}

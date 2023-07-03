@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { customSort } from '../utils/sortDatas';
+import customSort from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
-import './../styles/table.css';
 import TableHeader from './TableHeader';
 import SearchAndResetGlobal from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
@@ -10,6 +9,7 @@ import ActionButton from './ActionButton';
 import EntriesInfo from './EntriesInfo';
 import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import './../styles/table.css';
 import './../styles/CustomComponent.css';
 
 /**
@@ -104,11 +104,11 @@ export interface TableProps<T> {
     headerProperty?: string,
   ) => React.ReactNode;
   editRowColumnVisible?: boolean;
-  handleEditRow?: (id: T, e?: any) => void;
+  handleEditRow?: (id: number | string, e?: Event) => void;
   archiveRowColumnVisible?: boolean;
-  handleArchiveRow?: (id: T, e?: any) => void;
+  handleArchiveRow?: (id: number | string, e?: Event) => void;
   deleteRowColumnVisible?: boolean;
-  handleDeleteRow?: (id: T, e?: any) => void;
+  handleDeleteRow?: (id: number | string, e?: Event) => void;
 }
 
 export function Table<T>({
@@ -535,6 +535,17 @@ export function Table<T>({
     (button) => button.isVisible && typeof button.handler === 'function',
   );
 
+  let totalColumns = columnsManaged.reduce(
+    (count, { isVisible }) => (isVisible ? count + 1 : count),
+    0,
+  );
+  if (selectRowColumnVisible) {
+    totalColumns += 1;
+  }
+  if (isAtLeastOneButtonVisible) {
+    totalColumns += 1;
+  }
+
   return (
     <div className="box_table box_tableAndFeatures">
       <SearchAndResetGlobal
@@ -652,98 +663,105 @@ export function Table<T>({
           </thead>
 
           <tbody className="tbody_tableComponent">
-            {currentData.map((item: DataItem<T | undefined>, index) => (
-              <tr
-                key={index}
-                role="row"
-                className={`tr_${index} tr_tableComponent ${
-                  selectedRows.has(item.id) ? 'selected' : ''
-                }`}
-                style={style}
-              >
-                {selectRowColumnVisible && (
-                  <td className="box_inputSelectRow">
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.has(item.id)}
-                      className="inputSelectRows inputSelectRow customComponent"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleRowSelection(item.id);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
+            {data === undefined || filteredData.length === 0 ? (
+              <tr>
+                <td colSpan={totalColumns} className="table_noData">
+                  No data to display
+                </td>
+              </tr>
+            ) : (
+              currentData.map((item: DataItem<T | undefined>, index) => (
+                <tr
+                  key={index}
+                  role="row"
+                  className={`tr_${index} tr_tableComponent ${
+                    selectedRows.has(item.id) ? 'selected' : ''
+                  }`}
+                  style={style}
+                >
+                  {selectRowColumnVisible && (
+                    <td className="box_inputSelectRow">
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.has(item.id)}
+                        className="inputSelectRows inputSelectRow customComponent"
+                        onClick={(e) => {
+                          e.stopPropagation();
                           handleRowSelection(item.id);
-                        }
-                      }}
-                      aria-checked={isRowSelected(item.id) ? 'true' : 'false'}
-                      aria-label={`Select row with ${item[1]} and ${item[2]}`}
-                      aria-labelledby={`row-${item.id}-label`}
-                      // eslint-disable-next-line @typescript-eslint/no-empty-function
-                      onChange={() => {}}
-                      style={style}
-                      id={`selectRow-${item.id}`}
-                      name={`selectRow-${item.id}`}
-                    />
-                    <label
-                      htmlFor={`selectRow-${item.id}`}
-                      className="sr-only"
-                      id={`row-${item.id}-label`}
-                    >
-                      select this row
-                    </label>
-                  </td>
-                )}
-
-                {columnsManaged.map(({ property, isVisible }) => {
-                  if (isVisible) {
-                    return (
-                      <td
-                        key={`cell-${index}-${property} td_tableComponent`}
-                        role="cell"
-                        className={`table-cell table-cell_${property}_${index} td_tableComponent`}
-                        onClick={() => handleRowSelection(item.id)}
+                        }}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter') {
                             handleRowSelection(item.id);
                           }
                         }}
+                        aria-checked={isRowSelected(item.id) ? 'true' : 'false'}
+                        aria-label={`Select row with ${item[1]} and ${item[2]}`}
+                        aria-labelledby={`row-${item.id}-label`}
                         // eslint-disable-next-line @typescript-eslint/no-empty-function
                         onChange={() => {}}
-                        aria-label="Select this row"
+                        style={style}
+                        id={`selectRow-${item.id}`}
+                        name={`selectRow-${item.id}`}
+                      />
+                      <label
+                        htmlFor={`selectRow-${item.id}`}
+                        className="sr-only"
+                        id={`row-${item.id}-label`}
                       >
-                        {formatDate(item[property])}
-                      </td>
-                    );
-                  }
-                  return null;
-                })}
+                        select this row
+                      </label>
+                    </td>
+                  )}
+                  {columnsManaged.map(({ property, isVisible }) => {
+                    if (isVisible) {
+                      return (
+                        <td
+                          key={`cell-${index}-${property} td_tableComponent`}
+                          role="cell"
+                          className={`table-cell table-cell_${property}_${index} td_tableComponent`}
+                          onClick={() => handleRowSelection(item.id)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              handleRowSelection(item.id);
+                            }
+                          }}
+                          // eslint-disable-next-line @typescript-eslint/no-empty-function
+                          onChange={() => {}}
+                          aria-label="Select this row"
+                        >
+                          {formatDate(item[property])}
+                        </td>
+                      );
+                    }
+                    return null;
+                  })}
 
-                {isAtLeastOneButtonVisible ? (
-                  <td
-                    role="cell"
-                    className="td_tableComponent box_btnEditArchiveDelete"
-                  >
-                    {actionButtons.map(({ type, isVisible, handler, icon }) =>
-                      isVisible && handler && item.id !== undefined ? (
-                        <ActionButton
-                          key={`${type}_btnAction`}
-                          actionType={type}
-                          visible={isVisible && !!handler}
-                          handleAction={(itemId, e) => {
-                            handler(itemId, e);
-                          }}
-                          itemId={item.id}
-                          icons={{
-                            [type]: icon,
-                          }}
-                        />
-                      ) : null,
-                    )}
-                  </td>
-                ) : null}
-              </tr>
-            ))}
+                  {isAtLeastOneButtonVisible ? (
+                    <td
+                      role="cell"
+                      className="td_tableComponent box_btnEditArchiveDelete"
+                    >
+                      {actionButtons.map(({ type, isVisible, handler, icon }) =>
+                        isVisible && handler && item.id !== undefined ? (
+                          <ActionButton
+                            key={`${type}_btnAction`}
+                            actionType={type}
+                            visible={isVisible && !!handler}
+                            handleAction={(itemId, e) => {
+                              handler(itemId, e);
+                            }}
+                            itemId={item.id}
+                            icons={{
+                              [type]: icon,
+                            }}
+                          />
+                        ) : null,
+                      )}
+                    </td>
+                  ) : null}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

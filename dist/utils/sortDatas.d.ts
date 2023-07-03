@@ -14,7 +14,7 @@ export type SortableObject = {
  * @returns {number} - Returns 0 if the arrays are equal or both are empty, -1 if arrayA is less than arrayB, or 1 if arrayA is greater than arrayB.
  *                     If sortOrder is 'asc', -1 means arrayA comes first. If sortOrder is 'desc', -1 means arrayB comes first.
  */
-export declare function compareArrays(arrayA: any, arrayB: any, sortOrder: "asc" | "desc" | "noSort"): any;
+export declare function compareArrays(arrayA: any, arrayB: any, sortOrder: "asc" | "desc" | "noSort"): number;
 /**
  * Sorts an array of objects based on a specified key and sort order.
  * Handles date strings, strings, numbers, booleans, objects, and arrays.
@@ -30,4 +30,4 @@ export declare function compareArrays(arrayA: any, arrayB: any, sortOrder: "asc"
  *
  * @returns {T[]} - The sorted array of objects.
  */
-export declare function customSort<T extends SortableObject>(data: T[], sortKey: keyof T | undefined, sortOrder: "asc" | "desc" | "noSort", dateFormatForSort: string): T[];
+export default function customSort<T extends SortableObject>(data: T[], sortKey: keyof T | undefined, sortOrder: "asc" | "desc" | "noSort", dateFormatForSort: string): T[];

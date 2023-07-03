@@ -908,4 +908,11 @@ button.dropdownOptionButton{
   border:none;
 }
 
+.table_noData{
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
 

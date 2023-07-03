@@ -15,7 +15,7 @@ export type SortableObject = { [key: string]: any };
  * @returns {number} - Returns 0 if the arrays are equal or both are empty, -1 if arrayA is less than arrayB, or 1 if arrayA is greater than arrayB.
  *                     If sortOrder is 'asc', -1 means arrayA comes first. If sortOrder is 'desc', -1 means arrayB comes first.
  */
-export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "desc" | "noSort") {
+export function compareArrays(arrayA : any, arrayB: any, sortOrder : "asc" | "desc" | "noSort"): number {
   if (arrayA.length === 0 && arrayB.length === 0) {
     return 0;
   } else if (arrayA.length === 0) {
@@ -52,7 +52,7 @@ function replaceSeparators(dateStr: string) {
  *
  * @returns {T[]} - The sorted array of objects.
  */
-export function customSort<T extends SortableObject>(
+export default function customSort<T extends SortableObject>(
   data: T[],
   sortKey: keyof T | undefined,
   sortOrder: "asc" | "desc" | "noSort",

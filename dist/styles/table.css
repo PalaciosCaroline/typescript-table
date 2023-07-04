@@ -404,7 +404,6 @@ thead {
 /* manage-columns button*/
 .tableComponent {
   position: relative;
-  min-height: 335px;
 }
 
 .toggle-btnManagedColumns {

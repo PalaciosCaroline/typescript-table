@@ -26,7 +26,7 @@ interface Props {
  * @param {Props} props - The properties passed to the Pagination component.
  * @returns {JSX.Element} - Returns a JSX element representing the rendered Pagination.
  */
-function Pagination(props: Props) {
+function Pagination(props: Props): JSX.Element {
   const { page, totalPages, handlePageChange } = props;
 
   return (

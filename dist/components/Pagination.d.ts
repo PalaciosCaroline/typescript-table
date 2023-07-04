@@ -1,3 +1,4 @@
+/// <reference types="react" />
 /**
  * Props: The properties passed to the Pagination component.
  *
@@ -17,5 +18,5 @@ interface Props {
  * @param {Props} props - The properties passed to the Pagination component.
  * @returns {JSX.Element} - Returns a JSX element representing the rendered Pagination.
  */
-declare function Pagination(props: Props): import("react/jsx-runtime").JSX.Element;
+declare function Pagination(props: Props): JSX.Element;
 export default Pagination;

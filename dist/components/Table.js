@@ -14,7 +14,7 @@ import { useState, useEffect, useRef } from 'react';
 import customSort from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
-import TableHeader from './TableHeader';
+import TableHeaderCell from './TableHeaderCell';
 import SearchAndResetGlobal from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
 import ActionButton from './ActionButton';
@@ -57,6 +57,7 @@ export function Table(_a) {
     var _u = useState(false), isIndeterminate = _u[0], setIndeterminate = _u[1];
     var selectAllRef = useRef(null);
     var _v = useState(true), selectRowColumnVisible = _v[0], setSelectRowColumnVisible = _v[1];
+    // style
     var style = {
         '--background-color': background,
         '--color': color,
@@ -397,7 +398,7 @@ export function Table(_a) {
                                             var _b;
                                             var label = _a.label, property = _a.property, isVisible = _a.isVisible, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
                                             var isSortKey = sortKey === property;
-                                            return (_jsx(TableHeader, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
+                                            return (_jsx(TableHeaderCell, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
                                                     ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
                                         }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: data === undefined || filteredData.length === 0 ? (_jsx("tr", { children: _jsx("td", __assign({ colSpan: totalColumns, className: "table_noData" }, { children: "No data to display" })) })) : (currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
                                                         e.stopPropagation();

@@ -45,7 +45,7 @@ interface TableHeaderProps {
  * @param {TableHeaderProps} props - The props for the TableHeader component.
  * @returns {React.ReactElement | null} The rendered TableHeader component or null if the header is not visible.
  */
-const TableHeader: React.FC<TableHeaderProps> = ({
+const TableHeaderCell: React.FC<TableHeaderProps> = ({
   label,
   property,
   isVisible,
@@ -110,4 +110,4 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   );
 };
 
-export default TableHeader;
+export default TableHeaderCell;

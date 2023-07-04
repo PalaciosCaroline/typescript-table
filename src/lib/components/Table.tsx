@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import customSort from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
-import TableHeader from './TableHeader';
+import TableHeaderCell from './TableHeaderCell';
 import SearchAndResetGlobal from './searchAndResetGlobal';
 import ManageTable from './ManageTable';
 import ActionButton from './ActionButton';
@@ -162,6 +162,7 @@ export function Table<T>({
   const [isIndeterminate, setIndeterminate] = useState(false);
   const selectAllRef = useRef<HTMLInputElement | null>(null);
   const [selectRowColumnVisible, setSelectRowColumnVisible] = useState(true);
+  // style
   const style = {
     '--background-color': background,
     '--color': color,
@@ -630,7 +631,7 @@ export function Table<T>({
                 }) => {
                   const isSortKey = sortKey === property;
                   return (
-                    <TableHeader
+                    <TableHeaderCell
                       key={property}
                       label={label}
                       property={property}

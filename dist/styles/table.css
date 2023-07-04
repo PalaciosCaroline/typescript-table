@@ -404,6 +404,7 @@ thead {
 /* manage-columns button*/
 .tableComponent {
   position: relative;
+  min-height: 335px;
 }
 
 .toggle-btnManagedColumns {
@@ -438,8 +439,7 @@ thead {
 .modalTable {
   position: absolute;
   width: 240px;
-  box-sizing: border-box;
-  height: auto;
+  height: 325px;
   font-weight: 600;
   background-color: #efefef;
   top: 55px;
@@ -448,7 +448,7 @@ thead {
   -webkit-box-shadow: 5px 7px 10px -7px #000000,
     -19px -4px 15px 10px rgba(0, 0, 0, 0);
   box-shadow: 5px 7px 10px -7px #000000, -19px -4px 15px 10px rgba(0, 0, 0, 0);
-}
+} 
 
 .modalTable ul {
   padding: 0;

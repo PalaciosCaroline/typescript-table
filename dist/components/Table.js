@@ -417,7 +417,7 @@ export function Table(_a) {
                                                         }
                                                     }, 
                                                     // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                                    onChange: function () { }, "aria-label": "Select this row" }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property, " td_tableComponent")));
+                                                    onChange: function () { }, "aria-label": "Select this row ".concat(item[property]) }, { children: formatDate(item[property]) }), "cell-".concat(index, "-").concat(property, " td_tableComponent")));
                                             }
                                             return null;
                                         }), isAtLeastOneButtonVisible ? (_jsx("td", __assign({ role: "cell", className: "td_tableComponent box_btnEditArchiveDelete" }, { children: actionButtons.map(function (_a) {

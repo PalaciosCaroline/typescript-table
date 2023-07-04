@@ -727,7 +727,7 @@ export function Table<T>({
                           }}
                           // eslint-disable-next-line @typescript-eslint/no-empty-function
                           onChange={() => {}}
-                          aria-label="Select this row"
+                          aria-label={`Select this row ${item[property]}`}
                         >
                           {formatDate(item[property])}
                         </td>

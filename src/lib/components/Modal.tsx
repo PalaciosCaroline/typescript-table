@@ -107,7 +107,7 @@ function Modal(props: ModalProps): JSX.Element {
           <button
             className="btn_closeModalTable customComponent"
             onClick={props.onClose}
-            aria-label="Fermer la fenêtre"
+            aria-label="close modal"
             tabIndex={0}
             data-testid="btnCloseModal"
             style={props.style}

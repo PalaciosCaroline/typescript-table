@@ -70,6 +70,6 @@ function Modal(props) {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [props.isModalTableOpen]);
-    return (_jsx(_Fragment, { children: props.isModalTableOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable customComponent", onClick: props.onClose, "aria-label": "Fermer la fen\u00EAtre", tabIndex: 0, "data-testid": "btnCloseModal", style: props.style }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
+    return (_jsx(_Fragment, { children: props.isModalTableOpen && (_jsxs("div", __assign({ className: "modalTable", role: "dialog", "aria-modal": "true", "aria-labelledby": "modal-title", ref: modalRef }, { children: [_jsx("button", __assign({ className: "btn_closeModalTable customComponent", onClick: props.onClose, "aria-label": "close modal", tabIndex: 0, "data-testid": "btnCloseModal", style: props.style }, { children: _jsx(FaTimes, { className: "btn_closeModalTable_icon" }) })), _jsx("div", __assign({ className: "modalTable-content" }, { children: props.children }))] }))) }));
 }
 export default Modal;

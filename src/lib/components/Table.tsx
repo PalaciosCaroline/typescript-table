@@ -85,11 +85,11 @@ export interface DataItem<T> {
  * @property {string} [selectedRowsBackground] - The background color of the selected rows in the table (optional).
  * @property {(filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[], headerProperty?: string) => React.ReactNode} [renderExportDataComponent] - A function to render a data export component (optional).
  * @property {boolean} [editRowColumnVisible] - Flag indicating if the edit row column is visible (optional).
- * @property {(id: T, e?: any) => void} [handleEditRow] - The function to handle row editing (optional).
+ * @property {(id:number | string, e?: any) => void} [handleEditRow] - The function to handle row editing (optional).
  * @property {boolean} [archiveRowColumnVisible] - Flag indicating if the archive row column is visible (optional).
- * @property {(id: T, e?: any) => void} [handleArchiveRow] - The function to handle row archiving (optional).
+ * @property {(id:number | string, e?: any) => void} [handleArchiveRow] - The function to handle row archiving (optional).
  * @property {boolean} [deleteRowColumnVisible] - Flag indicating if the delete row column is visible (optional).
- * @property {(id: T, e?: any) => void} [handleDeleteRow] - The function to handle row deletion (optional).
+ * @property {(id: number | string, e?: any) => void} [handleDeleteRow] - The function to handle row deletion (optional).
  */
 export interface TableProps<T> {
   data: DataItem<T | undefined>[]; // data to display

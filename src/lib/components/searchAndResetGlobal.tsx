@@ -47,7 +47,6 @@ const SearchAndResetGlobal: React.FC<SearchAndResetGlobalProps> = ({
       {/* Button for resetting all searchs terms */}
       <button
         onClick={handleResetSearch}
-        // style={{ marginRight: '20px' }}
         className="btn_Reset customComponent"
         style={style}
       >

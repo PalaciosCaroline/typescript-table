@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ReactElement } from 'react';
 import customSort from '../utils/sortDatas';
 import filterData from '../utils/filterData';
 import Pagination from './Pagination';
@@ -52,7 +52,7 @@ export interface InputValues<T> {
  * It's used for searching by property.
  * @interface
  */
-interface SearchByProperty {
+export interface SearchByProperty {
   [key: string]: string | undefined;
 }
 
@@ -61,7 +61,7 @@ interface SearchByProperty {
  * It's used for storing search terms.
  * @interface
  */
-interface SearchTerms {
+export interface SearchTerms {
   [key: string]: string;
 }
 
@@ -109,8 +109,27 @@ export interface TableProps<T> {
   handleArchiveRow?: (id: number | string, e?: Event) => void;
   deleteRowColumnVisible?: boolean;
   handleDeleteRow?: (id: number | string, e?: Event) => void;
+  disableSelectRow?: boolean;
 }
 
+/**
+ * `Table` is a functional component that renders a sortable, paginated, and filterable table.
+ * 
+ * This component provides the following features:
+ * - Sorting by column
+ * - Pagination
+ * - Global filtering
+ * - Filtering by columns
+ * - Customizable visual properties, such as colors
+ * - Optional row-based actions, such as editing, archiving and deletion
+ * - Customizable row selection
+ * - Support for exporting table data
+ *
+ * @template T The type of data for each row in the table.
+ * 
+ * @param {TableProps<T>} props The properties of the Table component.
+ * @returns {ReactElement} A React element that represents the table.
+ */
 export function Table<T>({
   data,
   columns,
@@ -125,7 +144,8 @@ export function Table<T>({
   handleArchiveRow,
   deleteRowColumnVisible,
   handleDeleteRow,
-}: TableProps<T>) {
+  disableSelectRow = false,
+}: TableProps<T>): ReactElement {
   // useState for sorting
   const [sortKey, setSortKey] = useState<string | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | 'noSort'>(
@@ -191,7 +211,7 @@ export function Table<T>({
    * @function handleColumnSort
    * @returns {void}
    */
-  const handleColumnSort = (property: string, dateFormat: string) => {
+  const handleColumnSort = (property: string, dateFormat: string): void => {
     if (sortKey === property) {
       setSortOrder(updateSortOrder(sortOrder));
     } else {
@@ -568,6 +588,7 @@ export function Table<T>({
           selectedRows={selectedRows}
           handleVisibleSelectRowsColumn={handleVisibleSelectRowsColumn}
           selectRowColumnVisible={selectRowColumnVisible}
+          disableSelectRow={disableSelectRow}
         />
 
         <table className="tableComponent">
@@ -582,7 +603,8 @@ export function Table<T>({
           </colgroup>
           <thead className="thead_tableComponent">
             <tr role="row" className="tr_tableComponent">
-              {selectRowColumnVisible && (
+              {!disableSelectRow && 
+              selectRowColumnVisible && (
                 <th className="thColor th_tableComponent box_inputSelectAllRows">
                   <input
                     id="selectAll"
@@ -680,7 +702,7 @@ export function Table<T>({
                   }`}
                   style={style}
                 >
-                  {selectRowColumnVisible && (
+                  {!disableSelectRow && selectRowColumnVisible && (
                     <td className="box_inputSelectRow">
                       <input
                         type="checkbox"
@@ -720,11 +742,12 @@ export function Table<T>({
                           key={`cell-${index}-${property} td_tableComponent`}
                           role="cell"
                           className={`table-cell table-cell_${property}_${index} td_tableComponent`}
-                          onClick={() => handleRowSelection(item.id)}
+                          onClick={() => {if (!disableSelectRow)handleRowSelection(item.id);}}
                           onKeyDown={(e) => {
+                            if (!disableSelectRow){
                             if (e.key === 'Enter') {
                               handleRowSelection(item.id);
-                            }
+                            }}
                           }}
                           // eslint-disable-next-line @typescript-eslint/no-empty-function
                           onChange={() => {}}

@@ -5,7 +5,7 @@ import React from 'react';
  * @param {(option: string) => void} handlePerPageChange - A function that is called when the selected page size changes.
  * @param {React.CSSProperties} style - The CSS styles to be applied to the component.
  */
-interface RowsPerPageProps {
+export interface RowsPerPageProps {
     handlePerPageChange: (option: string) => void;
     style: React.CSSProperties;
 }

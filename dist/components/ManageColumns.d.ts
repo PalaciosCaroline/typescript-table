@@ -10,13 +10,14 @@ import { ColumnManaged } from './Table';
  * @param {boolean} selectRowColumnVisible - A boolean indicating if the select row column is visible.
  * @param {React.CSSProperties} style - The CSS properties to be applied to the ManageColumns component.
  */
-interface ManageColumnsProps {
+export interface ManageColumnsProps {
     columns: ColumnManaged[];
     handleColumnVisibility: (property: string) => void;
     handleVisibleAllColumns: () => void;
     handleVisibleSelectRowsColumn: () => void;
     selectRowColumnVisible: boolean;
     style: React.CSSProperties;
+    disableSelectRow: boolean;
 }
 /**
 /**

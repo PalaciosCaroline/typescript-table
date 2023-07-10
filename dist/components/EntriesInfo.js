@@ -10,6 +10,11 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import { jsx as _jsx } from "react/jsx-runtime";
+/**
+ * A functional component that shows the number of entries and their range.
+ *
+ * @param props - The props that define the number of entries and their range.
+ */
 var EntriesInfo = function (_a) {
     var filteredDataLength = _a.filteredDataLength, dataLength = _a.dataLength, page = _a.page, perPage = _a.perPage;
     var content;

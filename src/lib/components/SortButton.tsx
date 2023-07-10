@@ -10,7 +10,7 @@ import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
  * @property {string} dateFormat - The format of the date for sorting, if the property is a date.
  * @property {(property: string, dateFormat: string) => void} handleColumnSort - The function that is called when the button is clicked.
  */
-interface SortButtonProps {
+export interface SortButtonProps {
   isSortKey: boolean;
   sortOrder: 'asc' | 'desc' | 'noSort';
   property: string;

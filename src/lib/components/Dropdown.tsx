@@ -1,33 +1,72 @@
 import React, { useState, useEffect, useRef, createRef } from 'react';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 
+// /**
+//  * DropdownProps: The props passed to the Dropdown component.
+//  *
+//  * @param {string | undefined} defaultValueSelectedOption - The default selected option when the dropdown is first initialized.
+//  * @param {string[]} options - An array of strings representing the options available in the dropdown.
+//  * @param {(option: string) => void} onOptionClick - A function that is triggered when an option in the dropdown is clicked.
+//  * @param {string} className - A string representing the className of the dropdown component.
+//  * @param {string} classNameProps - A string representing the className of the dropdown's properties.
+//  * @param {React.CSSProperties} style - The CSS properties to be applied to the dropdown component.
+//  * @param {string} dataTestId - A string representing the test-id for testing purposes.
+//  */
+// interface DropdownProps {
+//   defaultValueSelectedOption?: string | undefined;
+//   options: string[];
+//   onOptionClick: (option: string) => void;
+//   className: string;
+//   classNameProps: string;
+//   style: React.CSSProperties;
+//   dataTestId: string;
+// }
+
 /**
- * DropdownProps: The props passed to the Dropdown component.
- *
- * @param {string | undefined} defaultValueSelectedOption - The default selected option when the dropdown is first initialized.
- * @param {string[]} options - An array of strings representing the options available in the dropdown.
- * @param {(option: string) => void} onOptionClick - A function that is triggered when an option in the dropdown is clicked.
- * @param {string} className - A string representing the className of the dropdown component.
- * @param {string} classNameProps - A string representing the className of the dropdown's properties.
- * @param {React.CSSProperties} style - The CSS properties to be applied to the dropdown component.
- * @param {string} dataTestId - A string representing the test-id for testing purposes.
+ * The props passed to the Dropdown component.
  */
-interface DropdownProps {
-  defaultValueSelectedOption?: string | undefined;
+export interface DropdownProps {
+  /**
+   * The default selected option when the dropdown is first initialized.
+   */
+  defaultValueSelectedOption?: string;
+
+  /**
+   * An array of strings representing the options available in the dropdown.
+   */
   options: string[];
+
+  /**
+   * A function that is triggered when an option in the dropdown is clicked.
+   * @param option - The selected option.
+   */
   onOptionClick: (option: string) => void;
+
+  /**
+   * A string representing the className of the dropdown component.
+   */
   className: string;
+
+  /**
+   * A string representing the className of the dropdown's properties.
+   */
   classNameProps: string;
+
+  /**
+   * The CSS properties to be applied to the dropdown component.
+   */
   style: React.CSSProperties;
+
+  /**
+   * A string representing the test-id for testing purposes.
+   */
   dataTestId: string;
 }
 
 /**
- * Dropdown: A Dropdown component that allows a user to choose an option from a dropdown menu.
- *
- * @param {DropdownProps} props - The props passed to the Dropdown component.
- *
- * @returns {JSX.Element} - Returns a JSX element representing the Dropdown component.
+ * Dropdown component.
+ * @param props - The props passed to the Dropdown component.
+ * @returns The Dropdown component.
  */
 function Dropdown(props: DropdownProps): JSX.Element {
   const [selectedOption, setSelectedOption] = useState<string>(
@@ -51,6 +90,10 @@ function Dropdown(props: DropdownProps): JSX.Element {
     }
   }, [focusedOptionIndex, isOpen]);
 
+   /**
+   * Handles an option click event.
+   * @param option - The option that has been clicked.
+   */
   const handleOptionClick = (option: string): void => {
     setSelectedOption(option);
     setIsOpen(false);
@@ -73,6 +116,10 @@ function Dropdown(props: DropdownProps): JSX.Element {
     toggleDropdown();
   };
 
+  /**
+   * Handles a click outside the dropdown.
+   * @param event - The click event.
+   */
   const handleClickOutside = (event: MouseEvent): void => {
     if (
       dropdownRef.current &&
@@ -83,6 +130,10 @@ function Dropdown(props: DropdownProps): JSX.Element {
     }
   };
 
+   /**
+   * Handles a key down event in the dropdown.
+   * @param event - The keydown event.
+   */
   const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
     if (event.currentTarget !== event.target) {
       return;
@@ -147,6 +198,11 @@ function Dropdown(props: DropdownProps): JSX.Element {
     };
   }, []);
 
+   /**
+   * Handles a key down event on an option.
+   * @param event - The keydown event.
+   * @param option - The option that has received the keydown event.
+   */
   const handleOptionKeyDown = (
     event: React.KeyboardEvent,
     option: string,
@@ -228,7 +284,9 @@ function Dropdown(props: DropdownProps): JSX.Element {
         </ul>
       )}
       <span id="dropdown-label" className="sr-only">
-        options of dropdown
+        {isOpen
+          ? `Dropdown options for ${props.classNameProps} are now visible`
+          : `Dropdown options for ${props.classNameProps} are hidden. Press Enter to display them`}
       </span>
     </div>
   );

@@ -1,0 +1,14 @@
+{
+    "source": {
+        "includePattern": ".+\\.tsx?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": ["node_modules/tsd-jsdoc/dist/plugin"],
+    "opts": {
+        "template": "node_modules/tsd-jsdoc/dist/template",
+        "encoding": "utf8",
+        "destination": "./docs/",
+        "recurse": true,
+        "verbose": true
+    }
+}

@@ -17,7 +17,7 @@ import React from 'react';
  * @property {{ [property: string]: boolean }} isOpenSearchByProperty - Record indicating whether search by property is open for each property.
  * @property {(property: string) => void} handleToggle - The function that is called when the toggle button is clicked.
  */
-interface TableHeaderProps {
+export interface TableHeaderProps {
     label: string;
     property: string;
     isVisible: boolean;

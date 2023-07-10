@@ -49,6 +49,10 @@ Use the component like this:
 
 Customize your component and tailor it to your specific needs by providing the appropriate data types for data={yourData}.
 
+## Documentation
+
+The complete documentation for this project is available [here](https://vercel.com/palcaroline28-gmailcom/typescript-table-docs)
+
 ## All data types can be displayed in the table:
 
 The table displays all different types of data:
@@ -235,6 +239,7 @@ By adding the dateFormat attribute to the column definition, the Table component
 
 | Prop | Description | Required |
 | --- | --- | --- |
+| `disableSelectRow` | Controls the visibility of the `selectRow` column. When set to `true`, the `selectRow` column will not be rendered, disabling row selection in the table. This is particularly useful in situations where row selection is not needed, such as when the `typescript-exportdata` feature is not being used. | No |
 | `editRowColumnVisible` | Controls the visibility of the "Edit" column. If passed and true, a column with an edit button will be visible for each row. Otherwise, the column will not be displayed. | No |
 | `handleEditRow` | Function called when the user clicks on the edit button. The ID of the row is passed as a parameter, which allows you to determine which row should be edited. This function should have the following signature: `function(itemId, e?)`. | Yes, if `editRowColumnVisible` is true |
 | `archiveRowColumnVisible` | Controls the visibility of the "Archive" column. If passed and true, a column with an archive button will be visible for each row. Otherwise, the column will not be displayed. | No |

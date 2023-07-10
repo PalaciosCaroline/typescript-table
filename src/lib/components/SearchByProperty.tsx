@@ -11,7 +11,7 @@ import { InputValues } from './Table';
  * @param {(name: string, value: string) => void} handleSearchByProperty - A function that is called when the search term changes for a property.
  * @param {(property: string) => void} handleReset - A function that is called when the reset button is clicked for a property.
  */
-interface Props<
+export interface PropsSearchBProp<
   U extends string | number | readonly string[] | undefined = string,
 > {
   inputValues: InputValues<U>;
@@ -35,7 +35,7 @@ const SearchByProperty = <
   property,
   handleSearchByProperty,
   handleReset,
-}: Props<U>): React.ReactElement => {
+}: PropsSearchBProp<U>): React.ReactElement => {
   const handleResetSearchByProperty = () => {
     handleReset(property);
   };

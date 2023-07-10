@@ -13,7 +13,7 @@ import {
  * @param {number} totalPages - The total number of pages.
  * @param {(page: number) => void} handlePageChange - A function that is called when the page number changes.
  */
-interface Props {
+export interface PropsPagination {
   page: number;
   totalPages: number;
   handlePageChange: (page: number) => void;
@@ -26,7 +26,7 @@ interface Props {
  * @param {Props} props - The properties passed to the Pagination component.
  * @returns {JSX.Element} - Returns a JSX element representing the rendered Pagination.
  */
-function Pagination(props: Props): JSX.Element {
+function Pagination(props: PropsPagination): JSX.Element {
   const { page, totalPages, handlePageChange } = props;
 
   return (

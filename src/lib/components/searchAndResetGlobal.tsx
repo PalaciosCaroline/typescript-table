@@ -9,7 +9,7 @@ import { FaSearch } from 'react-icons/fa';
  * @param {(event: React.ChangeEvent<HTMLInputElement>) => void} handleSearch - A function that is called when the search term changes.
  * @param {() => void} handleResetSearch - A function that is called when the reset search button is clicked.
  */
-interface SearchAndResetGlobalProps {
+export interface SearchAndResetGlobalProps {
   searchTerm: string;
   style: React.CSSProperties;
   handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;

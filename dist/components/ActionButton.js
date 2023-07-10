@@ -15,8 +15,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
  * The button's type of action (edit, archive, delete), visibility, and associated item ID are customizable.
  * An icon for each action type can also be provided through the 'icons' prop.
  *
- * @param {ActionButtonProps} props - The properties or attributes of the ActionButton component
- * @returns {JSX.Element | null} The rendered ActionButton component or null if the button is not visible
+ * @returns The rendered ActionButton component or null if the button is not visible
  */
 var ActionButton = function (_a) {
     var actionType = _a.actionType, visible = _a.visible, handleAction = _a.handleAction, itemId = _a.itemId, icons = _a.icons;

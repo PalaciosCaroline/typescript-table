@@ -29,7 +29,7 @@ interface DataItem<T> {
  * @param {boolean} selectRowColumnVisible - A boolean indicating if the select row column is visible.
  * @param {(filteredData: DataItem<T | undefined>[], columnsManaged: ColumnManaged[], headerProperty?: string,) => React.ReactNode} [renderExportDataComponent] - A function to render a component for exporting data.
  */
-interface ManageTableProps<T> {
+export interface ManageTableProps<T> {
   style: React.CSSProperties;
   selectedRows: Set<T | undefined>;
   handlePerPageChange: (optionValue: string) => void;
@@ -39,6 +39,7 @@ interface ManageTableProps<T> {
   filteredData: DataItem<T | undefined>[];
   handleVisibleSelectRowsColumn: () => void;
   selectRowColumnVisible: boolean;
+  disableSelectRow: boolean;
   renderExportDataComponent?: (
     filteredData: DataItem<T | undefined>[],
     columnsManaged: ColumnManaged[],
@@ -139,6 +140,7 @@ const ManageTable = <T,>(props: ManageTableProps<T>): React.ReactElement => {
                   props.handleVisibleSelectRowsColumn
                 }
                 selectRowColumnVisible={props.selectRowColumnVisible}
+                disableSelectRow={props.disableSelectRow}
               />
             </li>
           </ul>

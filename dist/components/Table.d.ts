@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import './../styles/table.css';
 import './../styles/CustomComponent.css';
 /**
@@ -32,6 +32,22 @@ export interface ColumnManaged extends Column {
  */
 export interface InputValues<T> {
     [key: string]: T | undefined;
+}
+/**
+ * The SearchByProperty interface represents a record where the key is a string and the value is a string or undefined.
+ * It's used for searching by property.
+ * @interface
+ */
+export interface SearchByProperty {
+    [key: string]: string | undefined;
+}
+/**
+ * The SearchTerms interface represents a record where the key is a string and the value is a string.
+ * It's used for storing search terms.
+ * @interface
+ */
+export interface SearchTerms {
+    [key: string]: string;
 }
 /**
  * The DataItem interface is a generic for a record where the key is a string and the value can be any type or undefined.
@@ -72,5 +88,24 @@ export interface TableProps<T> {
     handleArchiveRow?: (id: number | string, e?: Event) => void;
     deleteRowColumnVisible?: boolean;
     handleDeleteRow?: (id: number | string, e?: Event) => void;
+    disableSelectRow?: boolean;
 }
-export declare function Table<T>({ data, columns, background, color, hoverBackground, selectedRowsBackground, renderExportDataComponent, editRowColumnVisible, handleEditRow, archiveRowColumnVisible, handleArchiveRow, deleteRowColumnVisible, handleDeleteRow, }: TableProps<T>): import("react/jsx-runtime").JSX.Element;
+/**
+ * `Table` is a functional component that renders a sortable, paginated, and filterable table.
+ *
+ * This component provides the following features:
+ * - Sorting by column
+ * - Pagination
+ * - Global filtering
+ * - Filtering by columns
+ * - Customizable visual properties, such as colors
+ * - Optional row-based actions, such as editing, archiving and deletion
+ * - Customizable row selection
+ * - Support for exporting table data
+ *
+ * @template T The type of data for each row in the table.
+ *
+ * @param {TableProps<T>} props The properties of the Table component.
+ * @returns {ReactElement} A React element that represents the table.
+ */
+export declare function Table<T>({ data, columns, background, color, hoverBackground, selectedRowsBackground, renderExportDataComponent, editRowColumnVisible, handleEditRow, archiveRowColumnVisible, handleArchiveRow, deleteRowColumnVisible, handleDeleteRow, disableSelectRow, }: TableProps<T>): ReactElement;

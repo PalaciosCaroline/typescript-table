@@ -13,13 +13,14 @@ import { ColumnManaged } from './Table';
  * @param {boolean} selectRowColumnVisible - A boolean indicating if the select row column is visible.
  * @param {React.CSSProperties} style - The CSS properties to be applied to the ManageColumns component.
  */
-interface ManageColumnsProps {
+export interface ManageColumnsProps {
   columns: ColumnManaged[];
   handleColumnVisibility: (property: string) => void;
   handleVisibleAllColumns: () => void;
   handleVisibleSelectRowsColumn: () => void;
   selectRowColumnVisible: boolean;
   style: React.CSSProperties;
+  disableSelectRow:boolean
 }
 
 /**
@@ -67,7 +68,8 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
         {/* List of columns */}
         <ul className="columns-list">
           {/* Select Rows Column */}
-          <li
+          {!props.disableSelectRow && 
+          (<li
             key="selectRowsColumn"
             className="liManagedColumns"
             data-testid={`li-selectRows`}
@@ -93,7 +95,7 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
               />
             </div>
             Select Rows Column
-          </li>
+          </li>)}
           {/* Columns by label of the table */}
           {props.columns.map(({ label, property, isVisible }) => (
             <li

@@ -9,7 +9,7 @@ import { FaTimes } from 'react-icons/fa';
  * @param {React.ReactNode} children - The elements to be rendered in the modal.
  * @param {React.CSSProperties} style - The CSS properties to be applied to the modal.
  */
-interface ModalProps {
+export interface ModalProps {
   isModalTableOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;

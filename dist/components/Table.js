@@ -23,40 +23,58 @@ import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import './../styles/table.css';
 import './../styles/CustomComponent.css';
+/**
+ * `Table` is a functional component that renders a sortable, paginated, and filterable table.
+ *
+ * This component provides the following features:
+ * - Sorting by column
+ * - Pagination
+ * - Global filtering
+ * - Filtering by columns
+ * - Customizable visual properties, such as colors
+ * - Optional row-based actions, such as editing, archiving and deletion
+ * - Customizable row selection
+ * - Support for exporting table data
+ *
+ * @template T The type of data for each row in the table.
+ *
+ * @param {TableProps<T>} props The properties of the Table component.
+ * @returns {ReactElement} A React element that represents the table.
+ */
 export function Table(_a) {
-    var data = _a.data, columns = _a.columns, _b = _a.background, background = _b === void 0 ? '#677e11' : _b, _c = _a.color, color = _c === void 0 ? 'white' : _c, _d = _a.hoverBackground, hoverBackground = _d === void 0 ? '#7e9b16' : _d, _e = _a.selectedRowsBackground, selectedRowsBackground = _e === void 0 ? 'rgba(175 228 145 / 20%)' : _e, renderExportDataComponent = _a.renderExportDataComponent, editRowColumnVisible = _a.editRowColumnVisible, handleEditRow = _a.handleEditRow, archiveRowColumnVisible = _a.archiveRowColumnVisible, handleArchiveRow = _a.handleArchiveRow, deleteRowColumnVisible = _a.deleteRowColumnVisible, handleDeleteRow = _a.handleDeleteRow;
+    var data = _a.data, columns = _a.columns, _b = _a.background, background = _b === void 0 ? '#677e11' : _b, _c = _a.color, color = _c === void 0 ? 'white' : _c, _d = _a.hoverBackground, hoverBackground = _d === void 0 ? '#7e9b16' : _d, _e = _a.selectedRowsBackground, selectedRowsBackground = _e === void 0 ? 'rgba(175 228 145 / 20%)' : _e, renderExportDataComponent = _a.renderExportDataComponent, editRowColumnVisible = _a.editRowColumnVisible, handleEditRow = _a.handleEditRow, archiveRowColumnVisible = _a.archiveRowColumnVisible, handleArchiveRow = _a.handleArchiveRow, deleteRowColumnVisible = _a.deleteRowColumnVisible, handleDeleteRow = _a.handleDeleteRow, _f = _a.disableSelectRow, disableSelectRow = _f === void 0 ? false : _f;
     // useState for sorting
-    var _f = useState(undefined), sortKey = _f[0], setSortKey = _f[1];
-    var _g = useState('noSort'), sortOrder = _g[0], setSortOrder = _g[1];
-    var _h = useState([]), sortedData = _h[0], setSortedData = _h[1];
+    var _g = useState(undefined), sortKey = _g[0], setSortKey = _g[1];
+    var _h = useState('noSort'), sortOrder = _h[0], setSortOrder = _h[1];
+    var _j = useState([]), sortedData = _j[0], setSortedData = _j[1];
     // useState for pagination
-    var _j = useState(1), page = _j[0], setPage = _j[1];
-    var _k = useState(10), perPage = _k[0], setPerPage = _k[1];
-    var _l = useState(0), totalPages = _l[0], setTotalPages = _l[1];
+    var _k = useState(1), page = _k[0], setPage = _k[1];
+    var _l = useState(10), perPage = _l[0], setPerPage = _l[1];
+    var _m = useState(0), totalPages = _m[0], setTotalPages = _m[1];
     // useState for date format used in sorting
-    var _m = useState('none'), dateFormatForSort = _m[0], setDateFormatForSort = _m[1];
+    var _o = useState('none'), dateFormatForSort = _o[0], setDateFormatForSort = _o[1];
     // useState for global search
-    var _o = useState(''), searchTerm = _o[0], setSearchTerm = _o[1];
+    var _p = useState(''), searchTerm = _p[0], setSearchTerm = _p[1];
     // useState for search by property
-    var _p = useState({}), searchTerms = _p[0], setSearchTerms = _p[1];
+    var _q = useState({}), searchTerms = _q[0], setSearchTerms = _q[1];
     var initialIsOpenSearchByProperty = {};
     columns.forEach(function (_a) {
         var property = _a.property;
         initialIsOpenSearchByProperty[property] = false;
     });
-    var _q = useState(initialIsOpenSearchByProperty), isOpenSearchByProperty = _q[0], setIsOpenSearchByProperty = _q[1];
+    var _r = useState(initialIsOpenSearchByProperty), isOpenSearchByProperty = _r[0], setIsOpenSearchByProperty = _r[1];
     var initialInputValues = {};
     columns.forEach(function (_a) {
         var property = _a.property;
         initialInputValues[property] = '';
     });
-    var _r = useState(initialInputValues), inputValues = _r[0], setInputValues = _r[1];
+    var _s = useState(initialInputValues), inputValues = _s[0], setInputValues = _s[1];
     // useState for selecting rows to export
-    var _s = useState(new Set()), selectedRows = _s[0], setSelectedRows = _s[1];
-    var _t = useState(false), selectAllChecked = _t[0], setSelectAllChecked = _t[1];
-    var _u = useState(false), isIndeterminate = _u[0], setIndeterminate = _u[1];
+    var _t = useState(new Set()), selectedRows = _t[0], setSelectedRows = _t[1];
+    var _u = useState(false), selectAllChecked = _u[0], setSelectAllChecked = _u[1];
+    var _v = useState(false), isIndeterminate = _v[0], setIndeterminate = _v[1];
     var selectAllRef = useRef(null);
-    var _v = useState(true), selectRowColumnVisible = _v[0], setSelectRowColumnVisible = _v[1];
+    var _w = useState(true), selectRowColumnVisible = _w[0], setSelectRowColumnVisible = _w[1];
     // style
     var style = {
         '--background-color': background,
@@ -215,7 +233,7 @@ export function Table(_a) {
         }
     };
     // manage dateFormat instruction
-    var _w = useState(function () {
+    var _x = useState(function () {
         return columns.map(function (_a) {
             var label = _a.label, property = _a.property, dateFormat = _a.dateFormat, disableSort = _a.disableSort, disableFilter = _a.disableFilter;
             return ({
@@ -227,7 +245,7 @@ export function Table(_a) {
                 disableFilter: disableFilter,
             });
         });
-    }), columnsManaged = _w[0], setColumnsManaged = _w[1];
+    }), columnsManaged = _x[0], setColumnsManaged = _x[1];
     //manage display data per page
     var start = (page - 1) * perPage;
     var end = start + perPage;
@@ -377,12 +395,13 @@ export function Table(_a) {
     if (isAtLeastOneButtonVisible) {
         totalColumns += 1;
     }
-    return (_jsxs("div", __assign({ className: "box_table box_tableAndFeatures" }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch, style: style }), _jsxs("div", __assign({ className: "box_tableManaged scrollerTable" }, { children: [_jsx(ManageTable, { style: style, handlePerPageChange: handlePerPageChange, filteredData: filteredData, columnsManaged: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns, renderExportDataComponent: renderExportDataComponent, selectedRows: selectedRows, handleVisibleSelectRowsColumn: handleVisibleSelectRowsColumn, selectRowColumnVisible: selectRowColumnVisible }), _jsxs("table", __assign({ className: "tableComponent" }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
+    return (_jsxs("div", __assign({ className: "box_table box_tableAndFeatures" }, { children: [_jsx(SearchAndResetGlobal, { searchTerm: searchTerm, handleSearch: handleSearch, handleResetSearch: handleResetSearch, style: style }), _jsxs("div", __assign({ className: "box_tableManaged scrollerTable" }, { children: [_jsx(ManageTable, { style: style, handlePerPageChange: handlePerPageChange, filteredData: filteredData, columnsManaged: columnsManaged, handleColumnVisibility: handleColumnVisibility, handleVisibleAllColumns: handleVisibleAllColumns, renderExportDataComponent: renderExportDataComponent, selectedRows: selectedRows, handleVisibleSelectRowsColumn: handleVisibleSelectRowsColumn, selectRowColumnVisible: selectRowColumnVisible, disableSelectRow: disableSelectRow }), _jsxs("table", __assign({ className: "tableComponent" }, { children: [_jsx("colgroup", { children: columnsManaged.map(function (_a) {
                                     var property = _a.property, isVisible = _a.isVisible;
                                     if (isVisible) {
                                         return (_jsx("col", { id: "col_".concat(property) }, "{col_".concat(property)));
                                     }
-                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [selectRowColumnVisible && (_jsxs("th", __assign({ className: "thColor th_tableComponent box_inputSelectAllRows" }, { children: [_jsx("input", { id: "selectAll", type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onKeyDown: function (e) {
+                                }) }), _jsx("thead", __assign({ className: "thead_tableComponent" }, { children: _jsxs("tr", __assign({ role: "row", className: "tr_tableComponent" }, { children: [!disableSelectRow &&
+                                            selectRowColumnVisible && (_jsxs("th", __assign({ className: "thColor th_tableComponent box_inputSelectAllRows" }, { children: [_jsx("input", { id: "selectAll", type: "checkbox", "data-role": "checkbox-three-state", "data-caption": "Checkbox", checked: selectAllChecked, onKeyDown: function (e) {
                                                         if (e.key === 'Enter') {
                                                             handleSelectAll();
                                                         }
@@ -400,7 +419,7 @@ export function Table(_a) {
                                             var isSortKey = sortKey === property;
                                             return (_jsx(TableHeaderCell, { label: label, property: property, isVisible: isVisible, dateFormat: dateFormat, isSortKey: isSortKey, sortOrder: sortOrder, handleColumnSort: handleColumnSort, inputValues: inputValues, handleReset: handleReset, disableSort: disableSort, disableFilter: disableFilter, handleSearchByProperty: handleSearchByProperty, isOpenSearchByProperty: isOpenSearchByProperty[property]
                                                     ? (_b = {}, _b[property] = isOpenSearchByProperty[property], _b) : {}, handleToggle: handleToggle }, property));
-                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: data === undefined || filteredData.length === 0 ? (_jsx("tr", { children: _jsx("td", __assign({ colSpan: totalColumns, className: "table_noData" }, { children: "No data to display" })) })) : (currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), style: style }, { children: [selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
+                                        }), isAtLeastOneButtonVisible ? (_jsx("th", __assign({ className: "thColor th_tableComponent" }, { children: _jsx("span", { children: "Action" }) }))) : null] })) })), _jsx("tbody", __assign({ className: "tbody_tableComponent" }, { children: data === undefined || filteredData.length === 0 ? (_jsx("tr", { children: _jsx("td", __assign({ colSpan: totalColumns, className: "table_noData" }, { children: "No data to display" })) })) : (currentData.map(function (item, index) { return (_jsxs("tr", __assign({ role: "row", className: "tr_".concat(index, " tr_tableComponent ").concat(selectedRows.has(item.id) ? 'selected' : ''), style: style }, { children: [!disableSelectRow && selectRowColumnVisible && (_jsxs("td", __assign({ className: "box_inputSelectRow" }, { children: [_jsx("input", { type: "checkbox", checked: selectedRows.has(item.id), className: "inputSelectRows inputSelectRow customComponent", onClick: function (e) {
                                                         e.stopPropagation();
                                                         handleRowSelection(item.id);
                                                     }, onKeyDown: function (e) {
@@ -412,9 +431,12 @@ export function Table(_a) {
                                                     onChange: function () { }, style: style, id: "selectRow-".concat(item.id), name: "selectRow-".concat(item.id) }), _jsx("label", __assign({ htmlFor: "selectRow-".concat(item.id), className: "sr-only", id: "row-".concat(item.id, "-label") }, { children: "select this row" }))] }))), columnsManaged.map(function (_a) {
                                             var property = _a.property, isVisible = _a.isVisible;
                                             if (isVisible) {
-                                                return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index, " td_tableComponent"), onClick: function () { return handleRowSelection(item.id); }, onKeyDown: function (e) {
-                                                        if (e.key === 'Enter') {
-                                                            handleRowSelection(item.id);
+                                                return (_jsx("td", __assign({ role: "cell", className: "table-cell table-cell_".concat(property, "_").concat(index, " td_tableComponent"), onClick: function () { if (!disableSelectRow)
+                                                        handleRowSelection(item.id); }, onKeyDown: function (e) {
+                                                        if (!disableSelectRow) {
+                                                            if (e.key === 'Enter') {
+                                                                handleRowSelection(item.id);
+                                                            }
                                                         }
                                                     }, 
                                                     // eslint-disable-next-line @typescript-eslint/no-empty-function

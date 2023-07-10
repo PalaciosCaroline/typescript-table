@@ -1,30 +1,42 @@
 import React from 'react';
 /**
- * DropdownProps: The props passed to the Dropdown component.
- *
- * @param {string | undefined} defaultValueSelectedOption - The default selected option when the dropdown is first initialized.
- * @param {string[]} options - An array of strings representing the options available in the dropdown.
- * @param {(option: string) => void} onOptionClick - A function that is triggered when an option in the dropdown is clicked.
- * @param {string} className - A string representing the className of the dropdown component.
- * @param {string} classNameProps - A string representing the className of the dropdown's properties.
- * @param {React.CSSProperties} style - The CSS properties to be applied to the dropdown component.
- * @param {string} dataTestId - A string representing the test-id for testing purposes.
+ * The props passed to the Dropdown component.
  */
-interface DropdownProps {
-    defaultValueSelectedOption?: string | undefined;
+export interface DropdownProps {
+    /**
+     * The default selected option when the dropdown is first initialized.
+     */
+    defaultValueSelectedOption?: string;
+    /**
+     * An array of strings representing the options available in the dropdown.
+     */
     options: string[];
+    /**
+     * A function that is triggered when an option in the dropdown is clicked.
+     * @param option - The selected option.
+     */
     onOptionClick: (option: string) => void;
+    /**
+     * A string representing the className of the dropdown component.
+     */
     className: string;
+    /**
+     * A string representing the className of the dropdown's properties.
+     */
     classNameProps: string;
+    /**
+     * The CSS properties to be applied to the dropdown component.
+     */
     style: React.CSSProperties;
+    /**
+     * A string representing the test-id for testing purposes.
+     */
     dataTestId: string;
 }
 /**
- * Dropdown: A Dropdown component that allows a user to choose an option from a dropdown menu.
- *
- * @param {DropdownProps} props - The props passed to the Dropdown component.
- *
- * @returns {JSX.Element} - Returns a JSX element representing the Dropdown component.
+ * Dropdown component.
+ * @param props - The props passed to the Dropdown component.
+ * @returns The Dropdown component.
  */
 declare function Dropdown(props: DropdownProps): JSX.Element;
 export default Dropdown;

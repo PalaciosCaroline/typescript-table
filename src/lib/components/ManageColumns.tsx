@@ -20,7 +20,7 @@ export interface ManageColumnsProps {
   handleVisibleSelectRowsColumn: () => void;
   selectRowColumnVisible: boolean;
   style: React.CSSProperties;
-  disableSelectRow:boolean
+  disableSelectRow: boolean;
 }
 
 /**
@@ -68,34 +68,35 @@ function ManageColumns(props: ManageColumnsProps): JSX.Element {
         {/* List of columns */}
         <ul className="columns-list">
           {/* Select Rows Column */}
-          {!props.disableSelectRow && 
-          (<li
-            key="selectRowsColumn"
-            className="liManagedColumns"
-            data-testid={`li-selectRows`}
-          >
-            <div className="toggle-switch">
-              <input
-                id="toggle-input-allColumnVisible"
-                name="toggle-input-allColumnVisible"
-                className="toggle-input"
-                type="checkbox"
-                checked={props.selectRowColumnVisible}
-                onChange={props.handleVisibleSelectRowsColumn}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    props.handleVisibleSelectRowsColumn();
-                  }
-                }}
-                data-testid="inputManaged-selectRowColumn"
-              />
-              <label
-                className="toggle-label"
-                htmlFor="toggle-input-allColumnVisible"
-              />
-            </div>
-            Select Rows Column
-          </li>)}
+          {!props.disableSelectRow && (
+            <li
+              key="selectRowsColumn"
+              className="liManagedColumns"
+              data-testid={`li-selectRows`}
+            >
+              <div className="toggle-switch">
+                <input
+                  id="toggle-input-allColumnVisible"
+                  name="toggle-input-allColumnVisible"
+                  className="toggle-input"
+                  type="checkbox"
+                  checked={props.selectRowColumnVisible}
+                  onChange={props.handleVisibleSelectRowsColumn}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      props.handleVisibleSelectRowsColumn();
+                    }
+                  }}
+                  data-testid="inputManaged-selectRowColumn"
+                />
+                <label
+                  className="toggle-label"
+                  htmlFor="toggle-input-allColumnVisible"
+                />
+              </div>
+              Select Rows Column
+            </li>
+          )}
           {/* Columns by label of the table */}
           {props.columns.map(({ label, property, isVisible }) => (
             <li

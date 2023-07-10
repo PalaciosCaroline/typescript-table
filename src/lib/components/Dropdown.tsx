@@ -90,7 +90,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
     }
   }, [focusedOptionIndex, isOpen]);
 
-   /**
+  /**
    * Handles an option click event.
    * @param option - The option that has been clicked.
    */
@@ -130,7 +130,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
     }
   };
 
-   /**
+  /**
    * Handles a key down event in the dropdown.
    * @param event - The keydown event.
    */
@@ -198,7 +198,7 @@ function Dropdown(props: DropdownProps): JSX.Element {
     };
   }, []);
 
-   /**
+  /**
    * Handles a key down event on an option.
    * @param event - The keydown event.
    * @param option - The option that has received the keydown event.

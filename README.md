@@ -51,7 +51,8 @@ Customize your component and tailor it to your specific needs by providing the a
 
 ## Documentation
 
-The complete documentation for this project is available [here](https://vercel.com/palcaroline28-gmailcom/typescript-table-docs)
+The complete documentation for this project is available [here](https://typescript-table-docs.vercel.app/)
+
 
 ## All data types can be displayed in the table:
 

@@ -34,9 +34,9 @@ function Dropdown(props) {
         }
     }, [focusedOptionIndex, isOpen]);
     /**
-    * Handles an option click event.
-    * @param option - The option that has been clicked.
-    */
+     * Handles an option click event.
+     * @param option - The option that has been clicked.
+     */
     var handleOptionClick = function (option) {
         setSelectedOption(option);
         setIsOpen(false);
@@ -66,9 +66,9 @@ function Dropdown(props) {
         }
     };
     /**
-    * Handles a key down event in the dropdown.
-    * @param event - The keydown event.
-    */
+     * Handles a key down event in the dropdown.
+     * @param event - The keydown event.
+     */
     var handleTriggerKeyDown = function (event) {
         if (event.currentTarget !== event.target) {
             return;
@@ -127,10 +127,10 @@ function Dropdown(props) {
         };
     }, []);
     /**
-    * Handles a key down event on an option.
-    * @param event - The keydown event.
-    * @param option - The option that has received the keydown event.
-    */
+     * Handles a key down event on an option.
+     * @param event - The keydown event.
+     * @param option - The option that has received the keydown event.
+     */
     var handleOptionKeyDown = function (event, option) {
         if (event.currentTarget !== event.target) {
             return;
